@@ -50,7 +50,7 @@ class GameViewController: UIViewController {
     private func setupScene() {
         gameView.allowsCameraControl = true
         //possible deletion in case of bad fps performance
-        gameView.antialiasingMode = .multisampling2X
+        gameView.antialiasingMode = .multisampling4X
         
         mainScene = SCNScene(named: "art.scnassets/Scenes/Stage1.scn")
         gameView.scene = mainScene
