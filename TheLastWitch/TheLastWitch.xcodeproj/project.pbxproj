@@ -47,13 +47,13 @@
 		7E34B9FE23B552E600FA0BEE /* TheLastWitchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheLastWitchTests.swift; sourceTree = "<group>"; };
 		7E34BA0023B552E600FA0BEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E34BA0923B553F800FA0BEE /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
-		7E34BA1623B8251A00FA0BEE /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		7E34BA1923B82BE800FA0BEE /* PlayerAnimationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAnimationType.swift; sourceTree = "<group>"; };
-		7E34BA1B23B82C2C00FA0BEE /* PlayerAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAnimation.swift; sourceTree = "<group>"; };
 		7E34BA0D23B800EB00FA0BEE /* DpadNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DpadNode.swift; sourceTree = "<group>"; };
 		7E34BA0F23B8024D00FA0BEE /* NodeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeProtocol.swift; sourceTree = "<group>"; };
 		7E34BA1123B8055C00FA0BEE /* AttackButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackButtonNode.swift; sourceTree = "<group>"; };
 		7E34BA1323B8062D00FA0BEE /* HPBarNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPBarNode.swift; sourceTree = "<group>"; };
+		7E34BA1623B8251A00FA0BEE /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		7E34BA1923B82BE800FA0BEE /* PlayerAnimationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAnimationType.swift; sourceTree = "<group>"; };
+		7E34BA1B23B82C2C00FA0BEE /* PlayerAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAnimation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +95,6 @@
 		7E34B9E623B552E400FA0BEE /* TheLastWitch */ = {
 			isa = PBXGroup;
 			children = (
-				7E34BA1523B8233100FA0BEE /* Nodes */,
 				7E34BA0B23B7E1EB00FA0BEE /* Scene */,
 				7E34B9EB23B552E400FA0BEE /* GameViewController.swift */,
 				7E34BA0923B553F800FA0BEE /* GameView.swift */,
@@ -118,27 +117,10 @@
 			path = TheLastWitchTests;
 			sourceTree = "<group>";
 		};
-		7E34BA1523B8233100FA0BEE /* Nodes */ = {
-			isa = PBXGroup;
-			children = (
-				7E34BA1823B82BC600FA0BEE /* Player */,
-			);
-			path = Nodes;
-			sourceTree = "<group>";
-		};
-		7E34BA1823B82BC600FA0BEE /* Player */ = {
-			isa = PBXGroup;
-			children = (
-				7E34BA1623B8251A00FA0BEE /* Player.swift */,
-				7E34BA1B23B82C2C00FA0BEE /* PlayerAnimation.swift */,
-				7E34BA1923B82BE800FA0BEE /* PlayerAnimationType.swift */,
-			);
-			path = Player;
-			sourceTree = "<group>";
-		};
 		7E34BA0B23B7E1EB00FA0BEE /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				7E34BA1823B82BC600FA0BEE /* Player */,
 				7E34BA0C23B8006500FA0BEE /* UserInterface */,
 			);
 			path = Scene;
@@ -153,6 +135,17 @@
 				7E34BA1323B8062D00FA0BEE /* HPBarNode.swift */,
 			);
 			path = UserInterface;
+			sourceTree = "<group>";
+		};
+		7E34BA1823B82BC600FA0BEE /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				7E34BA1623B8251A00FA0BEE /* Player.swift */,
+				7E34BA1B23B82C2C00FA0BEE /* PlayerAnimation.swift */,
+				7E34BA1923B82BE800FA0BEE /* PlayerAnimationType.swift */,
+			);
+			name = Player;
+			path = ../Nodes/Player;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
