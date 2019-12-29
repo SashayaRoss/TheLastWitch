@@ -21,13 +21,19 @@ class GameViewController: UIViewController {
     }
     var mainScene: SCNScene!
     
+    //general
     var gameState: GameState = .loading
+    
+    //nodes
+    private var player: Player?
     
     
     //MARK: lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupScene()
+        setupPlayer()
+        
         gameState = .playing
     }
     
@@ -61,7 +67,16 @@ class GameViewController: UIViewController {
     
     //MARK: camera
     
+    
     //MARK: player
+    private func setupPlayer() {
+        player = Player()
+        player!.scale = SCNVector3Make(0.0026, 0.0026, 0.0026)
+        player!.position = SCNVector3Make(0.0, 0.0, 0.0)
+        player!.rotation = SCNVector4Make(0, 1, 0, Float.pi)
+        
+        mainScene.rootNode.addChildNode(player!)
+    }
     
     //MARK: touches + movement
     
