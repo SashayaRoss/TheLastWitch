@@ -22,6 +22,7 @@
 		7E34BA1723B8251A00FA0BEE /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E34BA1623B8251A00FA0BEE /* Player.swift */; };
 		7E34BA1A23B82BE800FA0BEE /* PlayerAnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E34BA1923B82BE800FA0BEE /* PlayerAnimationType.swift */; };
 		7E34BA1C23B82C2C00FA0BEE /* PlayerAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E34BA1B23B82C2C00FA0BEE /* PlayerAnimation.swift */; };
+		7E34BA1E23B83B8900FA0BEE /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E34BA1D23B83B8900FA0BEE /* GameState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		7E34BA1623B8251A00FA0BEE /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		7E34BA1923B82BE800FA0BEE /* PlayerAnimationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAnimationType.swift; sourceTree = "<group>"; };
 		7E34BA1B23B82C2C00FA0BEE /* PlayerAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAnimation.swift; sourceTree = "<group>"; };
+		7E34BA1D23B83B8900FA0BEE /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			children = (
 				7E34BA0B23B7E1EB00FA0BEE /* Scene */,
 				7E34B9EB23B552E400FA0BEE /* GameViewController.swift */,
+				7E34BA1D23B83B8900FA0BEE /* GameState.swift */,
 				7E34BA0923B553F800FA0BEE /* GameView.swift */,
 				7E34B9E923B552E400FA0BEE /* art.scnassets */,
 				7E34B9F023B552E600FA0BEE /* Assets.xcassets */,
@@ -260,6 +263,7 @@
 				7E34BA1423B8062D00FA0BEE /* HPBarNode.swift in Sources */,
 				7E34BA1223B8055C00FA0BEE /* AttackButtonNode.swift in Sources */,
 				7E34BA1C23B82C2C00FA0BEE /* PlayerAnimation.swift in Sources */,
+				7E34BA1E23B83B8900FA0BEE /* GameState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

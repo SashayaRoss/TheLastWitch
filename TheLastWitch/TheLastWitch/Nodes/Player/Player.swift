@@ -15,6 +15,10 @@ final class Player: SCNNode {
     private var daeHolderNode = SCNNode()
     private var characterNode: SCNNode!
     
+    //movement
+    private var previousUpdateTime = TimeInterval(0.0)
+    private var isWalking: Bool = false
+    
     //MARK: initialization
     override init() {
         super.init()
@@ -39,6 +43,26 @@ final class Player: SCNNode {
         
         //set mesh name
         characterNode = daeHolderNode.childNode(withName: "Bip01", recursively: true)!
+    }
+    
+    //MARK: movement
+    func walkInDirection(_ direction: float3, time: TimeInterval, scene: SCNScene) {
+        if previousUpdateTime == 0.0 {
+            previousUpdateTime = time
+        }
+        let deltaTime = Float(min(time - previousUpdateTime, 1.0/60.0))
+        let characterSpeed = deltaTime * 1.3
+        previousUpdateTime = time
+        
+        if direction.x != 0.0 && direction.z != 0.0 {
+            //move character
+            let pos = float3(position)
+            position = SCNVector3(pos + direction * characterSpeed)
+            
+            isWalking = true
+        } else {
+            isWalking = false
+        }
     }
 }
 

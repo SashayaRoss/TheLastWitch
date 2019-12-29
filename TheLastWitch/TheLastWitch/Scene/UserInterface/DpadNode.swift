@@ -29,9 +29,9 @@ extension DpadNode: NodeProtocol {
     }
     
     func virtualNodeBounds() -> CGRect {
-        var virtualAttactButtonBounds = CGRect(x: bounds.width - 110, y: 50.0, width: 60.0, height: 60.0)
-        virtualAttactButtonBounds.origin.y = bounds.size.height - virtualAttactButtonBounds.size.height - virtualAttactButtonBounds.origin.y
-        
-        return virtualAttactButtonBounds
+        var virtualDpadBounds = CGRect(x: 10.0, y: 10.0, width: 150.0, height: 150.0)
+//        virtualDpadBounds.origin.y = bounds.size.height - virtualDpadBounds.size.height + virtualDpadBounds.origin.y
+        print("virtual: \(virtualDpadBounds)")
+        return virtualDpadBounds
     }
 }
