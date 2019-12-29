@@ -20,7 +20,6 @@ class GameView: SCNView {
         super.awakeFromNib()
         setup2DOverlay()
         
-        
         DpadNode(bounds: bounds).setupNode(with: skScene)
         AttackButtonNode(bounds: bounds).setupNode(with: skScene)
         HPBarNode(bounds: bounds).setupNode(with: skScene)
@@ -34,17 +33,17 @@ class GameView: SCNView {
     deinit {}
     
     private func setup2DOverlay() {
-        let w = bounds.size.width
-        let h = bounds.size.height
+        let width = bounds.size.width
+        let height = bounds.size.height
         
-        skScene = SKScene(size: CGSize(width: w, height: h))
+        skScene = SKScene(size: CGSize(width: width, height: height))
         skScene.scaleMode = .resizeFill
         
         skScene.addChild(overlayNode)
-        overlayNode.position = CGPoint(x: 0.0, y: h)
+        overlayNode.position = CGPoint(x: 0.0, y: height)
         
         overlaySKScene = skScene
-        skScene.isUserInteractionEnabled = true
+        skScene.isUserInteractionEnabled = false
     }
     
     private func layout2Doverlay() {

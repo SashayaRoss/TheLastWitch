@@ -9,11 +9,6 @@
 import UIKit
 import SceneKit
 
-enum GameState {
-    case loading
-    case playing
-}
-
 class GameViewController: UIViewController {
 
     var gameView: GameView {
@@ -52,20 +47,14 @@ class GameViewController: UIViewController {
             return .all
         }
     }
+    
     //MARK: scene
     private func setupScene() {
-        gameView.allowsCameraControl = true
-        //possible deletion in case of bad fps performance
         gameView.antialiasingMode = .multisampling4X
-        
         mainScene = SCNScene(named: "art.scnassets/Scenes/Stage1.scn")
         gameView.scene = mainScene
         gameView.isPlaying = true
     }
-    
-    //MARK: walls
-    
-    //MARK: camera
     
     
     //MARK: player
@@ -77,13 +66,5 @@ class GameViewController: UIViewController {
         
         mainScene.rootNode.addChildNode(player!)
     }
-    
-    //MARK: touches + movement
-    
-    //MARK: game loop functions
-    
-    //MARK: enemies
 
 }
-
-//MARK: extensions
