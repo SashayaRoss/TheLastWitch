@@ -9,4 +9,6 @@
 enum GameState {
     case loading
     case playing
+    case cutscene
+    case paused
 }
