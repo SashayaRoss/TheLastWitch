@@ -8,14 +8,14 @@
 
 import SceneKit
 
-final class PlayerAnimation {
+final class PlayerAnimation: NSObject {
     
-    private var walkAnimation = CAAnimation()
+    var walkAnimation = CAAnimation()
     private var attackAnimation = CAAnimation()
     private var deadAnimation = CAAnimation()
     
     func loadAnimations() {
-        loadAnimation(animationType: .walk, inSceneNames: "art.scnassets/Scenes/Hero/walk", withIdentifier: "WalkID")
+        loadAnimation(animationType: .walk, inSceneNames: "art.scnassets/Scenes/Hero/walk", withIdentifier: "walk")
         loadAnimation(animationType: .attack, inSceneNames: "art.scnassets/Scenes/Hero/attack", withIdentifier: "AttackID")
         loadAnimation(animationType: .dead, inSceneNames: "art.scnassets/Scenes/Hero/dead", withIdentifier: "DeathID")
     }
@@ -45,5 +45,11 @@ final class PlayerAnimation {
             animationObject.setValue("attack", forKey: "animationId")
             attackAnimation = animationObject
         }
+    }
+}
+
+extension PlayerAnimation: CAAnimationDelegate {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        //TODO
     }
 }
