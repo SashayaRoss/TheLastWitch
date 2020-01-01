@@ -27,6 +27,7 @@ class GameViewController: UIViewController {
     private var cameraStick: SCNNode!
     private var cameraXHolder: SCNNode!
     private var cameraYHolder: SCNNode!
+    private var lightStick: SCNNode!
     
     //movement
     private var controllerStoredDirection = float2(0.0)
@@ -39,6 +40,7 @@ class GameViewController: UIViewController {
         setupScene()
         setupPlayer()
         setupCamera()
+        setupLight()
         
         gameState = .playing
     }
@@ -146,13 +148,9 @@ class GameViewController: UIViewController {
     
     //MARK: camera
     private func setupCamera() {
-//        guard
-            cameraStick = mainScene.rootNode.childNode(withName: "CameraStick", recursively: false)!
-            cameraYHolder = mainScene.rootNode.childNode(withName: "yHolder", recursively: true)!
-            cameraXHolder = mainScene.rootNode.childNode(withName: "xHolder", recursively: true)!
-//        else {
-//            return
-//        }
+        cameraStick = mainScene.rootNode.childNode(withName: "CameraStick", recursively: false)!
+        cameraYHolder = mainScene.rootNode.childNode(withName: "yHolder", recursively: true)!
+        cameraXHolder = mainScene.rootNode.childNode(withName: "xHolder", recursively: true)!
     }
     
     private func panCamera(_ direction: float2) {
@@ -178,7 +176,16 @@ class GameViewController: UIViewController {
         cameraYHolder.rotation = SCNVector4Make(1, 0, 0, yRotationValue)
     }
     
+    private func setupLight() {
+        lightStick = mainScene.rootNode.childNode(withName: "LightStick", recursively: false)!
+    }
+    
     //MARK: game loop functions
+    private func updateFollowersPosition() {
+        guard let character = player else { return }
+        cameraStick.position = SCNVector3Make(character.position.x, 0.0, character.position.z)
+        lightStick.position = SCNVector3Make(character.position.x, 0.0, character.position.z)
+    }
     
     //MARK: enemies
 
@@ -198,5 +205,7 @@ extension GameViewController: SCNSceneRendererDelegate {
         let scene = gameView.scene!
         let direction = playerDirection()
         player!.walkInDirection(direction, time: time, scene: scene)
+        
+        updateFollowersPosition()
     }
 }
