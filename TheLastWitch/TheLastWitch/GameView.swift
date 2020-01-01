@@ -15,15 +15,23 @@ class GameView: SCNView {
     private var skScene: SKScene!
     private let overlayNode = SKNode()
     
+    var dpadNode: DpadNode!
+    var attackButtonNode: AttackButtonNode!
+    var hpBarNode: HPBarNode!
+    
     //MARK: lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
         setup2DOverlay()
+            
+        dpadNode =  DpadNode(bounds: bounds)
+        dpadNode.setupNode(with: skScene)
         
+        attackButtonNode = AttackButtonNode(bounds: bounds)
+        attackButtonNode.setupNode(with: skScene)
         
-        DpadNode(bounds: bounds).setupNode(with: skScene)
-        AttackButtonNode(bounds: bounds).setupNode(with: skScene)
-        HPBarNode(bounds: bounds).setupNode(with: skScene)
+        hpBarNode = HPBarNode(bounds: bounds)
+        hpBarNode.setupNode(with: skScene)
     }
     
     override func layoutSubviews() {
@@ -44,7 +52,7 @@ class GameView: SCNView {
         overlayNode.position = CGPoint(x: 0.0, y: h)
         
         overlaySKScene = skScene
-        skScene.isUserInteractionEnabled = true
+        skScene.isUserInteractionEnabled = false
     }
     
     private func layout2Doverlay() {
