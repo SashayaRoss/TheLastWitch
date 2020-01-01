@@ -15,7 +15,7 @@ class GameViewController: UIViewController {
         return view as! GameView
     }
     
-    var sceneView:SCNView!
+    var sceneView: SCNView!
     var mainScene: SCNScene!
     
     //general
@@ -67,7 +67,7 @@ class GameViewController: UIViewController {
     
     //MARK: player
     private func setupPlayer() {
-        player = Player()
+        player = Player(animation: PlayerAnimation())
         player!.scale = SCNVector3Make(0.0026, 0.0026, 0.0026)
         player!.position = SCNVector3Make(0.0, 0.0, 0.0)
         player!.rotation = SCNVector4Make(0, 1, 0, Float.pi)

@@ -15,16 +15,36 @@ final class Player: SCNNode {
     private var daeHolderNode = SCNNode()
     private var characterNode: SCNNode!
     
+    //animation
+    private let animation: PlayerAnimation
+    
     //movement
     private var previousUpdateTime = TimeInterval(0.0)
-    private var isWalking: Bool = false
+    private var isWalking: Bool = false {
+        didSet {
+            if oldValue != isWalking {
+                characterNode.addAnimation(animation.walkAnimation, forKey: "walk")
+            } else {
+                characterNode.removeAnimation(forKey: "walk")
+            }
+        }
+    }
+    
+    private var directionAngle: Float = 0.0 {
+        didSet {
+            if directionAngle != oldValue {
+                runAction(SCNAction.rotateTo(x: 0.0, y: CGFloat(directionAngle), z: 0.0, duration: 0.1, usesShortestUnitArc: true))
+            }
+        }
+    }
     
     //MARK: initialization
-    override init() {
+    init(animation: PlayerAnimation) {
+        self.animation = animation
         super.init()
         
         setupModel()
-        PlayerAnimation().loadAnimations()
+        animation.loadAnimations()
     }
     
     required init?(coder: NSCoder) {
@@ -59,6 +79,9 @@ final class Player: SCNNode {
             let pos = float3(position)
             position = SCNVector3(pos + direction * characterSpeed)
             
+            //update angle
+            directionAngle = SCNFloat(atan2f(direction.x, direction.z))
+            
             isWalking = true
         } else {
             isWalking = false
@@ -68,8 +91,3 @@ final class Player: SCNNode {
 
 //MARK extensions
 
-extension Player:CAAnimationDelegate {
-    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        //TODO
-    }
-}
