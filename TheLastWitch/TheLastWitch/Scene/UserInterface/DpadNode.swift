@@ -21,7 +21,7 @@ final class DpadNode {
 
 extension DpadNode: NodeProtocol {
     func setupNode(with scene: SKScene) {
-        dpadSprite = SKSpriteNode(imageNamed: "art.scnassets/Assets/dpad.png")
+        dpadSprite = SKSpriteNode(imageNamed: "art.scnassets/Assets/GameScene/dPad.png")
         dpadSprite.position = CGPoint(x: 10, y: 10)
         dpadSprite.xScale = 1.0
         dpadSprite.yScale = 1.0
@@ -32,7 +32,7 @@ extension DpadNode: NodeProtocol {
     
     func virtualNodeBounds() -> CGRect {
         var virtualDpadBounds = CGRect(x: 10.0, y: 10.0, width: size, height: size)
-        virtualDpadBounds.origin.y = bounds.size.width - (2 * virtualDpadBounds.size.height)
+        virtualDpadBounds.origin.y = bounds.size.height - virtualDpadBounds.size.height
         
         return virtualDpadBounds
     }
