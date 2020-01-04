@@ -15,6 +15,7 @@ class GameViewController: UIViewController {
         return view as! GameView
     }
     
+    //scene
     var sceneView: SCNView!
     var mainScene: SCNScene!
     
@@ -23,17 +24,23 @@ class GameViewController: UIViewController {
     
     //nodes
     private var player: Player?
-    var motionForce = SCNVector3(x: 0, y: 0, z: 0)
+    private var cameraStick: SCNNode!
+    private var cameraXHolder: SCNNode!
+    private var cameraYHolder: SCNNode!
+    private var lightStick: SCNNode!
     
     //movement
     private var controllerStoredDirection = float2(0.0)
     private var padTouch: UITouch?
+    private var cameraTouch: UITouch?
     
     //MARK: lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupScene()
         setupPlayer()
+        setupCamera()
+        setupLight()
         
         gameState = .playing
     }
@@ -85,6 +92,8 @@ class GameViewController: UIViewController {
                     padTouch = touch
                     controllerStoredDirection = float2(0.0)
                 }
+            } else if cameraTouch == nil {
+                    cameraTouch = touches.first
             }
             if padTouch != nil {
                 break
@@ -101,16 +110,21 @@ class GameViewController: UIViewController {
 
             controllerStoredDirection = vClamp
             print(controllerStoredDirection)
+        } else if let touch = cameraTouch {
+            let displacement = float2(touch.location(in: view)) - float2(touch.previousLocation(in: view))
+            panCamera(displacement)
         }
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         padTouch = nil
+        cameraTouch = nil
         controllerStoredDirection = float2(0.0)
     }
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         padTouch = nil
+        cameraTouch = nil
         controllerStoredDirection = float2(0.0)
     }
 
@@ -133,8 +147,45 @@ class GameViewController: UIViewController {
     //MARK: walls
     
     //MARK: camera
+    private func setupCamera() {
+        cameraStick = mainScene.rootNode.childNode(withName: "CameraStick", recursively: false)!
+        cameraYHolder = mainScene.rootNode.childNode(withName: "yHolder", recursively: true)!
+        cameraXHolder = mainScene.rootNode.childNode(withName: "xHolder", recursively: true)!
+    }
+    
+    private func panCamera(_ direction: float2) {
+        var directionToPan = direction
+        directionToPan *= float2(1.0, -1.0)
+        
+        let panReducer = Float(0.005)
+        
+        let currX = cameraXHolder.rotation
+        var xRotationValue = currX.w - directionToPan.x * panReducer
+        cameraXHolder.rotation = SCNVector4Make(0, 1, 0, xRotationValue)
+        
+        let currY = cameraYHolder.rotation
+        var yRotationValue = currY.w + directionToPan.y * panReducer
+        
+        if yRotationValue < -0.94 {
+            yRotationValue = -0.94
+        }
+        if yRotationValue > 0.66 {
+            yRotationValue = 0.66
+        }
+
+        cameraYHolder.rotation = SCNVector4Make(1, 0, 0, yRotationValue)
+    }
+    
+    private func setupLight() {
+        lightStick = mainScene.rootNode.childNode(withName: "LightStick", recursively: false)!
+    }
     
     //MARK: game loop functions
+    private func updateFollowersPosition() {
+        guard let character = player else { return }
+        cameraStick.position = SCNVector3Make(character.position.x, 0.0, character.position.z)
+        lightStick.position = SCNVector3Make(character.position.x, 0.0, character.position.z)
+    }
     
     //MARK: enemies
 
@@ -154,5 +205,7 @@ extension GameViewController: SCNSceneRendererDelegate {
         let scene = gameView.scene!
         let direction = playerDirection()
         player!.walkInDirection(direction, time: time, scene: scene)
+        
+        updateFollowersPosition()
     }
 }
