@@ -14,6 +14,7 @@ final class Player: SCNNode {
     //nodes
     private var daeHolderNode = SCNNode()
     private var characterNode: SCNNode!
+    private var collider: SCNNode!
     
     //animation
     private let animation: PlayerAnimation
@@ -37,6 +38,9 @@ final class Player: SCNNode {
             }
         }
     }
+    
+    //collision
+    var replacementPosition: SCNVector3 = SCNVector3Zero
     
     //MARK: initialization
     init(animation: PlayerAnimation) {
@@ -71,7 +75,7 @@ final class Player: SCNNode {
             previousUpdateTime = time
         }
         let deltaTime = Float(min(time - previousUpdateTime, 1.0/60.0))
-        let characterSpeed = deltaTime * 1.3
+        let characterSpeed = deltaTime * 2
         previousUpdateTime = time
         
         if direction.x != 0.0 && direction.z != 0.0 {

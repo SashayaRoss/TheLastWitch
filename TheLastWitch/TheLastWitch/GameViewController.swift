@@ -9,6 +9,11 @@
 import UIKit
 import SceneKit
 
+let BitmaskPlayer = 1
+let BitmaskPlayerWeapon = 2
+let BitmaskWall = 64
+let BitMaskenemy = 3
+
 class GameViewController: UIViewController {
 
     var gameView: GameView {
@@ -34,6 +39,10 @@ class GameViewController: UIViewController {
     private var padTouch: UITouch?
     private var cameraTouch: UITouch?
     
+    //collisions
+    private var maxPenetrationDistance = CGFloat(0.0)
+    private var replacementPosition = [SCNNode: SCNVector3]()
+    
     //MARK: lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +50,7 @@ class GameViewController: UIViewController {
         setupPlayer()
         setupCamera()
         setupLight()
+        setupWallBitmasks()
         
         gameState = .playing
     }
@@ -52,6 +62,8 @@ class GameViewController: UIViewController {
         gameView.isUserInteractionEnabled = true
 
         mainScene = SCNScene(named: "art.scnassets/Scenes/Stage1.scn")
+        mainScene.physicsWorld.contactDelegate = self
+        
         gameView.scene = mainScene
         gameView.isPlaying = true
     }
@@ -145,6 +157,24 @@ class GameViewController: UIViewController {
     }
     
     //MARK: walls
+    private func setupWallBitmasks() {
+        var collisionNodes = [SCNNode]()
+        mainScene.rootNode.enumerateChildNodes { (node, _) in
+            switch node.name {
+            case let .some(s) where s.range(of: "collision") != nil:
+                collisionNodes.append(node)
+            
+            default:
+                break
+            }
+        }
+        for node in collisionNodes {
+            node.physicsBody = SCNPhysicsBody.static()
+            node.physicsBody!.categoryBitMask = BitmaskWall
+            node.physicsBody!.physicsShape = SCNPhysicsShape(node: node, options: [.type: SCNPhysicsShape.ShapeType.concavePolyhedron as NSString])
+        }
+    }
+    
     
     //MARK: camera
     private func setupCamera() {
@@ -198,7 +228,26 @@ extension float2 {
     }
 }
 
+extension SCNPhysicsContact {
+    func match(_ cathegory: Int, block: (_ matching: SCNNode, _ other: SCNNode) -> Void) {
+        if self.nodeA.physicsBody!.categoryBitMask == cathegory {
+            block(self.nodeA, self.nodeB)
+        }
+        if self.nodeB.physicsBody!.categoryBitMask == cathegory {
+            block(self.nodeB, self.nodeA)
+        }
+    }
+}
+
 extension GameViewController: SCNSceneRendererDelegate {
+    func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
+        if gameState != .playing { return }
+        
+        //reset
+        replacementPosition.removeAll()
+        maxPenetrationDistance = 0.0
+    }
+    
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         if gameState != .playing { return }
         
@@ -208,4 +257,18 @@ extension GameViewController: SCNSceneRendererDelegate {
         
         updateFollowersPosition()
     }
+}
+
+extension GameViewController: SCNPhysicsContactDelegate {
+//    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+//        <#code#>
+//    }
+//
+//    func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
+//        <#code#>
+//    }
+//
+//    func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
+//        <#code#>
+//    }
 }
