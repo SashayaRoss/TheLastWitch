@@ -24,10 +24,39 @@ final class Enemy: SCNNode {
     private let daeHolderNode = SCNNode()
     private var characterNode: SCNNode!
     private var enemy: Player!
+    private var collider: SCNNode!
     
+    //animations
     private var walkAnimation = CAAnimation()
     private var deadAnimation = CAAnimation()
     private var attack1Animation = CAAnimation()
+    
+    //movement
+    private var previousUpdateTime = TimeInterval(0.0)
+    private let noticeDistance: Float = 3.0
+    private let movementSpeedLimiter = Float(0.5)
+    
+    private var isWalking: Bool = false {
+        didSet {
+            if oldValue != isWalking {
+                if isWalking {
+                    addAnimation(walkAnimation, forKey: "walk")
+                } else {
+                    removeAnimation(forKey: "walk")
+                }
+            }
+        }
+    }
+    
+    var isCollidingWithEnemy = false {
+        didSet {
+            if oldValue != isCollidingWithEnemy {
+                if isCollidingWithEnemy {
+                    isWalking = false
+                }
+            }
+        }
+    }
     
     //MARK: init
     init(enemy: Player, view: GameView) {
@@ -46,7 +75,7 @@ final class Enemy: SCNNode {
     
     //MARK: scene
     private func setupModelScene() {
-        name = "Wolf"
+        name = "Enemy"
         let idleURL = Bundle.main.url(forResource: "art.scnassets/Scenes/Enemies/Golem@Idle", withExtension: "dae")
         let idleScene = try! SCNScene(url: idleURL!, options: nil)
         
@@ -92,13 +121,91 @@ final class Enemy: SCNNode {
             attack1Animation = animationObject
         }
     }
+    
+    func update(with time: TimeInterval, and scene: SCNScene) {
+        guard let enemy = enemy else { return }
+        
+        //delta time
+        if previousUpdateTime == 0.0 { previousUpdateTime = time }
+        let deltaTime = Float(min(time - previousUpdateTime, 1.0/60.0))
+        previousUpdateTime = time
+        
+        // get distance
+        let distance = GameUtils.distanceBetweenVectors(vector1: enemy.position, vector2: position)
+        
+        if distance < noticeDistance && distance > 0.01 {
+            //move
+            let vResult = GameUtils.getCoordinatesNeededToMoveToReachNode(from: position, to: enemy.position)
+            let vx = vResult.vX
+            let vz = vResult.vZ
+            let angle = vResult.angle
+            
+            //rotate
+            let fixedAngle = GameUtils.getFixedRotationAngle(with: angle)
+            eulerAngles = SCNVector3Make(0, fixedAngle, 0)
+            
+            if !isCollidingWithEnemy {
+                let characterSpeed = deltaTime * movementSpeedLimiter
+                
+                if vx != 0.0 && vz != 0.0 {
+                    position.x += vx * characterSpeed
+                    position.z += vz * characterSpeed
+                    
+                    isWalking = true
+                } else {
+                    isWalking = false
+                }
+                
+                //update the altitude
+                let initialPosition = position
+                var pos = position
+                var endpoint0 = pos
+                var endpoint1 = pos
+                
+                endpoint0.y -= 0.1
+                endpoint1.y += 0.08
+                
+                let result = scene.physicsWorld.rayTestWithSegment(from: endpoint1, to: endpoint0, options: [.collisionBitMask: BitmaskWall, .searchMode: SCNPhysicsWorld.TestSearchMode.closest])
+                
+                if let result = result.first {
+                    let groundAltitude = result.worldCoordinates.y
+                    pos.y = groundAltitude
+                    
+                    position = pos
+                } else {
+                    position = initialPosition
+                }
+            } else {
+                //TODO later
+            }
+        } else {
+            isWalking = false
+        }
+    }
+    
+    //MARK: collision
+    func setupCollider(scale: CGFloat) {
+        let geometry = SCNCapsule(capRadius: 20, height: 52)
+        geometry.firstMaterial?.diffuse.contents = UIColor.blue
+        collider = SCNNode(geometry: geometry)
+        collider.name = "enemyCollider"
+        collider.position = SCNVector3Make(0, 46, 0)
+        collider.opacity = 0.0
+        
+        let shapeGeometry = SCNCapsule(capRadius: 20 * scale, height: 52 * scale)
+        let physicsShape = SCNPhysicsShape(geometry: shapeGeometry, options: nil)
+        collider.physicsBody = SCNPhysicsBody(type: .kinematic, shape: physicsShape)
+        collider.physicsBody!.categoryBitMask = BitMaskEnemy
+        collider.physicsBody!.contactTestBitMask = BitmaskWall | BitmaskPlayer | BitmaskPlayerWeapon
+        
+        gameView.prepare([collider]) {
+            (finished) in
+            self.addChildNode(self.collider)
+        }
+    }
 }
 
 extension Enemy: CAAnimationDelegate {
-    func animationDidStart(_ anim: CAAnimation) {
-        
-    }
-    
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         guard let id = anim.value(forKey: "animationId") as? String else { return }
         
