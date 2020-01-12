@@ -12,7 +12,7 @@ import SceneKit
 let BitmaskPlayer = 1
 let BitmaskPlayerWeapon = 2
 let BitmaskWall = 64
-let BitMaskenemy = 3
+let BitMaskEnemy = 3
 
 class GameViewController: UIViewController {
 
@@ -87,18 +87,20 @@ class GameViewController: UIViewController {
     //MARK: player
     private func setupPlayer() {
         player = Player(animation: PlayerAnimation())
-        player!.scale = SCNVector3Make(0.0026, 0.0026, 0.0026)
-        player!.position = SCNVector3Make(0.0, 0.0, 0.0)
-        player!.rotation = SCNVector4Make(0, 1, 0, Float.pi)
+        let playerScale = Float(0.003)
         
-        mainScene.rootNode.addChildNode(player!)
+        guard let existingPlayer = player else { return }
+        existingPlayer.scale = SCNVector3Make(playerScale, playerScale, playerScale)
+        existingPlayer.position = SCNVector3Make(0.0, 0.0, 0.0)
+        existingPlayer.rotation = SCNVector4Make(0, 1, 0, Float.pi)
+        
+        mainScene.rootNode.addChildNode(existingPlayer)
+        existingPlayer.setupCollider(with: CGFloat(playerScale))
     }
     
     //MARK: touches + movement
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
-            print("touch:")
-            print(touch.location(in: gameView))
             if gameView.dpadNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 if padTouch == nil {
                     padTouch = touch
@@ -121,7 +123,6 @@ class GameViewController: UIViewController {
             let vClamp = clamp(vMix, min: -1.0, max: 1.0)
 
             controllerStoredDirection = vClamp
-            print(controllerStoredDirection)
         } else if let touch = cameraTouch {
             let displacement = float2(touch.location(in: view)) - float2(touch.previousLocation(in: view))
             panCamera(displacement)
@@ -156,14 +157,13 @@ class GameViewController: UIViewController {
         return direction
     }
     
-    //MARK: walls
+    //MARK: walls collision
     private func setupWallBitmasks() {
         var collisionNodes = [SCNNode]()
         mainScene.rootNode.enumerateChildNodes { (node, _) in
             switch node.name {
             case let .some(s) where s.range(of: "collision") != nil:
                 collisionNodes.append(node)
-            
             default:
                 break
             }
@@ -173,6 +173,19 @@ class GameViewController: UIViewController {
             node.physicsBody!.categoryBitMask = BitmaskWall
             node.physicsBody!.physicsShape = SCNPhysicsShape(node: node, options: [.type: SCNPhysicsShape.ShapeType.concavePolyhedron as NSString])
         }
+    }
+    
+    private func characterNode(_ characterNode: SCNNode, hitWall wall: SCNNode, withContact contact: SCNPhysicsContact) {
+        if characterNode.name != "collider" { return }
+        if maxPenetrationDistance > contact.penetrationDistance { return }
+        maxPenetrationDistance = contact.penetrationDistance
+        
+        var characterPosition = float3(characterNode.parent!.position)
+        var positionOffset = float3(contact.contactNormal) * Float(contact.penetrationDistance)
+        positionOffset.y = 0
+        characterPosition += positionOffset
+        
+        replacementPosition[characterNode.parent!] = SCNVector3(characterPosition)
     }
     
     
@@ -238,18 +251,22 @@ extension SCNPhysicsContact {
         }
     }
 }
-
+// MARK: delegates
 extension GameViewController: SCNSceneRendererDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
+        if gameState != .playing { return }
+        
+        for (node, position) in replacementPosition {
+            node.position = position
+        }
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         if gameState != .playing { return }
         
         //reset
         replacementPosition.removeAll()
         maxPenetrationDistance = 0.0
-    }
-    
-    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        if gameState != .playing { return }
         
         let scene = gameView.scene!
         let direction = playerDirection()
@@ -260,15 +277,27 @@ extension GameViewController: SCNSceneRendererDelegate {
 }
 
 extension GameViewController: SCNPhysicsContactDelegate {
-//    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-//        <#code#>
-//    }
-//
-//    func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
-//        <#code#>
-//    }
-//
-//    func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
-//        <#code#>
-//    }
+    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+        if gameState != .playing { return }
+        print(contact.nodeA.name)
+        print(contact.nodeB.name)
+        
+        //if player collide with wall
+        contact.match(BitmaskWall) {
+            (matching, other) in
+            self.characterNode(other, hitWall: matching, withContact: contact)
+        }
+    }
+
+    func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
+        //if player collide with wall
+        contact.match(BitmaskWall) {
+            (matching, other) in
+            self.characterNode(other, hitWall: matching, withContact: contact)
+        }
+    }
+
+    func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
+        //
+    }
 }

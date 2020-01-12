@@ -21,15 +21,16 @@ final class Player: SCNNode {
     
     //movement
     private var previousUpdateTime = TimeInterval(0.0)
-    private var isWalking: Bool = false {
-        didSet {
-            if oldValue != isWalking {
-                characterNode.addAnimation(animation.walkAnimation, forKey: "walk")
-            } else {
-                characterNode.removeAnimation(forKey: "walk")
-            }
-        }
-    }
+    private var isWalking: Bool = false
+//    {
+//        didSet {
+//            if oldValue != isWalking {
+//                characterNode.addAnimation(animation.walkAnimation, forKey: "walk")
+//            } else {
+//                characterNode.removeAnimation(forKey: "walk")
+//            }
+//        }
+//    }
     
     private var directionAngle: Float = 0.0 {
         didSet {
@@ -91,7 +92,24 @@ final class Player: SCNNode {
             isWalking = false
         }
     }
+    
+    // MARK: collisions
+    func setupCollider(with scale: CGFloat) {
+        let geometry = SCNCapsule(capRadius: 47, height: 165)
+        geometry.firstMaterial?.diffuse.contents = UIColor.red
+        
+        collider = SCNNode(geometry: geometry)
+        collider.position = SCNVector3Make(0.0, 140.0, 0.0)
+        collider.name = "collider"
+        collider.opacity = 1.0
+        
+        let phisicsGeometry = SCNCapsule(capRadius: 47 * scale, height: 165 * scale)
+        let phisicsShape = SCNPhysicsShape(geometry: phisicsGeometry, options: nil)
+        collider.physicsBody = SCNPhysicsBody(type: .kinematic, shape: phisicsShape)
+        collider.physicsBody!.categoryBitMask = BitmaskPlayer
+        collider.physicsBody!.contactTestBitMask = BitmaskWall
+        
+        addChildNode(collider)
+    }
 }
-
-//MARK extensions
 
