@@ -14,21 +14,14 @@ final class Player: SCNNode {
     //nodes
     private var daeHolderNode = SCNNode()
     private var characterNode: SCNNode!
+    private var collider: SCNNode!
     
     //animation
     private let animation: PlayerAnimation
     
     //movement
     private var previousUpdateTime = TimeInterval(0.0)
-    private var isWalking: Bool = false {
-        didSet {
-            if oldValue != isWalking {
-                characterNode.addAnimation(animation.walkAnimation, forKey: "walk")
-            } else {
-                characterNode.removeAnimation(forKey: "walk")
-            }
-        }
-    }
+    private var isWalking: Bool = false
     
     private var directionAngle: Float = 0.0 {
         didSet {
@@ -37,6 +30,9 @@ final class Player: SCNNode {
             }
         }
     }
+    
+    //collision
+    var replacementPosition: SCNVector3 = SCNVector3Zero
     
     //MARK: initialization
     init(animation: PlayerAnimation) {
@@ -71,8 +67,10 @@ final class Player: SCNNode {
             previousUpdateTime = time
         }
         let deltaTime = Float(min(time - previousUpdateTime, 1.0/60.0))
-        let characterSpeed = deltaTime * 1.3
+        let characterSpeed = deltaTime * 2
         previousUpdateTime = time
+        
+        let initialPosition = position
         
         if direction.x != 0.0 && direction.z != 0.0 {
             //move character
@@ -86,8 +84,44 @@ final class Player: SCNNode {
         } else {
             isWalking = false
         }
+        
+        //update altitude
+        var pos = position
+        var endpoint0 = pos
+        var endpoint1 = pos
+        
+        endpoint0.y -= 0.1
+        endpoint1.y += 0.08
+        
+        let results = scene.physicsWorld.rayTestWithSegment(from: endpoint1, to: endpoint0, options: [.collisionBitMask: BitmaskWall, .searchMode: SCNPhysicsWorld.TestSearchMode.closest])
+        
+        if let result = results.first {
+            let groundAltitude = result.worldCoordinates.y
+            pos.y = groundAltitude
+            
+            position = pos
+        } else {
+            position = initialPosition
+        }
+    }
+    
+    // MARK: collisions
+    func setupCollider(with scale: CGFloat) {
+        let geometry = SCNCapsule(capRadius: 47, height: 165)
+        geometry.firstMaterial?.diffuse.contents = UIColor.red
+        
+        collider = SCNNode(geometry: geometry)
+        collider.position = SCNVector3Make(0.0, 140.0, 0.0)
+        collider.name = "collider"
+        collider.opacity = 0.0
+        
+        let phisicsGeometry = SCNCapsule(capRadius: 47 * scale, height: 165 * scale)
+        let phisicsShape = SCNPhysicsShape(geometry: phisicsGeometry, options: nil)
+        collider.physicsBody = SCNPhysicsBody(type: .kinematic, shape: phisicsShape)
+        collider.physicsBody!.categoryBitMask = BitmaskPlayer
+        collider.physicsBody!.contactTestBitMask = BitmaskWall
+        
+        addChildNode(collider)
     }
 }
-
-//MARK extensions
 
