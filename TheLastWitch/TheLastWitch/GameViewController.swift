@@ -43,6 +43,9 @@ class GameViewController: UIViewController {
     private var maxPenetrationDistance = CGFloat(0.0)
     private var replacementPosition = [SCNNode: SCNVector3]()
     
+    //enemies
+    private var enemyPositionArray = [String: SCNVector3]()
+    
     //MARK: lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +54,8 @@ class GameViewController: UIViewController {
         setupCamera()
         setupLight()
         setupWallBitmasks()
+        
+        setupEnemies()
         
         gameState = .playing
     }
@@ -231,7 +236,36 @@ class GameViewController: UIViewController {
     }
     
     //MARK: enemies
-
+    private func setupEnemies() {
+            let enemies = mainScene.rootNode.childNode(withName: "Enemies", recursively: false)!
+        for child in enemies.childNodes {
+            enemyPositionArray[child.name!] = child.position
+        }
+        setupEnemy()
+    }
+    
+    private func setupEnemy() {
+        let enemyScale: Float = 0.0080
+        
+        let enemy1 = Enemy(enemy: player!, view: gameView)
+        enemy1.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
+        enemy1.position = enemyPositionArray["golem1"]!
+        
+        let enemy2 = Enemy(enemy: player!, view: gameView)
+        enemy2.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
+        enemy2.position = enemyPositionArray["golem2"]!
+        
+        let enemy3 = Enemy(enemy: player!, view: gameView)
+        enemy3.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
+        enemy3.position = enemyPositionArray["golem3"]!
+        
+        gameView.prepare([enemy1, enemy2, enemy3]) {
+            (finished) in
+            self.mainScene.rootNode.addChildNode(enemy1)
+            self.mainScene.rootNode.addChildNode(enemy2)
+            self.mainScene.rootNode.addChildNode(enemy3)
+        }
+    }
 }
 
 //MARK: extensions
