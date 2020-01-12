@@ -43,6 +43,9 @@ class GameViewController: UIViewController {
     private var maxPenetrationDistance = CGFloat(0.0)
     private var replacementPosition = [SCNNode: SCNVector3]()
     
+    //enemies
+    private var enemyPositionArray = [String: SCNVector3]()
+    
     //MARK: lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +54,8 @@ class GameViewController: UIViewController {
         setupCamera()
         setupLight()
         setupWallBitmasks()
+        
+        setupEnemies()
         
         gameState = .playing
     }
@@ -176,7 +181,7 @@ class GameViewController: UIViewController {
     }
     
     private func characterNode(_ characterNode: SCNNode, hitWall wall: SCNNode, withContact contact: SCNPhysicsContact) {
-        if characterNode.name != "collider" { return }
+        if characterNode.name != "collider" && characterNode.name != "enemyCollider" { return }
         if maxPenetrationDistance > contact.penetrationDistance { return }
         maxPenetrationDistance = contact.penetrationDistance
         
@@ -231,7 +236,40 @@ class GameViewController: UIViewController {
     }
     
     //MARK: enemies
-
+    private func setupEnemies() {
+            let enemies = mainScene.rootNode.childNode(withName: "Enemies", recursively: false)!
+        for child in enemies.childNodes {
+            enemyPositionArray[child.name!] = child.position
+        }
+        setupEnemy()
+    }
+    
+    private func setupEnemy() {
+        let enemyScale: Float = 0.0080
+        
+        let enemy1 = Enemy(enemy: player!, view: gameView)
+        enemy1.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
+        enemy1.position = enemyPositionArray["golem1"]!
+        
+        let enemy2 = Enemy(enemy: player!, view: gameView)
+        enemy2.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
+        enemy2.position = enemyPositionArray["golem2"]!
+        
+        let enemy3 = Enemy(enemy: player!, view: gameView)
+        enemy3.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
+        enemy3.position = enemyPositionArray["golem3"]!
+        
+        gameView.prepare([enemy1, enemy2, enemy3]) {
+            (finished) in
+            self.mainScene.rootNode.addChildNode(enemy1)
+            self.mainScene.rootNode.addChildNode(enemy2)
+            self.mainScene.rootNode.addChildNode(enemy3)
+            
+            enemy1.setupCollider(scale: CGFloat(enemyScale))
+            enemy2.setupCollider(scale: CGFloat(enemyScale))
+            enemy3.setupCollider(scale: CGFloat(enemyScale))
+        }
+    }
 }
 
 //MARK: extensions
@@ -273,19 +311,35 @@ extension GameViewController: SCNSceneRendererDelegate {
         player!.walkInDirection(direction, time: time, scene: scene)
         
         updateFollowersPosition()
+        
+        //enemy
+        mainScene.rootNode.enumerateChildNodes { (node, _) in
+            if let name = node.name {
+                switch name {
+                case "Enemy":
+                    (node as! Enemy).update(with: time, and: scene)
+                default:
+                    break
+                }
+            }
+        }
     }
 }
 
 extension GameViewController: SCNPhysicsContactDelegate {
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         if gameState != .playing { return }
-        print(contact.nodeA.name)
-        print(contact.nodeB.name)
-        
         //if player collide with wall
         contact.match(BitmaskWall) {
             (matching, other) in
             self.characterNode(other, hitWall: matching, withContact: contact)
+        }
+        
+        // if player collides with golem
+        contact.match(BitMaskEnemy) {
+            (matching, other) in
+            let enemy = matching.parent as! Enemy
+            if other.name == "collider" { enemy.isCollidingWithEnemy = true }
         }
     }
 
@@ -295,9 +349,20 @@ extension GameViewController: SCNPhysicsContactDelegate {
             (matching, other) in
             self.characterNode(other, hitWall: matching, withContact: contact)
         }
+        // if player collides with golem
+        contact.match(BitMaskEnemy) {
+            (matching, other) in
+            let enemy = matching.parent as! Enemy
+            if other.name == "collider" { enemy.isCollidingWithEnemy = true }
+        }
     }
 
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
-        //
+        // if player collides with golem
+        contact.match(BitMaskEnemy) {
+            (matching, other) in
+            let enemy = matching.parent as! Enemy
+            if other.name == "collider" { enemy.isCollidingWithEnemy = false }
+        }
     }
 }
