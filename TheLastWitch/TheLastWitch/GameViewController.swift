@@ -329,9 +329,6 @@ extension GameViewController: SCNSceneRendererDelegate {
 extension GameViewController: SCNPhysicsContactDelegate {
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         if gameState != .playing { return }
-        print(contact.nodeA.name)
-        print(contact.nodeB.name)
-        
         //if player collide with wall
         contact.match(BitmaskWall) {
             (matching, other) in

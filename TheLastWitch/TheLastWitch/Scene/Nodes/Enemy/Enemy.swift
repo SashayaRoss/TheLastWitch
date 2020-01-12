@@ -58,6 +58,13 @@ final class Enemy: SCNNode {
         }
     }
     
+    //attack
+    private var isAttacking = false
+    private var lastAttackTime: TimeInterval = 0.0
+    private var attackTimer: Timer?
+    private var attackFrameCounter = 0
+      
+    
     //MARK: init
     init(enemy: Player, view: GameView) {
         super.init()
@@ -144,7 +151,7 @@ final class Enemy: SCNNode {
             let fixedAngle = GameUtils.getFixedRotationAngle(with: angle)
             eulerAngles = SCNVector3Make(0, fixedAngle, 0)
             
-            if !isCollidingWithEnemy {
+            if !isCollidingWithEnemy && !isAttacking {
                 let characterSpeed = deltaTime * movementSpeedLimiter
                 
                 if vx != 0.0 && vz != 0.0 {
@@ -176,7 +183,16 @@ final class Enemy: SCNNode {
                     position = initialPosition
                 }
             } else {
-                //TODO later
+                //attack
+                if lastAttackTime == 0.0 {
+                    lastAttackTime = time
+                    attack1()
+                }
+                let timeDiff = time - lastAttackTime
+                if timeDiff >= 2.5 {
+                    lastAttackTime = time
+                    attack1()
+                }
             }
         } else {
             isWalking = false
@@ -203,12 +219,40 @@ final class Enemy: SCNNode {
             self.addChildNode(self.collider)
         }
     }
+    
+    //MARK: battle
+    private func attack1() {
+        if isAttacking { return }
+        isAttacking = true
+        DispatchQueue.main.async {
+            self.attackTimer?.invalidate()
+            self.attackTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(self.attackTimerTicked), userInfo: nil, repeats: true)
+            self.characterNode.addAnimation(self.attack1Animation, forKey: "attack1")
+        }
+    }
+    
+    @objc private func attackTimerTicked() {
+        attackFrameCounter += 1
+        if attackFrameCounter == 10 {
+            if isCollidingWithEnemy {
+                //TODO hit enemy
+            }
+        }
+    }
 }
 
 extension Enemy: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        guard let id = anim.value(forKey: "animationId") as? String else { return }
-        
-        //TODO later
+        attackTimer?.invalidate()
+        attackFrameCounter = 0
+        isAttacking = false
+        //TODO fix animation detector
+//        guard let id = anim.value(forKey: "animationId") as? String else { return }
+//
+//        if id == "attack1" {
+//            attackTimer?.invalidate()
+//            attackFrameCounter = 0
+//            isAttacking = false
+//        }
     }
 }
