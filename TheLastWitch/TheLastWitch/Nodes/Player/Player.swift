@@ -70,6 +70,8 @@ final class Player: SCNNode {
         let characterSpeed = deltaTime * 2
         previousUpdateTime = time
         
+        let initialPosition = position
+        
         if direction.x != 0.0 && direction.z != 0.0 {
             //move character
             let pos = float3(position)
@@ -81,6 +83,25 @@ final class Player: SCNNode {
             isWalking = true
         } else {
             isWalking = false
+        }
+        
+        //update altitude
+        var pos = position
+        var endpoint0 = pos
+        var endpoint1 = pos
+        
+        endpoint0.y -= 0.1
+        endpoint1.y += 0.08
+        
+        let results = scene.physicsWorld.rayTestWithSegment(from: endpoint1, to: endpoint0, options: [.collisionBitMask: BitmaskWall, .searchMode: SCNPhysicsWorld.TestSearchMode.closest])
+        
+        if let result = results.first {
+            let groundAltitude = result.worldCoordinates.y
+            pos.y = groundAltitude
+            
+            position = pos
+        } else {
+            position = initialPosition
         }
     }
     
