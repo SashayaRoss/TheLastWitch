@@ -10,7 +10,7 @@ import SceneKit
 import SpriteKit
 
 // holds SpriteKit 2D UI
-class GameView: SCNView {
+final class GameView: SCNView {
 
     private var skScene: SKScene!
     private let overlayNode = SKNode()
@@ -20,10 +20,13 @@ class GameView: SCNView {
     var attackButtonNode: AttackButtonNode!
     var hpBarNode: HPBarNode!
     
+     private let hpBarMaxWidth: CGFloat = 150.0
+    
     //MARK: lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
         setup2DOverlay()
+        setupObservers()
             
         dpadNode =  DpadNode(bounds: viewBounds)
         dpadNode.setupNode(with: skScene)
@@ -31,7 +34,7 @@ class GameView: SCNView {
         attackButtonNode = AttackButtonNode(bounds: viewBounds)
         attackButtonNode.setupNode(with: skScene)
 
-        hpBarNode = HPBarNode(bounds: viewBounds)
+        hpBarNode = HPBarNode(bounds: viewBounds, hpBarMaxWidth: hpBarMaxWidth)
         hpBarNode.setupNode(with: skScene)
     }
     
@@ -40,7 +43,9 @@ class GameView: SCNView {
         layout2Doverlay()
     }
     
-    deinit {}
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     private func setup2DOverlay() {
         let width = viewBounds.width
@@ -68,5 +73,34 @@ class GameView: SCNView {
         testNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         testNode.position = CGPoint(x: viewBounds.midX, y: viewBounds.midY)
         skScene.addChild(testNode)
+    }
+    
+    //MARK:- internal functions
+    private func setupObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(hpDidChange), name: NSNotification.Name("hpChanged"), object: nil)
+    }
+    
+    @objc private func hpDidChange(notification: Notification) {
+        guard
+            let userInfo = notification.userInfo as? [String: Any],
+            let playerMaxHp = userInfo["playerMaxHp"] as? Float,
+            let currentHp = userInfo["currentHp"] as? Float
+        else {
+            return
+        }
+        
+        let v1 = CGFloat(playerMaxHp)
+        let v2 = hpBarMaxWidth
+        let v3 = CGFloat(currentHp)
+        var currentLocalHp: CGFloat = 0.0
+        
+        // 100 * x = 150 * 90 -> x = (150 * 90) / 100
+        currentLocalHp = (v2 * v3) / v1
+        
+        hpBarNode.updateHpColour(currentHP: currentLocalHp)
+        
+        if currentHp < 0 { currentLocalHp = 0 }
+        let reduceAction = SKAction.resize(toWidth: currentLocalHp, duration: 0.3)
+        hpBarNode.runAction(action: reduceAction)
     }
 }

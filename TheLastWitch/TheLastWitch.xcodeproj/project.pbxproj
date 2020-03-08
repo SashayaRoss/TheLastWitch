@@ -25,6 +25,11 @@
 		7E34BA1E23B83B8900FA0BEE /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E34BA1D23B83B8900FA0BEE /* GameState.swift */; };
 		7E80B49623CB68E200254C4B /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E80B49523CB68E200254C4B /* Enemy.swift */; };
 		7E80B49823CBC91700254C4B /* GameUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E80B49723CBC91700254C4B /* GameUtils.swift */; };
+		7EA7A5FC23E5F3DA00894C4D /* EnemyAnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA7A5FB23E5F3DA00894C4D /* EnemyAnimationType.swift */; };
+		7EA7A5FF23E5F62500894C4D /* ColourBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA7A5FE23E5F62500894C4D /* ColourBase.swift */; };
+		7EA7A60123E5FAEC00894C4D /* GameViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA7A60023E5FAEC00894C4D /* GameViewConfigurator.swift */; };
+		7EA7A60323E5FCAE00894C4D /* Collision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA7A60223E5FCAE00894C4D /* Collision.swift */; };
+		7EA7A60723E5FD6B00894C4D /* Bitmask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA7A60623E5FD6B00894C4D /* Bitmask.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +65,11 @@
 		7E34BA1D23B83B8900FA0BEE /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		7E80B49523CB68E200254C4B /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		7E80B49723CBC91700254C4B /* GameUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameUtils.swift; path = TheLastWitch/Scene/GameUtils.swift; sourceTree = SOURCE_ROOT; };
+		7EA7A5FB23E5F3DA00894C4D /* EnemyAnimationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAnimationType.swift; sourceTree = "<group>"; };
+		7EA7A5FE23E5F62500894C4D /* ColourBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourBase.swift; sourceTree = "<group>"; };
+		7EA7A60023E5FAEC00894C4D /* GameViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewConfigurator.swift; sourceTree = "<group>"; };
+		7EA7A60223E5FCAE00894C4D /* Collision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collision.swift; sourceTree = "<group>"; };
+		7EA7A60623E5FD6B00894C4D /* Bitmask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bitmask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +111,10 @@
 		7E34B9E623B552E400FA0BEE /* TheLastWitch */ = {
 			isa = PBXGroup;
 			children = (
+				7EA7A5FD23E5F61200894C4D /* Assets */,
 				7E34BA0B23B7E1EB00FA0BEE /* Scene */,
 				7E34B9EB23B552E400FA0BEE /* GameViewController.swift */,
+				7EA7A60023E5FAEC00894C4D /* GameViewConfigurator.swift */,
 				7E34BA1D23B83B8900FA0BEE /* GameState.swift */,
 				7E34BA0923B553F800FA0BEE /* GameView.swift */,
 				7E34B9E923B552E400FA0BEE /* art.scnassets */,
@@ -127,6 +139,7 @@
 		7E34BA0B23B7E1EB00FA0BEE /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				7EA7A60423E5FD3000894C4D /* features */,
 				7E80B49723CBC91700254C4B /* GameUtils.swift */,
 				7E80B49323CB68C700254C4B /* Nodes */,
 				7E34BA0C23B8006500FA0BEE /* UserInterface */,
@@ -168,8 +181,34 @@
 			isa = PBXGroup;
 			children = (
 				7E80B49523CB68E200254C4B /* Enemy.swift */,
+				7EA7A5FB23E5F3DA00894C4D /* EnemyAnimationType.swift */,
 			);
 			path = Enemy;
+			sourceTree = "<group>";
+		};
+		7EA7A5FD23E5F61200894C4D /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				7EA7A5FE23E5F62500894C4D /* ColourBase.swift */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		7EA7A60423E5FD3000894C4D /* features */ = {
+			isa = PBXGroup;
+			children = (
+				7EA7A60523E5FD4E00894C4D /* collision */,
+			);
+			path = features;
+			sourceTree = "<group>";
+		};
+		7EA7A60523E5FD4E00894C4D /* collision */ = {
+			isa = PBXGroup;
+			children = (
+				7EA7A60223E5FCAE00894C4D /* Collision.swift */,
+				7EA7A60623E5FD6B00894C4D /* Bitmask.swift */,
+			);
+			path = collision;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,16 +314,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E34BA0E23B800EB00FA0BEE /* DpadNode.swift in Sources */,
+				7EA7A5FC23E5F3DA00894C4D /* EnemyAnimationType.swift in Sources */,
 				7E34BA1023B8024D00FA0BEE /* NodeProtocol.swift in Sources */,
+				7EA7A5FF23E5F62500894C4D /* ColourBase.swift in Sources */,
 				7E34BA1A23B82BE800FA0BEE /* PlayerAnimationType.swift in Sources */,
 				7E34BA1723B8251A00FA0BEE /* Player.swift in Sources */,
 				7E34B9EC23B552E400FA0BEE /* GameViewController.swift in Sources */,
+				7EA7A60323E5FCAE00894C4D /* Collision.swift in Sources */,
 				7E34BA0A23B553F800FA0BEE /* GameView.swift in Sources */,
+				7EA7A60723E5FD6B00894C4D /* Bitmask.swift in Sources */,
 				7E34B9E823B552E400FA0BEE /* AppDelegate.swift in Sources */,
 				7E34BA1423B8062D00FA0BEE /* HPBarNode.swift in Sources */,
 				7E80B49623CB68E200254C4B /* Enemy.swift in Sources */,
 				7E34BA1223B8055C00FA0BEE /* AttackButtonNode.swift in Sources */,
 				7E34BA1C23B82C2C00FA0BEE /* PlayerAnimation.swift in Sources */,
+				7EA7A60123E5FAEC00894C4D /* GameViewConfigurator.swift in Sources */,
 				7E80B49823CBC91700254C4B /* GameUtils.swift in Sources */,
 				7E34BA1E23B83B8900FA0BEE /* GameState.swift in Sources */,
 			);

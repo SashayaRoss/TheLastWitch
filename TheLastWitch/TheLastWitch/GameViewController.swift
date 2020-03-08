@@ -9,16 +9,8 @@
 import UIKit
 import SceneKit
 
-let BitmaskPlayer = 1
-let BitmaskPlayerWeapon = 2
-let BitmaskWall = 64
-let BitMaskEnemy = 3
-
 class GameViewController: UIViewController {
-
-    var gameView: GameView {
-        return view as! GameView
-    }
+    var gameView: GameView!
     
     //scene
     var sceneView: SCNView!
@@ -49,11 +41,14 @@ class GameViewController: UIViewController {
     //MARK: lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        gameView = view as? GameView
+        
         setupScene()
         setupPlayer()
         setupCamera()
         setupLight()
-        setupWallBitmasks()
+//        setupWallBitmasks()
+        Collision(scene: mainScene)
         
         setupEnemies()
         
@@ -66,7 +61,7 @@ class GameViewController: UIViewController {
         gameView.delegate = self
         gameView.isUserInteractionEnabled = true
 
-        mainScene = SCNScene(named: "art.scnassets/Scenes/Stage1.scn")
+        mainScene = GameViewConfigurator().setup()
         mainScene.physicsWorld.contactDelegate = self
         
         gameView.scene = mainScene
@@ -160,24 +155,6 @@ class GameViewController: UIViewController {
             }
         }
         return direction
-    }
-    
-    //MARK: walls collision
-    private func setupWallBitmasks() {
-        var collisionNodes = [SCNNode]()
-        mainScene.rootNode.enumerateChildNodes { (node, _) in
-            switch node.name {
-            case let .some(s) where s.range(of: "collision") != nil:
-                collisionNodes.append(node)
-            default:
-                break
-            }
-        }
-        for node in collisionNodes {
-            node.physicsBody = SCNPhysicsBody.static()
-            node.physicsBody!.categoryBitMask = BitmaskWall
-            node.physicsBody!.physicsShape = SCNPhysicsShape(node: node, options: [.type: SCNPhysicsShape.ShapeType.concavePolyhedron as NSString])
-        }
     }
     
     private func characterNode(_ characterNode: SCNNode, hitWall wall: SCNNode, withContact contact: SCNPhysicsContact) {
@@ -330,13 +307,13 @@ extension GameViewController: SCNPhysicsContactDelegate {
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         if gameState != .playing { return }
         //if player collide with wall
-        contact.match(BitmaskWall) {
+        contact.match(Bitmask().wall) {
             (matching, other) in
             self.characterNode(other, hitWall: matching, withContact: contact)
         }
         
         // if player collides with golem
-        contact.match(BitMaskEnemy) {
+        contact.match(Bitmask().enemy) {
             (matching, other) in
             let enemy = matching.parent as! Enemy
             if other.name == "collider" { enemy.isCollidingWithEnemy = true }
@@ -345,12 +322,12 @@ extension GameViewController: SCNPhysicsContactDelegate {
 
     func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
         //if player collide with wall
-        contact.match(BitmaskWall) {
+        contact.match(Bitmask().wall) {
             (matching, other) in
             self.characterNode(other, hitWall: matching, withContact: contact)
         }
         // if player collides with golem
-        contact.match(BitMaskEnemy) {
+        contact.match(Bitmask().enemy) {
             (matching, other) in
             let enemy = matching.parent as! Enemy
             if other.name == "collider" { enemy.isCollidingWithEnemy = true }
@@ -359,7 +336,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
 
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
         // if player collides with golem
-        contact.match(BitMaskEnemy) {
+        contact.match(Bitmask().enemy) {
             (matching, other) in
             let enemy = matching.parent as! Enemy
             if other.name == "collider" { enemy.isCollidingWithEnemy = false }

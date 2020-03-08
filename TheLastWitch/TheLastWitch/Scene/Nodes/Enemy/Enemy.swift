@@ -9,12 +9,6 @@
 import Foundation
 import SceneKit
 
-enum EnemyAnimationType {
-    case walk
-    case attack1
-    case dead
-}
-
 final class Enemy: SCNNode {
     
     //general
@@ -63,7 +57,6 @@ final class Enemy: SCNNode {
     private var lastAttackTime: TimeInterval = 0.0
     private var attackTimer: Timer?
     private var attackFrameCounter = 0
-      
     
     //MARK: init
     init(enemy: Player, view: GameView) {
@@ -98,8 +91,7 @@ final class Enemy: SCNNode {
     private func loadAnimations() {
         loadAnimation(animationType: .walk, isSceneNamed: "art.scnassets/Scenes/Enemies/Golem@Flight", withIdentifier: "unnamed_animation__1")
         loadAnimation(animationType: .dead, isSceneNamed: "art.scnassets/Scenes/Enemies/Golem@Dead", withIdentifier: "Golem@Dead-1")
-        loadAnimation(animationType: .attack1, isSceneNamed: "art.scnassets/Scenes/Enemies/Golem@Attack(1)", withIdentifier: "Golem@Attack(1)-1")
-        
+        loadAnimation(animationType: .attack, isSceneNamed: "art.scnassets/Scenes/Enemies/Golem@Attack(1)", withIdentifier: "Golem@Attack(1)-1")
     }
     
     private func loadAnimation(animationType: EnemyAnimationType, isSceneNamed scene: String, withIdentifier identifier: String) {
@@ -123,14 +115,14 @@ final class Enemy: SCNNode {
             animationObject.isRemovedOnCompletion = false
             deadAnimation = animationObject
             
-        case .attack1:
+        case .attack:
             animationObject.setValue("attack", forKey: "animationId")
             attack1Animation = animationObject
         }
     }
     
     func update(with time: TimeInterval, and scene: SCNScene) {
-        guard let enemy = enemy else { return }
+        guard let enemy = enemy, !enemy.isDead else { return }
         
         //delta time
         if previousUpdateTime == 0.0 { previousUpdateTime = time }
@@ -172,7 +164,7 @@ final class Enemy: SCNNode {
                 endpoint0.y -= 0.1
                 endpoint1.y += 0.08
                 
-                let result = scene.physicsWorld.rayTestWithSegment(from: endpoint1, to: endpoint0, options: [.collisionBitMask: BitmaskWall, .searchMode: SCNPhysicsWorld.TestSearchMode.closest])
+                let result = scene.physicsWorld.rayTestWithSegment(from: endpoint1, to: endpoint0, options: [.collisionBitMask: Bitmask().wall, .searchMode: SCNPhysicsWorld.TestSearchMode.closest])
                 
                 if let result = result.first {
                     let groundAltitude = result.worldCoordinates.y
@@ -211,8 +203,8 @@ final class Enemy: SCNNode {
         let shapeGeometry = SCNCapsule(capRadius: 20 * scale, height: 52 * scale)
         let physicsShape = SCNPhysicsShape(geometry: shapeGeometry, options: nil)
         collider.physicsBody = SCNPhysicsBody(type: .kinematic, shape: physicsShape)
-        collider.physicsBody!.categoryBitMask = BitMaskEnemy
-        collider.physicsBody!.contactTestBitMask = BitmaskWall | BitmaskPlayer | BitmaskPlayerWeapon
+        collider.physicsBody!.categoryBitMask = Bitmask().enemy
+        collider.physicsBody!.contactTestBitMask = Bitmask().wall | Bitmask().player | Bitmask().playerWeapon
         
         gameView.prepare([collider]) {
             (finished) in
@@ -235,7 +227,7 @@ final class Enemy: SCNNode {
         attackFrameCounter += 1
         if attackFrameCounter == 10 {
             if isCollidingWithEnemy {
-                //TODO hit enemy
+                enemy.gotHit(with: 50.0)
             }
         }
     }

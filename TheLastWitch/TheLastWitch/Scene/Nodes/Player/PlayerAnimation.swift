@@ -11,8 +11,8 @@ import SceneKit
 final class PlayerAnimation: NSObject {
     
     var walkAnimation = CAAnimation()
-    private var attackAnimation = CAAnimation()
-    private var deadAnimation = CAAnimation()
+    var attackAnimation = CAAnimation()
+    var deadAnimation = CAAnimation()
     
     func loadAnimations() {
         loadAnimation(animationType: .walk, inSceneNames: "art.scnassets/Scenes/Hero/walk", withIdentifier: "walk")

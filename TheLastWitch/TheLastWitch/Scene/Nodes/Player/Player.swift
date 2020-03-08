@@ -34,6 +34,11 @@ final class Player: SCNNode {
     //collision
     var replacementPosition: SCNVector3 = SCNVector3Zero
     
+    //battle
+    var isDead = false
+    private let maxHpPoints: Float = 100.0
+    private var hpPoints: Float = 100.0
+    
     //MARK: initialization
     init(animation: PlayerAnimation) {
         self.animation = animation
@@ -63,6 +68,9 @@ final class Player: SCNNode {
     
     //MARK: movement
     func walkInDirection(_ direction: float3, time: TimeInterval, scene: SCNScene) {
+        
+        if isDead { return }
+        
         if previousUpdateTime == 0.0 {
             previousUpdateTime = time
         }
@@ -93,7 +101,7 @@ final class Player: SCNNode {
         endpoint0.y -= 0.1
         endpoint1.y += 0.08
         
-        let results = scene.physicsWorld.rayTestWithSegment(from: endpoint1, to: endpoint0, options: [.collisionBitMask: BitmaskWall, .searchMode: SCNPhysicsWorld.TestSearchMode.closest])
+        let results = scene.physicsWorld.rayTestWithSegment(from: endpoint1, to: endpoint0, options: [.collisionBitMask: Bitmask().wall, .searchMode: SCNPhysicsWorld.TestSearchMode.closest])
         
         if let result = results.first {
             let groundAltitude = result.worldCoordinates.y
@@ -118,10 +126,27 @@ final class Player: SCNNode {
         let phisicsGeometry = SCNCapsule(capRadius: 47 * scale, height: 165 * scale)
         let phisicsShape = SCNPhysicsShape(geometry: phisicsGeometry, options: nil)
         collider.physicsBody = SCNPhysicsBody(type: .kinematic, shape: phisicsShape)
-        collider.physicsBody!.categoryBitMask = BitmaskPlayer
-        collider.physicsBody!.contactTestBitMask = BitmaskWall
+        collider.physicsBody!.categoryBitMask = Bitmask().player
+        collider.physicsBody!.contactTestBitMask = Bitmask().wall
         
         addChildNode(collider)
+    }
+    
+    //MARK: battle
+    func gotHit(with hpPoints: Float) {
+        self.hpPoints -= hpPoints
+        NotificationCenter.default.post(name: NSNotification.Name("hpChanged"), object: nil, userInfo: ["playerMaxHp": maxHpPoints, "currentHp": hpPoints])
+        
+        if self.hpPoints <= 0 {
+            die()
+        }
+    }
+    
+    private func die() {
+        isDead = true
+        characterNode.removeAllActions()
+        characterNode.removeAllAnimations()
+        characterNode.addAnimation(animation.deadAnimation, forKey: "DeathID")
     }
 }
 
