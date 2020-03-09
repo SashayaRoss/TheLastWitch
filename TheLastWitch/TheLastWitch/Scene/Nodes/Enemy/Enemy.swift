@@ -17,13 +17,13 @@ final class Enemy: SCNNode {
     //nodes
     private let daeHolderNode = SCNNode()
     private var characterNode: SCNNode!
-    private var enemy: Player!
+    private var player: Player!
     private var collider: SCNNode!
     
     //animations
     private var walkAnimation = CAAnimation()
     private var deadAnimation = CAAnimation()
-    private var attack1Animation = CAAnimation()
+    private var attackAnimation = CAAnimation()
     
     //movement
     private var previousUpdateTime = TimeInterval(0.0)
@@ -58,12 +58,15 @@ final class Enemy: SCNNode {
     private var attackTimer: Timer?
     private var attackFrameCounter = 0
     
+    private var hpPoints:Float = 70.0
+    private var isDead = false
+    
     //MARK: init
     init(enemy: Player, view: GameView) {
         super.init()
         
         self.gameView = view
-        self.enemy = enemy
+        self.player = enemy
         
         setupModelScene()
         loadAnimations()
@@ -117,78 +120,85 @@ final class Enemy: SCNNode {
             
         case .attack:
             animationObject.setValue("attack", forKey: "animationId")
-            attack1Animation = animationObject
+            attackAnimation = animationObject
         }
     }
     
     func update(with time: TimeInterval, and scene: SCNScene) {
-        guard let enemy = enemy, !enemy.isDead else { return }
+        guard let enemy = player, !enemy.isDead, !isDead else { return }
         
-        //delta time
-        if previousUpdateTime == 0.0 { previousUpdateTime = time }
-        let deltaTime = Float(min(time - previousUpdateTime, 1.0/60.0))
-        previousUpdateTime = time
+         //delta time
+         if previousUpdateTime == 0.0 { previousUpdateTime = time }
+         let deltaTime = Float(min(time-previousUpdateTime, 1.0/60.0))
+         previousUpdateTime = time
+         
+         //get distance
+         let distance = GameUtils.distanceBetweenVectors(vector1: enemy.position, vector2: position)
         
-        // get distance
-        let distance = GameUtils.distanceBetweenVectors(vector1: enemy.position, vector2: position)
-        
-        if distance < noticeDistance && distance > 0.01 {
-            //move
+         if distance < noticeDistance && distance > 0.01 {
+             
+             //move
             let vResult = GameUtils.getCoordinatesNeededToMoveToReachNode(from: position, to: enemy.position)
-            let vx = vResult.vX
-            let vz = vResult.vZ
-            let angle = vResult.angle
-            
-            //rotate
-            let fixedAngle = GameUtils.getFixedRotationAngle(with: angle)
-            eulerAngles = SCNVector3Make(0, fixedAngle, 0)
-            
-            if !isCollidingWithEnemy && !isAttacking {
-                let characterSpeed = deltaTime * movementSpeedLimiter
-                
-                if vx != 0.0 && vz != 0.0 {
-                    position.x += vx * characterSpeed
-                    position.z += vz * characterSpeed
-                    
-                    isWalking = true
-                } else {
-                    isWalking = false
-                }
-                
-                //update the altitude
-                let initialPosition = position
-                var pos = position
-                var endpoint0 = pos
-                var endpoint1 = pos
-                
-                endpoint0.y -= 0.1
-                endpoint1.y += 0.08
-                
-                let result = scene.physicsWorld.rayTestWithSegment(from: endpoint1, to: endpoint0, options: [.collisionBitMask: Bitmask().wall, .searchMode: SCNPhysicsWorld.TestSearchMode.closest])
-                
-                if let result = result.first {
-                    let groundAltitude = result.worldCoordinates.y
-                    pos.y = groundAltitude
-                    
-                    position = pos
-                } else {
-                    position = initialPosition
-                }
-            } else {
-                //attack
-                if lastAttackTime == 0.0 {
-                    lastAttackTime = time
-                    attack1()
-                }
-                let timeDiff = time - lastAttackTime
-                if timeDiff >= 2.5 {
-                    lastAttackTime = time
-                    attack1()
-                }
-            }
-        } else {
-            isWalking = false
-        }
+             let vx = vResult.vX
+             let vz = vResult.vZ
+             let angle = vResult.angle
+             
+             //rotate
+             let fixedAngle = GameUtils.getFixedRotationAngle(with: angle)
+             eulerAngles = SCNVector3Make(0, fixedAngle, 0)
+             
+             if !isCollidingWithEnemy && !isAttacking {
+             
+                 let characterSpeed = deltaTime * movementSpeedLimiter
+                 
+                 if vx != 0.0 && vz != 0.0 {
+                     
+                     position.x += vx * characterSpeed
+                     position.z += vz * characterSpeed
+                     
+                     isWalking = true
+                 } else {
+                     
+                     isWalking = false
+                 }
+                 
+                 //update the altidute
+                 let initialPosition = position
+                 
+                 var pos = position
+                 var endpoint0 = pos
+                 var endpoint1 = pos
+                 
+                 endpoint0.y -= 0.1
+                 endpoint1.y += 0.08
+                 
+                let results = scene.physicsWorld.rayTestWithSegment(from: endpoint1, to: endpoint0, options: [.collisionBitMask: Bitmask().wall, .searchMode: SCNPhysicsWorld.TestSearchMode.closest])
+                 
+                 if let result = results.first {
+                     
+                     let groundAltitude = result.worldCoordinates.y
+                     pos.y = groundAltitude
+                     
+                     position = pos
+                 } else {
+                     position = initialPosition
+                 }
+             } else {
+                 //attack
+                 if lastAttackTime == 0.0 {
+                     
+                     lastAttackTime = time
+                     attack()
+                 }
+                 let timeDiff = time - lastAttackTime
+                 if timeDiff >= 2.5 {
+                     lastAttackTime = time
+                     attack()
+                 }
+             }
+         } else {
+             isWalking = false
+         }
     }
     
     //MARK: collision
@@ -213,13 +223,13 @@ final class Enemy: SCNNode {
     }
     
     //MARK: battle
-    private func attack1() {
+    private func attack() {
         if isAttacking { return }
         isAttacking = true
         DispatchQueue.main.async {
             self.attackTimer?.invalidate()
             self.attackTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(self.attackTimerTicked), userInfo: nil, repeats: true)
-            self.characterNode.addAnimation(self.attack1Animation, forKey: "attack1")
+            self.characterNode.addAnimation(self.attackAnimation, forKey: "attack1")
         }
     }
     
@@ -227,9 +237,31 @@ final class Enemy: SCNNode {
         attackFrameCounter += 1
         if attackFrameCounter == 10 {
             if isCollidingWithEnemy {
-                enemy.gotHit(with: 50.0)
+                player.gotHit(with: 0)
             }
         }
+    }
+    
+    func gotHit(by node:SCNNode, with hpHitPoints:Float) {
+        hpPoints -= hpHitPoints
+        if hpPoints <= 0 {
+            die()
+        }
+    }
+    
+    private func die() {
+        isDead = true
+        addAnimation(deadAnimation, forKey: "dead")
+        
+        let wait = SCNAction.wait(duration: 3.0)
+        let remove = SCNAction.run { (node) in
+            self.removeAllAnimations()
+            self.removeAllActions()
+            self.removeFromParentNode()
+        }
+        
+        let seq = SCNAction.sequence([wait, remove])
+        runAction(seq)
     }
 }
 
@@ -238,13 +270,12 @@ extension Enemy: CAAnimationDelegate {
         attackTimer?.invalidate()
         attackFrameCounter = 0
         isAttacking = false
-        //TODO fix animation detector
-//        guard let id = anim.value(forKey: "animationId") as? String else { return }
-//
-//        if id == "attack1" {
-//            attackTimer?.invalidate()
-//            attackFrameCounter = 0
-//            isAttacking = false
-//        }
+        
+        guard let id = anim.value(forKey: "animationId") as? String else { return }
+        if id == "attack" {
+            attackTimer?.invalidate()
+            attackFrameCounter = 0
+            isAttacking = false
+        }
     }
 }

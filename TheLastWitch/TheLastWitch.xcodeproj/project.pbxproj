@@ -30,6 +30,8 @@
 		7EA7A60123E5FAEC00894C4D /* GameViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA7A60023E5FAEC00894C4D /* GameViewConfigurator.swift */; };
 		7EA7A60323E5FCAE00894C4D /* Collision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA7A60223E5FCAE00894C4D /* Collision.swift */; };
 		7EA7A60723E5FD6B00894C4D /* Bitmask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA7A60623E5FD6B00894C4D /* Bitmask.swift */; };
+		7EDFF5622415599B00D24798 /* EnemyAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF5612415599B00D24798 /* EnemyAnimation.swift */; };
+		7EDFF5642415689100D24798 /* EXPBarNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF5632415689100D24798 /* EXPBarNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +72,8 @@
 		7EA7A60023E5FAEC00894C4D /* GameViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewConfigurator.swift; sourceTree = "<group>"; };
 		7EA7A60223E5FCAE00894C4D /* Collision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collision.swift; sourceTree = "<group>"; };
 		7EA7A60623E5FD6B00894C4D /* Bitmask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bitmask.swift; sourceTree = "<group>"; };
+		7EDFF5612415599B00D24798 /* EnemyAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAnimation.swift; sourceTree = "<group>"; };
+		7EDFF5632415689100D24798 /* EXPBarNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EXPBarNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +158,7 @@
 				7E34BA0D23B800EB00FA0BEE /* DpadNode.swift */,
 				7E34BA1123B8055C00FA0BEE /* AttackButtonNode.swift */,
 				7E34BA1323B8062D00FA0BEE /* HPBarNode.swift */,
+				7EDFF5632415689100D24798 /* EXPBarNode.swift */,
 			);
 			path = UserInterface;
 			sourceTree = "<group>";
@@ -181,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				7E80B49523CB68E200254C4B /* Enemy.swift */,
+				7EDFF5612415599B00D24798 /* EnemyAnimation.swift */,
 				7EA7A5FB23E5F3DA00894C4D /* EnemyAnimationType.swift */,
 			);
 			path = Enemy;
@@ -316,9 +322,11 @@
 				7E34BA0E23B800EB00FA0BEE /* DpadNode.swift in Sources */,
 				7EA7A5FC23E5F3DA00894C4D /* EnemyAnimationType.swift in Sources */,
 				7E34BA1023B8024D00FA0BEE /* NodeProtocol.swift in Sources */,
+				7EDFF5622415599B00D24798 /* EnemyAnimation.swift in Sources */,
 				7EA7A5FF23E5F62500894C4D /* ColourBase.swift in Sources */,
 				7E34BA1A23B82BE800FA0BEE /* PlayerAnimationType.swift in Sources */,
 				7E34BA1723B8251A00FA0BEE /* Player.swift in Sources */,
+				7EDFF5642415689100D24798 /* EXPBarNode.swift in Sources */,
 				7E34B9EC23B552E400FA0BEE /* GameViewController.swift in Sources */,
 				7EA7A60323E5FCAE00894C4D /* Collision.swift in Sources */,
 				7E34BA0A23B553F800FA0BEE /* GameView.swift in Sources */,
@@ -493,7 +501,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 97E4ZMM938;
 				INFOPLIST_FILE = TheLastWitch/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -512,7 +520,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 97E4ZMM938;
 				INFOPLIST_FILE = TheLastWitch/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

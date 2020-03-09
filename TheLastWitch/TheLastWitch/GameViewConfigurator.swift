@@ -17,5 +17,4 @@ final class GameViewConfigurator {
         
         return scene
     }
-
 }

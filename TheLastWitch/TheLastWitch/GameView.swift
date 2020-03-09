@@ -19,6 +19,7 @@ final class GameView: SCNView {
     var dpadNode: DpadNode!
     var attackButtonNode: AttackButtonNode!
     var hpBarNode: HPBarNode!
+    var expBarNode: EXPBarNode!
     
      private let hpBarMaxWidth: CGFloat = 150.0
     
@@ -36,6 +37,9 @@ final class GameView: SCNView {
 
         hpBarNode = HPBarNode(bounds: viewBounds, hpBarMaxWidth: hpBarMaxWidth)
         hpBarNode.setupNode(with: skScene)
+        
+        expBarNode = EXPBarNode(bounds: viewBounds, expBarMaxWidth: 100)
+        expBarNode.setupNode(with: skScene) 
     }
     
     override func layoutSubviews() {

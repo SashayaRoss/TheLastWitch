@@ -96,6 +96,7 @@ class GameViewController: UIViewController {
         
         mainScene.rootNode.addChildNode(existingPlayer)
         existingPlayer.setupCollider(with: CGFloat(playerScale))
+        existingPlayer.setupWeaponCollider(with: CGFloat(playerScale))
     }
     
     //MARK: touches + movement
@@ -106,6 +107,8 @@ class GameViewController: UIViewController {
                     padTouch = touch
                     controllerStoredDirection = float2(0.0)
                 }
+            } else if gameView.attackButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+                player!.attack1()
             } else if cameraTouch == nil {
                     cameraTouch = touches.first
             }
@@ -315,8 +318,10 @@ extension GameViewController: SCNPhysicsContactDelegate {
         // if player collides with golem
         contact.match(Bitmask().enemy) {
             (matching, other) in
+            
             let enemy = matching.parent as! Enemy
             if other.name == "collider" { enemy.isCollidingWithEnemy = true }
+            if other.name == "weaponCollider" { player!.weaponCollide(with: enemy) }
         }
     }
 
@@ -331,6 +336,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
             (matching, other) in
             let enemy = matching.parent as! Enemy
             if other.name == "collider" { enemy.isCollidingWithEnemy = true }
+            if other.name == "weaponCollider" { player!.weaponCollide(with: enemy) }
         }
     }
 
@@ -340,6 +346,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
             (matching, other) in
             let enemy = matching.parent as! Enemy
             if other.name == "collider" { enemy.isCollidingWithEnemy = false }
+            if other.name == "weaponCollider" { player!.weaponUnCollide(with: enemy) }
         }
     }
 }
