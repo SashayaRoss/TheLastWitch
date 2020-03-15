@@ -18,7 +18,7 @@ final class EnemyCollider {
         self.gameView = gameView
     }
     
-    func setupCollider(scale: CGFloat) {
+    func setupCollider(scale: CGFloat) -> SCNNode {
         let geometry = SCNCapsule(capRadius: 20, height: 52)
         geometry.firstMaterial?.diffuse.contents = UIColor.blue
         collider = SCNNode(geometry: geometry)
@@ -32,6 +32,7 @@ final class EnemyCollider {
         collider.physicsBody!.categoryBitMask = Bitmask().enemy
         collider.physicsBody!.contactTestBitMask = Bitmask().wall | Bitmask().player | Bitmask().playerWeapon
         
+        return collider
 //        gameView.prepare([collider]) { (finished) in
 //            self.addChildNode(self.collider)
 //        }

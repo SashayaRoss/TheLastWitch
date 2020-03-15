@@ -17,12 +17,14 @@ final class Player: SCNNode {
     private var weaponCollider: SCNNode!
 
     //animation
-//    private let animation: PlayerAnimation
+//    private var animation: AnimationInterface!
+    private var walkAnimation = CAAnimation()
+    private var attackAnimation = CAAnimation()
+    private var deadAnimation = CAAnimation()
 
     //movement
     private var previousUdateTime = TimeInterval(0.0)
-
-    private var isWalking:Bool = false {
+    private var isWalking: Bool = false {
         didSet {
             if oldValue != isWalking {
                 if isWalking {
@@ -41,30 +43,28 @@ final class Player: SCNNode {
             }
         }
     }
-    
-    //animations
-    private var walkAnimation = CAAnimation()
-    private var attackAnimation = CAAnimation()
-    private var deadAnimation = CAAnimation()
 
     //collisions
-    var replacementPosition:SCNVector3 = SCNVector3Zero
+    var replacementPosition: SCNVector3 = SCNVector3Zero
     private var activeWeaponCollideNodes = Set<SCNNode>()
 
     //battle
     var isDead = false
-    private let maxHpPoints:Float = 100.0
-    private var hpPoints:Float = 100.0
+    private let maxHpPoints: Float = 100.0
+    private var hpPoints: Float = 100.0
     var isAttacking = false
-    private var attackTimer:Timer?
+    private var attackTimer: Timer?
     private var attackFrameCounter = 0
 
     //MARK: initialization
-//    init(animation: PlayerAnimation) {
     override init() {
         super.init()
+        
         setupModel()
+//        animation = PlayerAnimation()
 //        animation.loadAnimations()
+//        animation.object.delegate = self
+        
         loadAnimations()
     }
 
@@ -73,15 +73,11 @@ final class Player: SCNNode {
     }
     
     private func loadAnimations() {
-        
         loadAnimation(animationType: .walk, inSceneNamed: "art.scnassets/Scenes/Hero/walk", withIdentifier: "WalkID")
-        
         loadAnimation(animationType: .attack, inSceneNamed: "art.scnassets/Scenes/Hero/attack", withIdentifier: "attackID")
-        
         loadAnimation(animationType: .dead, inSceneNamed: "art.scnassets/Scenes/Hero/die", withIdentifier: "DeathID")
-        
     }
-    
+       
     private func loadAnimation(animationType:PlayerAnimationType, inSceneNamed scene:String, withIdentifier identifier:String) {
         
         let sceneURL = Bundle.main.url(forResource: scene, withExtension: "dae")!
@@ -96,19 +92,13 @@ final class Player: SCNNode {
         animationObject.repeatCount = 0
         
         switch animationType {
-            
         case .walk:
-            
             animationObject.repeatCount = Float.greatestFiniteMagnitude
             walkAnimation = animationObject
-            
         case .dead:
-            
             animationObject.isRemovedOnCompletion = false
             deadAnimation = animationObject
-            
         case .attack:
-            
             animationObject.setValue("attack", forKey: "animationId")
             attackAnimation = animationObject
         }
@@ -128,10 +118,6 @@ final class Player: SCNNode {
         //set mesh name
         characterNode = daeHolderNode.childNode(withName: "Bip01", recursively: true)!
     }
-    
-    
-    
-    
 
     //MARK:- movement
     func walkInDirection(_ direction:float3, time:TimeInterval, scene:SCNScene) {
@@ -200,50 +186,13 @@ final class Player: SCNNode {
     }
 
     func weaponCollide(with node:SCNNode) {
+        print("Collides: \(node)")
         activeWeaponCollideNodes.insert(node)
     }
 
     func weaponUnCollide(with node:SCNNode) {
+        print("Uncollides: \(node)")
         activeWeaponCollideNodes.remove(node)
-    }
-
-    //MARK:- battle
-    func gotHit(with hpPoints:Float) {
-        self.hpPoints -= hpPoints
-        NotificationCenter.default.post(name: NSNotification.Name("hpChanged"), object: nil, userInfo: ["playerMaxHp": maxHpPoints, "currentHp": hpPoints])
-
-        if self.hpPoints <= 0 {
-            die()
-        }
-    }
-
-    private func die() {
-        isDead = true
-        characterNode.removeAllActions()
-        characterNode.removeAllAnimations()
-        characterNode.addAnimation(deadAnimation, forKey: "dead")
-    }
-
-    func attack() {
-        if isAttacking || isDead { return }
-        isAttacking = true
-        isWalking = false
-
-        attackTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(attackTimerTicked), userInfo: nil, repeats: true)
-
-        characterNode.removeAllAnimations()
-        characterNode.addAnimation(attackAnimation, forKey: "attack")
-    }
-
-    @objc private func attackTimerTicked(timer: Timer) {
-        attackFrameCounter += 1
-        if attackFrameCounter == 12 {
-            for node in activeWeaponCollideNodes {
-                if let enemy = node as? Enemy {
-                    enemy.gotHit(by: node, with: 30.0)
-                }
-            }
-        }
     }
 
     //MARK:- weapon
@@ -263,17 +212,61 @@ final class Player: SCNNode {
         weaponCollider.physicsBody!.categoryBitMask = Bitmask().playerWeapon
         weaponCollider.physicsBody!.contactTestBitMask = Bitmask().enemy
     }
+    
+    func gotHit(with hpPoints: Float) {
+        self.hpPoints -= hpPoints
+        NotificationCenter.default.post(name: NSNotification.Name("hpChanged"), object: nil, userInfo: ["playerMaxHp": maxHpPoints, "currentHp": hpPoints])
+
+        if self.hpPoints <= 0 {
+            die()
+        }
+    }
+    
+    @objc func attackTimerTicked(timer: Timer) {
+        attackFrameCounter += 1
+        if attackFrameCounter == 12 {
+            for node in activeWeaponCollideNodes {
+                if let enemy = node as? Enemy {
+                    enemy.gotHit(by: node, with: 30.0)
+                }
+            }
+        }
+    }
 }
 
 //MARK:- extensions
-
 extension Player: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        guard let id = anim.value(forKey: "animationId") as? String else { return }
+        guard
+            let id = anim.value(forKey: "animationId") as? String
+        else {
+            return
+        }
         if id == "attack" {
             attackTimer?.invalidate()
             attackFrameCounter = 0
             isAttacking = false
         }
+    }
+}
+
+extension Player: BattleAction {
+    func die() {
+        isDead = true
+        characterNode.removeAllActions()
+        characterNode.removeAllAnimations()
+        characterNode.addAnimation(deadAnimation, forKey: "dead")
+        print("GAME OVER")
+    }
+
+    func attack() {
+        if isAttacking || isDead { return }
+        isAttacking = true
+        isWalking = false
+
+        attackTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(attackTimerTicked), userInfo: nil, repeats: true)
+
+        characterNode.removeAllAnimations()
+        characterNode.addAnimation(attackAnimation, forKey: "attack")
     }
 }

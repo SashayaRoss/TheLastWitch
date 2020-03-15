@@ -11,7 +11,6 @@ import UIKit
 final class EnemyConfigurator {
     func configure(player: Player, gameView: GameView) -> Enemy {
         
-        
         let enemy = Enemy(enemy: player, view: gameView)
         return enemy
     }

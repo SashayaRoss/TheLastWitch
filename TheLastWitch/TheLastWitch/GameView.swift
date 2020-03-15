@@ -18,17 +18,23 @@ final class GameView: SCNView {
     
     var dpadNode: DpadNode!
     var attackButtonNode: AttackButtonNode!
+    var characterButtonNode: CharacterButtonNode!
     var hpBarNode: HPBarNode!
     var expBarNode: EXPBarNode!
+    var optionsButtonNode: OptionsButtonNode!
     
-     private let hpBarMaxWidth: CGFloat = 150.0
+    private let hpBarMaxWidth: CGFloat = 150.0
+    private let expBarMaxWidth: CGFloat = 100.0
     
     //MARK: lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
         setup2DOverlay()
         setupObservers()
-            
+        setupLayout()
+    }
+    
+    private func setupLayout() {
         dpadNode =  DpadNode(bounds: viewBounds)
         dpadNode.setupNode(with: skScene)
 
@@ -38,8 +44,14 @@ final class GameView: SCNView {
         hpBarNode = HPBarNode(bounds: viewBounds, hpBarMaxWidth: hpBarMaxWidth)
         hpBarNode.setupNode(with: skScene)
         
-        expBarNode = EXPBarNode(bounds: viewBounds, expBarMaxWidth: 100)
-        expBarNode.setupNode(with: skScene) 
+        characterButtonNode = CharacterButtonNode(bounds: viewBounds)
+        characterButtonNode.setupNode(with: skScene)
+        
+        expBarNode = EXPBarNode(bounds: viewBounds, expBarMaxWidth: expBarMaxWidth)
+        expBarNode.setupNode(with: skScene)
+        
+        optionsButtonNode = OptionsButtonNode(bounds: viewBounds)
+        optionsButtonNode.setupNode(with: skScene)
     }
     
     override func layoutSubviews() {

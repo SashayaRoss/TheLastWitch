@@ -18,9 +18,11 @@ class GameViewController: UIViewController {
     
     //general
     var gameState: GameState = .loading
+    var gameProgress: GameProgress = .hut
     
     //nodes
     private var player: Player!
+//    private var options: Options!
     private var lightStick: SCNNode!
     private var cameraStick: SCNNode!
     
@@ -56,11 +58,22 @@ class GameViewController: UIViewController {
         gameView.delegate = self
         gameView.isUserInteractionEnabled = true
 
-        mainScene = GameViewConfigurator().setup()
+        loadMap()
         mainScene.physicsWorld.contactDelegate = self
         
         gameView.scene = mainScene
         gameView.isPlaying = true
+    }
+    
+    private func loadMap() {
+        switch gameProgress {
+        case .hut:
+            mainScene = GameViewConfigurator().setup(sceneName: "art.scnassets/Scenes/Stage1.scn")
+        case .forest:
+            mainScene = GameViewConfigurator().setup(sceneName: "art.scnassets/Scenes/Stage1.scn")
+        case .village:
+            mainScene = GameViewConfigurator().setup(sceneName: "art.scnassets/Scenes/Stage1.scn")
+        }
     }
     
     private func setupEnviroment() {
@@ -101,13 +114,27 @@ class GameViewController: UIViewController {
                 }
             } else if gameView.attackButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 player!.attack()
+            } else if gameView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+//                gameState = .paused
+                options()
+            } else if gameView.characterButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+//                gameState = .paused
+                characterMenu()
             } else if cameraTouch == nil {
-                    cameraTouch = touches.first
+                cameraTouch = touches.first
             }
             if padTouch != nil {
                 break
             }
         }
+    }
+    
+    func options() {
+        print("options ! !")
+    }
+    
+    func characterMenu() {
+        print("characterMenu!")
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -165,30 +192,26 @@ class GameViewController: UIViewController {
         replacementPosition[characterNode.parent!] = SCNVector3(characterPosition)
     }
     
-    
-
-    
     //MARK: game loop functions
     private func updateFollowersPosition() {
-        guard let character = player else { return }
+        guard
+            let character = player
+        else {
+            return
+        }
         cameraStick.position = SCNVector3Make(character.position.x, 0.0, character.position.z)
         lightStick.position = SCNVector3Make(character.position.x, 0.0, character.position.z)
     }
 }
 
-//MARK: extensions
 
 
-extension SCNPhysicsContact {
-    func match(_ cathegory: Int, block: (_ matching: SCNNode, _ other: SCNNode) -> Void) {
-        if self.nodeA.physicsBody!.categoryBitMask == cathegory {
-            block(self.nodeA, self.nodeB)
-        }
-        if self.nodeB.physicsBody!.categoryBitMask == cathegory {
-            block(self.nodeB, self.nodeA)
-        }
-    }
-}
+
+
+
+
+
+
 
 // MARK: delegates
 extension GameViewController: SCNSceneRendererDelegate {

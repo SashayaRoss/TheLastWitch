@@ -21,7 +21,7 @@ final class Enemy: SCNNode {
     private var collider: SCNNode!
     
     //animation
-    private var animation: EnemyAnimation!
+    private var animation: AnimationInterface!
     
     //movement
     private var previousUpdateTime = TimeInterval(0.0)
@@ -69,6 +69,7 @@ final class Enemy: SCNNode {
         setupModelScene()
         animation = EnemyAnimation()
         animation.loadAnimations()
+        animation.object.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -85,7 +86,6 @@ final class Enemy: SCNNode {
             daeHolderNode.addChildNode(child)
         }
         addChildNode(daeHolderNode)
-        
         characterNode = daeHolderNode.childNode(withName: "CATRigHub002", recursively: true)!
     }
     
@@ -124,7 +124,6 @@ final class Enemy: SCNNode {
                      
                      isWalking = true
                  } else {
-                     
                      isWalking = false
                  }
                  
@@ -187,18 +186,7 @@ final class Enemy: SCNNode {
         }
     }
     
-    //MARK: battle
-    private func attack() {
-        if isAttacking { return }
-        isAttacking = true
-        DispatchQueue.main.async {
-            self.attackTimer?.invalidate()
-            self.attackTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(self.attackTimerTicked), userInfo: nil, repeats: true)
-            self.characterNode.addAnimation(self.animation.attackAnimation, forKey: "attack")
-        }
-    }
-    
-    @objc private func attackTimerTicked() {
+    @objc func attackTimerTicked() {
         attackFrameCounter += 1
         if attackFrameCounter == 10 {
             if isCollidingWithEnemy {
@@ -215,21 +203,6 @@ final class Enemy: SCNNode {
             //add exp to player
         }
     }
-    
-    private func die() {
-        isDead = true
-        addAnimation(animation.deadAnimation, forKey: "dead")
-        
-        let wait = SCNAction.wait(duration: 3.0)
-        let remove = SCNAction.run { (node) in
-            self.removeAllAnimations()
-            self.removeAllActions()
-            self.removeFromParentNode()
-        }
-        
-        let seq = SCNAction.sequence([wait, remove])
-        runAction(seq)
-    }
 }
 
 extension Enemy: CAAnimationDelegate {
@@ -244,5 +217,33 @@ extension Enemy: CAAnimationDelegate {
             attackFrameCounter = 0
             isAttacking = false
         }
+    }
+}
+
+//MARK: battle
+extension Enemy: BattleAction {    
+    func attack() {
+        if isAttacking { return }
+        isAttacking = true
+        DispatchQueue.main.async {
+            self.attackTimer?.invalidate()
+            self.attackTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(self.attackTimerTicked), userInfo: nil, repeats: true)
+            self.characterNode.addAnimation(self.animation.attackAnimation, forKey: "attack")
+        }
+    }
+    
+    func die() {
+        isDead = true
+        addAnimation(animation.deadAnimation, forKey: "dead")
+        
+        let wait = SCNAction.wait(duration: 3.0)
+        let remove = SCNAction.run { (node) in
+            self.removeAllAnimations()
+            self.removeAllActions()
+            self.removeFromParentNode()
+        }
+        
+        let seq = SCNAction.sequence([wait, remove])
+        runAction(seq)
     }
 }

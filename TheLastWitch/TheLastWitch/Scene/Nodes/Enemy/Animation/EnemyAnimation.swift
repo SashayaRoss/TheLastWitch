@@ -8,20 +8,13 @@
 
 import SceneKit
 
-final class EnemyAnimation: NSObject {
-    
+final class EnemyAnimation {
     var walkAnimation = CAAnimation()
     var attackAnimation = CAAnimation()
     var deadAnimation = CAAnimation()
+    var object = CAAnimation()
     
-    //MARK: animations
-    func loadAnimations() {
-        loadAnimation(animationType: .walk, isSceneNamed: "art.scnassets/Scenes/Enemies/Golem@Flight", withIdentifier: "unnamed_animation__1")
-        loadAnimation(animationType: .dead, isSceneNamed: "art.scnassets/Scenes/Enemies/Golem@Dead", withIdentifier: "Golem@Dead-1")
-        loadAnimation(animationType: .attack, isSceneNamed: "art.scnassets/Scenes/Enemies/Golem@Attack(1)", withIdentifier: "Golem@Attack(1)-1")
-    }
-    
-    private func loadAnimation(animationType: EnemyAnimationType, isSceneNamed scene: String, withIdentifier identifier: String) {
+    func loadAnimation(animationType: EnemyAnimationType, isSceneNamed scene: String, withIdentifier identifier: String) {
         guard
             let sceneURL = Bundle.main.url(forResource: scene, withExtension: "dae"),
             let sceneSource = SCNSceneSource(url: sceneURL, options: nil),
@@ -34,6 +27,7 @@ final class EnemyAnimation: NSObject {
         animationObject.fadeOutDuration = 0.2
         animationObject.usesSceneTimeBase = false
         animationObject.repeatCount = 0
+        object = animationObject
         
         switch animationType {
         case .walk:
@@ -48,5 +42,12 @@ final class EnemyAnimation: NSObject {
             animationObject.setValue("attack", forKey: "animationId")
             attackAnimation = animationObject
         }
+    }
+}
+extension EnemyAnimation: AnimationInterface {
+    func loadAnimations() {
+        loadAnimation(animationType: .walk, isSceneNamed: "art.scnassets/Scenes/Enemies/Golem@Flight", withIdentifier: "unnamed_animation__1")
+        loadAnimation(animationType: .dead, isSceneNamed: "art.scnassets/Scenes/Enemies/Golem@Dead", withIdentifier: "Golem@Dead-1")
+        loadAnimation(animationType: .attack, isSceneNamed: "art.scnassets/Scenes/Enemies/Golem@Attack(1)", withIdentifier: "Golem@Attack(1)-1")
     }
 }

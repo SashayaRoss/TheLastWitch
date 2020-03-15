@@ -10,9 +10,9 @@ import Foundation
 import SceneKit
 
 final class GameViewConfigurator {
-    func setup() -> SCNScene? {
+    func setup(sceneName: String) -> SCNScene? {
         
-        let mainScene = SCNScene(named: "art.scnassets/Scenes/Stage1.scn")
+        let mainScene = SCNScene(named: sceneName)
         guard let scene = mainScene else { return mainScene}
         
         return scene
