@@ -20,11 +20,9 @@ class GameViewController: UIViewController {
     var gameState: GameState = .loading
     
     //nodes
-    private var player: Player?
-    private var cameraStick: SCNNode!
-    private var cameraXHolder: SCNNode!
-    private var cameraYHolder: SCNNode!
+    private var player: Player!
     private var lightStick: SCNNode!
+    private var cameraStick: SCNNode!
     
     //movement
     private var controllerStoredDirection = float2(0.0)
@@ -35,23 +33,20 @@ class GameViewController: UIViewController {
     private var maxPenetrationDistance = CGFloat(0.0)
     private var replacementPosition = [SCNNode: SCNVector3]()
     
-    //enemies
-    private var enemyPositionArray = [String: SCNVector3]()
-    
+    //setup
+    var playerFactory: PlayerFactory!
+    var mainCamera: MainCamera!
+    var light: MainLight!
+    var collision: Collision!
+    var enemyFactory: EnemyFactory!
+
     //MARK: lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         gameView = view as? GameView
         
         setupScene()
-        setupPlayer()
-        setupCamera()
-        setupLight()
-//        setupWallBitmasks()
-        Collision(scene: mainScene)
-        
-        setupEnemies()
-        
+        setupEnviroment()
         gameState = .playing
     }
     
@@ -66,6 +61,18 @@ class GameViewController: UIViewController {
         
         gameView.scene = mainScene
         gameView.isPlaying = true
+    }
+    
+    private func setupEnviroment() {
+        playerFactory = PlayerFactory(scene: mainScene)
+        player = playerFactory.makePlayer()
+        mainCamera = MainCamera(scene: mainScene)
+        light = MainLight(scene: mainScene)
+        collision = Collision(scene: mainScene)
+        enemyFactory = EnemyFactory(scene: mainScene, gameView: gameView, player: player)
+        
+        lightStick = light.setup()
+        cameraStick = mainCamera.setup()
     }
     
     override var shouldAutorotate: Bool {
@@ -84,21 +91,6 @@ class GameViewController: UIViewController {
         }
     }
     
-    //MARK: player
-    private func setupPlayer() {
-        player = Player(animation: PlayerAnimation())
-        let playerScale = Float(0.003)
-        
-        guard let existingPlayer = player else { return }
-        existingPlayer.scale = SCNVector3Make(playerScale, playerScale, playerScale)
-        existingPlayer.position = SCNVector3Make(0.0, 0.0, 0.0)
-        existingPlayer.rotation = SCNVector4Make(0, 1, 0, Float.pi)
-        
-        mainScene.rootNode.addChildNode(existingPlayer)
-        existingPlayer.setupCollider(with: CGFloat(playerScale))
-        existingPlayer.setupWeaponCollider(with: CGFloat(playerScale))
-    }
-    
     //MARK: touches + movement
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
@@ -108,7 +100,7 @@ class GameViewController: UIViewController {
                     controllerStoredDirection = float2(0.0)
                 }
             } else if gameView.attackButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
-                player!.attack1()
+                player!.attack()
             } else if cameraTouch == nil {
                     cameraTouch = touches.first
             }
@@ -128,7 +120,7 @@ class GameViewController: UIViewController {
             controllerStoredDirection = vClamp
         } else if let touch = cameraTouch {
             let displacement = float2(touch.location(in: view)) - float2(touch.previousLocation(in: view))
-            panCamera(displacement)
+            mainCamera.panCamera(displacement)
         }
     }
 
@@ -174,39 +166,7 @@ class GameViewController: UIViewController {
     }
     
     
-    //MARK: camera
-    private func setupCamera() {
-        cameraStick = mainScene.rootNode.childNode(withName: "CameraStick", recursively: false)!
-        cameraYHolder = mainScene.rootNode.childNode(withName: "yHolder", recursively: true)!
-        cameraXHolder = mainScene.rootNode.childNode(withName: "xHolder", recursively: true)!
-    }
-    
-    private func panCamera(_ direction: float2) {
-        var directionToPan = direction
-        directionToPan *= float2(1.0, -1.0)
-        
-        let panReducer = Float(0.005)
-        
-        let currX = cameraXHolder.rotation
-        var xRotationValue = currX.w - directionToPan.x * panReducer
-        cameraXHolder.rotation = SCNVector4Make(0, 1, 0, xRotationValue)
-        
-        let currY = cameraYHolder.rotation
-        var yRotationValue = currY.w + directionToPan.y * panReducer
-        
-        if yRotationValue < -0.94 {
-            yRotationValue = -0.94
-        }
-        if yRotationValue > 0.66 {
-            yRotationValue = 0.66
-        }
 
-        cameraYHolder.rotation = SCNVector4Make(1, 0, 0, yRotationValue)
-    }
-    
-    private func setupLight() {
-        lightStick = mainScene.rootNode.childNode(withName: "LightStick", recursively: false)!
-    }
     
     //MARK: game loop functions
     private func updateFollowersPosition() {
@@ -214,50 +174,10 @@ class GameViewController: UIViewController {
         cameraStick.position = SCNVector3Make(character.position.x, 0.0, character.position.z)
         lightStick.position = SCNVector3Make(character.position.x, 0.0, character.position.z)
     }
-    
-    //MARK: enemies
-    private func setupEnemies() {
-            let enemies = mainScene.rootNode.childNode(withName: "Enemies", recursively: false)!
-        for child in enemies.childNodes {
-            enemyPositionArray[child.name!] = child.position
-        }
-        setupEnemy()
-    }
-    
-    private func setupEnemy() {
-        let enemyScale: Float = 0.0080
-        
-        let enemy1 = Enemy(enemy: player!, view: gameView)
-        enemy1.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
-        enemy1.position = enemyPositionArray["golem1"]!
-        
-        let enemy2 = Enemy(enemy: player!, view: gameView)
-        enemy2.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
-        enemy2.position = enemyPositionArray["golem2"]!
-        
-        let enemy3 = Enemy(enemy: player!, view: gameView)
-        enemy3.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
-        enemy3.position = enemyPositionArray["golem3"]!
-        
-        gameView.prepare([enemy1, enemy2, enemy3]) {
-            (finished) in
-            self.mainScene.rootNode.addChildNode(enemy1)
-            self.mainScene.rootNode.addChildNode(enemy2)
-            self.mainScene.rootNode.addChildNode(enemy3)
-            
-            enemy1.setupCollider(scale: CGFloat(enemyScale))
-            enemy2.setupCollider(scale: CGFloat(enemyScale))
-            enemy3.setupCollider(scale: CGFloat(enemyScale))
-        }
-    }
 }
 
 //MARK: extensions
-extension float2 {
-    init(_ v: CGPoint) {
-        self.init(Float(v.x), Float(v.y))
-    }
-}
+
 
 extension SCNPhysicsContact {
     func match(_ cathegory: Int, block: (_ matching: SCNNode, _ other: SCNNode) -> Void) {
@@ -269,6 +189,7 @@ extension SCNPhysicsContact {
         }
     }
 }
+
 // MARK: delegates
 extension GameViewController: SCNSceneRendererDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
@@ -315,7 +236,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
             self.characterNode(other, hitWall: matching, withContact: contact)
         }
         
-        // if player collides with golem
+        // if player collides with enemy
         contact.match(Bitmask().enemy) {
             (matching, other) in
             
@@ -331,7 +252,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
             (matching, other) in
             self.characterNode(other, hitWall: matching, withContact: contact)
         }
-        // if player collides with golem
+        // if player collides with enemy
         contact.match(Bitmask().enemy) {
             (matching, other) in
             let enemy = matching.parent as! Enemy
@@ -341,7 +262,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
     }
 
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
-        // if player collides with golem
+        // if player collides with enemy
         contact.match(Bitmask().enemy) {
             (matching, other) in
             let enemy = matching.parent as! Enemy

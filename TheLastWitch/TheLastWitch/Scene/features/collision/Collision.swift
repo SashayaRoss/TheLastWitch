@@ -13,11 +13,13 @@ final class Collision {
     
     init(scene: SCNScene) {
         self.scene = scene
-        setupWallBitmasks()
+        setup()
     }
-    
-    //MARK: walls collision
-    private func setupWallBitmasks() {
+}
+
+extension Collision: SetupInterface {
+    //MARK: setup wall bitmasks collision
+    func setup() {
         var collisionNodes = [SCNNode]()
         scene.rootNode.enumerateChildNodes { (node, _) in
             switch node.name {
@@ -33,5 +35,4 @@ final class Collision {
             node.physicsBody!.physicsShape = SCNPhysicsShape(node: node, options: [.type: SCNPhysicsShape.ShapeType.concavePolyhedron as NSString])
         }
     }
-    
 }

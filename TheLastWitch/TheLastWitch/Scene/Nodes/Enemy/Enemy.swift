@@ -20,10 +20,8 @@ final class Enemy: SCNNode {
     private var player: Player!
     private var collider: SCNNode!
     
-    //animations
-    private var walkAnimation = CAAnimation()
-    private var deadAnimation = CAAnimation()
-    private var attackAnimation = CAAnimation()
+    //animation
+    private var animation: EnemyAnimation!
     
     //movement
     private var previousUpdateTime = TimeInterval(0.0)
@@ -34,7 +32,7 @@ final class Enemy: SCNNode {
         didSet {
             if oldValue != isWalking {
                 if isWalking {
-                    addAnimation(walkAnimation, forKey: "walk")
+                    addAnimation(animation.walkAnimation, forKey: "walk")
                 } else {
                     removeAnimation(forKey: "walk")
                 }
@@ -69,7 +67,8 @@ final class Enemy: SCNNode {
         self.player = enemy
         
         setupModelScene()
-        loadAnimations()
+        animation = EnemyAnimation()
+        animation.loadAnimations()
     }
     
     required init?(coder: NSCoder) {
@@ -90,46 +89,13 @@ final class Enemy: SCNNode {
         characterNode = daeHolderNode.childNode(withName: "CATRigHub002", recursively: true)!
     }
     
-    //MARK: animations
-    private func loadAnimations() {
-        loadAnimation(animationType: .walk, isSceneNamed: "art.scnassets/Scenes/Enemies/Golem@Flight", withIdentifier: "unnamed_animation__1")
-        loadAnimation(animationType: .dead, isSceneNamed: "art.scnassets/Scenes/Enemies/Golem@Dead", withIdentifier: "Golem@Dead-1")
-        loadAnimation(animationType: .attack, isSceneNamed: "art.scnassets/Scenes/Enemies/Golem@Attack(1)", withIdentifier: "Golem@Attack(1)-1")
-    }
-    
-    private func loadAnimation(animationType: EnemyAnimationType, isSceneNamed scene: String, withIdentifier identifier: String) {
-        guard let sceneURL = Bundle.main.url(forResource: scene, withExtension: "dae") else { return }
-        guard let sceneSource = SCNSceneSource(url: sceneURL, options: nil) else { return }
-        
-        guard let animationObject: CAAnimation = sceneSource.entryWithIdentifier(identifier, withClass: CAAnimation.self) else { return }
-        
-        animationObject.delegate = self
-        animationObject.fadeInDuration = 0.2
-        animationObject.fadeOutDuration = 0.2
-        animationObject.usesSceneTimeBase = false
-        animationObject.repeatCount = 0
-        
-        switch animationType {
-        case .walk:
-            animationObject.repeatCount = Float.greatestFiniteMagnitude
-            walkAnimation = animationObject
-            
-        case .dead:
-            animationObject.isRemovedOnCompletion = false
-            deadAnimation = animationObject
-            
-        case .attack:
-            animationObject.setValue("attack", forKey: "animationId")
-            attackAnimation = animationObject
-        }
-    }
     
     func update(with time: TimeInterval, and scene: SCNScene) {
         guard let enemy = player, !enemy.isDead, !isDead else { return }
         
          //delta time
          if previousUpdateTime == 0.0 { previousUpdateTime = time }
-         let deltaTime = Float(min(time-previousUpdateTime, 1.0/60.0))
+         let deltaTime = Float(min (time - previousUpdateTime, 1.0 / 60.0))
          previousUpdateTime = time
          
          //get distance
@@ -216,8 +182,7 @@ final class Enemy: SCNNode {
         collider.physicsBody!.categoryBitMask = Bitmask().enemy
         collider.physicsBody!.contactTestBitMask = Bitmask().wall | Bitmask().player | Bitmask().playerWeapon
         
-        gameView.prepare([collider]) {
-            (finished) in
+        gameView.prepare([collider]) { (finished) in
             self.addChildNode(self.collider)
         }
     }
@@ -229,7 +194,7 @@ final class Enemy: SCNNode {
         DispatchQueue.main.async {
             self.attackTimer?.invalidate()
             self.attackTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(self.attackTimerTicked), userInfo: nil, repeats: true)
-            self.characterNode.addAnimation(self.attackAnimation, forKey: "attack1")
+            self.characterNode.addAnimation(self.animation.attackAnimation, forKey: "attack")
         }
     }
     
@@ -237,7 +202,7 @@ final class Enemy: SCNNode {
         attackFrameCounter += 1
         if attackFrameCounter == 10 {
             if isCollidingWithEnemy {
-                player.gotHit(with: 0)
+                player.gotHit(with: 5)
             }
         }
     }
@@ -246,12 +211,14 @@ final class Enemy: SCNNode {
         hpPoints -= hpHitPoints
         if hpPoints <= 0 {
             die()
+            //drop loot
+            //add exp to player
         }
     }
     
     private func die() {
         isDead = true
-        addAnimation(deadAnimation, forKey: "dead")
+        addAnimation(animation.deadAnimation, forKey: "dead")
         
         let wait = SCNAction.wait(duration: 3.0)
         let remove = SCNAction.run { (node) in
