@@ -19,7 +19,7 @@ final class GameViewController: UIViewController {
     
     //general
     var gameState: GameState = .loading
-    var gameProgress: GameProgress = .hut
+    var gameProgress: GameProgress = .forest
     
     //nodes
     private var player: Player!
@@ -67,11 +67,7 @@ final class GameViewController: UIViewController {
     
     private func loadMap() {
         switch gameProgress {
-        case .hut:
-            mainScene = GameViewConfigurator().setup(sceneName: "art.scnassets/Scenes/Stage1.scn")
         case .forest:
-            mainScene = GameViewConfigurator().setup(sceneName: "art.scnassets/Scenes/Stage1.scn")
-        case .village:
             mainScene = GameViewConfigurator().setup(sceneName: "art.scnassets/Scenes/Stage1.scn")
         }
     }

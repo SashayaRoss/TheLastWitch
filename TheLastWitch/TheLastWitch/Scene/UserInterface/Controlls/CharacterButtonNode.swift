@@ -12,7 +12,7 @@ import SpriteKit
 final class CharacterButtonNode {
     private var characterButtonSprite: SKSpriteNode!
     private var bounds: CGRect
-    private var size = 50.0
+    private var size = 100.0
     
     init(bounds: CGRect) {
         self.bounds = bounds
@@ -21,8 +21,8 @@ final class CharacterButtonNode {
 
 extension CharacterButtonNode: NodeProtocol {
     func setupNode(with scene: SKScene) {
-        characterButtonSprite = SKSpriteNode(imageNamed: "art.scnassets/Assets/GameScene/character.png")
-        characterButtonSprite.position = CGPoint(x: 10, y: bounds.height - 55)
+        characterButtonSprite = SKSpriteNode(imageNamed: "art.scnassets/Assets/Layout/avatar1Logo.png")
+        characterButtonSprite.position = CGPoint(x: 10, y: bounds.height - 105)
         characterButtonSprite.xScale = 1.0
         characterButtonSprite.yScale = 1.0
         characterButtonSprite.size = CGSize(width: size, height: size)

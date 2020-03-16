@@ -44,11 +44,11 @@ final class GameView: SCNView {
         hpBarNode = HPBarNode(bounds: viewBounds, hpBarMaxWidth: hpBarMaxWidth)
         hpBarNode.setupNode(with: skScene)
         
-        characterButtonNode = CharacterButtonNode(bounds: viewBounds)
-        characterButtonNode.setupNode(with: skScene)
-        
         expBarNode = EXPBarNode(bounds: viewBounds, expBarMaxWidth: expBarMaxWidth)
         expBarNode.setupNode(with: skScene)
+        
+        characterButtonNode = CharacterButtonNode(bounds: viewBounds)
+        characterButtonNode.setupNode(with: skScene)
         
         optionsButtonNode = OptionsButtonNode(bounds: viewBounds)
         optionsButtonNode.setupNode(with: skScene)

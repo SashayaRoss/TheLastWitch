@@ -38,7 +38,7 @@ extension HPBarNode: NodeProtocol {
         
         hpBar = SKSpriteNode(color: hp, size: CGSize(width: hpBarMaxWidth, height: 10))
         hpBar.anchorPoint = CGPoint(x: 0.0, y: 0.0)
-        hpBar.position = CGPoint(x: 60.0, y: bounds.height - 20)
+        hpBar.position = CGPoint(x: 85.0, y: bounds.height - 20)
         hpBar.xScale = 1.0
         hpBar.yScale = 1.0
         

@@ -7,7 +7,7 @@
 //
 
 enum GameProgress {
-    case hut
+//    case hut
     case forest
-    case village
+//    case village
 }

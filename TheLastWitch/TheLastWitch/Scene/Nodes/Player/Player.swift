@@ -71,15 +71,15 @@ final class Player: SCNNode {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func loadAnimations() {
-        loadAnimation(animationType: .walk, inSceneNamed: "art.scnassets/Scenes/Hero/walk", withIdentifier: "WalkID")
-        loadAnimation(animationType: .attack, inSceneNamed: "art.scnassets/Scenes/Hero/attack", withIdentifier: "attackID")
-        loadAnimation(animationType: .dead, inSceneNamed: "art.scnassets/Scenes/Hero/die", withIdentifier: "DeathID")
+        loadAnimation(animationType: .walk, isSceneNamed: "art.scnassets/Scenes/Hero/walk", withIdentifier: "WalkID")
+        loadAnimation(animationType: .attack, isSceneNamed: "art.scnassets/Scenes/Hero/attack", withIdentifier: "attackID")
+        loadAnimation(animationType: .dead, isSceneNamed: "art.scnassets/Scenes/Hero/die", withIdentifier: "DeathID")
     }
-       
-    private func loadAnimation(animationType:PlayerAnimationType, inSceneNamed scene:String, withIdentifier identifier:String) {
-        
+
+    private func loadAnimation(animationType: PlayerAnimationType, isSceneNamed scene: String, withIdentifier identifier: String) {
+
         let sceneURL = Bundle.main.url(forResource: scene, withExtension: "dae")!
         let sceneSource = SCNSceneSource(url: sceneURL, options: nil)!
         

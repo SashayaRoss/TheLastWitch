@@ -9,6 +9,7 @@
 struct Bitmask {
     let player = 1
     let playerWeapon = 2
-    let wall = 64
     let enemy = 3
+    let npc = 4
+    let wall = 64
 }
