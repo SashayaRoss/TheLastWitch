@@ -24,7 +24,7 @@ final class Npc: SCNNode {
     
     //movement
     private var previousUpdateTime = TimeInterval(0.0)
-    private let noticeDistance: Float = 3.0
+    private let noticeDistance: Float = 1.0
     private let movementSpeedLimiter = Float(0.5)
     
     private var isWalking: Bool = false {
@@ -100,6 +100,8 @@ final class Npc: SCNNode {
         let distance = GameUtils.distanceBetweenVectors(vector1: player.position, vector2: position)
 
         if distance < noticeDistance && distance > 0.01 {
+            //interaction!
+            
              //move
             let vResult = GameUtils.getCoordinatesNeededToMoveToReachNode(from: position, to: player.position)
              let vx = vResult.vX
@@ -138,7 +140,8 @@ final class Npc: SCNNode {
 extension Npc: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         guard let id = anim.value(forKey: "animationId") as? String else { return }
-        if id == "attack" {
+        if id == "interaction" {
+            //interaction
         }
     }
 }

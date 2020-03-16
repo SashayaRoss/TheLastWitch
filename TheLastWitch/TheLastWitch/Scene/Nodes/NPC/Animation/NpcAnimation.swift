@@ -11,9 +11,11 @@ import SceneKit
 final class NpcAnimation {
     var walkAnimation = CAAnimation()
     var interactAnimation = CAAnimation()
+    var object = CAAnimation()
+    
+    //
     var attackAnimation = CAAnimation()
     var deadAnimation = CAAnimation()
-    var object = CAAnimation()
     
     func loadAnimation(animationType: NpcAnimationType, isSceneNamed scene: String, withIdentifier identifier: String) {
         guard

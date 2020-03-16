@@ -18,7 +18,6 @@ final class Enemy: SCNNode {
     private let daeHolderNode = SCNNode()
     private var characterNode: SCNNode!
     private var player: Player!
-    private var collider: SCNNode!
     
     //animation
     private var animation: AnimationInterface!
@@ -56,7 +55,7 @@ final class Enemy: SCNNode {
     private var attackTimer: Timer?
     private var attackFrameCounter = 0
     
-    private var hpPoints:Float = 70.0
+    private var hpPoints: Float = 70.0
     private var isDead = false
     
     //MARK: init
@@ -168,21 +167,10 @@ final class Enemy: SCNNode {
     
     //MARK: collision
     func setupCollider(scale: CGFloat) {
-        let geometry = SCNCapsule(capRadius: 20, height: 52)
-        geometry.firstMaterial?.diffuse.contents = UIColor.blue
-        collider = SCNNode(geometry: geometry)
-        collider.name = "enemyCollider"
-        collider.position = SCNVector3Make(0, 46, 0)
-        collider.opacity = 0.0
-        
-        let shapeGeometry = SCNCapsule(capRadius: 20 * scale, height: 52 * scale)
-        let physicsShape = SCNPhysicsShape(geometry: shapeGeometry, options: nil)
-        collider.physicsBody = SCNPhysicsBody(type: .kinematic, shape: physicsShape)
-        collider.physicsBody!.categoryBitMask = Bitmask().enemy
-        collider.physicsBody!.contactTestBitMask = Bitmask().wall | Bitmask().player | Bitmask().playerWeapon
+        let collider = EnemyCollider().setupCollider(with: scale)
         
         gameView.prepare([collider]) { (finished) in
-            self.addChildNode(self.collider)
+            self.addChildNode(collider)
         }
     }
     

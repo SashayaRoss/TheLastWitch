@@ -11,7 +11,7 @@ import SceneKit
 final class PlayerCollider {
     private var collider: SCNNode!
     
-    func setupCollider(with scale:CGFloat) -> SCNNode {
+    func setupCollider(with scale: CGFloat) -> SCNNode {
         let geometry = SCNCapsule(capRadius: 47, height: 165)
         geometry.firstMaterial?.diffuse.contents = UIColor.red
 
