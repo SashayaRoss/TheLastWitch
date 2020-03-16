@@ -8,8 +8,9 @@
 
 import UIKit
 import SceneKit
+import SpriteKit
 
-class GameViewController: UIViewController {
+final class GameViewController: UIViewController {
     var gameView: GameView!
     
     //scene
@@ -22,7 +23,6 @@ class GameViewController: UIViewController {
     
     //nodes
     private var player: Player!
-//    private var options: Options!
     private var lightStick: SCNNode!
     private var cameraStick: SCNNode!
     
@@ -203,15 +203,6 @@ class GameViewController: UIViewController {
         lightStick.position = SCNVector3Make(character.position.x, 0.0, character.position.z)
     }
 }
-
-
-
-
-
-
-
-
-
 
 // MARK: delegates
 extension GameViewController: SCNSceneRendererDelegate {

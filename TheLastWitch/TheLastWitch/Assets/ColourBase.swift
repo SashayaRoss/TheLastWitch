@@ -15,6 +15,7 @@ final class ColourBase {
     init() {
         baseGreen = UIColor(red: 0.19, green: 0.54, blue: 0.09, alpha: 1.0)
         baseViolet = UIColor(red: 0.54, green: 0.18, blue: 0.09, alpha: 1.0)
+        
     }
     
     func green() -> UIColor {
@@ -24,3 +25,11 @@ final class ColourBase {
         return baseViolet
     }
 }
+
+// create UIColour extension
+//
+//@objc public extension UIColor {
+//    struct Colors {
+//        let baseGreen = UIColor(red: 0.19, green: 0.54, blue: 0.09, alpha: 1.0)
+//    }
+//}

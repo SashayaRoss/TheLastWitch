@@ -11,10 +11,10 @@ import SceneKit
 
 final class GameViewConfigurator {
     func setup(sceneName: String) -> SCNScene? {
-        
+
         let mainScene = SCNScene(named: sceneName)
         guard let scene = mainScene else { return mainScene}
-        
+
         return scene
     }
 }
