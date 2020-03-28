@@ -42,6 +42,7 @@ extension HPBarNode: NodeProtocol {
         hpBar.position = CGPoint(x: 80.0, y: bounds.height - 20)
         hpBar.xScale = 1.0
         hpBar.yScale = 1.0
+        hpBar.name = "HPBarNode"
         
         scene.addChild(hpBar)
     }

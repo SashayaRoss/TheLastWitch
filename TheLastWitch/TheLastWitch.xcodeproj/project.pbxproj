@@ -47,7 +47,7 @@
 		7EA7A5FF23E5F62500894C4D /* ColourBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA7A5FE23E5F62500894C4D /* ColourBase.swift */; };
 		7EA7A60323E5FCAE00894C4D /* Collision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA7A60223E5FCAE00894C4D /* Collision.swift */; };
 		7EA7A60723E5FD6B00894C4D /* Bitmask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA7A60623E5FD6B00894C4D /* Bitmask.swift */; };
-		7EB244CB242FB3AC004F3172 /* DialogNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244CA242FB3AC004F3172 /* DialogNode.swift */; };
+		7EB244CB242FB3AC004F3172 /* DialogBoxNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244CA242FB3AC004F3172 /* DialogBoxNode.swift */; };
 		7EB244CD242FB50C004F3172 /* GameUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244CC242FB50C004F3172 /* GameUtils.swift */; };
 		7EB244CF242FB769004F3172 /* CurrentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244CE242FB769004F3172 /* CurrentView.swift */; };
 		7EB244D2242FBC06004F3172 /* HUDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244D1242FBC06004F3172 /* HUDView.swift */; };
@@ -55,6 +55,7 @@
 		7EB244D6242FC211004F3172 /* DialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244D5242FC211004F3172 /* DialogView.swift */; };
 		7EB244D8242FC21C004F3172 /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244D7242FC21C004F3172 /* OptionsView.swift */; };
 		7EB244DA242FC559004F3172 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244D9242FC559004F3172 /* PlayerModel.swift */; };
+		7EB244DC242FDED6004F3172 /* DialogTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244DB242FDED6004F3172 /* DialogTextNode.swift */; };
 		7EDFF5622415599B00D24798 /* EnemyAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF5612415599B00D24798 /* EnemyAnimation.swift */; };
 		7EDFF5642415689100D24798 /* EXPBarNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF5632415689100D24798 /* EXPBarNode.swift */; };
 		7EDFF567241E7F5300D24798 /* EnemyCollider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF566241E7F5300D24798 /* EnemyCollider.swift */; };
@@ -124,7 +125,7 @@
 		7EA7A5FE23E5F62500894C4D /* ColourBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourBase.swift; sourceTree = "<group>"; };
 		7EA7A60223E5FCAE00894C4D /* Collision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collision.swift; sourceTree = "<group>"; };
 		7EA7A60623E5FD6B00894C4D /* Bitmask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bitmask.swift; sourceTree = "<group>"; };
-		7EB244CA242FB3AC004F3172 /* DialogNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogNode.swift; sourceTree = "<group>"; };
+		7EB244CA242FB3AC004F3172 /* DialogBoxNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogBoxNode.swift; sourceTree = "<group>"; };
 		7EB244CC242FB50C004F3172 /* GameUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameUtils.swift; sourceTree = "<group>"; };
 		7EB244CE242FB769004F3172 /* CurrentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentView.swift; sourceTree = "<group>"; };
 		7EB244D1242FBC06004F3172 /* HUDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDView.swift; sourceTree = "<group>"; };
@@ -132,6 +133,7 @@
 		7EB244D5242FC211004F3172 /* DialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogView.swift; sourceTree = "<group>"; };
 		7EB244D7242FC21C004F3172 /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
 		7EB244D9242FC559004F3172 /* PlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
+		7EB244DB242FDED6004F3172 /* DialogTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogTextNode.swift; sourceTree = "<group>"; };
 		7EDFF5612415599B00D24798 /* EnemyAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAnimation.swift; sourceTree = "<group>"; };
 		7EDFF5632415689100D24798 /* EXPBarNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EXPBarNode.swift; sourceTree = "<group>"; };
 		7EDFF566241E7F5300D24798 /* EnemyCollider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyCollider.swift; sourceTree = "<group>"; };
@@ -417,7 +419,8 @@
 		7EB244C9242FB36C004F3172 /* Dialog */ = {
 			isa = PBXGroup;
 			children = (
-				7EB244CA242FB3AC004F3172 /* DialogNode.swift */,
+				7EB244CA242FB3AC004F3172 /* DialogBoxNode.swift */,
+				7EB244DB242FDED6004F3172 /* DialogTextNode.swift */,
 			);
 			path = Dialog;
 			sourceTree = "<group>";
@@ -610,6 +613,7 @@
 				7E23B0BD241EB0FF002A2395 /* BattleAction.swift in Sources */,
 				7EDFF580241E99E200D24798 /* PhysicsContactExtension.swift in Sources */,
 				7EDFF567241E7F5300D24798 /* EnemyCollider.swift in Sources */,
+				7EB244DC242FDED6004F3172 /* DialogTextNode.swift in Sources */,
 				7E57ACBC241FDD43003350C9 /* GameMenuViewInterface.swift in Sources */,
 				7E57ACD0241FFF8D003350C9 /* ColliderInterface.swift in Sources */,
 				7E57ACCE241FFEED003350C9 /* NpcCollider.swift in Sources */,
@@ -644,7 +648,7 @@
 				7E34BA1E23B83B8900FA0BEE /* GameState.swift in Sources */,
 				7E57ACCC241FF05F003350C9 /* NpcAnimation.swift in Sources */,
 				7E57ACB4241FDD38003350C9 /* GameMenuController.swift in Sources */,
-				7EB244CB242FB3AC004F3172 /* DialogNode.swift in Sources */,
+				7EB244CB242FB3AC004F3172 /* DialogBoxNode.swift in Sources */,
 				7E57ACBB241FDD43003350C9 /* GameMenuLayoutManager.swift in Sources */,
 				7EDFF57B241E95C300D24798 /* FloatExtension.swift in Sources */,
 			);

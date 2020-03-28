@@ -60,7 +60,7 @@ final class GameViewController: UIViewController {
         gameView.isUserInteractionEnabled = true
 
         mainScene = SceneConfigurator().setup(sceneName: "art.scnassets/Scenes/World/Stage1.scn")
-        guard let scene = mainScene else {return}
+        guard let scene = mainScene else { return }
         scene.physicsWorld.contactDelegate = self
         
         gameView.scene = scene
@@ -107,22 +107,19 @@ final class GameViewController: UIViewController {
         case .newGame:
             gameView.removeCurrentView()
             gameState = .newGame
-            //
+            //newGameView - press to begin
         case .playing:
             gameState = .playing
             gameplayAction(touches: touches)
         case .options:
             gameState = .paused
-            gameView.removeCurrentView()
-            //
+            optionsAction(touches: touches)
         case .dialog:
             gameState = .paused
-            gameView.removeCurrentView()
-            //
+            dialogAction(touches: touches)
         case .character:
             gameState = .paused
-            gameView.removeCurrentView()
-            //
+            characterMenu(touches: touches)
         }
     }
     
@@ -133,15 +130,23 @@ final class GameViewController: UIViewController {
                     padTouch = touch
                     controllerStoredDirection = float2(0.0)
                 }
+                
             } else if gameView.hudView.attackButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 player!.attack()
+                
             } else if gameView.hudView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
-                //
-                options()
+//                currentView = .options
+//                gameView.removeCurrentView()
+//                gameView.setupOptions()
+                currentView = .dialog
                 gameView.removeCurrentView()
+                gameView.setupDialog()
+                
             } else if gameView.hudView.characterButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
-                //
-                characterMenu()
+                currentView = .character
+                gameView.removeCurrentView()
+                gameView.setupCharacter()
+                
             } else if cameraTouch == nil {
                 cameraTouch = touches.first
             }
@@ -151,12 +156,22 @@ final class GameViewController: UIViewController {
         }
     }
     
+    private func dialogAction(touches: Set<UITouch>) {
+        for touch in touches {
+            if gameView.dialogView.dialogBoxNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+//                gameView.removeCurrentView()
+//                currentView = .playing
+//                gameView.setupHUD()
+                print("presed")
+            }
+        }
+    }
     
-    func options() {
+    private func optionsAction(touches: Set<UITouch>) {
         print("options ! !")
     }
     
-    func characterMenu() {
+    private func characterMenu(touches: Set<UITouch>) {
         print("characterMenu!")
     }
 

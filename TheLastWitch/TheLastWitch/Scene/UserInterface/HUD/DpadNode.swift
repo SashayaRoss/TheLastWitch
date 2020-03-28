@@ -24,11 +24,13 @@ final class DpadNode {
 extension DpadNode: NodeProtocol {
     func setupNode(with scene: SKScene) {
         dpadSprite = SKSpriteNode(imageNamed: directory + "dPad.png")
+        dpadSprite.name = "DpadNode"
         dpadSprite.position = CGPoint(x: 10, y: 10)
         dpadSprite.xScale = 1.0
         dpadSprite.yScale = 1.0
         dpadSprite.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         dpadSprite.size = CGSize(width: size, height: size)
+        
         scene.addChild(dpadSprite)
     }
     

@@ -30,6 +30,7 @@ extension AttackButtonNode: NodeProtocol {
         attactButtonSprite.size = CGSize(width: size, height: size)
         attactButtonSprite.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         attactButtonSprite.name = "attackButton"
+        
         scene.addChild(attactButtonSprite)
     }
     

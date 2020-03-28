@@ -30,6 +30,7 @@ extension OptionsButtonNode: NodeProtocol {
         optionsButtonSprite.size = CGSize(width: size, height: size)
         optionsButtonSprite.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         optionsButtonSprite.name = "optionsButton"
+        
         scene.addChild(optionsButtonSprite)
     }
     

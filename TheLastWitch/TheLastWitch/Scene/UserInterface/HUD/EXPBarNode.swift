@@ -34,6 +34,7 @@ extension EXPBarNode: NodeProtocol {
         expBar.position = CGPoint(x: 95.0, y: bounds.height - 35)
         expBar.xScale = 1.0
         expBar.yScale = 1.0
+        expBar.name = "EXPBarNode"
         
         scene.addChild(expBar)
     }
