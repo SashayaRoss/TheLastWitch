@@ -41,6 +41,13 @@ final class MainCamera {
 
         cameraYHolder.rotation = SCNVector4Make(1, 0, 0, yRotationValue)
     }
+    
+//    func coolCamera() {
+//        cameraStick.camera?.wantsDepthOfField = true
+//        cameraStick.camera?.focusDistance = 5
+//        cameraStick.camera?.fStop = 0.01
+//        cameraStick.camera?.focalLength = 24
+//    }
 }
 
 extension MainCamera: SetupNodesInterface {

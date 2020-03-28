@@ -11,9 +11,8 @@ import SceneKit
 
 final class SceneConfigurator {
     func setup(sceneName: String) -> SCNScene? {
-
         let mainScene = SCNScene(named: sceneName)
-        guard let scene = mainScene else { return mainScene}
+        guard let scene = mainScene else { return mainScene }
 
         return scene
     }

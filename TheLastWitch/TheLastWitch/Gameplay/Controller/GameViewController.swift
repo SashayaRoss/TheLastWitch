@@ -19,7 +19,8 @@ final class GameViewController: UIViewController {
     var mainScene: SCNScene!
     
     //general
-    var gameState: GameState = .loading
+    var gameState: GameState = .newGame
+    var currentView: CurrentView = .playing
     
     //nodes
     private var player: Player!
@@ -82,11 +83,6 @@ final class GameViewController: UIViewController {
         
         lightStick = light.setup()
         cameraStick = mainCamera.setup()
-        
-//        cameraStick.camera?.wantsDepthOfField = true
-//        cameraStick.camera?.focusDistance = 5
-//        cameraStick.camera?.fStop = 0.01
-//        cameraStick.camera?.focalLength = 24
     }
     
     override var shouldAutorotate: Bool {
@@ -107,20 +103,44 @@ final class GameViewController: UIViewController {
     
     //MARK: touches + movement
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        switch currentView {
+        case .newGame:
+            gameView.removeCurrentView()
+            gameState = .newGame
+            //
+        case .playing:
+            gameState = .playing
+            gameplayAction(touches: touches)
+        case .options:
+            gameState = .paused
+            gameView.removeCurrentView()
+            //
+        case .dialog:
+            gameState = .paused
+            gameView.removeCurrentView()
+            //
+        case .character:
+            gameState = .paused
+            gameView.removeCurrentView()
+            //
+        }
+    }
+    
+    private func gameplayAction(touches: Set<UITouch>) {
         for touch in touches {
-            if gameView.dpadNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+            if gameView.hudView.dpadNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 if padTouch == nil {
                     padTouch = touch
                     controllerStoredDirection = float2(0.0)
                 }
-            } else if gameView.attackButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+            } else if gameView.hudView.attackButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 player!.attack()
-            } else if gameView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
-                gameView.removeCurrentView()
-//                gameState = .paused
+            } else if gameView.hudView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+                //
                 options()
-            } else if gameView.characterButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
-//                gameState = .paused
+                gameView.removeCurrentView()
+            } else if gameView.hudView.characterButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+                //
                 characterMenu()
             } else if cameraTouch == nil {
                 cameraTouch = touches.first
@@ -130,6 +150,7 @@ final class GameViewController: UIViewController {
             }
         }
     }
+    
     
     func options() {
         print("options ! !")
