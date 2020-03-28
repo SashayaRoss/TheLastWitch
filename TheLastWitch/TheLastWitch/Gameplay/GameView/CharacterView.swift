@@ -10,6 +10,10 @@ import SceneKit
 import SpriteKit
 
 final class CharacterView {
+    var characterNode: CharacterNode!
+    
     func setup(skScene: SKScene, directory: String, viewBounds: CGRect) {
+        characterNode = CharacterNode(bounds: viewBounds, directory: directory)
+        characterNode.setupNode(with: skScene)
     }
 }

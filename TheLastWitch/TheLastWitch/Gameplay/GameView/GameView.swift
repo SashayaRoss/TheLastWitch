@@ -24,7 +24,6 @@ final class GameView: SCNView {
     override func awakeFromNib() {
         super.awakeFromNib()
         setup2DOverlay()
-//        setupDialog()
         setupHUD()
     }
     

@@ -135,12 +135,9 @@ final class GameViewController: UIViewController {
                 player!.attack()
                 
             } else if gameView.hudView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
-//                currentView = .options
-//                gameView.removeCurrentView()
-//                gameView.setupOptions()
-                currentView = .dialog
+                currentView = .options
                 gameView.removeCurrentView()
-                gameView.setupDialog()
+                gameView.setupOptions()
                 
             } else if gameView.hudView.characterButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 currentView = .character
@@ -159,20 +156,31 @@ final class GameViewController: UIViewController {
     private func dialogAction(touches: Set<UITouch>) {
         for touch in touches {
             if gameView.dialogView.dialogBoxNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
-//                gameView.removeCurrentView()
-//                currentView = .playing
-//                gameView.setupHUD()
-                print("presed")
+                gameView.removeCurrentView()
+                currentView = .playing
+                gameView.setupHUD()
             }
         }
     }
     
     private func optionsAction(touches: Set<UITouch>) {
-        print("options ! !")
+        for touch in touches {
+            if gameView.optionsView.optionsNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+                gameView.removeCurrentView()
+                currentView = .playing
+                gameView.setupHUD()
+            }
+        }
     }
     
     private func characterMenu(touches: Set<UITouch>) {
-        print("characterMenu!")
+        for touch in touches {
+            if gameView.characterView.characterNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+                gameView.removeCurrentView()
+                currentView = .playing
+                gameView.setupHUD()
+            }
+        }
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
