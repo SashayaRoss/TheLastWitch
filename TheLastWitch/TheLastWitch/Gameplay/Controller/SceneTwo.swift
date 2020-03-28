@@ -14,7 +14,7 @@ class SceneTwo: SKScene {
         
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let sceneOne = SceneOne(fileNamed: "SceneOne")
+        let sceneOne = SceneOne(fileNamed: "art.scnassets/Scenes/Stage1.scn")
         sceneOne?.scaleMode = .aspectFill
         self.view?.presentScene(sceneOne)
     }

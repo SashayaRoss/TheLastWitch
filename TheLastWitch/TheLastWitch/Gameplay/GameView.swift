@@ -9,9 +9,8 @@
 import SceneKit
 import SpriteKit
 
-// holds SpriteKit 2D UI
+// holds SpriteKit 2D UI for gameplay
 final class GameView: SCNView {
-
     private var skScene: SKScene!
     private let overlayNode = SKNode()
     private let viewBounds = UIScreen.main.bounds
@@ -56,7 +55,7 @@ final class GameView: SCNView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layout2Doverlay()
+        layout2DOverlay()
     }
     
     deinit {
@@ -76,7 +75,7 @@ final class GameView: SCNView {
         skScene.isUserInteractionEnabled = false
     }
     
-    private func layout2Doverlay() {
+    private func layout2DOverlay() {
         overlayNode.position = CGPoint(x: 0.0, y: viewBounds.height)
     }
     
@@ -118,5 +117,9 @@ final class GameView: SCNView {
         if currentHp < 0 { currentLocalHp = 0 }
         let reduceAction = SKAction.resize(toWidth: currentLocalHp, duration: 0.3)
         hpBarNode.runAction(action: reduceAction)
+    }
+    
+    func removeCurrentView() {
+        skScene.removeAllChildren()
     }
 }

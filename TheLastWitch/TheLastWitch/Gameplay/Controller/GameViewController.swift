@@ -12,6 +12,7 @@ import SpriteKit
 
 final class GameViewController: UIViewController {
     var gameView: GameView!
+    let gameMusic = MusicManager.sharedInstance
     
     //scene
     var sceneView: SCNView!
@@ -19,7 +20,6 @@ final class GameViewController: UIViewController {
     
     //general
     var gameState: GameState = .loading
-    var gameProgress: GameProgress = .forest
     
     //nodes
     private var player: Player!
@@ -58,18 +58,18 @@ final class GameViewController: UIViewController {
         gameView.delegate = self
         gameView.isUserInteractionEnabled = true
 
-        loadMap()
-        mainScene.physicsWorld.contactDelegate = self
+        mainScene = SceneConfigurator().setup(sceneName: "art.scnassets/Scenes/World/Stage1.scn")
+        guard let scene = mainScene else {return}
+        scene.physicsWorld.contactDelegate = self
         
-        gameView.scene = mainScene
+        gameView.scene = scene
         gameView.isPlaying = true
+        
+        statisticManager(show: true)
     }
     
-    private func loadMap() {
-        switch gameProgress {
-        case .forest:
-            mainScene = GameViewConfigurator().setup(sceneName: "art.scnassets/Scenes/Stage1.scn")
-        }
+    private func statisticManager(show: Bool){
+        gameView.showsStatistics = show
     }
     
     private func setupEnviroment() {
@@ -82,6 +82,11 @@ final class GameViewController: UIViewController {
         
         lightStick = light.setup()
         cameraStick = mainCamera.setup()
+        
+//        cameraStick.camera?.wantsDepthOfField = true
+//        cameraStick.camera?.focusDistance = 5
+//        cameraStick.camera?.fStop = 0.01
+//        cameraStick.camera?.focalLength = 24
     }
     
     override var shouldAutorotate: Bool {
@@ -111,6 +116,7 @@ final class GameViewController: UIViewController {
             } else if gameView.attackButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 player!.attack()
             } else if gameView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+                gameView.removeCurrentView()
 //                gameState = .paused
                 options()
             } else if gameView.characterButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
