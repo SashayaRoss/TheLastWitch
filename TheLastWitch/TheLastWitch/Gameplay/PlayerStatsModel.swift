@@ -15,6 +15,8 @@ final class PlayerStatsModel {
     let maxExpPoints: Float = 100.0
     var expPoints: Float = 0
     
+    var level: Int = 1
+    
     var isAttacking = false
     var isDead = false
 }

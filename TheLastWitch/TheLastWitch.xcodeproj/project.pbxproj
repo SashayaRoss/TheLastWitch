@@ -56,10 +56,10 @@
 		7EB244DC242FDED6004F3172 /* DialogTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244DB242FDED6004F3172 /* DialogTextNode.swift */; };
 		7EB244DE242FE8B0004F3172 /* CharacterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244DD242FE8B0004F3172 /* CharacterNode.swift */; };
 		7EB244E0242FE8BB004F3172 /* OptionsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244DF242FE8BB004F3172 /* OptionsNode.swift */; };
+		7EB244E6242FF82F004F3172 /* NPCFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244E5242FF82F004F3172 /* NPCFactory.swift */; };
 		7EDFF5622415599B00D24798 /* EnemyAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF5612415599B00D24798 /* EnemyAnimation.swift */; };
 		7EDFF5642415689100D24798 /* EXPBarNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF5632415689100D24798 /* EXPBarNode.swift */; };
 		7EDFF567241E7F5300D24798 /* EnemyCollider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF566241E7F5300D24798 /* EnemyCollider.swift */; };
-		7EDFF56A241E807600D24798 /* EnemyConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF569241E807600D24798 /* EnemyConfigurator.swift */; };
 		7EDFF570241E857900D24798 /* MainCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF56F241E857900D24798 /* MainCamera.swift */; };
 		7EDFF572241E85F400D24798 /* SetupInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF571241E85F400D24798 /* SetupInterface.swift */; };
 		7EDFF574241E880E00D24798 /* EnemyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF573241E880E00D24798 /* EnemyFactory.swift */; };
@@ -134,10 +134,10 @@
 		7EB244DB242FDED6004F3172 /* DialogTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogTextNode.swift; sourceTree = "<group>"; };
 		7EB244DD242FE8B0004F3172 /* CharacterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterNode.swift; sourceTree = "<group>"; };
 		7EB244DF242FE8BB004F3172 /* OptionsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsNode.swift; sourceTree = "<group>"; };
+		7EB244E5242FF82F004F3172 /* NPCFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPCFactory.swift; sourceTree = "<group>"; };
 		7EDFF5612415599B00D24798 /* EnemyAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAnimation.swift; sourceTree = "<group>"; };
 		7EDFF5632415689100D24798 /* EXPBarNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EXPBarNode.swift; sourceTree = "<group>"; };
 		7EDFF566241E7F5300D24798 /* EnemyCollider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyCollider.swift; sourceTree = "<group>"; };
-		7EDFF569241E807600D24798 /* EnemyConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyConfigurator.swift; sourceTree = "<group>"; };
 		7EDFF56F241E857900D24798 /* MainCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCamera.swift; sourceTree = "<group>"; };
 		7EDFF571241E85F400D24798 /* SetupInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupInterface.swift; sourceTree = "<group>"; };
 		7EDFF573241E880E00D24798 /* EnemyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyFactory.swift; sourceTree = "<group>"; };
@@ -318,6 +318,7 @@
 		7E57ACC4241FED9D003350C9 /* NPC */ = {
 			isa = PBXGroup;
 			children = (
+				7EB244E5242FF82F004F3172 /* NPCFactory.swift */,
 				7E57ACC5241FEDAC003350C9 /* Animation */,
 				7E57ACC7241FEDD5003350C9 /* Npc.swift */,
 				7E57ACCD241FFEED003350C9 /* NpcCollider.swift */,
@@ -374,7 +375,6 @@
 				7EDFF568241E805400D24798 /* Animation */,
 				7E80B49523CB68E200254C4B /* Enemy.swift */,
 				7EDFF566241E7F5300D24798 /* EnemyCollider.swift */,
-				7EDFF569241E807600D24798 /* EnemyConfigurator.swift */,
 			);
 			path = Enemy;
 			sourceTree = "<group>";
@@ -617,6 +617,7 @@
 				7EB244DC242FDED6004F3172 /* DialogTextNode.swift in Sources */,
 				7E57ACBC241FDD43003350C9 /* GameMenuViewInterface.swift in Sources */,
 				7E57ACD0241FFF8D003350C9 /* ColliderInterface.swift in Sources */,
+				7EB244E6242FF82F004F3172 /* NPCFactory.swift in Sources */,
 				7E57ACCE241FFEED003350C9 /* NpcCollider.swift in Sources */,
 				7EDFF576241E899100D24798 /* PlayerFactory.swift in Sources */,
 				7E57ACAD241FDC8F003350C9 /* SceneConfigurator.swift in Sources */,
@@ -625,7 +626,6 @@
 				7E34BA1A23B82BE800FA0BEE /* PlayerAnimationType.swift in Sources */,
 				7E57ACBA241FDD43003350C9 /* GameMenuView.swift in Sources */,
 				7EDFF574241E880E00D24798 /* EnemyFactory.swift in Sources */,
-				7EDFF56A241E807600D24798 /* EnemyConfigurator.swift in Sources */,
 				7E57ACA9241FDC85003350C9 /* GameView.swift in Sources */,
 				7EB244CF242FB769004F3172 /* CurrentView.swift in Sources */,
 				7EB244D4242FC1FF004F3172 /* CharacterView.swift in Sources */,

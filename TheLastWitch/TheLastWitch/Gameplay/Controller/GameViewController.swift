@@ -37,11 +37,12 @@ final class GameViewController: UIViewController {
     private var replacementPosition = [SCNNode: SCNVector3]()
     
     //setup
-    var playerFactory: PlayerFactory!
     var mainCamera: MainCamera!
     var light: MainLight!
     var collision: Collision!
+    var playerFactory: PlayerFactory!
     var enemyFactory: EnemyFactory!
+    var npcFactory: NPCFactory!
 
     //MARK: lifecycle
     override func viewDidLoad() {
@@ -80,6 +81,7 @@ final class GameViewController: UIViewController {
         light = MainLight(scene: mainScene)
         collision = Collision(scene: mainScene)
         enemyFactory = EnemyFactory(scene: mainScene, gameView: gameView, player: player)
+        npcFactory = NPCFactory(scene: mainScene, gameView: gameView, player: player)
         
         lightStick = light.setup()
         cameraStick = mainCamera.setup()
@@ -112,13 +114,10 @@ final class GameViewController: UIViewController {
             gameState = .playing
             gameplayAction(touches: touches)
         case .options:
-            gameState = .paused
             optionsAction(touches: touches)
         case .dialog:
-            gameState = .paused
             dialogAction(touches: touches)
         case .character:
-            gameState = .paused
             characterMenu(touches: touches)
         }
     }
@@ -135,11 +134,13 @@ final class GameViewController: UIViewController {
                 player!.attack()
                 
             } else if gameView.hudView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+                gameState = .paused
                 currentView = .options
                 gameView.removeCurrentView()
                 gameView.setupOptions()
                 
             } else if gameView.hudView.characterButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+                gameState = .paused
                 currentView = .character
                 gameView.removeCurrentView()
                 gameView.setupCharacter()
@@ -291,40 +292,46 @@ extension GameViewController: SCNPhysicsContactDelegate {
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         if gameState != .playing { return }
         //if player collide with wall
-        contact.match(Bitmask().wall) {
-            (matching, other) in
+        contact.match(Bitmask().wall) { (matching, other) in
             self.characterNode(other, hitWall: matching, withContact: contact)
         }
         
         // if player collides with enemy
-        contact.match(Bitmask().enemy) {
-            (matching, other) in
+        contact.match(Bitmask().enemy) { (matching, other) in
             
             let enemy = matching.parent as! Enemy
             if other.name == "collider" { enemy.isCollidingWithEnemy = true }
             if other.name == "weaponCollider" { player!.weaponCollide(with: enemy) }
         }
+        
+        //if player collides with npc
+        contact.match(Bitmask().npc) { (matching, other) in
+            self.characterNode(other, hitWall: matching, withContact: contact)
+        }
     }
 
     func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
         //if player collide with wall
-        contact.match(Bitmask().wall) {
-            (matching, other) in
+        contact.match(Bitmask().wall) { (matching, other) in
             self.characterNode(other, hitWall: matching, withContact: contact)
         }
+        
         // if player collides with enemy
-        contact.match(Bitmask().enemy) {
-            (matching, other) in
+        contact.match(Bitmask().enemy) { (matching, other) in
             let enemy = matching.parent as! Enemy
             if other.name == "collider" { enemy.isCollidingWithEnemy = true }
             if other.name == "weaponCollider" { player!.weaponCollide(with: enemy) }
+        }
+        
+        //if player collides with npc
+        contact.match(Bitmask().npc) { (matching, other) in
+            self.characterNode(other, hitWall: matching, withContact: contact)
         }
     }
 
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
         // if player collides with enemy
-        contact.match(Bitmask().enemy) {
-            (matching, other) in
+        contact.match(Bitmask().enemy) { (matching, other) in
             let enemy = matching.parent as! Enemy
             if other.name == "collider" { enemy.isCollidingWithEnemy = false }
             if other.name == "weaponCollider" { player!.weaponUnCollide(with: enemy) }

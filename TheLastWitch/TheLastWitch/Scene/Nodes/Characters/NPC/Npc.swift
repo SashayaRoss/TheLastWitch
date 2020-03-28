@@ -71,7 +71,7 @@ final class Npc: SCNNode {
     //MARK: scene
     private func setupModelScene() {
         name = "Npc"
-        let idleURL = Bundle.main.url(forResource: "art.scnassets/Scenes/Hero/idle", withExtension: "dae")
+        let idleURL = Bundle.main.url(forResource: "art.scnassets/Scenes/Characters/Hero/idle", withExtension: "dae")
         let idleScene = try! SCNScene(url: idleURL!, options: nil)
         
         for child in idleScene.rootNode.childNodes {

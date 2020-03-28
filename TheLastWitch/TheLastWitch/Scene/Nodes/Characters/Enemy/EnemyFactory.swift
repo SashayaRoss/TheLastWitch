@@ -38,8 +38,7 @@ final class EnemyFactory {
         enemy3.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
         enemy3.position = enemyPositionArray["golem3"]!
         
-        gameView.prepare([enemy1, enemy2, enemy3]) {
-            (finished) in
+        gameView.prepare([enemy1, enemy2, enemy3]) { (finished) in
             self.scene.rootNode.addChildNode(enemy1)
             self.scene.rootNode.addChildNode(enemy2)
             self.scene.rootNode.addChildNode(enemy3)
