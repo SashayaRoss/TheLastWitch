@@ -45,6 +45,7 @@ final class HUDView {
     //MARK:- internal functions
     private func setupObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(hpDidChange), name: NSNotification.Name("hpChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(expDidChange), name: NSNotification.Name("expChanged"), object: nil)
     }
     
     @objc private func hpDidChange(notification: Notification) {
@@ -69,5 +70,29 @@ final class HUDView {
         if currentHp < 0 { currentLocalHp = 0 }
         let reduceAction = SKAction.resize(toWidth: currentLocalHp, duration: 0.3)
         hpBarNode.runAction(action: reduceAction)
+    }
+    
+    @objc private func expDidChange(notification: Notification) {
+        guard
+            let userInfo = notification.userInfo as? [String: Any],
+            let playerMaxExp = userInfo["playerMaxExp"] as? Float,
+            let currentExp = userInfo["currentExp"] as? Float
+        else {
+            return
+        }
+        
+        let v1 = CGFloat(playerMaxExp)
+        let v2 = expBarMaxWidth
+        let v3 = CGFloat(currentExp)
+        var currentLocalExp: CGFloat = 0.0
+        
+        currentLocalExp = (v2 * v3) / v1
+
+        if currentExp >= playerMaxExp {
+            //level up
+            currentLocalExp = 0
+        }
+        let addAction = SKAction.resize(toWidth: currentLocalExp, duration: 0.3)
+        expBarNode.runAction(action: addAction)
     }
 }

@@ -11,6 +11,4 @@ import SceneKit
 protocol BattleAction {
     func die()
     func attack()
-//    func attackTimerTicked(timer: Timer)
-//    func gotHit(with hpPoints: Float)
 }

@@ -90,7 +90,7 @@ final class Enemy: SCNNode {
     
     
     func update(with time: TimeInterval, and scene: SCNScene) {
-        guard let enemy = player, !enemy.isDead, !isDead else { return }
+        guard let enemy = player, !enemy.playerStats.isDead, !isDead else { return }
         
          //delta time
          if previousUpdateTime == 0.0 { previousUpdateTime = time }
@@ -187,8 +187,9 @@ final class Enemy: SCNNode {
         hpPoints -= hpHitPoints
         if hpPoints <= 0 && !isDead {
             die()
+            player.playerStats.expPoints += 50
+            NotificationCenter.default.post(name: NSNotification.Name("expChanged"), object: nil, userInfo: ["playerMaxExp": player.playerStats.maxExpPoints, "currentExp": player.playerStats.expPoints])
             //drop loot
-            //add exp to player
         }
     }
 }

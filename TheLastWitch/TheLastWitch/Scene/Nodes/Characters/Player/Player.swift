@@ -49,15 +49,18 @@ final class Player: SCNNode {
     private var activeWeaponCollideNodes = Set<SCNNode>()
 
     //battle
-    var isDead = false
-    private let maxHpPoints: Float = 100.0
-    private var hpPoints: Float = 100.0
-    var isAttacking = false
+    let playerStats: PlayerStatsModel
+//    var isDead = false
+//    private let maxHpPoints: Float = 100.0
+//    private var hpPoints: Float = 100.0
+//    var isAttacking = false
+    
     private var attackTimer: Timer?
     private var attackFrameCounter = 0
 
     //MARK: initialization
-    override init() {
+    init(playerStats: PlayerStatsModel) {
+        self.playerStats = playerStats
         super.init()
         
         setupModel()
@@ -121,7 +124,7 @@ final class Player: SCNNode {
 
     //MARK:- movement
     func walkInDirection(_ direction:float3, time:TimeInterval, scene:SCNScene) {
-        if isDead || isAttacking { return }
+        if playerStats.isDead || playerStats.isAttacking { return }
         if previousUdateTime == 0.0 {
             previousUdateTime = time
         }
@@ -172,12 +175,10 @@ final class Player: SCNNode {
     }
 
     func weaponCollide(with node:SCNNode) {
-        print("Collides: \(node)")
         activeWeaponCollideNodes.insert(node)
     }
 
     func weaponUnCollide(with node:SCNNode) {
-        print("Uncollides: \(node)")
         activeWeaponCollideNodes.remove(node)
     }
 
@@ -200,10 +201,10 @@ final class Player: SCNNode {
     }
     
     func gotHit(with hpPoints: Float) {
-        self.hpPoints -= hpPoints
-        NotificationCenter.default.post(name: NSNotification.Name("hpChanged"), object: nil, userInfo: ["playerMaxHp": maxHpPoints, "currentHp": self.hpPoints])
+        playerStats.hpPoints -= hpPoints
+        NotificationCenter.default.post(name: NSNotification.Name("hpChanged"), object: nil, userInfo: ["playerMaxHp": playerStats.maxHpPoints, "currentHp": playerStats.hpPoints])
 
-        if self.hpPoints <= 0 {
+        if playerStats.hpPoints <= 0 {
             die()
         }
     }
@@ -231,14 +232,14 @@ extension Player: CAAnimationDelegate {
         if id == "attack" {
             attackTimer?.invalidate()
             attackFrameCounter = 0
-            isAttacking = false
+            playerStats.isAttacking = false
         }
     }
 }
 
 extension Player: BattleAction {
     func die() {
-        isDead = true
+        playerStats.isDead = true
         characterNode.removeAllActions()
         characterNode.removeAllAnimations()
         characterNode.addAnimation(deadAnimation, forKey: "dead")
@@ -246,8 +247,8 @@ extension Player: BattleAction {
     }
 
     func attack() {
-        if isAttacking || isDead { return }
-        isAttacking = true
+        if playerStats.isAttacking || playerStats.isDead { return }
+        playerStats.isAttacking = true
         isWalking = false
 
         attackTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(attackTimerTicked), userInfo: nil, repeats: true)

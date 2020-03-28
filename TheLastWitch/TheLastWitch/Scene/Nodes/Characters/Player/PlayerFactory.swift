@@ -14,7 +14,8 @@ final class PlayerFactory {
     
     init(scene: SCNScene) {
         self.scene = scene
-        player = Player()
+        let playerStats = PlayerStatsModel()
+        player = Player(playerStats: playerStats)
         setup()
     }
     

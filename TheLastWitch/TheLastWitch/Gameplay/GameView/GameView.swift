@@ -73,17 +73,6 @@ final class GameView: SCNView {
         overlayNode.position = CGPoint(x: 0.0, y: viewBounds.height)
     }
     
-    // TO DO: remove later
-    private func setupViewBounds() {
-        let height = viewBounds.height - 40
-        let width = viewBounds.width - 40
-        
-        let testNode = SKSpriteNode(color: .red, size: CGSize(width: width, height: height))
-        testNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        testNode.position = CGPoint(x: viewBounds.midX, y: viewBounds.midY)
-        skScene.addChild(testNode)
-    }
-    
     func removeCurrentView() {
         skScene.removeAllChildren()
     }
