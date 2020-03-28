@@ -42,14 +42,11 @@ extension GameMenuLayoutManager: GameMenuLayoutManaging {
         ])
         
         
-        view.backgroundColor = ColourBase().green()
-        view.actionView.backgroundColor = ColourBase().viollet()
+        view.backgroundColor = .baseGreen
+        view.actionView.backgroundColor = .baseViolet
         view.newGameButton.backgroundColor = .blue
         view.exitGameButton.backgroundColor = .black
-        
-        
-        
-        
+
         return view
     }
     

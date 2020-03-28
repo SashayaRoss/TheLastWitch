@@ -37,9 +37,7 @@ final class HPBarNode {
 
 extension HPBarNode: NodeProtocol {
     func setupNode(with scene: SKScene) {
-        let hp = ColourBase().green()
-        
-        hpBar = SKSpriteNode(color: hp, size: CGSize(width: hpBarMaxWidth, height: 10))
+        hpBar = SKSpriteNode(color: .baseGreen, size: CGSize(width: hpBarMaxWidth, height: 10))
         hpBar.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         hpBar.position = CGPoint(x: 80.0, y: bounds.height - 20)
         hpBar.xScale = 1.0

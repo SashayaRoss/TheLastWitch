@@ -29,9 +29,7 @@ final class EXPBarNode {
 
 extension EXPBarNode: NodeProtocol {
     func setupNode(with scene: SKScene) {
-        let exp = ColourBase().viollet()
-        
-        expBar = SKSpriteNode(color: exp, size: CGSize(width: expBarMaxWidth, height: 10))
+        expBar = SKSpriteNode(color: .baseViolet, size: CGSize(width: expBarMaxWidth, height: 10))
         expBar.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         expBar.position = CGPoint(x: 95.0, y: bounds.height - 35)
         expBar.xScale = 1.0
