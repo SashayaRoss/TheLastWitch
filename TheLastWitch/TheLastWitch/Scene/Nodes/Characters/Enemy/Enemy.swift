@@ -10,7 +10,6 @@ import Foundation
 import SceneKit
 
 final class Enemy: SCNNode {
-    
     //general
     var gameView: GameView!
     
@@ -24,8 +23,6 @@ final class Enemy: SCNNode {
     
     //movement
     private var previousUpdateTime = TimeInterval(0.0)
-    private let noticeDistance: Float = 3.0
-    private let movementSpeedLimiter = Float(0.5)
     
     private var isWalking: Bool = false {
         didSet {
@@ -49,21 +46,19 @@ final class Enemy: SCNNode {
         }
     }
     
-    //attack
-    private var isAttacking = false
-    private var lastAttackTime: TimeInterval = 0.0
+    //model
+    var enemyModel: EnemyModel!
+
     private var attackTimer: Timer?
     private var attackFrameCounter = 0
     
-    private var hpPoints: Float = 70.0
-    private var isDead = false
-    
     //MARK: init
-    init(enemy: Player, view: GameView) {
+    init(player: Player, view: GameView, enemyModel: EnemyModel) {
         super.init()
         
         self.gameView = view
-        self.player = enemy
+        self.player = player
+        self.enemyModel = enemyModel
         
         setupModelScene()
         animation = EnemyAnimation()
@@ -90,7 +85,7 @@ final class Enemy: SCNNode {
     
     
     func update(with time: TimeInterval, and scene: SCNScene) {
-        guard let enemy = player, !enemy.playerStats.isDead, !isDead else { return }
+        guard let player = player, !player.playerModel.isDead, !enemyModel.isDead else { return }
         
          //delta time
          if previousUpdateTime == 0.0 { previousUpdateTime = time }
@@ -98,12 +93,12 @@ final class Enemy: SCNNode {
          previousUpdateTime = time
          
          //get distance
-         let distance = GameUtils.distanceBetweenVectors(vector1: enemy.position, vector2: position)
+         let distance = GameUtils.distanceBetweenVectors(vector1: player.position, vector2: position)
         
-         if distance < noticeDistance && distance > 0.01 {
+         if distance < enemyModel.noticeDistance && distance > 0.01 {
              
              //move
-            let vResult = GameUtils.getCoordinatesNeededToMoveToReachNode(from: position, to: enemy.position)
+            let vResult = GameUtils.getCoordinatesNeededToMoveToReachNode(from: position, to: player.position)
              let vx = vResult.vX
              let vz = vResult.vZ
              let angle = vResult.angle
@@ -112,9 +107,9 @@ final class Enemy: SCNNode {
              let fixedAngle = GameUtils.getFixedRotationAngle(with: angle)
              eulerAngles = SCNVector3Make(0, fixedAngle, 0)
              
-             if !isCollidingWithEnemy && !isAttacking {
+             if !isCollidingWithEnemy && !enemyModel.isAttacking {
              
-                 let characterSpeed = deltaTime * movementSpeedLimiter
+                 let characterSpeed = deltaTime * enemyModel.movementSpeedLimiter
                  
                  if vx != 0.0 && vz != 0.0 {
                      
@@ -149,14 +144,14 @@ final class Enemy: SCNNode {
                  }
              } else {
                  //attack
-                 if lastAttackTime == 0.0 {
+                 if enemyModel.lastAttackTime == 0.0 {
                      
-                     lastAttackTime = time
+                     enemyModel.lastAttackTime = time
                      attack()
                  }
-                 let timeDiff = time - lastAttackTime
+                 let timeDiff = time - enemyModel.lastAttackTime
                  if timeDiff >= 2.5 {
-                     lastAttackTime = time
+                     enemyModel.lastAttackTime = time
                      attack()
                  }
              }
@@ -184,11 +179,15 @@ final class Enemy: SCNNode {
     }
     
     func gotHit(by node:SCNNode, with hpHitPoints:Float) {
-        hpPoints -= hpHitPoints
-        if hpPoints <= 0 && !isDead {
+        enemyModel.hpPoints -= hpHitPoints
+        if enemyModel.hpPoints <= 0 && !enemyModel.isDead {
+            let stats = player.playerModel
             die()
-            player.playerStats.expPoints += 50
-            NotificationCenter.default.post(name: NSNotification.Name("expChanged"), object: nil, userInfo: ["playerMaxExp": player.playerStats.maxExpPoints, "currentExp": player.playerStats.expPoints])
+            stats.expPoints += 50
+            NotificationCenter.default.post(name: NSNotification.Name("expChanged"), object: nil, userInfo: ["playerMaxExp": stats.maxExpPoints, "currentExp": stats.expPoints])
+            if stats.expPoints >= stats.maxExpPoints {
+                stats.level += 1
+            }
             //drop loot
         }
     }
@@ -198,13 +197,13 @@ extension Enemy: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         attackTimer?.invalidate()
         attackFrameCounter = 0
-        isAttacking = false
+        enemyModel.isAttacking = false
         
         guard let id = anim.value(forKey: "animationId") as? String else { return }
         if id == "attack" {
             attackTimer?.invalidate()
             attackFrameCounter = 0
-            isAttacking = false
+            enemyModel.isAttacking = false
         }
     }
 }
@@ -212,8 +211,8 @@ extension Enemy: CAAnimationDelegate {
 //MARK: battle
 extension Enemy: BattleAction {    
     func attack() {
-        if isAttacking { return }
-        isAttacking = true
+        if enemyModel.isAttacking { return }
+        enemyModel.isAttacking = true
         DispatchQueue.main.async {
             self.attackTimer?.invalidate()
             self.attackTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(self.attackTimerTicked), userInfo: nil, repeats: true)
@@ -222,7 +221,7 @@ extension Enemy: BattleAction {
     }
     
     func die() {
-        isDead = true
+        enemyModel.isDead = true
         addAnimation(animation.deadAnimation, forKey: "dead")
         
         let wait = SCNAction.wait(duration: 3.0)

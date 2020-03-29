@@ -48,19 +48,15 @@ final class Player: SCNNode {
     var replacementPosition: SCNVector3 = SCNVector3Zero
     private var activeWeaponCollideNodes = Set<SCNNode>()
 
-    //battle
-    let playerStats: PlayerStatsModel
-//    var isDead = false
-//    private let maxHpPoints: Float = 100.0
-//    private var hpPoints: Float = 100.0
-//    var isAttacking = false
+    //model
+    let playerModel: PlayerModel
     
     private var attackTimer: Timer?
     private var attackFrameCounter = 0
 
     //MARK: initialization
-    init(playerStats: PlayerStatsModel) {
-        self.playerStats = playerStats
+    init(playerModel: PlayerModel) {
+        self.playerModel = playerModel
         super.init()
         
         setupModel()
@@ -124,7 +120,7 @@ final class Player: SCNNode {
 
     //MARK:- movement
     func walkInDirection(_ direction:float3, time:TimeInterval, scene:SCNScene) {
-        if playerStats.isDead || playerStats.isAttacking { return }
+        if playerModel.isDead || playerModel.isAttacking { return }
         if previousUdateTime == 0.0 {
             previousUdateTime = time
         }
@@ -201,10 +197,10 @@ final class Player: SCNNode {
     }
     
     func gotHit(with hpPoints: Float) {
-        playerStats.hpPoints -= hpPoints
-        NotificationCenter.default.post(name: NSNotification.Name("hpChanged"), object: nil, userInfo: ["playerMaxHp": playerStats.maxHpPoints, "currentHp": playerStats.hpPoints])
+        playerModel.hpPoints -= hpPoints
+        NotificationCenter.default.post(name: NSNotification.Name("hpChanged"), object: nil, userInfo: ["playerMaxHp": playerModel.maxHpPoints, "currentHp": playerModel.hpPoints])
 
-        if playerStats.hpPoints <= 0 {
+        if playerModel.hpPoints <= 0 {
             die()
         }
     }
@@ -232,14 +228,14 @@ extension Player: CAAnimationDelegate {
         if id == "attack" {
             attackTimer?.invalidate()
             attackFrameCounter = 0
-            playerStats.isAttacking = false
+            playerModel.isAttacking = false
         }
     }
 }
 
 extension Player: BattleAction {
     func die() {
-        playerStats.isDead = true
+        playerModel.isDead = true
         characterNode.removeAllActions()
         characterNode.removeAllAnimations()
         characterNode.addAnimation(deadAnimation, forKey: "dead")
@@ -247,8 +243,8 @@ extension Player: BattleAction {
     }
 
     func attack() {
-        if playerStats.isAttacking || playerStats.isDead { return }
-        playerStats.isAttacking = true
+        if playerModel.isAttacking || playerModel.isDead { return }
+        playerModel.isAttacking = true
         isWalking = false
 
         attackTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(attackTimerTicked), userInfo: nil, repeats: true)

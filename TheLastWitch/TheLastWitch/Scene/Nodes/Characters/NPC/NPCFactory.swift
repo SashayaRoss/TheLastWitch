@@ -25,8 +25,9 @@ final class NPCFactory {
     
     private func setupNPC() {
         let npcScale: Float = 0.003
+        let npcModel = VillagerModel()
         
-        let npc = Npc(player: player, view: gameView)
+        let npc = Npc(player: player, view: gameView, npcModel: npcModel)
         npc.scale = SCNVector3Make(npcScale, npcScale, npcScale)
         npc.position = npcPositionArray["npc"]!
         

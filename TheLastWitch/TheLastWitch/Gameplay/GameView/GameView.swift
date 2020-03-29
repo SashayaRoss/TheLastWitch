@@ -19,7 +19,17 @@ final class GameView: SCNView {
     let characterView = CharacterView()
     let dialogView = DialogView()
     let optionsView = OptionsView()
-
+    
+//    init(txt: String) {
+//        print("dziala")
+//        super.init(frame: .zero)
+//        print("dziala2")
+//    }
+//    
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+    
     //MARK: lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()

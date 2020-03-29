@@ -1,5 +1,5 @@
 //
-//  PlayerStatsModel.swift
+//  PlayerModel.swift
 //  TheLastWitch
 //
 //  Created by Aleksandra Kustra on 28/03/2020.
@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-final class PlayerStatsModel {
+final class PlayerModel {
     let maxHpPoints: Float = 100.0
     var hpPoints: Float = 100.0
     

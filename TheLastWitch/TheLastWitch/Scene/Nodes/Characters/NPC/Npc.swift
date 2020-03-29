@@ -18,14 +18,13 @@ final class Npc: SCNNode {
     private var characterNode: SCNNode!
     private var player: Player!
     
+    //interaction
+    var npcModel: NpcModel!
+    
     //animation
     private var animation: AnimationInterface!
     
     //movement
-    private var previousUpdateTime = TimeInterval(0.0)
-    private let noticeDistance: Float = 1.0
-    private let movementSpeedLimiter = Float(0.5)
-    
     private var isWalking: Bool = false {
         didSet {
             if oldValue != isWalking {
@@ -38,6 +37,7 @@ final class Npc: SCNNode {
         }
     }
     
+    //collision
     var isCollidingWithPlayer = false {
         didSet {
             if oldValue != isCollidingWithPlayer {
@@ -48,15 +48,13 @@ final class Npc: SCNNode {
         }
     }
     
-    //interaction
-    private var isInteracting = false
-    
     //MARK: init
-    init(player: Player, view: GameView) {
+    init(player: Player, view: GameView, npcModel: NpcModel) {
         super.init()
         
         self.gameView = view
         self.player = player
+        self.npcModel = npcModel
         
         setupModelScene()
         animation = NpcAnimation()
@@ -82,7 +80,6 @@ final class Npc: SCNNode {
         characterNode = daeHolderNode.childNode(withName: "Bip01", recursively: true)!
     }
     
-    
     func update(with time: TimeInterval, and scene: SCNScene) {
         guard
             let player = player
@@ -90,28 +87,12 @@ final class Npc: SCNNode {
             return
         }
 
-        //delta time
-        if previousUpdateTime == 0.0 { previousUpdateTime = time }
-        let deltaTime = Float(min (time - previousUpdateTime, 1.0 / 60.0))
-        previousUpdateTime = time
-
         //get distance
         let distance = GameUtils.distanceBetweenVectors(vector1: player.position, vector2: position)
 
-        if distance < noticeDistance && distance > 0.01 {
-            //interaction!
-            
-             //move
-            let vResult = GameUtils.getCoordinatesNeededToMoveToReachNode(from: position, to: player.position)
-             let vx = vResult.vX
-             let vz = vResult.vZ
-             let angle = vResult.angle
-             
-             //rotate
-             let fixedAngle = GameUtils.getFixedRotationAngle(with: angle)
-             eulerAngles = SCNVector3Make(0, fixedAngle, 0)
-             
-             isWalking = false
+        if distance < npcModel.noticeDistance && distance > 0.01 {
+            npcModel.isInteracting = true
+            //interaction
         }
     }
     
@@ -129,7 +110,7 @@ extension Npc: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         guard let id = anim.value(forKey: "animationId") as? String else { return }
         if id == "interaction" {
-            //interaction
+            //interaction animation
         }
     }
 }

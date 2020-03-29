@@ -48,7 +48,7 @@ final class GameMenuController: UIViewController {
     }
     
     @objc func startNewGame() {
-        view = GameView()
+//        view = GameView()
         print("startNewGame")
 //        let vc = GameViewConfigurator().configure()
 //        self.present(vc, animated: true, completion: nil)

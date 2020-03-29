@@ -16,7 +16,9 @@ final class GameViewController: UIViewController {
     
     //scene
     var sceneView: SCNView!
-    var mainScene: SCNScene!
+    
+    var newGameScene: SCNScene!
+    var gameplayScene: SCNScene!
     
     //general
     var gameState: GameState = .newGame
@@ -48,7 +50,6 @@ final class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         gameView = view as? GameView
-        
         setupScene()
         setupEnviroment()
         gameState = .playing
@@ -56,12 +57,17 @@ final class GameViewController: UIViewController {
     
     //MARK: scene
     private func setupScene() {
+//        gameView = GameView()
+//        view.addSubview(gameView)
+        
+        newGameScene = SCNScene(named: "art.scnassets/Scenes/World/Stage1.scn")
+        gameplayScene = SceneConfigurator().setup(sceneName: "art.scnassets/Scenes/World/Stage1.scn")
+        
         gameView.antialiasingMode = .multisampling4X
         gameView.delegate = self
         gameView.isUserInteractionEnabled = true
 
-        mainScene = SceneConfigurator().setup(sceneName: "art.scnassets/Scenes/World/Stage1.scn")
-        guard let scene = mainScene else { return }
+        guard let scene = gameplayScene else { return }
         scene.physicsWorld.contactDelegate = self
         
         gameView.scene = scene
@@ -75,13 +81,13 @@ final class GameViewController: UIViewController {
     }
     
     private func setupEnviroment() {
-        playerFactory = PlayerFactory(scene: mainScene)
+        playerFactory = PlayerFactory(scene: gameplayScene)
         player = playerFactory.makePlayer()
-        mainCamera = MainCamera(scene: mainScene)
-        light = MainLight(scene: mainScene)
-        collision = Collision(scene: mainScene)
-        enemyFactory = EnemyFactory(scene: mainScene, gameView: gameView, player: player)
-        npcFactory = NPCFactory(scene: mainScene, gameView: gameView, player: player)
+        mainCamera = MainCamera(scene: gameplayScene)
+        light = MainLight(scene: gameplayScene)
+        collision = Collision(scene: gameplayScene)
+        enemyFactory = EnemyFactory(scene: gameplayScene, gameView: gameView, player: player)
+        npcFactory = NPCFactory(scene: gameplayScene, gameView: gameView, player: player)
         
         lightStick = light.setup()
         cameraStick = mainCamera.setup()
@@ -249,6 +255,27 @@ final class GameViewController: UIViewController {
         cameraStick.position = SCNVector3Make(character.position.x, 0.0, character.position.z)
         lightStick.position = SCNVector3Make(character.position.x, 0.0, character.position.z)
     }
+    
+    
+    //changing scenes
+    func presentWelcomeScreen() {
+      gameplayScene.isPaused = true
+      let transition = SKTransition.doorsOpenVertical(withDuration: 1.0)
+      sceneView.present(newGameScene, with: transition, incomingPointOfView: nil, completionHandler: {
+        self.gameState = .newGame
+        self.newGameScene.isPaused = false
+      })
+    }
+    
+    func presentGame() {
+      newGameScene.isPaused = true
+      let transition = SKTransition.doorsOpenVertical(withDuration: 1.0)
+      sceneView.present(gameplayScene, with: transition, incomingPointOfView: nil, completionHandler: {
+        self.gameState = .playing
+        self.gameplayScene.isPaused = false
+      })
+    }
+    
 }
 
 // MARK: delegates
@@ -275,11 +302,13 @@ extension GameViewController: SCNSceneRendererDelegate {
         updateFollowersPosition()
         
         //enemy
-        mainScene.rootNode.enumerateChildNodes { (node, _) in
+        gameplayScene.rootNode.enumerateChildNodes { (node, _) in
             if let name = node.name {
                 switch name {
                 case "Enemy":
                     (node as! Enemy).update(with: time, and: scene)
+                case "Npc":
+                    (node as! Npc).update(with: time, and: scene)
                 default:
                     break
                 }
