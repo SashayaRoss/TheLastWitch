@@ -17,10 +17,7 @@ final class Player: SCNNode {
     private var weaponCollider: SCNNode!
 
     //animation
-//    private var animation: AnimationInterface!
-    private var walkAnimation = CAAnimation()
-    private var attackAnimation = CAAnimation()
-    private var deadAnimation = CAAnimation()
+    private var animation: AnimationInterface!
 
     //movement
     private var previousUdateTime = TimeInterval(0.0)
@@ -28,7 +25,7 @@ final class Player: SCNNode {
         didSet {
             if oldValue != isWalking {
                 if isWalking {
-                    characterNode.addAnimation(walkAnimation, forKey: "walk")
+                    characterNode.addAnimation(animation.walkAnimation, forKey: "walk")
                 } else {
                     characterNode.removeAnimation(forKey: "walk", blendOutDuration: 0.2)
                 }
@@ -60,47 +57,13 @@ final class Player: SCNNode {
         super.init()
         
         setupModel()
-//        animation = PlayerAnimation()
-//        animation.loadAnimations()
-//        animation.object.delegate = self
-        
-        loadAnimations()
+        animation = PlayerAnimation()
+        animation.loadAnimations()
+        animation.object.delegate = self
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    private func loadAnimations() {
-        loadAnimation(animationType: .walk, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/walk", withIdentifier: "WalkID")
-        loadAnimation(animationType: .attack, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/attack", withIdentifier: "attackID")
-        loadAnimation(animationType: .dead, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/die", withIdentifier: "DeathID")
-    }
-
-    private func loadAnimation(animationType: PlayerAnimationType, isSceneNamed scene: String, withIdentifier identifier: String) {
-
-        let sceneURL = Bundle.main.url(forResource: scene, withExtension: "dae")!
-        let sceneSource = SCNSceneSource(url: sceneURL, options: nil)!
-        
-        let animationObject:CAAnimation = sceneSource.entryWithIdentifier(identifier, withClass: CAAnimation.self)!
-        
-        animationObject.delegate = self
-        animationObject.fadeInDuration = 0.2
-        animationObject.fadeOutDuration = 0.2
-        animationObject.usesSceneTimeBase = false
-        animationObject.repeatCount = 0
-        
-        switch animationType {
-        case .walk:
-            animationObject.repeatCount = Float.greatestFiniteMagnitude
-            walkAnimation = animationObject
-        case .dead:
-            animationObject.isRemovedOnCompletion = false
-            deadAnimation = animationObject
-        case .attack:
-            animationObject.setValue("attack", forKey: "animationId")
-            attackAnimation = animationObject
-        }
     }
 
     //MARK:- scene
@@ -230,26 +193,28 @@ extension Player: CAAnimationDelegate {
             attackFrameCounter = 0
             playerModel.isAttacking = false
         }
+        
     }
 }
 
 extension Player: BattleAction {
-    func die() {
-        playerModel.isDead = true
-        characterNode.removeAllActions()
-        characterNode.removeAllAnimations()
-        characterNode.addAnimation(deadAnimation, forKey: "dead")
-        print("GAME OVER")
-    }
-
     func attack() {
         if playerModel.isAttacking || playerModel.isDead { return }
         playerModel.isAttacking = true
         isWalking = false
 
-        attackTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(attackTimerTicked), userInfo: nil, repeats: true)
-
+        DispatchQueue.main.async {
+            self.attackTimer?.invalidate()
+            self.attackTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(self.attackTimerTicked), userInfo: nil, repeats: true)
+            self.characterNode.addAnimation(self.animation.attackAnimation, forKey: "attack")
+        }
+    }
+    
+    func die() {
+        playerModel.isDead = true
+        characterNode.removeAllActions()
         characterNode.removeAllAnimations()
-        characterNode.addAnimation(attackAnimation, forKey: "attack")
+        characterNode.addAnimation(animation.deadAnimation, forKey: "dead")
+        print("GAME OVER")
     }
 }

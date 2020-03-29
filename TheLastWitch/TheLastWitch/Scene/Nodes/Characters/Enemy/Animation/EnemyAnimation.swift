@@ -44,6 +44,7 @@ final class EnemyAnimation {
         }
     }
 }
+
 extension EnemyAnimation: AnimationInterface {
     func loadAnimations() {
         loadAnimation(animationType: .walk, isSceneNamed: "art.scnassets/Scenes/Characters/Enemies/Golem@Flight", withIdentifier: "unnamed_animation__1")

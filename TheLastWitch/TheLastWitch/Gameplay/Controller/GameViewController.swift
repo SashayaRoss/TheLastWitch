@@ -138,7 +138,6 @@ final class GameViewController: UIViewController {
                 
             } else if gameView.hudView.attackButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 player!.attack()
-                
             } else if gameView.hudView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 gameState = .paused
                 currentView = .options
@@ -275,7 +274,6 @@ final class GameViewController: UIViewController {
         self.gameplayScene.isPaused = false
       })
     }
-    
 }
 
 // MARK: delegates

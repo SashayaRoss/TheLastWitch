@@ -195,11 +195,11 @@ final class Enemy: SCNNode {
 
 extension Enemy: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        attackTimer?.invalidate()
-        attackFrameCounter = 0
-        enemyModel.isAttacking = false
-        
-        guard let id = anim.value(forKey: "animationId") as? String else { return }
+        guard
+            let id = anim.value(forKey: "animationId") as? String
+        else {
+            return
+        }
         if id == "attack" {
             attackTimer?.invalidate()
             attackFrameCounter = 0
@@ -213,6 +213,7 @@ extension Enemy: BattleAction {
     func attack() {
         if enemyModel.isAttacking { return }
         enemyModel.isAttacking = true
+        
         DispatchQueue.main.async {
             self.attackTimer?.invalidate()
             self.attackTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(self.attackTimerTicked), userInfo: nil, repeats: true)
