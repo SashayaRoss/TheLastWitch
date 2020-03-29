@@ -129,8 +129,13 @@ final class Player: SCNNode {
 
     //MARK:- collisions
     func setupCollider(with scale:CGFloat) {
+        //player
         collider = PlayerCollider().setupCollider(with: scale)
         addChildNode(collider)
+        
+        //weapon
+        weaponCollider = WeaponCollider().setupCollider(with: scale)
+        addChildNode(weaponCollider)
     }
 
     func weaponCollide(with node:SCNNode) {
@@ -139,24 +144,6 @@ final class Player: SCNNode {
 
     func weaponUnCollide(with node:SCNNode) {
         activeWeaponCollideNodes.remove(node)
-    }
-
-    //MARK:- weapon
-    func setupWeaponCollider(with scale:CGFloat) {
-
-        let geometryBox = SCNBox(width: 160.0, height: 140.0, length: 160.0, chamferRadius: 0.0)
-        geometryBox.firstMaterial?.diffuse.contents = UIColor.orange
-        weaponCollider = SCNNode(geometry: geometryBox)
-        weaponCollider.name = "weaponCollider"
-        weaponCollider.position = SCNVector3Make(-10, 108.4, 88)
-        weaponCollider.opacity = 0.0
-        addChildNode(weaponCollider)
-
-        let geometry = SCNBox(width: 160.0 * scale, height: 140.0 * scale, length: 160.0 * scale, chamferRadius: 0.0)
-        let physicsShape = SCNPhysicsShape(geometry: geometry, options: nil)
-        weaponCollider.physicsBody = SCNPhysicsBody(type: .kinematic, shape: physicsShape)
-        weaponCollider.physicsBody!.categoryBitMask = Bitmask().playerWeapon
-        weaponCollider.physicsBody!.contactTestBitMask = Bitmask().enemy
     }
     
     func gotHit(with hpPoints: Float) {

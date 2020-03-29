@@ -82,7 +82,7 @@ final class GameViewController: UIViewController {
     
     private func setupEnviroment() {
         playerFactory = PlayerFactory(scene: gameplayScene)
-        player = playerFactory.makePlayer()
+        player = playerFactory.getPlayer()
         mainCamera = MainCamera(scene: gameplayScene)
         light = MainLight(scene: gameplayScene)
         collision = Collision(scene: gameplayScene)

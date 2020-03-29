@@ -61,6 +61,7 @@
 		7EB244EE243108A0004F3172 /* EnemyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244ED243108A0004F3172 /* EnemyModel.swift */; };
 		7EB244F224310BB6004F3172 /* NpcModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244F124310BB6004F3172 /* NpcModel.swift */; };
 		7EB244F424310C5B004F3172 /* VillagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244F324310C5B004F3172 /* VillagerModel.swift */; };
+		7EB244F624311715004F3172 /* WeaponCollider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244F524311715004F3172 /* WeaponCollider.swift */; };
 		7EDFF5622415599B00D24798 /* EnemyAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF5612415599B00D24798 /* EnemyAnimation.swift */; };
 		7EDFF5642415689100D24798 /* EXPBarNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF5632415689100D24798 /* EXPBarNode.swift */; };
 		7EDFF567241E7F5300D24798 /* EnemyCollider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF566241E7F5300D24798 /* EnemyCollider.swift */; };
@@ -143,6 +144,7 @@
 		7EB244ED243108A0004F3172 /* EnemyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyModel.swift; sourceTree = "<group>"; };
 		7EB244F124310BB6004F3172 /* NpcModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NpcModel.swift; sourceTree = "<group>"; };
 		7EB244F324310C5B004F3172 /* VillagerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillagerModel.swift; sourceTree = "<group>"; };
+		7EB244F524311715004F3172 /* WeaponCollider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponCollider.swift; sourceTree = "<group>"; };
 		7EDFF5612415599B00D24798 /* EnemyAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAnimation.swift; sourceTree = "<group>"; };
 		7EDFF5632415689100D24798 /* EXPBarNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EXPBarNode.swift; sourceTree = "<group>"; };
 		7EDFF566241E7F5300D24798 /* EnemyCollider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyCollider.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				7EDFF584241EAB3600D24798 /* Animation */,
 				7E34BA1623B8251A00FA0BEE /* Player.swift */,
 				7E23B0BA241EACF5002A2395 /* PlayerCollider.swift */,
+				7EB244F524311715004F3172 /* WeaponCollider.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -702,6 +705,7 @@
 				7EB244D2242FBC06004F3172 /* HUDView.swift in Sources */,
 				7E34BA1C23B82C2C00FA0BEE /* PlayerAnimation.swift in Sources */,
 				7E34BA1E23B83B8900FA0BEE /* GameState.swift in Sources */,
+				7EB244F624311715004F3172 /* WeaponCollider.swift in Sources */,
 				7E57ACCC241FF05F003350C9 /* NpcAnimation.swift in Sources */,
 				7E57ACB4241FDD38003350C9 /* GameMenuController.swift in Sources */,
 				7EB244CB242FB3AC004F3172 /* DialogBoxNode.swift in Sources */,

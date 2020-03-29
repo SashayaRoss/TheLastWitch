@@ -9,8 +9,8 @@
 import SceneKit
 
 final class PlayerFactory {
+    private let player: Player
     var scene: SCNScene
-    var player: Player
     
     init(scene: SCNScene) {
         self.scene = scene
@@ -19,7 +19,7 @@ final class PlayerFactory {
         setup()
     }
     
-    func makePlayer() -> Player {
+    func getPlayer() -> Player {
         return player
     }
 }
@@ -34,6 +34,5 @@ extension PlayerFactory: SetupInterface {
         
         scene.rootNode.addChildNode(player)
         player.setupCollider(with: CGFloat(playerScale))
-        player.setupWeaponCollider(with: CGFloat(playerScale))
     }
 }
