@@ -44,7 +44,8 @@ final class Player: SCNNode {
     //collisions
     var replacementPosition: SCNVector3 = SCNVector3Zero
     private var activeWeaponCollideNodes = Set<SCNNode>()
-
+    private var activePlayerCollideNodes = Set<SCNNode>()
+    
     //model
     let playerModel: PlayerModel
     
@@ -144,6 +145,14 @@ final class Player: SCNNode {
 
     func weaponUnCollide(with node:SCNNode) {
         activeWeaponCollideNodes.remove(node)
+    }
+    
+    func playerCollide(with node:SCNNode) {
+        activePlayerCollideNodes.insert(node)
+    }
+
+    func playerUnCollide(with node:SCNNode) {
+        activePlayerCollideNodes.remove(node)
     }
     
     func gotHit(with hpPoints: Float) {

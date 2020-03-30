@@ -16,7 +16,6 @@ final class GameViewController: UIViewController {
     
     //scene
     var sceneView: SCNView!
-    
     var newGameScene: SCNScene!
     var gameplayScene: SCNScene!
     
@@ -137,7 +136,16 @@ final class GameViewController: UIViewController {
                 }
                 
             } else if gameView.hudView.attackButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
-                player!.attack()
+                if let activePlayer = player {
+//                    if activePlayer.playerModel.isAttacking {
+                        activePlayer.attack()
+//                    } else {
+//                        gameState = .paused
+//                        currentView = .dialog
+//                        gameView.removeCurrentView()
+//                        gameView.setupDialog()
+//                    }
+                }
             } else if gameView.hudView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 gameState = .paused
                 currentView = .options
@@ -162,6 +170,7 @@ final class GameViewController: UIViewController {
     private func dialogAction(touches: Set<UITouch>) {
         for touch in touches {
             if gameView.dialogView.dialogBoxNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+                //update text and quit
                 gameView.removeCurrentView()
                 currentView = .playing
                 gameView.setupHUD()
@@ -299,7 +308,7 @@ extension GameViewController: SCNSceneRendererDelegate {
         
         updateFollowersPosition()
         
-        //enemy
+        //enemy & npc
         gameplayScene.rootNode.enumerateChildNodes { (node, _) in
             if let name = node.name {
                 switch name {
@@ -327,13 +336,15 @@ extension GameViewController: SCNPhysicsContactDelegate {
         contact.match(Bitmask().enemy) { (matching, other) in
             
             let enemy = matching.parent as! Enemy
-            if other.name == "collider" { enemy.isCollidingWithEnemy = true }
+            if other.name == "collider" { enemy.isCollidingWithPlayer = true }
             if other.name == "weaponCollider" { player!.weaponCollide(with: enemy) }
         }
         
         //if player collides with npc
         contact.match(Bitmask().npc) { (matching, other) in
-            self.characterNode(other, hitWall: matching, withContact: contact)
+            let npc = matching.parent as! Npc
+            if other.name == "collider" { npc.isCollidingWithPlayer = true }
+            if other.name == "weaponCollider" { npc.npcModel.isInteracting = true }
         }
     }
 
@@ -346,13 +357,14 @@ extension GameViewController: SCNPhysicsContactDelegate {
         // if player collides with enemy
         contact.match(Bitmask().enemy) { (matching, other) in
             let enemy = matching.parent as! Enemy
-            if other.name == "collider" { enemy.isCollidingWithEnemy = true }
+            if other.name == "collider" { enemy.isCollidingWithPlayer = true }
             if other.name == "weaponCollider" { player!.weaponCollide(with: enemy) }
         }
         
         //if player collides with npc
         contact.match(Bitmask().npc) { (matching, other) in
-            self.characterNode(other, hitWall: matching, withContact: contact)
+            let npc = matching.parent as! Npc
+            if other.name == "collider" { npc.isCollidingWithPlayer = true }
         }
     }
 
@@ -360,8 +372,13 @@ extension GameViewController: SCNPhysicsContactDelegate {
         // if player collides with enemy
         contact.match(Bitmask().enemy) { (matching, other) in
             let enemy = matching.parent as! Enemy
-            if other.name == "collider" { enemy.isCollidingWithEnemy = false }
+            if other.name == "collider" { enemy.isCollidingWithPlayer = false }
             if other.name == "weaponCollider" { player!.weaponUnCollide(with: enemy) }
+        }
+        //if player collides with npc
+        contact.match(Bitmask().npc) { (matching, other) in
+            let npc = matching.parent as! Npc
+            if other.name == "collider" { npc.isCollidingWithPlayer = true }
         }
     }
 }

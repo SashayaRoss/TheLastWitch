@@ -9,6 +9,8 @@
 import SpriteKit
 
 final class VillagerModel: NpcModel {
-    var isInteracting = false
+    //to do change to false
+    var isInteracting = true
     let noticeDistance: Float = 1.0
+    let dialog: String = "siema elo ziom mam dla cb questa!"
 }

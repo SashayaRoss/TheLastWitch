@@ -33,8 +33,8 @@ extension DialogTextNode: NodeProtocol {
         dialogSprite.preferredMaxLayoutWidth = bounds.size.width - 40
         dialogSprite.numberOfLines = 2
         dialogSprite.fontColor = .black
-
-        update(dialog: "hello world nice to meet  world nice to meet  world nice to meet  world nice to meet you hello world nice to meet  world nice to meet  world nice to meet  world nice to meet you hello world nice to meet  world nice to meet  world nice to meet")
+        
+        update(dialog: "dasdiuash dsad aosid aos diasudo asiud ")
     
         scene.addChild(dialogSprite)
     }

@@ -62,7 +62,6 @@ final class HUDView {
         let v3 = CGFloat(currentHp)
         var currentLocalHp: CGFloat = 0.0
         
-//      100 * x = 150 * 90 -> x = (150 * 90) / 100
         currentLocalHp = (v2 * v3) / v1
         
         hpBarNode.updateHpColour(currentHP: currentLocalHp)

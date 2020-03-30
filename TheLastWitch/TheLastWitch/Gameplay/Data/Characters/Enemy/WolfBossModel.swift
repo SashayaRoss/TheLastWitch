@@ -1,17 +1,17 @@
 //
-//  WolfModel.swift
+//  WolfBossModel.swift
 //  TheLastWitch
 //
-//  Created by Aleksandra Kustra on 29/03/2020.
+//  Created by Aleksandra Kustra on 30/03/2020.
 //  Copyright © 2020 Aleksandra Kustra. All rights reserved.
 //
 
 import SpriteKit
 
-final class WolfModel: EnemyModel {
-    var hp: Float = 70.0
+final class WolfBossModel: EnemyModel {
+    var hp: Float = 270.0
     var strength: Float = 20.0
-    var exp: Float = 50.0
+    var exp: Float = 200.0
     
     let noticeDistance: Float = 3.0
     let movementSpeedLimiter: Float = 0.5

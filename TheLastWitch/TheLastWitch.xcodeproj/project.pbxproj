@@ -62,6 +62,8 @@
 		7EB244F224310BB6004F3172 /* NpcModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244F124310BB6004F3172 /* NpcModel.swift */; };
 		7EB244F424310C5B004F3172 /* VillagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244F324310C5B004F3172 /* VillagerModel.swift */; };
 		7EB244F624311715004F3172 /* WeaponCollider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244F524311715004F3172 /* WeaponCollider.swift */; };
+		7EB244F824328E44004F3172 /* NpcDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244F724328E44004F3172 /* NpcDialog.swift */; };
+		7EB244FA24328F6E004F3172 /* WolfBossModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244F924328F6E004F3172 /* WolfBossModel.swift */; };
 		7EDFF5622415599B00D24798 /* EnemyAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF5612415599B00D24798 /* EnemyAnimation.swift */; };
 		7EDFF5642415689100D24798 /* EXPBarNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF5632415689100D24798 /* EXPBarNode.swift */; };
 		7EDFF567241E7F5300D24798 /* EnemyCollider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF566241E7F5300D24798 /* EnemyCollider.swift */; };
@@ -145,6 +147,8 @@
 		7EB244F124310BB6004F3172 /* NpcModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NpcModel.swift; sourceTree = "<group>"; };
 		7EB244F324310C5B004F3172 /* VillagerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillagerModel.swift; sourceTree = "<group>"; };
 		7EB244F524311715004F3172 /* WeaponCollider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponCollider.swift; sourceTree = "<group>"; };
+		7EB244F724328E44004F3172 /* NpcDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NpcDialog.swift; sourceTree = "<group>"; };
+		7EB244F924328F6E004F3172 /* WolfBossModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WolfBossModel.swift; sourceTree = "<group>"; };
 		7EDFF5612415599B00D24798 /* EnemyAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAnimation.swift; sourceTree = "<group>"; };
 		7EDFF5632415689100D24798 /* EXPBarNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EXPBarNode.swift; sourceTree = "<group>"; };
 		7EDFF566241E7F5300D24798 /* EnemyCollider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyCollider.swift; sourceTree = "<group>"; };
@@ -477,8 +481,9 @@
 		7EB244EA2430DC36004F3172 /* Enemy */ = {
 			isa = PBXGroup;
 			children = (
-				7EB244EB2430DC5C004F3172 /* WolfModel.swift */,
 				7EB244ED243108A0004F3172 /* EnemyModel.swift */,
+				7EB244EB2430DC5C004F3172 /* WolfModel.swift */,
+				7EB244F924328F6E004F3172 /* WolfBossModel.swift */,
 			);
 			path = Enemy;
 			sourceTree = "<group>";
@@ -488,6 +493,7 @@
 			children = (
 				7EB244F124310BB6004F3172 /* NpcModel.swift */,
 				7EB244F324310C5B004F3172 /* VillagerModel.swift */,
+				7EB244F724328E44004F3172 /* NpcDialog.swift */,
 			);
 			path = Npc;
 			sourceTree = "<group>";
@@ -651,9 +657,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E34BA0E23B800EB00FA0BEE /* DpadNode.swift in Sources */,
+				7EB244F824328E44004F3172 /* NpcDialog.swift in Sources */,
 				7E57ACCA241FF034003350C9 /* NpcAnimationType.swift in Sources */,
 				7E57ACC8241FEDD5003350C9 /* Npc.swift in Sources */,
 				7EB244D8242FC21C004F3172 /* OptionsView.swift in Sources */,
+				7EB244FA24328F6E004F3172 /* WolfBossModel.swift in Sources */,
 				7E23B0C3241ED573002A2395 /* CharacterButtonNode.swift in Sources */,
 				7EB244D6242FC211004F3172 /* DialogView.swift in Sources */,
 				7E57ACB9241FDD43003350C9 /* GameMenuLayoutManaging.swift in Sources */,

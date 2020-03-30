@@ -36,10 +36,10 @@ final class Enemy: SCNNode {
         }
     }
     
-    var isCollidingWithEnemy = false {
+    var isCollidingWithPlayer = false {
         didSet {
-            if oldValue != isCollidingWithEnemy {
-                if isCollidingWithEnemy {
+            if oldValue != isCollidingWithPlayer {
+                if isCollidingWithPlayer {
                     isWalking = false
                 }
             }
@@ -107,7 +107,7 @@ final class Enemy: SCNNode {
              let fixedAngle = GameUtils.getFixedRotationAngle(with: angle)
              eulerAngles = SCNVector3Make(0, fixedAngle, 0)
              
-             if !isCollidingWithEnemy && !enemyModel.isAttacking {
+             if !isCollidingWithPlayer && !enemyModel.isAttacking {
              
                  let characterSpeed = deltaTime * enemyModel.movementSpeedLimiter
                  
@@ -172,18 +172,18 @@ final class Enemy: SCNNode {
     @objc func attackTimerTicked() {
         attackFrameCounter += 1
         if attackFrameCounter == 10 {
-            if isCollidingWithEnemy {
-                player.gotHit(with: 20)
+            if isCollidingWithPlayer {
+                player.gotHit(with: enemyModel.strength)
             }
         }
     }
     
     func gotHit(by node:SCNNode, with hpHitPoints:Float) {
-        enemyModel.hpPoints -= hpHitPoints
-        if enemyModel.hpPoints <= 0 && !enemyModel.isDead {
+        enemyModel.hp -= hpHitPoints
+        if enemyModel.hp <= 0 && !enemyModel.isDead {
             let stats = player.playerModel
             die()
-            stats.expPoints += 50
+            stats.expPoints += enemyModel.exp
             NotificationCenter.default.post(name: NSNotification.Name("expChanged"), object: nil, userInfo: ["playerMaxExp": stats.maxExpPoints, "currentExp": stats.expPoints])
             if stats.expPoints >= stats.maxExpPoints {
                 stats.level += 1

@@ -19,5 +19,22 @@ final class DialogView {
         
         dialogTextNode = DialogTextNode(bounds: viewBounds)
         dialogTextNode.setupNode(with: skScene)
+        
+        setupObservers()
+    }
+    
+    private func setupObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(dialogPopUp), name: NSNotification.Name("dialogPop"), object: nil)
+    }
+    
+    @objc private func dialogPopUp(notification: Notification) {
+        guard
+            let userInfo = notification.userInfo as? [String: Any],
+            let dialogText = userInfo["dialogText"] as? String
+        else {
+            return
+        }
+        guard let dialog = dialogTextNode else { return }
+        dialog.update(dialog: dialogText)
     }
 }

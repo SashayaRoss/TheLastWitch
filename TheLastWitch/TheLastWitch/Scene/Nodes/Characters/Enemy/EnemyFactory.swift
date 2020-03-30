@@ -49,7 +49,6 @@ final class EnemyFactory {
             enemy3.setupCollider(scale: CGFloat(enemyScale))
         }
     }
-    
 }
 
 extension EnemyFactory: SetupInterface {

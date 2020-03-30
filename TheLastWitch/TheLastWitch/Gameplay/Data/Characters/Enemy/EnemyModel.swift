@@ -9,10 +9,14 @@
 import SpriteKit
 
 protocol EnemyModel {
-    var hpPoints: Float { get set }
-    var lastAttackTime: TimeInterval { get set }
-    var isDead: Bool { get set }
-    var isAttacking: Bool { get set }
+    var hp: Float { get set }
+    var strength: Float { get set }
+    var exp: Float { get set }
+    
     var noticeDistance: Float { get }
     var movementSpeedLimiter: Float { get }
+    
+    var isDead: Bool { get set }
+    var isAttacking: Bool { get set }
+    var lastAttackTime: TimeInterval { get set }
 }

@@ -91,8 +91,9 @@ final class Npc: SCNNode {
         let distance = GameUtils.distanceBetweenVectors(vector1: player.position, vector2: position)
 
         if distance < npcModel.noticeDistance && distance > 0.01 {
-            npcModel.isInteracting = true
-            //interaction
+            if isCollidingWithPlayer && npcModel.isInteracting {
+                interacts()
+            }
         }
     }
     
@@ -103,6 +104,10 @@ final class Npc: SCNNode {
         gameView.prepare([collider]) { (finished) in
             self.addChildNode(collider)
         }
+    }
+    
+    func interacts() {
+        NotificationCenter.default.post(name: NSNotification.Name("dialogPop"), object: nil, userInfo: ["dialogText": npcModel.dialog])
     }
 }
 
