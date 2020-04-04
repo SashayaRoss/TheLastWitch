@@ -22,7 +22,7 @@ final class OptionsNode {
 
 extension OptionsNode: NodeProtocol {
     func setupNode(with scene: SKScene) {
-        optionsSprite = SKSpriteNode(imageNamed: directory + "optionsBG.jpg")
+        optionsSprite = SKSpriteNode(imageNamed: directory + "dialog2.png")
         optionsSprite.name = "OptionsNode"
         optionsSprite.position = CGPoint(x: 20, y: 20)
         optionsSprite.anchorPoint = CGPoint(x: 0.0, y: 0.0)

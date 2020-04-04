@@ -9,12 +9,12 @@
 import UIKit
 
 extension UIColor {
-    public static var baseGreen: UIColor {
-      return UIColor(red: 0.19, green: 0.54, blue: 0.09, alpha: 1.0)
+    public static var hpColour: UIColor {
+      return UIColor(red: 0.82, green: 1.00, blue: 0.46, alpha: 1.00)
     }
     
-    public static var baseViolet: UIColor {
-      return UIColor(red: 0.54, green: 0.18, blue: 0.09, alpha: 1.0)
+    public static var expColour: UIColor {
+      return UIColor(red:0.98, green:0.78, blue: 0.78, alpha:1.00)
     }
     
     public static var lime: UIColor {

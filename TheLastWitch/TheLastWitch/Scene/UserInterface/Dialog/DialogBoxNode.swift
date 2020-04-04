@@ -22,7 +22,7 @@ final class DialogBoxNode {
 
 extension DialogBoxNode: NodeProtocol {
     func setupNode(with scene: SKScene) {
-        dialogSprite = SKSpriteNode(imageNamed: directory + "dialogBG.jpg")
+        dialogSprite = SKSpriteNode(imageNamed: directory + "dialog1.png")
         dialogSprite.name = "DialogBoxNode"
         dialogSprite.position = CGPoint(x: 10, y: 10)
         dialogSprite.xScale = 1.0

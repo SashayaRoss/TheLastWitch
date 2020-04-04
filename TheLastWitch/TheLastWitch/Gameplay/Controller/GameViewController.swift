@@ -137,6 +137,10 @@ final class GameViewController: UIViewController {
                 
             } else if gameView.hudView.attackButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 if let activePlayer = player {
+                    
+                    
+                    
+                    
 //                    if activePlayer.playerModel.isAttacking {
                         activePlayer.attack()
 //                    } else if activePlayer.playerModel.isInteracting {

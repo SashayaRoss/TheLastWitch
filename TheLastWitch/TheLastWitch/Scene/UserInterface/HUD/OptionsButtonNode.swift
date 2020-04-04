@@ -23,7 +23,7 @@ final class OptionsButtonNode {
 
 extension OptionsButtonNode: NodeProtocol {
     func setupNode(with scene: SKScene) {
-        optionsButtonSprite = SKSpriteNode(imageNamed: directory + "optionsLogo.png")
+        optionsButtonSprite = SKSpriteNode(imageNamed: directory + "options2.png")
         optionsButtonSprite.position = CGPoint(x: bounds.width - 50.0, y: bounds.height - 50.0)
         optionsButtonSprite.xScale = 1.0
         optionsButtonSprite.yScale = 1.0

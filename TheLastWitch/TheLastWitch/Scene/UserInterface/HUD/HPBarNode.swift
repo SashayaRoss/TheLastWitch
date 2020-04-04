@@ -12,6 +12,7 @@ import SpriteKit
 final class HPBarNode {
     private var bounds: CGRect
     private var directory: String
+    private var barDeco: SKSpriteNode!
     
     private var hpBar: SKSpriteNode!
     private let hpBarMaxWidth: CGFloat
@@ -37,13 +38,18 @@ final class HPBarNode {
 
 extension HPBarNode: NodeProtocol {
     func setupNode(with scene: SKScene) {
-        hpBar = SKSpriteNode(color: .baseGreen, size: CGSize(width: hpBarMaxWidth, height: 10))
+        hpBar = SKSpriteNode(color: .hpColour, size: CGSize(width: hpBarMaxWidth, height: 4))
         hpBar.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         hpBar.position = CGPoint(x: 80.0, y: bounds.height - 20)
-        hpBar.xScale = 1.0
-        hpBar.yScale = 1.0
         hpBar.name = "HPBarNode"
         
+        barDeco = SKSpriteNode(imageNamed: directory + "barDeco.png")
+        barDeco.position = CGPoint(x: 80.0, y: bounds.height - 24)
+        barDeco.size = CGSize(width: hpBarMaxWidth + 5, height: 12)
+        barDeco.anchorPoint = CGPoint(x: 0.0, y: 0.0)
+        barDeco.name = "hpBarDeco"
+        
+        scene.addChild(barDeco)
         scene.addChild(hpBar)
     }
     
