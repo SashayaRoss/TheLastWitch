@@ -23,7 +23,7 @@ final class AttackButtonNode {
 
 extension AttackButtonNode: NodeProtocol {
     func setupNode(with scene: SKScene) {
-        attactButtonSprite = SKSpriteNode(imageNamed: directory + "fireAttackLogo.png")
+        attactButtonSprite = SKSpriteNode(imageNamed: directory + "actionButton.png")
         attactButtonSprite.position = CGPoint(x: bounds.width - 70.0, y: 20)
         attactButtonSprite.xScale = 1.0
         attactButtonSprite.yScale = 1.0

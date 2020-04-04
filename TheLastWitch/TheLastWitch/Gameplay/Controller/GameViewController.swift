@@ -139,7 +139,7 @@ final class GameViewController: UIViewController {
                 if let activePlayer = player {
 //                    if activePlayer.playerModel.isAttacking {
                         activePlayer.attack()
-//                    } else {
+//                    } else if activePlayer.playerModel.isInteracting {
 //                        gameState = .paused
 //                        currentView = .dialog
 //                        gameView.removeCurrentView()
@@ -344,7 +344,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
         contact.match(Bitmask().npc) { (matching, other) in
             let npc = matching.parent as! Npc
             if other.name == "collider" { npc.isCollidingWithPlayer = true }
-            if other.name == "weaponCollider" { npc.npcModel.isInteracting = true }
+            self.characterNode(other, hitWall: matching, withContact: contact)
         }
     }
 
@@ -365,6 +365,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
         contact.match(Bitmask().npc) { (matching, other) in
             let npc = matching.parent as! Npc
             if other.name == "collider" { npc.isCollidingWithPlayer = true }
+            self.characterNode(other, hitWall: matching, withContact: contact)
         }
     }
 

@@ -18,5 +18,6 @@ final class PlayerModel {
     var level: Int = 1
     
     var isAttacking = false
+    var isInteracting = false
     var isDead = false
 }
