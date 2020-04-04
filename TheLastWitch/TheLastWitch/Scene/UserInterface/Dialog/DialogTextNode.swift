@@ -34,7 +34,7 @@ extension DialogTextNode: NodeProtocol {
         dialogSprite.numberOfLines = 2
         dialogSprite.fontColor = .black
         
-//        update(dialog: "dasdiuash dsad aosid aos diasudo asiud ")
+        update(dialog: "dasdiuash dsad aosid aos diasudo asiud ")
     
         scene.addChild(dialogSprite)
     }

@@ -84,7 +84,7 @@ final class Player: SCNNode {
 
     //MARK:- movement
     func walkInDirection(_ direction:float3, time:TimeInterval, scene:SCNScene) {
-        if playerModel.isDead || playerModel.isAttacking || playerModel.isInteracting { return }
+        if playerModel.isDead || playerModel.isAttacking { return }
         if previousUdateTime == 0.0 {
             previousUdateTime = time
         }
@@ -174,19 +174,8 @@ final class Player: SCNNode {
             }
         }
     }
-    
-    func interact() {
-        if playerModel.isAttacking || playerModel.isDead || playerModel.isInteracting { return }
-        playerModel.isInteracting = true
-        isWalking = false
-        //
-        for node in activeWeaponCollideNodes {
-            if let npc = node as? Npc {
-                npc.dialog()
-            }
-        }
-        playerModel.isInteracting = false
-        isWalking = true
+    func walks(walks: Bool) {
+        isWalking = walks
     }
 }
 

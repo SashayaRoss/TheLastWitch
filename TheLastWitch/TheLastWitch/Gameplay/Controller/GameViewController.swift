@@ -137,18 +137,14 @@ final class GameViewController: UIViewController {
                 
             } else if gameView.hudView.attackButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 if let activePlayer = player {
-                    
-                    
-                    
-                    
-//                    if activePlayer.playerModel.isAttacking {
-                        activePlayer.attack()
-//                    } else if activePlayer.playerModel.isInteracting {
-//                        gameState = .paused
-//                        currentView = .dialog
-//                        gameView.removeCurrentView()
-//                        gameView.setupDialog()
-//                    }
+                    activePlayer.attack()
+                    if activePlayer.playerModel.isInteracting {
+                        activePlayer.walks(walks: false)
+                        gameState = .paused
+                        currentView = .dialog
+                        gameView.removeCurrentView()
+                        gameView.setupDialog()
+                    }
                 }
             } else if gameView.hudView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 gameState = .paused

@@ -91,9 +91,10 @@ final class Npc: SCNNode {
         let distance = GameUtils.distanceBetweenVectors(vector1: player.position, vector2: position)
 
         if distance < npcModel.noticeDistance && distance > 0.01 {
-            if isCollidingWithPlayer && npcModel.isInteracting {
-                dialog()
-            }
+            player.playerModel.isInteracting = true
+            dialog()
+        } else {
+            player.playerModel.isInteracting = false
         }
     }
     
