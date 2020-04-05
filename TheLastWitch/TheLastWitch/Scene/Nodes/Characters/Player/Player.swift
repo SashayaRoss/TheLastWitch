@@ -95,7 +95,7 @@ final class Player: SCNNode {
             previousUdateTime = time
         }
         let deltaTime = Float(min (time - previousUdateTime, 1.0 / 60.0))
-        let characterSpeed = deltaTime * 1.3
+        let characterSpeed = deltaTime * playerModel.speed
         previousUdateTime = time
 
         let initialPosition = position

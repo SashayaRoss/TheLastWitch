@@ -15,6 +15,7 @@ final class PlayerModel {
     let maxExpPoints: Float = 100.0
     var expPoints: Float = 0
     
+    var speed: Float = 1.8
     var level: Int = 1
     
     var isAttacking = false

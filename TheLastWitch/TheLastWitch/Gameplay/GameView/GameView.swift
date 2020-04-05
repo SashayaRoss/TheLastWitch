@@ -20,15 +20,7 @@ final class GameView: SCNView {
     let dialogView = DialogView()
     let optionsView = OptionsView()
     
-//    init(txt: String) {
-//        print("dziala")
-//        super.init(frame: .zero)
-//        print("dziala2")
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    let welcomeScreenView = WelcomeScreenView()
     
     //MARK: lifecycle
     override func awakeFromNib() {
@@ -55,6 +47,11 @@ final class GameView: SCNView {
     func setupOptions() {
         let directory = "art.scnassets/UI/Options/"
         optionsView.setup(skScene: skScene, directory: directory, viewBounds: viewBounds)
+    }
+    
+    func setupWelcomeScreen() {
+        let directory = "art.scnassets/WelcomeScreen/"
+        welcomeScreenView.setup(skScene: skScene, directory: directory, viewBounds: viewBounds)
     }
     
     override func layoutSubviews() {

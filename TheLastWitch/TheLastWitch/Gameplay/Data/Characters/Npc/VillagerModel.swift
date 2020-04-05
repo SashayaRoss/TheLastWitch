@@ -10,7 +10,7 @@ import SpriteKit
 
 final class VillagerModel: NpcModel {
     //to do change to false
-    var isInteracting = true
+//    var isInteracting = true
     let noticeDistance: Float = 1.0
     let dialog: [String]
     

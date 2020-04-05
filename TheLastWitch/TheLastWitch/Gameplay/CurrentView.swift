@@ -7,7 +7,7 @@
 //
 
 enum CurrentView {
-    case newGame
+    case tapToPlay
     case playing
     case options
     case dialog

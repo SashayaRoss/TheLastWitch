@@ -9,7 +9,7 @@
 import UIKit
 
 protocol NpcModel {
-    var isInteracting: Bool { get set}
+//    var isInteracting: Bool { get set}
     var noticeDistance: Float { get }
     var dialog: [String] { get }
 }

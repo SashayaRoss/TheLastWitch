@@ -10,7 +10,14 @@ import Foundation
 import SceneKit
 
 final class SceneConfigurator {
-    func setup(sceneName: String) -> SCNScene? {
+    func setup(state: GameState) -> SCNScene? {
+        let sceneName: String
+        switch state {
+        case .newGame:
+            sceneName = "art.scnassets/Scenes/World/WelcomeScreenScene.scn"
+        default:
+            sceneName = "art.scnassets/Scenes/World/Stage1.scn"
+        }
         let mainScene = SCNScene(named: sceneName)
         guard let scene = mainScene else { return mainScene }
 

@@ -56,11 +56,8 @@ final class GameViewController: UIViewController {
     
     //MARK: scene
     private func setupScene() {
-//        gameView = GameView()
-//        view.addSubview(gameView)
-        
-        newGameScene = SCNScene(named: "art.scnassets/Scenes/World/Stage1.scn")
-        gameplayScene = SceneConfigurator().setup(sceneName: "art.scnassets/Scenes/World/Stage1.scn")
+        gameplayScene = SceneConfigurator().setup(state: .playing)
+        newGameScene = SceneConfigurator().setup(state: .newGame)
         
         gameView.antialiasingMode = .multisampling4X
         gameView.delegate = self
@@ -72,12 +69,10 @@ final class GameViewController: UIViewController {
         gameView.scene = scene
         gameView.isPlaying = true
         
-//        gameView.overlaySKScene = HUDScene()
-        
         statisticManager(show: true)
     }
     
-    private func statisticManager(show: Bool){
+    private func statisticManager(show: Bool) {
         gameView.showsStatistics = show
     }
     
@@ -113,10 +108,8 @@ final class GameViewController: UIViewController {
     //MARK: touches + movement
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         switch currentView {
-        case .newGame:
-            gameView.removeCurrentView()
-            gameState = .newGame
-            //newGameView - press to begin
+        case .tapToPlay:
+            presentGame()
         case .playing:
             gameState = .playing
             gameplayAction(touches: touches)
@@ -150,8 +143,12 @@ final class GameViewController: UIViewController {
                     }
                 }
             } else if gameView.hudView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
-                gameState = .paused
-                gameView.overlaySKScene = OptionsScene(size: UIScreen.main.bounds.size, scene: gameplayScene)
+                presentWelcomeScreen()
+//                gameState = .paused
+//
+//                currentView = .tapToPlay
+//                gameState = .newGame
+//                gameView.overlaySKScene = OptionsScene(size: UIScreen.main.bounds.size, scene: gameplayScene)
             } else if gameView.hudView.characterButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 gameState = .paused
                 currentView = .character
@@ -172,6 +169,7 @@ final class GameViewController: UIViewController {
             if gameView.dialogView.dialogBoxNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 //update text and quit
                 if let activePlayer = player {
+                    
                     gameView.removeCurrentView()
                     currentView = .playing
                     gameView.setupHUD()
@@ -266,21 +264,37 @@ final class GameViewController: UIViewController {
     
     //changing scenes
     func presentWelcomeScreen() {
-      gameplayScene.isPaused = true
-      let transition = SKTransition.doorsOpenVertical(withDuration: 1.0)
-      sceneView.present(newGameScene, with: transition, incomingPointOfView: nil, completionHandler: {
-        self.gameState = .newGame
-        self.newGameScene.isPaused = false
-      })
+        gameView.isUserInteractionEnabled = false
+        gameplayScene.isPaused = true
+        let transition = SKTransition.fade(withDuration: 1.8)
+        currentView = .tapToPlay
+        
+        gameView.present(newGameScene, with: transition, incomingPointOfView: nil, completionHandler: {
+            self.gameState = .newGame
+            self.newGameScene.isPaused = false
+            self.gameView.removeCurrentView()
+            self.gameView.setupWelcomeScreen()
+            DispatchQueue.main.async {
+                self.gameView.isUserInteractionEnabled = true
+            }
+        })
     }
     
     func presentGame() {
-      newGameScene.isPaused = true
-      let transition = SKTransition.doorsOpenVertical(withDuration: 1.0)
-      sceneView.present(gameplayScene, with: transition, incomingPointOfView: nil, completionHandler: {
-        self.gameState = .playing
-        self.gameplayScene.isPaused = false
-      })
+        gameView.isUserInteractionEnabled = false
+        newGameScene.isPaused = true
+        let transition = SKTransition.fade(withDuration: 1.8)
+        currentView = .playing
+        
+        gameView.present(gameplayScene, with: transition, incomingPointOfView: nil, completionHandler: {
+            self.gameState = .playing
+            self.gameplayScene.isPaused = false
+            self.gameView.removeCurrentView()
+            self.gameView.setupHUD()
+            DispatchQueue.main.async {
+                self.gameView.isUserInteractionEnabled = true
+            }
+        })
     }
 }
 

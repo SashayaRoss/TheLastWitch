@@ -42,6 +42,8 @@
 		7E57ACD0241FFF8D003350C9 /* ColliderInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E57ACCF241FFF8D003350C9 /* ColliderInterface.swift */; };
 		7E80B49623CB68E200254C4B /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E80B49523CB68E200254C4B /* Enemy.swift */; };
 		7E88690524393AD60022E411 /* OptionsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E88690424393AD60022E411 /* OptionsScene.swift */; };
+		7E886907243A045A0022E411 /* HUDScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E886906243A045A0022E411 /* HUDScene.swift */; };
+		7E886909243A140E0022E411 /* WelcomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E886908243A140E0022E411 /* WelcomeScreenView.swift */; };
 		7EA7A5FC23E5F3DA00894C4D /* EnemyAnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA7A5FB23E5F3DA00894C4D /* EnemyAnimationType.swift */; };
 		7EA7A5FF23E5F62500894C4D /* ColourBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA7A5FE23E5F62500894C4D /* ColourBase.swift */; };
 		7EA7A60323E5FCAE00894C4D /* Collision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA7A60223E5FCAE00894C4D /* Collision.swift */; };
@@ -127,6 +129,8 @@
 		7E57ACCF241FFF8D003350C9 /* ColliderInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColliderInterface.swift; sourceTree = "<group>"; };
 		7E80B49523CB68E200254C4B /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		7E88690424393AD60022E411 /* OptionsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsScene.swift; sourceTree = "<group>"; };
+		7E886906243A045A0022E411 /* HUDScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDScene.swift; sourceTree = "<group>"; };
+		7E886908243A140E0022E411 /* WelcomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenView.swift; sourceTree = "<group>"; };
 		7EA7A5FB23E5F3DA00894C4D /* EnemyAnimationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAnimationType.swift; sourceTree = "<group>"; };
 		7EA7A5FE23E5F62500894C4D /* ColourBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourBase.swift; sourceTree = "<group>"; };
 		7EA7A60223E5FCAE00894C4D /* Collision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collision.swift; sourceTree = "<group>"; };
@@ -227,7 +231,6 @@
 		7E34BA0B23B7E1EB00FA0BEE /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				7E88690324393AC60022E411 /* SKScenes */,
 				7E80B49323CB68C700254C4B /* Nodes */,
 				7E34BA0C23B8006500FA0BEE /* UserInterface */,
 			);
@@ -289,7 +292,6 @@
 		7E57ACA5241FDC5A003350C9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7E57ACB0241FDCC0003350C9 /* View */,
 				7E57ACAF241FDCB8003350C9 /* Controller */,
 				7E57ACAE241FDCB0003350C9 /* Appearance */,
 			);
@@ -299,10 +301,10 @@
 		7E57ACAE241FDCB0003350C9 /* Appearance */ = {
 			isa = PBXGroup;
 			children = (
-				7E57ACB7241FDD43003350C9 /* GameMenuLayoutManager.swift */,
-				7E57ACB5241FDD43003350C9 /* GameMenuLayoutManaging.swift */,
 				7E57ACB6241FDD43003350C9 /* GameMenuView.swift */,
 				7E57ACB8241FDD43003350C9 /* GameMenuViewInterface.swift */,
+				7E57ACB7241FDD43003350C9 /* GameMenuLayoutManager.swift */,
+				7E57ACB5241FDD43003350C9 /* GameMenuLayoutManaging.swift */,
 			);
 			path = Appearance;
 			sourceTree = "<group>";
@@ -316,16 +318,10 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		7E57ACB0241FDCC0003350C9 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		7E57ACC3241FEBC2003350C9 /* Legacy */ = {
 			isa = PBXGroup;
 			children = (
+				7E88690324393AC60022E411 /* SKScenes */,
 				7E57ACA4241FDC4B003350C9 /* WelcomeScreen */,
 			);
 			path = Legacy;
@@ -399,6 +395,7 @@
 			isa = PBXGroup;
 			children = (
 				7E88690424393AD60022E411 /* OptionsScene.swift */,
+				7E886906243A045A0022E411 /* HUDScene.swift */,
 			);
 			path = SKScenes;
 			sourceTree = "<group>";
@@ -453,6 +450,7 @@
 			isa = PBXGroup;
 			children = (
 				7E57ACA7241FDC85003350C9 /* GameView.swift */,
+				7E886908243A140E0022E411 /* WelcomeScreenView.swift */,
 				7EB244D1242FBC06004F3172 /* HUDView.swift */,
 				7EB244D3242FC1FF004F3172 /* CharacterView.swift */,
 				7EB244D5242FC211004F3172 /* DialogView.swift */,
@@ -675,6 +673,7 @@
 				7EDFF572241E85F400D24798 /* SetupInterface.swift in Sources */,
 				7EB244E0242FE8BB004F3172 /* OptionsNode.swift in Sources */,
 				7EA7A5FC23E5F3DA00894C4D /* EnemyAnimationType.swift in Sources */,
+				7E886909243A140E0022E411 /* WelcomeScreenView.swift in Sources */,
 				7E23B0C1241ECCF6002A2395 /* OptionsButtonNode.swift in Sources */,
 				7E34BA1023B8024D00FA0BEE /* NodeProtocol.swift in Sources */,
 				7E57ACAC241FDC8F003350C9 /* GameViewController.swift in Sources */,
@@ -720,6 +719,7 @@
 				7EB244DA242FC559004F3172 /* PlayerModel.swift in Sources */,
 				7EB244D2242FBC06004F3172 /* HUDView.swift in Sources */,
 				7E34BA1C23B82C2C00FA0BEE /* PlayerAnimation.swift in Sources */,
+				7E886907243A045A0022E411 /* HUDScene.swift in Sources */,
 				7E34BA1E23B83B8900FA0BEE /* GameState.swift in Sources */,
 				7EB244F624311715004F3172 /* WeaponCollider.swift in Sources */,
 				7E57ACCC241FF05F003350C9 /* NpcAnimation.swift in Sources */,
