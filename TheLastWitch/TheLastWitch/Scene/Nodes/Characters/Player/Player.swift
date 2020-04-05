@@ -15,6 +15,7 @@ final class Player: SCNNode {
     private var characterNode: SCNNode!
     private var collider: SCNNode!
     private var weaponCollider: SCNNode!
+    var npc: Npc!
 
     //animation
     private var animation: AnimationInterface!
@@ -106,18 +107,17 @@ final class Player: SCNNode {
                 let lengthOfY = Float(touch.y - middleOfCircleY)
                 var newDirection = float3(x: lengthOfX, y: 0, z: lengthOfY)
                 newDirection = normalize(newDirection)
-                let degree = atan2(newDirection.x, newDirection.z)
                 
                 //move character
                 let pos = float3(position)
                 position = SCNVector3(pos + newDirection * characterSpeed)
 
                 //update angle
-                directionAngle = SCNFloat(atan2f(newDirection.x, newDirection.z))
+                let degree = atan2(newDirection.x, newDirection.z)
+                directionAngle = degree
 
                 isWalking = true
             }
-            
         } else {
             isWalking = false
         }
@@ -176,8 +176,18 @@ final class Player: SCNNode {
             }
         }
     }
+    
+    func interacts() {
+        
+    }
+    
     func walks(walks: Bool) {
         isWalking = walks
+    }
+    
+    func updateModelData() {
+        NotificationCenter.default.post(name: NSNotification.Name("hpChanged"), object: nil, userInfo: ["playerMaxHp": playerModel.maxHpPoints, "currentHp": playerModel.hpPoints])
+        NotificationCenter.default.post(name: NSNotification.Name("expChanged"), object: nil, userInfo: ["playerMaxExp": playerModel.maxExpPoints, "currentExp": playerModel.expPoints])
     }
 }
 

@@ -72,6 +72,8 @@ final class GameViewController: UIViewController {
         gameView.scene = scene
         gameView.isPlaying = true
         
+//        gameView.overlaySKScene = HUDScene()
+        
         statisticManager(show: true)
     }
     
@@ -119,7 +121,8 @@ final class GameViewController: UIViewController {
             gameState = .playing
             gameplayAction(touches: touches)
         case .options:
-            optionsAction(touches: touches)
+            print("nope")
+//            optionsAction(touches: touches)
         case .dialog:
             dialogAction(touches: touches)
         case .character:
@@ -134,7 +137,6 @@ final class GameViewController: UIViewController {
                     padTouch = touch
                     controllerStoredDirection = float2(0.0)
                 }
-                
             } else if gameView.hudView.attackButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 if let activePlayer = player {
                     activePlayer.attack()
@@ -144,14 +146,12 @@ final class GameViewController: UIViewController {
                         currentView = .dialog
                         gameView.removeCurrentView()
                         gameView.setupDialog()
+                        activePlayer.npc.dialog()
                     }
                 }
             } else if gameView.hudView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 gameState = .paused
-                currentView = .options
-                gameView.removeCurrentView()
-                gameView.setupOptions()
-                
+                gameView.overlaySKScene = OptionsScene(size: UIScreen.main.bounds.size, scene: gameplayScene)
             } else if gameView.hudView.characterButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 gameState = .paused
                 currentView = .character
@@ -171,19 +171,12 @@ final class GameViewController: UIViewController {
         for touch in touches {
             if gameView.dialogView.dialogBoxNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 //update text and quit
-                gameView.removeCurrentView()
-                currentView = .playing
-                gameView.setupHUD()
-            }
-        }
-    }
-    
-    private func optionsAction(touches: Set<UITouch>) {
-        for touch in touches {
-            if gameView.optionsView.optionsNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
-                gameView.removeCurrentView()
-                currentView = .playing
-                gameView.setupHUD()
+                if let activePlayer = player {
+                    gameView.removeCurrentView()
+                    currentView = .playing
+                    gameView.setupHUD()
+                    activePlayer.updateModelData()
+                }
             }
         }
     }
@@ -194,6 +187,9 @@ final class GameViewController: UIViewController {
                 gameView.removeCurrentView()
                 currentView = .playing
                 gameView.setupHUD()
+                if let activePlayer = player {
+                    activePlayer.updateModelData()
+                }
             }
         }
     }

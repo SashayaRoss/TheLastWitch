@@ -92,6 +92,7 @@ final class Npc: SCNNode {
 
         if distance < npcModel.noticeDistance && distance > 0.01 {
             player.playerModel.isInteracting = true
+            player.npc = self
             dialog()
         } else {
             player.playerModel.isInteracting = false
