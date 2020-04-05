@@ -36,15 +36,18 @@ final class Player: SCNNode {
     private var directionAngle:Float = 0.0 {
         didSet {
             if directionAngle != oldValue {
+                // action that rotates the node to an angle in radian.
                 runAction(SCNAction.rotateTo(x: 0.0, y: CGFloat(directionAngle), z: 0.0, duration: 0.1, usesShortestUnitArc: true))
             }
         }
     }
+    
+    var touchLocation: CGPoint? = nil
+    var dPadOrigin: CGPoint? = nil
 
     //collisions
     var replacementPosition: SCNVector3 = SCNVector3Zero
     private var activeWeaponCollideNodes = Set<SCNNode>()
-    private var activePlayerCollideNodes = Set<SCNNode>()
     
     //model
     let playerModel: PlayerModel
@@ -83,7 +86,7 @@ final class Player: SCNNode {
     }
 
     //MARK:- movement
-    func walkInDirection(_ direction:float3, time:TimeInterval, scene:SCNScene) {
+    func walkInDirection(_ direction: float3, time: TimeInterval, scene: SCNScene) {
         if playerModel.isDead || playerModel.isAttacking { return }
         if previousUdateTime == 0.0 {
             previousUdateTime = time
@@ -96,14 +99,25 @@ final class Player: SCNNode {
 
         //move
         if direction.x != 0.0 && direction.z != 0.0 {
-            //move character
-            let pos = float3(position)
-            position = SCNVector3(pos + direction * characterSpeed)
+            if let dPad = dPadOrigin, let touch = touchLocation {
+                let middleOfCircleX = dPad.x + 75
+                let middleOfCircleY = dPad.y + 75
+                let lengthOfX = Float(touch.x - middleOfCircleX)
+                let lengthOfY = Float(touch.y - middleOfCircleY)
+                var newDirection = float3(x: lengthOfX, y: 0, z: lengthOfY)
+                newDirection = normalize(newDirection)
+                let degree = atan2(newDirection.x, newDirection.z)
+                
+                //move character
+                let pos = float3(position)
+                position = SCNVector3(pos + newDirection * characterSpeed)
 
-            //update angle
-            directionAngle = SCNFloat(atan2f(direction.x, direction.z))
+                //update angle
+                directionAngle = SCNFloat(atan2f(newDirection.x, newDirection.z))
 
-            isWalking = true
+                isWalking = true
+            }
+            
         } else {
             isWalking = false
         }
@@ -130,10 +144,6 @@ final class Player: SCNNode {
 
     //MARK:- collisions
     func setupCollider(with scale:CGFloat) {
-        //player
-        collider = PlayerCollider().setupCollider(with: scale)
-        addChildNode(collider)
-        
         //weapon
         weaponCollider = WeaponCollider().setupCollider(with: scale)
         addChildNode(weaponCollider)
@@ -145,14 +155,6 @@ final class Player: SCNNode {
 
     func weaponUnCollide(with node:SCNNode) {
         activeWeaponCollideNodes.remove(node)
-    }
-    
-    func playerCollide(with node:SCNNode) {
-        activePlayerCollideNodes.insert(node)
-    }
-
-    func playerUnCollide(with node:SCNNode) {
-        activePlayerCollideNodes.remove(node)
     }
     
     func gotHit(with hpPoints: Float) {

@@ -206,6 +206,9 @@ final class GameViewController: UIViewController {
             let vClamp = clamp(vMix, min: -1.0, max: 1.0)
 
             controllerStoredDirection = vClamp
+            
+            player.dPadOrigin = gameView.hudView.dpadNode.virtualNodeBounds().origin
+            player.touchLocation = touch.location(in: self.view)
         } else if let touch = cameraTouch {
             let displacement = float2(touch.location(in: view)) - float2(touch.previousLocation(in: view))
             mainCamera.panCamera(displacement)
