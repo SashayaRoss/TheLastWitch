@@ -9,10 +9,9 @@
 import SpriteKit
 
 final class VillagerModel: NpcModel {
-    //to do change to false
-//    var isInteracting = true
     let noticeDistance: Float = 1.0
     let dialog: [String]
+    let model: String = "art.scnassets/Scenes/Characters/Hero/idle"
     
     init(dialog: [String]) {
         self.dialog = dialog

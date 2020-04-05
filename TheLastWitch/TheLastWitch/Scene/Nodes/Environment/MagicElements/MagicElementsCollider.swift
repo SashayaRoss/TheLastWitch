@@ -1,14 +1,14 @@
 //
-//  EnemyCollider.swift
+//  MagicElementsCollider.swift
 //  TheLastWitch
 //
-//  Created by Aleksandra Kustra on 15/03/2020.
+//  Created by Aleksandra Kustra on 05/04/2020.
 //  Copyright © 2020 Aleksandra Kustra. All rights reserved.
 //
 
 import SceneKit
 
-final class EnemyCollider: ColliderInterface {
+final class MagicElementsCollider: ColliderInterface {
     var collider: SCNNode!
 
     func setupCollider(with scale: CGFloat) -> SCNNode {
@@ -17,14 +17,14 @@ final class EnemyCollider: ColliderInterface {
         
         collider = SCNNode(geometry: geometry)
         collider.position = SCNVector3Make(0.0, 46, 0.0)
-        collider.name = "enemyCollider"
-        collider.opacity = 0.0
+        collider.name = "magicElementCollider"
+        collider.opacity = 1.0
         
         let physicsGeometry = SCNCapsule(capRadius: 20 * scale, height: 52 * scale)
         let physicsShape = SCNPhysicsShape(geometry: physicsGeometry, options: nil)
         collider.physicsBody = SCNPhysicsBody(type: .kinematic, shape: physicsShape)
-        collider.physicsBody!.categoryBitMask = Bitmask().enemy
-        collider.physicsBody!.contactTestBitMask = Bitmask().wall | Bitmask().player | Bitmask().playerWeapon | Bitmask().npc | Bitmask().magicElement
+        collider.physicsBody!.categoryBitMask = Bitmask().magicElement
+        collider.physicsBody!.contactTestBitMask = Bitmask().wall | Bitmask().player | Bitmask().playerWeapon | Bitmask().enemy | Bitmask().npc
         
         return collider
     }

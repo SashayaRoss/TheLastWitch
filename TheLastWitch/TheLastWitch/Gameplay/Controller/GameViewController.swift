@@ -139,16 +139,11 @@ final class GameViewController: UIViewController {
                         currentView = .dialog
                         gameView.removeCurrentView()
                         gameView.setupDialog()
-                        activePlayer.npc.dialog()
+                        dialogAction(touches: touches)
                     }
                 }
             } else if gameView.hudView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 presentWelcomeScreen()
-//                gameState = .paused
-//
-//                currentView = .tapToPlay
-//                gameState = .newGame
-//                gameView.overlaySKScene = OptionsScene(size: UIScreen.main.bounds.size, scene: gameplayScene)
             } else if gameView.hudView.characterButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 gameState = .paused
                 currentView = .character
@@ -169,11 +164,16 @@ final class GameViewController: UIViewController {
             if gameView.dialogView.dialogBoxNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 //update text and quit
                 if let activePlayer = player {
-                    
-                    gameView.removeCurrentView()
-                    currentView = .playing
-                    gameView.setupHUD()
-                    activePlayer.updateModelData()
+                    if (activePlayer.npc.currentDialog < activePlayer.npc.npcModel.dialog.count) {
+                        activePlayer.npc.dialog()
+                    } else {
+                        activePlayer.npc.currentDialog = 0
+                        gameView.removeCurrentView()
+                        currentView = .playing
+                        gameState = .playing
+                        gameView.setupHUD()
+                        activePlayer.updateModelData()
+                    }
                 }
             }
         }
@@ -306,6 +306,9 @@ extension GameViewController: SCNSceneRendererDelegate {
         for (node, position) in replacementPosition {
             node.position = position
         }
+        if player.playerModel.isDead {
+            presentWelcomeScreen()
+        }
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
@@ -329,6 +332,8 @@ extension GameViewController: SCNSceneRendererDelegate {
                     (node as! Enemy).update(with: time, and: scene)
                 case "Npc":
                     (node as! Npc).update(with: time, and: scene)
+                case "MagicElement":
+                    (node as! MagicElements).update(with: time, and: scene)
                 default:
                     break
                 }
@@ -347,7 +352,6 @@ extension GameViewController: SCNPhysicsContactDelegate {
         
         // if player collides with enemy
         contact.match(Bitmask().enemy) { (matching, other) in
-            
             let enemy = matching.parent as! Enemy
             if other.name == "collider" { enemy.isCollidingWithPlayer = true }
             if other.name == "weaponCollider" { player!.weaponCollide(with: enemy) }
@@ -357,6 +361,11 @@ extension GameViewController: SCNPhysicsContactDelegate {
         contact.match(Bitmask().npc) { (matching, other) in
             let npc = matching.parent as! Npc
             if other.name == "collider" { npc.isCollidingWithPlayer = true }
+            self.characterNode(other, hitWall: matching, withContact: contact)
+        }
+        
+        //if player collides with magical object
+        contact.match(Bitmask().magicElement) { (matching, other) in
             self.characterNode(other, hitWall: matching, withContact: contact)
         }
     }
@@ -380,6 +389,11 @@ extension GameViewController: SCNPhysicsContactDelegate {
             if other.name == "collider" { npc.isCollidingWithPlayer = true }
             self.characterNode(other, hitWall: matching, withContact: contact)
         }
+        
+        //if player collides with magical object
+        contact.match(Bitmask().magicElement) { (matching, other) in
+            self.characterNode(other, hitWall: matching, withContact: contact)
+        }
     }
 
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
@@ -393,6 +407,11 @@ extension GameViewController: SCNPhysicsContactDelegate {
         contact.match(Bitmask().npc) { (matching, other) in
             let npc = matching.parent as! Npc
             if other.name == "collider" { npc.isCollidingWithPlayer = true }
+        }
+        
+        //if player collides with magical object
+        contact.match(Bitmask().magicElement) { (matching, other) in
+            self.characterNode(other, hitWall: matching, withContact: contact)
         }
     }
 }

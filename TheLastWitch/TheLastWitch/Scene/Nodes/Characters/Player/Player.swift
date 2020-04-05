@@ -192,10 +192,6 @@ final class Player: SCNNode {
         }
     }
     
-    func interacts() {
-        
-    }
-    
     func walks(walks: Bool) {
         isWalking = walks
     }

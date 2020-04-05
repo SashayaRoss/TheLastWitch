@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E106FB9243A34DC0044F3AD /* MagicElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FB8243A34DC0044F3AD /* MagicElements.swift */; };
+		7E106FBF243A35640044F3AD /* MagicElementsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FBE243A35640044F3AD /* MagicElementsModel.swift */; };
+		7E106FC1243A35D10044F3AD /* MagicShrine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FC0243A35D10044F3AD /* MagicShrine.swift */; };
+		7E106FC3243A38500044F3AD /* MagicElementsCollider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FC2243A38500044F3AD /* MagicElementsCollider.swift */; };
+		7E106FC5243A39D00044F3AD /* MagicElementsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FC4243A39D00044F3AD /* MagicElementsFactory.swift */; };
 		7E1332E12426C95D00989768 /* MusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1332E02426C95D00989768 /* MusicManager.swift */; };
 		7E23B0BB241EACF5002A2395 /* PlayerCollider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E23B0BA241EACF5002A2395 /* PlayerCollider.swift */; };
 		7E23B0BD241EB0FF002A2395 /* BattleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E23B0BC241EB0FF002A2395 /* BattleAction.swift */; };
@@ -90,6 +95,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7E106FB8243A34DC0044F3AD /* MagicElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicElements.swift; sourceTree = "<group>"; };
+		7E106FBE243A35640044F3AD /* MagicElementsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicElementsModel.swift; sourceTree = "<group>"; };
+		7E106FC0243A35D10044F3AD /* MagicShrine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicShrine.swift; sourceTree = "<group>"; };
+		7E106FC2243A38500044F3AD /* MagicElementsCollider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicElementsCollider.swift; sourceTree = "<group>"; };
+		7E106FC4243A39D00044F3AD /* MagicElementsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicElementsFactory.swift; sourceTree = "<group>"; };
 		7E1332E02426C95D00989768 /* MusicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicManager.swift; sourceTree = "<group>"; };
 		7E23B0BA241EACF5002A2395 /* PlayerCollider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollider.swift; sourceTree = "<group>"; };
 		7E23B0BC241EB0FF002A2395 /* BattleAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleAction.swift; sourceTree = "<group>"; };
@@ -184,6 +194,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7E106FB7243A34B00044F3AD /* MagicElements */ = {
+			isa = PBXGroup;
+			children = (
+				7E106FB8243A34DC0044F3AD /* MagicElements.swift */,
+				7E106FC2243A38500044F3AD /* MagicElementsCollider.swift */,
+				7E106FC4243A39D00044F3AD /* MagicElementsFactory.swift */,
+			);
+			path = MagicElements;
+			sourceTree = "<group>";
+		};
+		7E106FBC243A354E0044F3AD /* Enviroment */ = {
+			isa = PBXGroup;
+			children = (
+				7E106FBD243A35540044F3AD /* MagicElements */,
+			);
+			path = Enviroment;
+			sourceTree = "<group>";
+		};
+		7E106FBD243A35540044F3AD /* MagicElements */ = {
+			isa = PBXGroup;
+			children = (
+				7E106FBE243A35640044F3AD /* MagicElementsModel.swift */,
+				7E106FC0243A35D10044F3AD /* MagicShrine.swift */,
+			);
+			path = MagicElements;
+			sourceTree = "<group>";
+		};
 		7E34B9DB23B552E300FA0BEE = {
 			isa = PBXGroup;
 			children = (
@@ -363,6 +400,7 @@
 		7E69BDAB242FABFE00401116 /* Enviroment */ = {
 			isa = PBXGroup;
 			children = (
+				7E106FB7243A34B00044F3AD /* MagicElements */,
 				7EDFF577241E8A7500D24798 /* Light */,
 				7EDFF56E241E856700D24798 /* Camera */,
 			);
@@ -462,6 +500,7 @@
 		7EB244E72430DC13004F3172 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				7E106FBC243A354E0044F3AD /* Enviroment */,
 				7EB244E82430DC1D004F3172 /* Characters */,
 			);
 			path = Data;
@@ -676,6 +715,7 @@
 				7E886909243A140E0022E411 /* WelcomeScreenView.swift in Sources */,
 				7E23B0C1241ECCF6002A2395 /* OptionsButtonNode.swift in Sources */,
 				7E34BA1023B8024D00FA0BEE /* NodeProtocol.swift in Sources */,
+				7E106FC5243A39D00044F3AD /* MagicElementsFactory.swift in Sources */,
 				7E57ACAC241FDC8F003350C9 /* GameViewController.swift in Sources */,
 				7EDFF583241EA8E700D24798 /* AnimationInterface.swift in Sources */,
 				7EDFF5622415599B00D24798 /* EnemyAnimation.swift in Sources */,
@@ -684,6 +724,7 @@
 				7E23B0BD241EB0FF002A2395 /* BattleAction.swift in Sources */,
 				7EDFF580241E99E200D24798 /* PhysicsContactExtension.swift in Sources */,
 				7EDFF567241E7F5300D24798 /* EnemyCollider.swift in Sources */,
+				7E106FC1243A35D10044F3AD /* MagicShrine.swift in Sources */,
 				7EB244DC242FDED6004F3172 /* DialogTextNode.swift in Sources */,
 				7E57ACBC241FDD43003350C9 /* GameMenuViewInterface.swift in Sources */,
 				7E57ACD0241FFF8D003350C9 /* ColliderInterface.swift in Sources */,
@@ -695,6 +736,7 @@
 				7EB244F224310BB6004F3172 /* NpcModel.swift in Sources */,
 				7EB244CD242FB50C004F3172 /* GameUtils.swift in Sources */,
 				7E34BA1A23B82BE800FA0BEE /* PlayerAnimationType.swift in Sources */,
+				7E106FC3243A38500044F3AD /* MagicElementsCollider.swift in Sources */,
 				7E57ACBA241FDD43003350C9 /* GameMenuView.swift in Sources */,
 				7EB244EE243108A0004F3172 /* EnemyModel.swift in Sources */,
 				7EDFF574241E880E00D24798 /* EnemyFactory.swift in Sources */,
@@ -704,12 +746,14 @@
 				7EB244DE242FE8B0004F3172 /* CharacterNode.swift in Sources */,
 				7E34BA1723B8251A00FA0BEE /* Player.swift in Sources */,
 				7EDFF570241E857900D24798 /* MainCamera.swift in Sources */,
+				7E106FB9243A34DC0044F3AD /* MagicElements.swift in Sources */,
 				7EDFF5642415689100D24798 /* EXPBarNode.swift in Sources */,
 				7EA7A60323E5FCAE00894C4D /* Collision.swift in Sources */,
 				7EB244F424310C5B004F3172 /* VillagerModel.swift in Sources */,
 				7EA7A60723E5FD6B00894C4D /* Bitmask.swift in Sources */,
 				7E23B0BB241EACF5002A2395 /* PlayerCollider.swift in Sources */,
 				7EB244EC2430DC5C004F3172 /* WolfModel.swift in Sources */,
+				7E106FBF243A35640044F3AD /* MagicElementsModel.swift in Sources */,
 				7EDFF579241E8A8700D24798 /* MainLight.swift in Sources */,
 				7E34B9E823B552E400FA0BEE /* AppDelegate.swift in Sources */,
 				7E1332E12426C95D00989768 /* MusicManager.swift in Sources */,

@@ -24,7 +24,7 @@ final class NpcCollider: ColliderInterface {
         let physicsShape = SCNPhysicsShape(geometry: physicsGeometry, options: nil)
         collider.physicsBody = SCNPhysicsBody(type: .kinematic, shape: physicsShape)
         collider.physicsBody!.categoryBitMask = Bitmask().npc
-        collider.physicsBody!.contactTestBitMask = Bitmask().wall | Bitmask().player | Bitmask().playerWeapon | Bitmask().enemy
+        collider.physicsBody!.contactTestBitMask = Bitmask().wall | Bitmask().player | Bitmask().playerWeapon | Bitmask().enemy | Bitmask().magicElement
         
         return collider
     }

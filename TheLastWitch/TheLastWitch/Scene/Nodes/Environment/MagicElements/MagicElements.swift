@@ -1,15 +1,15 @@
 //
-//  Npc.swift
+//  MagicElements.swift
 //  TheLastWitch
 //
-//  Created by Aleksandra Kustra on 16/03/2020.
+//  Created by Aleksandra Kustra on 05/04/2020.
 //  Copyright © 2020 Aleksandra Kustra. All rights reserved.
 //
 
 import Foundation
 import SceneKit
 
-final class Npc: SCNNode {
+final class MagicElements: SCNNode {
     //general
     var gameView: GameView!
     
@@ -19,48 +19,18 @@ final class Npc: SCNNode {
     private var player: Player!
     
     //interaction
-    var npcModel: NpcModel!
+    var magicElementModel: MagicElementsModel!
     var currentDialog: Int = 0
     
-    //animation
-    private var animation: AnimationInterface!
-    
-    //movement
-    private var isWalking: Bool = false {
-        didSet {
-            if oldValue != isWalking {
-                if isWalking {
-                    addAnimation(animation.walkAnimation, forKey: "walk")
-                } else {
-                    removeAnimation(forKey: "walk")
-                }
-            }
-        }
-    }
-    
-    //collision
-    var isCollidingWithPlayer = false {
-        didSet {
-            if oldValue != isCollidingWithPlayer {
-                if isCollidingWithPlayer {
-                    isWalking = false
-                }
-            }
-        }
-    }
-    
     //MARK: init
-    init(player: Player, view: GameView, npcModel: NpcModel) {
+    init(player: Player, view: GameView, magicElementModel: MagicElementsModel) {
         super.init()
         
         self.gameView = view
         self.player = player
-        self.npcModel = npcModel
+        self.magicElementModel = magicElementModel
         
         setupModelScene()
-        animation = NpcAnimation()
-        animation.loadAnimations()
-        animation.object.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -69,8 +39,8 @@ final class Npc: SCNNode {
     
     //MARK: scene
     private func setupModelScene() {
-        name = "Npc"
-        let idleURL = Bundle.main.url(forResource: npcModel.model, withExtension: "dae")
+        name = "MagicElement"
+        let idleURL = Bundle.main.url(forResource: magicElementModel.model, withExtension: "dae")
         let idleScene = try! SCNScene(url: idleURL!, options: nil)
         
         for child in idleScene.rootNode.childNodes {
@@ -91,9 +61,10 @@ final class Npc: SCNNode {
         //get distance
         let distance = GameUtils.distanceBetweenVectors(vector1: player.position, vector2: position)
 
-        if distance < npcModel.noticeDistance && distance > 0.01 {
+        if distance < magicElementModel.noticeDistance && distance > 0.01 {
+            //shine more?
             player.playerModel.isInteracting = true
-            player.npc = self
+//            player.npc = self
         } else {
             player.playerModel.isInteracting = false
         }
@@ -101,7 +72,7 @@ final class Npc: SCNNode {
     
     //MARK: collision
     func setupCollider(scale: CGFloat) {
-        let collider = NpcCollider().setupCollider(with: scale)
+        let collider = MagicElementsCollider().setupCollider(with: scale)
         
         gameView.prepare([collider]) { (finished) in
             self.addChildNode(collider)
@@ -113,17 +84,7 @@ final class Npc: SCNNode {
     }
     
     func dialog() {
-        interacts(dialog: npcModel.dialog[currentDialog])
+        interacts(dialog: magicElementModel.dialog[currentDialog])
         currentDialog += 1
     }
 }
-
-extension Npc: CAAnimationDelegate {
-    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        guard let id = anim.value(forKey: "animationId") as? String else { return }
-        if id == "interaction" {
-            //interaction animation
-        }
-    }
-}
-

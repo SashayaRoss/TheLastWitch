@@ -33,8 +33,6 @@ extension DialogTextNode: NodeProtocol {
         dialogSprite.preferredMaxLayoutWidth = bounds.size.width - 40
         dialogSprite.numberOfLines = 2
         dialogSprite.fontColor = .black
-        
-        update(dialog: "dasdiuash dsad aosid aos diasudo asiud ")
     
         scene.addChild(dialogSprite)
     }
