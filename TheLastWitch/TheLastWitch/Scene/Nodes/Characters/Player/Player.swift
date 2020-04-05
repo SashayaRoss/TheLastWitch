@@ -102,6 +102,7 @@ final class Player: SCNNode {
 
         //move
         if direction.x != 0.0 && direction.z != 0.0 {
+            //camera!!!!
             if let dPad = dPadOrigin, let touch = touchLocation {
                 let middleOfCircleX = dPad.x + 75
                 let middleOfCircleY = dPad.y + 75
@@ -169,6 +170,15 @@ final class Player: SCNNode {
 
     func playerUnCollide(with node:SCNNode) {
         activePlayerCollideNodes.remove(node)
+    }
+    
+    func updateExp(enemyExp: Float) {
+        playerModel.expPoints += enemyExp
+        NotificationCenter.default.post(name: NSNotification.Name("expChanged"), object: nil, userInfo: ["playerMaxExp": playerModel.maxExpPoints, "currentExp": playerModel.expPoints])
+        if playerModel.expPoints >= playerModel.maxExpPoints {
+            playerModel.expPoints = playerModel.expPoints - playerModel.maxExpPoints
+            playerModel.level += 1
+        }
     }
 
     

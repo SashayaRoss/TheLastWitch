@@ -25,17 +25,19 @@ final class EnemyFactory {
     
     private func setupEnemy() {
         let enemyScale: Float = 0.0080
-        let wolfModel = WolfModel()
+        let wolfModel1 = WolfModel()
+        let wolfModel2 = WolfModel()
+        let wolfModel3 = WolfModel()
         
-        let enemy1 = Enemy(player: player, view: gameView, enemyModel: wolfModel)
+        let enemy1 = Enemy(player: player, view: gameView, enemyModel: wolfModel1)
         enemy1.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
         enemy1.position = enemyPositionArray["golem1"]!
         
-        let enemy2 = Enemy(player: player, view: gameView, enemyModel: wolfModel)
+        let enemy2 = Enemy(player: player, view: gameView, enemyModel: wolfModel2)
         enemy2.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
         enemy2.position = enemyPositionArray["golem2"]!
         
-        let enemy3 = Enemy(player: player, view: gameView, enemyModel: wolfModel)
+        let enemy3 = Enemy(player: player, view: gameView, enemyModel: wolfModel3)
         enemy3.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
         enemy3.position = enemyPositionArray["golem3"]!
         

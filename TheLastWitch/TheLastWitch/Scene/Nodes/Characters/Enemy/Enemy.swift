@@ -47,7 +47,7 @@ final class Enemy: SCNNode {
     }
     
     //model
-    var enemyModel: EnemyModel!
+    private var enemyModel: EnemyModel!
 
     private var attackTimer: Timer?
     private var attackFrameCounter = 0
@@ -181,13 +181,8 @@ final class Enemy: SCNNode {
     func gotHit(by node:SCNNode, with hpHitPoints:Float) {
         enemyModel.hp -= hpHitPoints
         if enemyModel.hp <= 0 && !enemyModel.isDead {
-            let stats = player.playerModel
             die()
-            stats.expPoints += enemyModel.exp
-            NotificationCenter.default.post(name: NSNotification.Name("expChanged"), object: nil, userInfo: ["playerMaxExp": stats.maxExpPoints, "currentExp": stats.expPoints])
-            if stats.expPoints >= stats.maxExpPoints {
-                stats.level += 1
-            }
+            player.updateExp(enemyExp: enemyModel.exp)
             //drop loot
         }
     }

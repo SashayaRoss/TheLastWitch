@@ -50,7 +50,7 @@ final class GameViewController: UIViewController {
         super.viewDidLoad()
         gameView = view as? GameView
         setupScene()
-        setupEnviroment()
+        setupEnvironment()
         gameState = .playing
     }
     
@@ -76,7 +76,7 @@ final class GameViewController: UIViewController {
         gameView.showsStatistics = show
     }
     
-    private func setupEnviroment() {
+    private func setupEnvironment() {
         playerFactory = PlayerFactory(scene: gameplayScene)
         player = playerFactory.getPlayer()
         mainCamera = MainCamera(scene: gameplayScene)
@@ -87,10 +87,6 @@ final class GameViewController: UIViewController {
         
         lightStick = light.setup()
         cameraStick = mainCamera.setup()
-    }
-    
-    override var shouldAutorotate: Bool {
-        return false
     }
     
     override var prefersStatusBarHidden: Bool {

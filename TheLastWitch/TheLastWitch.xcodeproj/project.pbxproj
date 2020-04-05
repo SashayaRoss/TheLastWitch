@@ -204,12 +204,12 @@
 			path = MagicElements;
 			sourceTree = "<group>";
 		};
-		7E106FBC243A354E0044F3AD /* Enviroment */ = {
+		7E106FBC243A354E0044F3AD /* Environment */ = {
 			isa = PBXGroup;
 			children = (
 				7E106FBD243A35540044F3AD /* MagicElements */,
 			);
-			path = Enviroment;
+			path = Environment;
 			sourceTree = "<group>";
 		};
 		7E106FBD243A35540044F3AD /* MagicElements */ = {
@@ -397,14 +397,14 @@
 			path = Characters;
 			sourceTree = "<group>";
 		};
-		7E69BDAB242FABFE00401116 /* Enviroment */ = {
+		7E69BDAB242FABFE00401116 /* Environment */ = {
 			isa = PBXGroup;
 			children = (
 				7E106FB7243A34B00044F3AD /* MagicElements */,
 				7EDFF577241E8A7500D24798 /* Light */,
 				7EDFF56E241E856700D24798 /* Camera */,
 			);
-			path = Enviroment;
+			path = Environment;
 			sourceTree = "<group>";
 		};
 		7E80B49323CB68C700254C4B /* Nodes */ = {
@@ -412,7 +412,7 @@
 			children = (
 				7EA7A60523E5FD4E00894C4D /* Collision */,
 				7EDFF571241E85F400D24798 /* SetupInterface.swift */,
-				7E69BDAB242FABFE00401116 /* Enviroment */,
+				7E69BDAB242FABFE00401116 /* Environment */,
 				7E69BDAA242FABF100401116 /* Characters */,
 			);
 			path = Nodes;
@@ -500,7 +500,7 @@
 		7EB244E72430DC13004F3172 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				7E106FBC243A354E0044F3AD /* Enviroment */,
+				7E106FBC243A354E0044F3AD /* Environment */,
 				7EB244E82430DC1D004F3172 /* Characters */,
 			);
 			path = Data;
