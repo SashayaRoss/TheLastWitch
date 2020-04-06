@@ -15,6 +15,8 @@ final class SceneConfigurator {
         switch state {
         case .newGame:
             sceneName = "art.scnassets/Scenes/World/WelcomeScreenScene.scn"
+        case .transition:
+            sceneName = "art.scnassets/Scenes/World/TransitionScene.scn"
         default:
             sceneName = "art.scnassets/Scenes/World/Stage1.scn"
         }

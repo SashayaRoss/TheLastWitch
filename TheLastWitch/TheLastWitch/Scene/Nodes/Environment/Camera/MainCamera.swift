@@ -40,8 +40,12 @@ final class MainCamera {
         }
 
         cameraYHolder.rotation = SCNVector4Make(1, 0, 0, yRotationValue)
+        print("camera rotation: \(xRotationValue)")
     }
     
+    func getRotation() -> Float {
+        return cameraXHolder.rotation.w
+    }
 //    func coolCamera() {
 //        cameraStick.camera?.wantsDepthOfField = true
 //        cameraStick.camera?.focusDistance = 5

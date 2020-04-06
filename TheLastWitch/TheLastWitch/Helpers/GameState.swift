@@ -10,4 +10,5 @@ enum GameState {
     case newGame
     case playing
     case paused
+    case transition
 }

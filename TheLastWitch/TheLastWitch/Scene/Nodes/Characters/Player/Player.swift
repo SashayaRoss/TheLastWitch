@@ -45,6 +45,7 @@ final class Player: SCNNode {
     
     var touchLocation: CGPoint? = nil
     var dPadOrigin: CGPoint? = nil
+    var cameraRotation: Float? = 0
 
     //collisions
     var replacementPosition: SCNVector3 = SCNVector3Zero
@@ -103,13 +104,14 @@ final class Player: SCNNode {
         //move
         if direction.x != 0.0 && direction.z != 0.0 {
             //camera!!!!
-            if let dPad = dPadOrigin, let touch = touchLocation {
+            if let dPad = dPadOrigin, let touch = touchLocation, let camera = cameraRotation {
                 let middleOfCircleX = dPad.x + 75
                 let middleOfCircleY = dPad.y + 75
                 let lengthOfX = Float(touch.x - middleOfCircleX)
                 let lengthOfY = Float(touch.y - middleOfCircleY)
                 var newDirection = float3(x: lengthOfX, y: 0, z: lengthOfY)
                 newDirection = normalize(newDirection)
+                print("x: \(touch.x), y: \(touch.y)")
                 
                 //move character
                 let pos = float3(position)
@@ -168,21 +170,33 @@ final class Player: SCNNode {
         activePlayerCollideNodes.insert(node)
     }
 
-    func playerUnCollide(with node:SCNNode) {
+    func playerUnCollide(with node: SCNNode) {
         activePlayerCollideNodes.remove(node)
     }
     
-    func updateExp(enemyExp: Float) {
-        playerModel.expPoints += enemyExp
-        NotificationCenter.default.post(name: NSNotification.Name("expChanged"), object: nil, userInfo: ["playerMaxExp": playerModel.maxExpPoints, "currentExp": playerModel.expPoints])
-        if playerModel.expPoints >= playerModel.maxExpPoints {
-            playerModel.expPoints = playerModel.expPoints - playerModel.maxExpPoints
-            playerModel.level += 1
+    func updateExp(enemyExp: Int) {
+        var currentExp = playerModel.expPoints
+        var currentLvl = playerModel.level
+        var levelUp: Bool = false
+        
+        if currentExp + enemyExp >= playerModel.maxExpPoints {
+            currentExp = currentExp + enemyExp
+            let ileLeveli = Int(floor(Double(currentExp / playerModel.maxExpPoints)))
+            currentLvl += ileLeveli
+            currentExp -= (ileLeveli * playerModel.maxExpPoints)
+            levelUp = true
+        } else {
+            currentExp += enemyExp
         }
+        
+        playerModel.level = currentLvl
+        playerModel.expPoints = currentExp
+   
+        NotificationCenter.default.post(name: NSNotification.Name("expChanged"), object: nil, userInfo: ["playerMaxExp": playerModel.maxExpPoints, "currentExp": playerModel.expPoints, "levelUp": levelUp])
     }
 
     
-    func gotHit(with hpPoints: Float) {
+    func gotHit(with hpPoints: Int) {
         playerModel.hpPoints -= hpPoints
         NotificationCenter.default.post(name: NSNotification.Name("hpChanged"), object: nil, userInfo: ["playerMaxHp": playerModel.maxHpPoints, "currentHp": playerModel.hpPoints])
 
@@ -196,7 +210,7 @@ final class Player: SCNNode {
         if attackFrameCounter == 12 {
             for node in activeWeaponCollideNodes {
                 if let enemy = node as? Enemy {
-                    enemy.gotHit(by: node, with: 30.0)
+                    enemy.gotHit(by: node, with: 30)
                 }
             }
         }

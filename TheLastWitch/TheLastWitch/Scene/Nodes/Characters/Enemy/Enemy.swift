@@ -178,7 +178,7 @@ final class Enemy: SCNNode {
         }
     }
     
-    func gotHit(by node:SCNNode, with hpHitPoints:Float) {
+    func gotHit(by node:SCNNode, with hpHitPoints: Int) {
         enemyModel.hp -= hpHitPoints
         if enemyModel.hp <= 0 && !enemyModel.isDead {
             die()

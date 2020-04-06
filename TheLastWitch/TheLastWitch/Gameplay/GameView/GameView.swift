@@ -20,7 +20,7 @@ final class GameView: SCNView {
     let dialogView = DialogView()
     let optionsView = OptionsView()
     
-    let welcomeScreenView = WelcomeScreenView()
+    let welcomeScreenView = WelcomeScreenNode()
     
     //MARK: lifecycle
     override func awakeFromNib() {

@@ -9,9 +9,9 @@
 import SpriteKit
 
 protocol EnemyModel {
-    var hp: Float { get set }
-    var strength: Float { get set }
-    var exp: Float { get set }
+    var hp: Int { get set }
+    var strength: Int { get set }
+    var exp: Int { get set }
     
     var noticeDistance: Float { get }
     var movementSpeedLimiter: Float { get }

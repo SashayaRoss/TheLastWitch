@@ -18,6 +18,7 @@ final class GameViewController: UIViewController {
     var sceneView: SCNView!
     var newGameScene: SCNScene!
     var gameplayScene: SCNScene!
+    var transitionScene: SCNScene!
     
     //general
     var gameState: GameState = .newGame
@@ -58,6 +59,7 @@ final class GameViewController: UIViewController {
     private func setupScene() {
         gameplayScene = SceneConfigurator().setup(state: .playing)
         newGameScene = SceneConfigurator().setup(state: .newGame)
+        transitionScene = SceneConfigurator().setup(state: .transition)
         
         gameView.antialiasingMode = .multisampling4X
         gameView.delegate = self
@@ -68,6 +70,7 @@ final class GameViewController: UIViewController {
         
         gameView.scene = scene
         gameView.isPlaying = true
+        
         
         statisticManager(show: true)
     }
@@ -199,6 +202,7 @@ final class GameViewController: UIViewController {
             
             player.dPadOrigin = gameView.hudView.dpadNode.virtualNodeBounds().origin
             player.touchLocation = touch.location(in: self.view)
+            player.cameraRotation = mainCamera.getRotation()
         } else if let touch = cameraTouch {
             let displacement = float2(touch.location(in: view)) - float2(touch.previousLocation(in: view))
             mainCamera.panCamera(displacement)

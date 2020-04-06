@@ -9,11 +9,11 @@
 import SpriteKit
 
 final class PlayerModel {
-    let maxHpPoints: Float = 100.0
-    var hpPoints: Float = 100.0
+    let maxHpPoints: Int = 100
+    var hpPoints: Int = 100
     
-    let maxExpPoints: Float = 100.0
-    var expPoints: Float = 0
+    let maxExpPoints: Int = 100
+    var expPoints: Int = 0
     
     var speed: Float = 1.8
     var level: Int = 1

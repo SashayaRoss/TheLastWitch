@@ -12,6 +12,7 @@
 		7E106FC1243A35D10044F3AD /* MagicShrine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FC0243A35D10044F3AD /* MagicShrine.swift */; };
 		7E106FC3243A38500044F3AD /* MagicElementsCollider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FC2243A38500044F3AD /* MagicElementsCollider.swift */; };
 		7E106FC5243A39D00044F3AD /* MagicElementsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FC4243A39D00044F3AD /* MagicElementsFactory.swift */; };
+		7E106FC8243A4B550044F3AD /* WelcomeScreenBackgroundNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FC7243A4B550044F3AD /* WelcomeScreenBackgroundNode.swift */; };
 		7E1332E12426C95D00989768 /* MusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1332E02426C95D00989768 /* MusicManager.swift */; };
 		7E23B0BB241EACF5002A2395 /* PlayerCollider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E23B0BA241EACF5002A2395 /* PlayerCollider.swift */; };
 		7E23B0BD241EB0FF002A2395 /* BattleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E23B0BC241EB0FF002A2395 /* BattleAction.swift */; };
@@ -48,7 +49,7 @@
 		7E80B49623CB68E200254C4B /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E80B49523CB68E200254C4B /* Enemy.swift */; };
 		7E88690524393AD60022E411 /* OptionsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E88690424393AD60022E411 /* OptionsScene.swift */; };
 		7E886907243A045A0022E411 /* HUDScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E886906243A045A0022E411 /* HUDScene.swift */; };
-		7E886909243A140E0022E411 /* WelcomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E886908243A140E0022E411 /* WelcomeScreenView.swift */; };
+		7E886909243A140E0022E411 /* WelcomeScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E886908243A140E0022E411 /* WelcomeScreenNode.swift */; };
 		7EA7A5FC23E5F3DA00894C4D /* EnemyAnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA7A5FB23E5F3DA00894C4D /* EnemyAnimationType.swift */; };
 		7EA7A5FF23E5F62500894C4D /* ColourBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA7A5FE23E5F62500894C4D /* ColourBase.swift */; };
 		7EA7A60323E5FCAE00894C4D /* Collision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA7A60223E5FCAE00894C4D /* Collision.swift */; };
@@ -100,6 +101,7 @@
 		7E106FC0243A35D10044F3AD /* MagicShrine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicShrine.swift; sourceTree = "<group>"; };
 		7E106FC2243A38500044F3AD /* MagicElementsCollider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicElementsCollider.swift; sourceTree = "<group>"; };
 		7E106FC4243A39D00044F3AD /* MagicElementsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicElementsFactory.swift; sourceTree = "<group>"; };
+		7E106FC7243A4B550044F3AD /* WelcomeScreenBackgroundNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenBackgroundNode.swift; sourceTree = "<group>"; };
 		7E1332E02426C95D00989768 /* MusicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicManager.swift; sourceTree = "<group>"; };
 		7E23B0BA241EACF5002A2395 /* PlayerCollider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollider.swift; sourceTree = "<group>"; };
 		7E23B0BC241EB0FF002A2395 /* BattleAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleAction.swift; sourceTree = "<group>"; };
@@ -140,7 +142,7 @@
 		7E80B49523CB68E200254C4B /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		7E88690424393AD60022E411 /* OptionsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsScene.swift; sourceTree = "<group>"; };
 		7E886906243A045A0022E411 /* HUDScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDScene.swift; sourceTree = "<group>"; };
-		7E886908243A140E0022E411 /* WelcomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenView.swift; sourceTree = "<group>"; };
+		7E886908243A140E0022E411 /* WelcomeScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenNode.swift; sourceTree = "<group>"; };
 		7EA7A5FB23E5F3DA00894C4D /* EnemyAnimationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAnimationType.swift; sourceTree = "<group>"; };
 		7EA7A5FE23E5F62500894C4D /* ColourBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourBase.swift; sourceTree = "<group>"; };
 		7EA7A60223E5FCAE00894C4D /* Collision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collision.swift; sourceTree = "<group>"; };
@@ -221,6 +223,14 @@
 			path = MagicElements;
 			sourceTree = "<group>";
 		};
+		7E106FC6243A4B300044F3AD /* WelcomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				7E106FC7243A4B550044F3AD /* WelcomeScreenBackgroundNode.swift */,
+			);
+			path = WelcomeScreen;
+			sourceTree = "<group>";
+		};
 		7E34B9DB23B552E300FA0BEE = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +287,7 @@
 		7E34BA0C23B8006500FA0BEE /* UserInterface */ = {
 			isa = PBXGroup;
 			children = (
+				7E106FC6243A4B300044F3AD /* WelcomeScreen */,
 				7E34BA0F23B8024D00FA0BEE /* NodeProtocol.swift */,
 				7EB244C9242FB36C004F3172 /* Dialog */,
 				7EB244C8242FB315004F3172 /* Character */,
@@ -488,7 +499,7 @@
 			isa = PBXGroup;
 			children = (
 				7E57ACA7241FDC85003350C9 /* GameView.swift */,
-				7E886908243A140E0022E411 /* WelcomeScreenView.swift */,
+				7E886908243A140E0022E411 /* WelcomeScreenNode.swift */,
 				7EB244D1242FBC06004F3172 /* HUDView.swift */,
 				7EB244D3242FC1FF004F3172 /* CharacterView.swift */,
 				7EB244D5242FC211004F3172 /* DialogView.swift */,
@@ -712,7 +723,7 @@
 				7EDFF572241E85F400D24798 /* SetupInterface.swift in Sources */,
 				7EB244E0242FE8BB004F3172 /* OptionsNode.swift in Sources */,
 				7EA7A5FC23E5F3DA00894C4D /* EnemyAnimationType.swift in Sources */,
-				7E886909243A140E0022E411 /* WelcomeScreenView.swift in Sources */,
+				7E886909243A140E0022E411 /* WelcomeScreenNode.swift in Sources */,
 				7E23B0C1241ECCF6002A2395 /* OptionsButtonNode.swift in Sources */,
 				7E34BA1023B8024D00FA0BEE /* NodeProtocol.swift in Sources */,
 				7E106FC5243A39D00044F3AD /* MagicElementsFactory.swift in Sources */,
@@ -750,6 +761,7 @@
 				7EDFF5642415689100D24798 /* EXPBarNode.swift in Sources */,
 				7EA7A60323E5FCAE00894C4D /* Collision.swift in Sources */,
 				7EB244F424310C5B004F3172 /* VillagerModel.swift in Sources */,
+				7E106FC8243A4B550044F3AD /* WelcomeScreenBackgroundNode.swift in Sources */,
 				7EA7A60723E5FD6B00894C4D /* Bitmask.swift in Sources */,
 				7E23B0BB241EACF5002A2395 /* PlayerCollider.swift in Sources */,
 				7EB244EC2430DC5C004F3172 /* WolfModel.swift in Sources */,

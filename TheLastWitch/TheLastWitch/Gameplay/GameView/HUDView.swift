@@ -51,8 +51,8 @@ final class HUDView {
     @objc private func hpDidChange(notification: Notification) {
         guard
             let userInfo = notification.userInfo as? [String: Any],
-            let playerMaxHp = userInfo["playerMaxHp"] as? Float,
-            let currentHp = userInfo["currentHp"] as? Float
+            let playerMaxHp = userInfo["playerMaxHp"] as? Int,
+            let currentHp = userInfo["currentHp"] as? Int
         else {
             return
         }
@@ -74,24 +74,43 @@ final class HUDView {
     @objc private func expDidChange(notification: Notification) {
         guard
             let userInfo = notification.userInfo as? [String: Any],
-            let playerMaxExp = userInfo["playerMaxExp"] as? Float,
-            let currentExp = userInfo["currentExp"] as? Float
+            let playerMaxExp = userInfo["playerMaxExp"] as? Int,
+            let currentExp = userInfo["currentExp"] as? Int,
+            let levelUp = userInfo["levelUp"] as? Bool
         else {
             return
         }
         
-        let v1 = CGFloat(playerMaxExp)
-        let v2 = expBarMaxWidth
-        let v3 = CGFloat(currentExp)
-        var currentLocalExp: CGFloat = 0.0
+        let playerMaxExpLocal = CGFloat(playerMaxExp)
+        let expBarMaxWidthLocal = expBarMaxWidth
+        let currentExpLocal = CGFloat(currentExp)
         
-        currentLocalExp = (v2 * v3) / v1
+        var currentDeltaExp: CGFloat = 0.0
+        
+        currentDeltaExp = (expBarMaxWidthLocal * currentExpLocal) / playerMaxExpLocal
+        
+        if levelUp {
+            let addActionToMax = SKAction.resize(toWidth: expBarMaxWidth, duration: 0.3)
+            let newAddActionToZero = SKAction.resize(toWidth: 0, duration: 0)
+            let addActionToValue = SKAction.resize(toWidth: currentDeltaExp, duration: 0.3)
+            
+            currentDeltaExp = CGFloat(currentExp - playerMaxExp)
+            currentDeltaExp = (expBarMaxWidthLocal * currentExpLocal) / playerMaxExpLocal
 
-        if currentExp >= playerMaxExp {
-            //level up
-            currentLocalExp = 0
+            DispatchQueue.main.async {
+                self.expBarNode.runAction(action: addActionToMax)
+            }
+            
+            let seconds = 0.4
+            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+               self.expBarNode.runAction(action: newAddActionToZero)
+                self.expBarNode.runAction(action: addActionToValue)
+            }
+        } else {
+            let addAction = SKAction.resize(toWidth: currentDeltaExp, duration: 0.3)
+            DispatchQueue.main.async {
+                self.expBarNode.runAction(action: addAction)
+            }
         }
-        let addAction = SKAction.resize(toWidth: currentLocalExp, duration: 0.3)
-        expBarNode.runAction(action: addAction)
     }
 }

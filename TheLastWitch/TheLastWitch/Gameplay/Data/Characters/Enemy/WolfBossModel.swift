@@ -9,9 +9,9 @@
 import SpriteKit
 
 final class WolfBossModel: EnemyModel {
-    var hp: Float = 270.0
-    var strength: Float = 20.0
-    var exp: Float = 200.0
+    var hp: Int = 270
+    var strength: Int = 20
+    var exp: Int = 200
     
     let noticeDistance: Float = 3.0
     let movementSpeedLimiter: Float = 0.5
