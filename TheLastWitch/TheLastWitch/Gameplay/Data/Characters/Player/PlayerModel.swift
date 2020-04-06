@@ -18,6 +18,8 @@ final class PlayerModel {
     var speed: Float = 1.8
     var level: Int = 1
     
+    var activeQuests: [String] = [""]
+    
     var isAttacking = false
     var isInteracting = false
     var isDead = false

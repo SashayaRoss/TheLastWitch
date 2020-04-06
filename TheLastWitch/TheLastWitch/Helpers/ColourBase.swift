@@ -17,6 +17,10 @@ extension UIColor {
       return UIColor(red:0.98, green:0.78, blue: 0.78, alpha:1.00)
     }
     
+    public static var brown: UIColor {
+      return UIColor(red: 0.29, green: 0.18, blue: 0.08, alpha: 1.00)
+    }
+    
     public static var lime: UIColor {
         return UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
     }

@@ -15,6 +15,7 @@ final class HPBarNode {
     private var barDeco: SKSpriteNode!
     
     private var hpBar: SKSpriteNode!
+    private var hpBarBg: SKSpriteNode!
     private let hpBarMaxWidth: CGFloat
     
     init(bounds: CGRect, hpBarMaxWidth: CGFloat, directory: String) {
@@ -43,6 +44,11 @@ extension HPBarNode: NodeProtocol {
         hpBar.position = CGPoint(x: 80.0, y: bounds.height - 20)
         hpBar.name = "HPBarNode"
         
+        hpBarBg = SKSpriteNode(color: .brown, size: CGSize(width: hpBarMaxWidth, height: 4))
+        hpBarBg.anchorPoint = CGPoint(x: 0.0, y: 0.0)
+        hpBarBg.position = CGPoint(x: 80.0, y: bounds.height - 20)
+        hpBarBg.name = "HPBarNodeBG"
+        
         barDeco = SKSpriteNode(imageNamed: directory + "barDeco.png")
         barDeco.position = CGPoint(x: 80.0, y: bounds.height - 24)
         barDeco.size = CGSize(width: hpBarMaxWidth + 5, height: 12)
@@ -50,6 +56,7 @@ extension HPBarNode: NodeProtocol {
         barDeco.name = "hpBarDeco"
         
         scene.addChild(barDeco)
+        scene.addChild(hpBarBg)
         scene.addChild(hpBar)
     }
     

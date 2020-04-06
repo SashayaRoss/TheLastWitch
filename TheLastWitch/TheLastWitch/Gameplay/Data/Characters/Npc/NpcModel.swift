@@ -12,4 +12,6 @@ protocol NpcModel {
     var noticeDistance: Float { get }
     var dialog: [String] { get }
     var model: String { get }
+    
+    var pathFinder: [PathFinder?] { get }
 }

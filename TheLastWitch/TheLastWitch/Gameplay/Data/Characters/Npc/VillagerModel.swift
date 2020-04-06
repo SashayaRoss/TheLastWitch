@@ -13,7 +13,10 @@ final class VillagerModel: NpcModel {
     let dialog: [String]
     let model: String = "art.scnassets/Scenes/Characters/Hero/idle"
     
-    init(dialog: [String]) {
+    let pathFinder: [PathFinder?]
+    
+    init(dialog: [String], pathFinder: [PathFinder]) {
         self.dialog = dialog
+        self.pathFinder = pathFinder
     }
 }

@@ -25,9 +25,9 @@ final class EnemyFactory {
     
     private func setupEnemy() {
         let enemyScale: Float = 0.0080
-        let wolfModel1 = WolfModel()
-        let wolfModel2 = WolfModel()
-        let wolfModel3 = WolfModel()
+        let wolfModel1 = WolfModel(pathFinder: [])
+        let wolfModel2 = WolfModel(pathFinder: [])
+        let wolfModel3 = WolfModel(pathFinder: [])
         
         let enemy1 = Enemy(player: player, view: gameView, enemyModel: wolfModel1)
         enemy1.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)

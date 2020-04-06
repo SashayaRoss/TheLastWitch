@@ -142,6 +142,7 @@ final class GameViewController: UIViewController {
                     }
                 }
             } else if gameView.hudView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+//                testPresent()
                 presentWelcomeScreen()
             } else if gameView.hudView.characterButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 gameState = .paused
@@ -261,6 +262,23 @@ final class GameViewController: UIViewController {
         lightStick.position = SCNVector3Make(character.position.x, 0.0, character.position.z)
     }
     
+    
+//    func testPresent() {
+//        gameView.isUserInteractionEnabled = false
+//        gameplayScene.isPaused = true
+//        let transition = SKTransition.fade(withDuration: 1.8)
+//        currentView = .tapToPlay
+//
+//        gameView.present(transitionScene, with: transition, incomingPointOfView: nil, completionHandler: {
+//            self.gameState = .transition
+//            self.transitionScene.isPaused = false
+//
+//            DispatchQueue.main.async {
+//                self.gameView.removeCurrentView()
+//                self.presentWelcomeScreen()
+//            }
+//        })
+//    }
     
     //changing scenes
     func presentWelcomeScreen() {

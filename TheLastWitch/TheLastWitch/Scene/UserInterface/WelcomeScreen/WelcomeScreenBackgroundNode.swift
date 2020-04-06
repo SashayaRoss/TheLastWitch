@@ -62,7 +62,7 @@ extension WelcomeScreenBackgroundNode: NodeProtocol {
     
     //redundant??
     func virtualNodeBounds() -> CGRect {
-        var virtualDialogBounds = CGRect(x: 10.0, y: 10.0, width: bounds.size.width - 20, height: 140)
+        var virtualDialogBounds = CGRect(x: 10.0, y: 10.0, width: bounds.size.width , height: bounds.size.height)
         virtualDialogBounds.origin.y = bounds.size.height - virtualDialogBounds.size.height
         
         return virtualDialogBounds

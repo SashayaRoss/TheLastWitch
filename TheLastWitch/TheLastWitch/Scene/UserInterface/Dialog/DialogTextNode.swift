@@ -26,7 +26,7 @@ extension DialogTextNode: NodeProtocol {
     func setupNode(with scene: SKScene) {
         dialogSprite = SKLabelNode(fontNamed: "Menlo")
         dialogSprite.name = "DialogTextNode"
-        dialogSprite.position = CGPoint(x: 20, y: 120)
+        dialogSprite.position = CGPoint(x: 30, y: 130)
         dialogSprite.fontSize = 14
         dialogSprite.horizontalAlignmentMode = .left
         dialogSprite.verticalAlignmentMode = .top

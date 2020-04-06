@@ -22,7 +22,7 @@ final class CharacterNode {
 
 extension CharacterNode: NodeProtocol {
     func setupNode(with scene: SKScene) {
-        characterSprite = SKSpriteNode(imageNamed: directory + "characterBG.jpg")
+        characterSprite = SKSpriteNode(imageNamed: directory + "testCharMenu.png")
         characterSprite.name = "CharacterNode"
         characterSprite.position = CGPoint(x: 20, y: 20)
         characterSprite.anchorPoint = CGPoint(x: 0.0, y: 0.0)

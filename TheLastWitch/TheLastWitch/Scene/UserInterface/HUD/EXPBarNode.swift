@@ -15,6 +15,7 @@ final class EXPBarNode {
     private var barDeco: SKSpriteNode!
     
     private var expBar: SKSpriteNode!
+    private var expBarBg: SKSpriteNode!
     private let expBarMaxWidth: CGFloat
     
     init(bounds: CGRect, expBarMaxWidth: CGFloat, directory: String) {
@@ -35,6 +36,11 @@ extension EXPBarNode: NodeProtocol {
         expBar.position = CGPoint(x: 95.0, y: bounds.height - 35)
         expBar.name = "EXPBarNode"
         
+        expBarBg = SKSpriteNode(color: .brown, size: CGSize(width: expBarMaxWidth, height: 4))
+        expBarBg.anchorPoint = CGPoint(x: 0.0, y: 0.0)
+        expBarBg.position = CGPoint(x: 95.0, y: bounds.height - 35)
+        expBarBg.name = "EXPBarNodeBg"
+        
         barDeco = SKSpriteNode(imageNamed: directory + "barDeco.png")
         barDeco.position = CGPoint(x: 95.0, y: bounds.height - 39)
         barDeco.size = CGSize(width: expBarMaxWidth + 5, height: 12)
@@ -42,6 +48,7 @@ extension EXPBarNode: NodeProtocol {
         barDeco.name = "expBarDeco"
         
         scene.addChild(barDeco)
+        scene.addChild(expBarBg)
         scene.addChild(expBar)
     }
     
