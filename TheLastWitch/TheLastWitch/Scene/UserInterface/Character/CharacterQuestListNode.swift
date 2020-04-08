@@ -20,8 +20,11 @@ final class CharacterQuestListNode {
         self.directory = directory
     }
     
-    func updateQuestList(quest: String? = "No new quests") {
-        questList.text =  quest
+    func updateQuestList(quest: String) {
+        questList.text = quest
+        if quest == "" {
+            questList.text = "\nNo new quests"
+        }
     }
 }
 
@@ -37,10 +40,9 @@ extension CharacterQuestListNode: NodeSetupInterface {
         questList.preferredMaxLayoutWidth = 200
         questList.position = CGPoint(
             x: bounds.size.width - 260,
-            y: bounds.size.height - 100
+            y: bounds.size.height - 75
         )
         
-        updateQuestList()
         scene.addChild(questList)
     }
 }

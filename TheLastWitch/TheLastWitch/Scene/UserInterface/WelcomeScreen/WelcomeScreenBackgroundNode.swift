@@ -13,15 +13,14 @@ import AVFoundation
 final class WelcomeScreenBackgroundNode {
     private var bounds: CGRect
     private var directory: String
-    private let avPlayer: AVPlayer? = nil
     
     init(bounds: CGRect, directory: String) {
         self.bounds = bounds
         self.directory = directory
     }
     
-    private var backgroundVideoNode: SKVideoNode? = {
-        guard let urlString = Bundle.main.path(forResource: "art.scnassets/video", ofType: "mov") else {
+    private lazy var backgroundVideoNode: SKVideoNode? = {
+        guard let urlString = Bundle.main.path(forResource: "art.scnassets/WelcomeScreen/video", ofType: "mov") else {
             return nil
         }
         
@@ -29,15 +28,22 @@ final class WelcomeScreenBackgroundNode {
         let item = AVPlayerItem(url: url)
         let player = AVPlayer(playerItem: item)
         player.actionAtItemEnd = .none
-//        avPlayer = player
         
+        NotificationCenter.default.addObserver(self, selector: #selector(playerItemDidReachEnd), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+
         return SKVideoNode(avPlayer: player)
     }()
     
     @objc func playerItemDidReachEnd(notification: NSNotification) {
-        if let playerItem: AVPlayerItem = notification.object as? AVPlayerItem {
+        if let playerItem = notification.object as? AVPlayerItem {
+            print("replay")
             playerItem.seek(to: CMTime.zero, completionHandler: nil)
         }
+    }
+    
+    func stopReplay() {
+        backgroundVideoNode?.pause()
+        backgroundVideoNode = nil
     }
 }
 
@@ -50,14 +56,6 @@ extension WelcomeScreenBackgroundNode: NodeSetupInterface {
        
         scene.addChild(node)
         node.play()
-        
-        
-//        NotificationCenter.default.addObserver(
-//            backgroundVideoNode,
-//            selector: #selector(playerItemDidReachEnd),
-//            name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-//            object: backgroundVideoNode.player.currentItem
-//        )
     }
     
     //redundant??

@@ -61,7 +61,6 @@ extension CharacterHealthNode: NodeSetupInterface {
             height: 40
         )
        
-        update(health: "100")
         scene.addChild(healthLabel)
         scene.addChild(healthPointsLabel)
         scene.addChild(addButtonSprite)

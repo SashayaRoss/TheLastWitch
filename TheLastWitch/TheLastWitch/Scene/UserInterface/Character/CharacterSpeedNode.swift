@@ -61,7 +61,6 @@ extension CharacterSpeedNode: NodeSetupInterface {
             height: 40
         )
        
-        update(speed: "100")
         scene.addChild(speedLabel)
         scene.addChild(speedPointsLabel)
         scene.addChild(addButtonSprite)

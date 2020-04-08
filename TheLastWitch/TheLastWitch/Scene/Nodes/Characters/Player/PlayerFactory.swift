@@ -15,7 +15,9 @@ final class PlayerFactory {
     init(scene: SCNScene) {
         self.scene = scene
         let playerModel = PlayerModel()
-        player = Player(playerModel: playerModel)
+        let mapper = PlayerCharacterMapper()
+        
+        player = Player(playerModel: playerModel, mapper: mapper)
         setup()
     }
     

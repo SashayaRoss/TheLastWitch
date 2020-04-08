@@ -19,9 +19,15 @@ final class WelcomeScreenConfigurator {
         
         tapToPlayNode = DialogTextNode(bounds: viewBounds)
         tapToPlayNode.setupNode(with: skScene)
+        
+        setupObservers()
     }
     
-    func play() {
-//        backgoundNode.videoControll()
+    private func setupObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(stopVideo), name: NSNotification.Name("stopVideo"), object: nil)
+    }
+    
+    @objc func stopVideo() {
+        backgoundNode.stopReplay()
     }
 }

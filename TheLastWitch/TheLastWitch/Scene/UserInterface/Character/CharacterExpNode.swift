@@ -21,7 +21,7 @@ final class CharacterExpNode {
         self.directory = directory
     }
     
-    func updateExp(current: String, max: String) {
+    func update(current: String, max: String) {
         exp.text = "\(expTag): \(current) / \(max)"
     }
 }
@@ -39,7 +39,6 @@ extension CharacterExpNode: NodeSetupInterface {
             y: bounds.size.height - 110
         )
         
-        updateExp(current: "0", max: "100")
         scene.addChild(exp)
     }
 }

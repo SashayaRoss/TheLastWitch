@@ -11,6 +11,7 @@ import UIKit
 protocol NpcModel {
     var noticeDistance: Float { get }
     var dialog: [String] { get }
+    var quest: Quest? { get }
     var model: String { get }
     
     var pathFinder: [PathFinder?] { get }

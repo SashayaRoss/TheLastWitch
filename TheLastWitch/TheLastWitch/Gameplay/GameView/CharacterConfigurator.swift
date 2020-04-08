@@ -53,6 +53,7 @@ final class CharacterConfigurator {
     
     private func setupObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(levelUpdate), name: NSNotification.Name("levelUpdate"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(expUpdate), name: NSNotification.Name("expUpdate"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(healthUpdate), name: NSNotification.Name("healthUpdate"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(speedUpdate), name: NSNotification.Name("speedUpdate"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(magicUpdate), name: NSNotification.Name("magicUpdate"), object: nil)
@@ -63,12 +64,24 @@ final class CharacterConfigurator {
         guard
             let userInfo = notification.userInfo as? [String: Any],
             let currentLevel = userInfo["level"] as? String,
-            let currentPoints = userInfo["levelPoints"] as? String?
+            let currentPoints = userInfo["levelPoints"] as? String
         else {
             return
         }
         
         characterName.updateLevel(newLevel: currentLevel, points: currentPoints)
+    }
+    
+    @objc private func expUpdate(notification: Notification) {
+        guard
+            let userInfo = notification.userInfo as? [String: Any],
+            let maxExp = userInfo["expPoints"] as? String,
+            let currentExp = userInfo["currentPoints"] as? String
+        else {
+            return
+        }
+        
+        exp.update(current: currentExp, max: maxExp)
     }
     
     @objc private func healthUpdate(notification: Notification) {
@@ -110,7 +123,7 @@ final class CharacterConfigurator {
     @objc private func questUpdate(notification: Notification) {
         guard
             let userInfo = notification.userInfo as? [String: Any],
-            let list = userInfo["questList"] as? String?
+            let list = userInfo["questList"] as? String
         else {
             return
         }

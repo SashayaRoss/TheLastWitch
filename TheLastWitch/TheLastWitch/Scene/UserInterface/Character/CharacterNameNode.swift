@@ -26,11 +26,11 @@ final class CharacterNameNode {
         nameText.text = name
     }
     
-    func updateLevel(newLevel: String, points: String? = nil) {
+    func updateLevel(newLevel: String, points: String) {
         let levelString = "LV" + newLevel
         level.text = levelString
-        if let pointsUpdate = points {
-            let currentPoints = "(" + pointsUpdate + ")"
+        if points != "0" {
+            let currentPoints = "(" + points + ")"
             level.text = levelString + " " + currentPoints
         }
     }
@@ -62,10 +62,8 @@ extension CharacterNameNode: NodeSetupInterface {
             x: 70 + 180,
             y: bounds.size.height - 63
         )
-        
-        updateName()
-        updateLevel(newLevel: "1")
-        
+
+        updateName()        
         scene.addChild(characterNameSprite)
         scene.addChild(nameText)
         scene.addChild(level)

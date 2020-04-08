@@ -55,13 +55,15 @@ final class Player: SCNNode {
     
     //model
     let playerModel: PlayerModel
+    let mapper: PlayerCharacterMapping
     
     private var attackTimer: Timer?
     private var attackFrameCounter = 0
 
     //MARK: initialization
-    init(playerModel: PlayerModel) {
+    init(playerModel: PlayerModel, mapper: PlayerCharacterMapping) {
         self.playerModel = playerModel
+        self.mapper = mapper
         super.init()
         
         setupModel()
@@ -96,7 +98,7 @@ final class Player: SCNNode {
             previousUdateTime = time
         }
         let deltaTime = Float(min (time - previousUdateTime, 1.0 / 60.0))
-        let characterSpeed = deltaTime * playerModel.speed
+        let characterSpeed = deltaTime * playerModel.maxSpeed
         previousUdateTime = time
 
         let initialPosition = position
@@ -185,6 +187,7 @@ final class Player: SCNNode {
             currentLvl += ileLeveli
             currentExp -= (ileLeveli * playerModel.maxExpPoints)
             levelUp = true
+            playerModel.levelPoints += 1
         } else {
             currentExp += enemyExp
         }
@@ -210,7 +213,7 @@ final class Player: SCNNode {
         if attackFrameCounter == 12 {
             for node in activeWeaponCollideNodes {
                 if let enemy = node as? Enemy {
-                    enemy.gotHit(by: node, with: 30)
+                    enemy.gotHit(by: node, with: Int(playerModel.maxMagic * 100))
                 }
             }
         }
@@ -220,9 +223,46 @@ final class Player: SCNNode {
         isWalking = walks
     }
     
+    func updateHealth() {
+        playerModel.maxHpPoints += 10
+        playerModel.hpPoints += 10
+        playerModel.levelPoints -= 1
+        updateCharacterModelData()
+    }
+    
+    func updateSpeed() {
+        playerModel.maxSpeed += 0.2
+        playerModel.levelPoints -= 1
+        updateCharacterModelData()
+    }
+    
+    func updateMagic() {
+        playerModel.maxMagic += 0.5
+        playerModel.levelPoints -= 1
+        updateCharacterModelData()
+    }
+    
     func updateModelData() {
         NotificationCenter.default.post(name: NSNotification.Name("hpChanged"), object: nil, userInfo: ["playerMaxHp": playerModel.maxHpPoints, "currentHp": playerModel.hpPoints])
         NotificationCenter.default.post(name: NSNotification.Name("expChanged"), object: nil, userInfo: ["playerMaxExp": playerModel.maxExpPoints, "currentExp": playerModel.expPoints])
+    }
+    
+    func updateCharacterModelData() {
+        let model = mapper.map(entity: playerModel)
+        let speedButton = playerModel.maxSpeed <= 3
+        
+        //update level
+        NotificationCenter.default.post(name: NSNotification.Name("levelUpdate"), object: nil, userInfo: ["level": model.level, "levelPoints": model.levelPoints])
+        
+        //update stats
+        NotificationCenter.default.post(name: NSNotification.Name("expUpdate"), object: nil, userInfo: ["expPoints": model.maxExp, "currentPoints": model.currentExp])
+        
+        NotificationCenter.default.post(name: NSNotification.Name("healthUpdate"), object: nil, userInfo: ["healthPoints": model.health, "button": model.isAddButtonActive])
+        NotificationCenter.default.post(name: NSNotification.Name("speedUpdate"), object: nil, userInfo: ["speedPoints": model.speed, "button": (model.isAddButtonActive && speedButton)])
+        NotificationCenter.default.post(name: NSNotification.Name("magicUpdate"), object: nil, userInfo: ["magicPoints": model.magic, "button": model.isAddButtonActive])
+        
+        //update quests
+        NotificationCenter.default.post(name: NSNotification.Name("questsUpdate"), object: nil, userInfo: ["questList": model.questList])
     }
 }
 

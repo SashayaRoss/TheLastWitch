@@ -61,7 +61,6 @@ extension CharacterMagicNode: NodeSetupInterface {
             height: 40
         )
         
-        update(magic: "100")
         scene.addChild(magicLabel)
         scene.addChild(magicPointsLabel)
         scene.addChild(addButtonSprite)

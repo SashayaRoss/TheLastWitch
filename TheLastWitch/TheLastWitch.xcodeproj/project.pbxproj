@@ -23,6 +23,10 @@
 		7E106FDD243E69B10044F3AD /* CharacterHealthNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FDC243E69B10044F3AD /* CharacterHealthNode.swift */; };
 		7E106FDF243E69C00044F3AD /* CharacterMagicNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FDE243E69C00044F3AD /* CharacterMagicNode.swift */; };
 		7E106FE1243E69CC0044F3AD /* CharacterSpeedNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FE0243E69CC0044F3AD /* CharacterSpeedNode.swift */; };
+		7E106FE3243E85F40044F3AD /* PlayerCharacterStatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FE2243E85F40044F3AD /* PlayerCharacterStatsModel.swift */; };
+		7E106FE5243E87370044F3AD /* PlayerCharacterMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FE4243E87370044F3AD /* PlayerCharacterMapper.swift */; };
+		7E106FE7243E87470044F3AD /* PlayerCharacterMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FE6243E87470044F3AD /* PlayerCharacterMapping.swift */; };
+		7E106FEA243E966C0044F3AD /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FE9243E966C0044F3AD /* Quest.swift */; };
 		7E1332E12426C95D00989768 /* MusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1332E02426C95D00989768 /* MusicManager.swift */; };
 		7E23B0BB241EACF5002A2395 /* PlayerCollider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E23B0BA241EACF5002A2395 /* PlayerCollider.swift */; };
 		7E23B0BD241EB0FF002A2395 /* BattleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E23B0BC241EB0FF002A2395 /* BattleAction.swift */; };
@@ -122,6 +126,10 @@
 		7E106FDC243E69B10044F3AD /* CharacterHealthNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterHealthNode.swift; sourceTree = "<group>"; };
 		7E106FDE243E69C00044F3AD /* CharacterMagicNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterMagicNode.swift; sourceTree = "<group>"; };
 		7E106FE0243E69CC0044F3AD /* CharacterSpeedNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSpeedNode.swift; sourceTree = "<group>"; };
+		7E106FE2243E85F40044F3AD /* PlayerCharacterStatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCharacterStatsModel.swift; sourceTree = "<group>"; };
+		7E106FE4243E87370044F3AD /* PlayerCharacterMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCharacterMapper.swift; sourceTree = "<group>"; };
+		7E106FE6243E87470044F3AD /* PlayerCharacterMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCharacterMapping.swift; sourceTree = "<group>"; };
+		7E106FE9243E966C0044F3AD /* Quest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = "<group>"; };
 		7E1332E02426C95D00989768 /* MusicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicManager.swift; sourceTree = "<group>"; };
 		7E23B0BA241EACF5002A2395 /* PlayerCollider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollider.swift; sourceTree = "<group>"; };
 		7E23B0BC241EB0FF002A2395 /* BattleAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleAction.swift; sourceTree = "<group>"; };
@@ -249,6 +257,15 @@
 				7E106FC7243A4B550044F3AD /* WelcomeScreenBackgroundNode.swift */,
 			);
 			path = WelcomeScreen;
+			sourceTree = "<group>";
+		};
+		7E106FE8243E8A0F0044F3AD /* Mapper */ = {
+			isa = PBXGroup;
+			children = (
+				7E106FE4243E87370044F3AD /* PlayerCharacterMapper.swift */,
+				7E106FE6243E87470044F3AD /* PlayerCharacterMapping.swift */,
+			);
+			path = Mapper;
 			sourceTree = "<group>";
 		};
 		7E34B9DB23B552E300FA0BEE = {
@@ -560,7 +577,9 @@
 		7EB244E92430DC24004F3172 /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				7E106FE8243E8A0F0044F3AD /* Mapper */,
 				7EB244D9242FC559004F3172 /* PlayerModel.swift */,
+				7E106FE2243E85F40044F3AD /* PlayerCharacterStatsModel.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -580,6 +599,7 @@
 			children = (
 				7EB244F124310BB6004F3172 /* NpcModel.swift */,
 				7EB244F324310C5B004F3172 /* VillagerModel.swift */,
+				7E106FE9243E966C0044F3AD /* Quest.swift */,
 			);
 			path = Npc;
 			sourceTree = "<group>";
@@ -742,6 +762,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E106FEA243E966C0044F3AD /* Quest.swift in Sources */,
 				7E34BA0E23B800EB00FA0BEE /* DpadNode.swift in Sources */,
 				7E57ACCA241FF034003350C9 /* NpcAnimationType.swift in Sources */,
 				7E57ACC8241FEDD5003350C9 /* Npc.swift in Sources */,
@@ -768,6 +789,7 @@
 				7EDFF580241E99E200D24798 /* PhysicsContactExtension.swift in Sources */,
 				7EDFF567241E7F5300D24798 /* EnemyCollider.swift in Sources */,
 				7E106FC1243A35D10044F3AD /* MagicShrine.swift in Sources */,
+				7E106FE5243E87370044F3AD /* PlayerCharacterMapper.swift in Sources */,
 				7EB244DC242FDED6004F3172 /* DialogTextNode.swift in Sources */,
 				7E57ACBC241FDD43003350C9 /* GameMenuViewInterface.swift in Sources */,
 				7E57ACD0241FFF8D003350C9 /* ColliderInterface.swift in Sources */,
@@ -782,6 +804,7 @@
 				7EB244CD242FB50C004F3172 /* GameUtils.swift in Sources */,
 				7E34BA1A23B82BE800FA0BEE /* PlayerAnimationType.swift in Sources */,
 				7E106FC3243A38500044F3AD /* MagicElementsCollider.swift in Sources */,
+				7E106FE3243E85F40044F3AD /* PlayerCharacterStatsModel.swift in Sources */,
 				7E57ACBA241FDD43003350C9 /* GameMenuView.swift in Sources */,
 				7EB244EE243108A0004F3172 /* EnemyModel.swift in Sources */,
 				7EDFF574241E880E00D24798 /* EnemyFactory.swift in Sources */,
@@ -805,6 +828,7 @@
 				7E106FBF243A35640044F3AD /* MagicElementsModel.swift in Sources */,
 				7EDFF579241E8A8700D24798 /* MainLight.swift in Sources */,
 				7E34B9E823B552E400FA0BEE /* AppDelegate.swift in Sources */,
+				7E106FE7243E87470044F3AD /* PlayerCharacterMapping.swift in Sources */,
 				7E106FCB243BCAFD0044F3AD /* PathFinder.swift in Sources */,
 				7E106FE1243E69CC0044F3AD /* CharacterSpeedNode.swift in Sources */,
 				7E1332E12426C95D00989768 /* MusicManager.swift in Sources */,

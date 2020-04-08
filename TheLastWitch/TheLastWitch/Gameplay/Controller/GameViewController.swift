@@ -149,6 +149,7 @@ final class GameViewController: UIViewController {
                 currentView = .character
                 gameView.removeCurrentView()
                 gameView.setupCharacter()
+                player.updateCharacterModelData()
                 
             } else if cameraTouch == nil {
                 cameraTouch = touches.first
@@ -168,6 +169,13 @@ final class GameViewController: UIViewController {
                         activePlayer.npc.dialog()
                     } else {
                         activePlayer.npc.currentDialog = 0
+                        if
+                            let quest = activePlayer.npc.npcModel.quest,
+                            //TODO change desc to quest
+                            !activePlayer.playerModel.activeQuests.contains(quest.desc)
+                        {
+                            activePlayer.playerModel.activeQuests.append(quest.desc)
+                        }
                         gameView.removeCurrentView()
                         currentView = .playing
                         gameState = .playing
@@ -190,10 +198,19 @@ final class GameViewController: UIViewController {
                     activePlayer.updateModelData()
                 }
             } else if gameView.characterView.health.virtualNodeBounds().contains(touch.location(in: gameView)) {
+                if let activePlayer = player {
+                    activePlayer.updateHealth()
+                }
                 print("ADD HEALTH")
             } else if gameView.characterView.magic.virtualNodeBounds().contains(touch.location(in: gameView)) {
+                if let activePlayer = player {
+                    activePlayer.updateMagic()
+                }
                 print("ADD MAGIC")
             } else if gameView.characterView.speed.virtualNodeBounds().contains(touch.location(in: gameView)) {
+                if let activePlayer = player {
+                    activePlayer.updateSpeed()
+                }
                 print("ADD SPEED")
             }
         }
@@ -306,6 +323,7 @@ final class GameViewController: UIViewController {
     }
     
     func presentGame() {
+        NotificationCenter.default.post(name: NSNotification.Name("stopVideo"), object: nil)
         gameView.isUserInteractionEnabled = false
         newGameScene.isPaused = true
         let transition = SKTransition.fade(withDuration: 1.8)

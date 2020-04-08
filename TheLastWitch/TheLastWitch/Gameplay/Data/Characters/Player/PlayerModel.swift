@@ -9,14 +9,16 @@
 import SpriteKit
 
 final class PlayerModel {
-    let maxHpPoints: Int = 100
+    var maxHpPoints: Int = 100
     var hpPoints: Int = 100
     
-    let maxExpPoints: Int = 100
+    var maxExpPoints: Int = 100
     var expPoints: Int = 0
     
-    var speed: Float = 1.8
+    var maxSpeed: Float = 1.8
+    var maxMagic: Float = 0.5
     var level: Int = 1
+    var levelPoints: Int = 2
     
     var activeQuests: [String] = [""]
     
