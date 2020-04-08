@@ -9,7 +9,7 @@
 import SceneKit
 import SpriteKit
 
-final class DialogView {
+final class DialogConfigurator {
     var dialogBoxNode: DialogBoxNode!
     var dialogTextNode: DialogTextNode!
     

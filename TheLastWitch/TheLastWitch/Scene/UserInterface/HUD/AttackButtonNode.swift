@@ -21,7 +21,7 @@ final class AttackButtonNode {
     }
 }
 
-extension AttackButtonNode: NodeProtocol {
+extension AttackButtonNode: NodeSetupInterface {
     func setupNode(with scene: SKScene) {
         attactButtonSprite = SKSpriteNode(imageNamed: directory + "actionButton2.png")
         attactButtonSprite.position = CGPoint(x: bounds.width - 70.0, y: 20)
@@ -31,7 +31,9 @@ extension AttackButtonNode: NodeProtocol {
         
         scene.addChild(attactButtonSprite)
     }
-    
+}
+
+extension AttackButtonNode: VirtualBoundsSetupInterface {
     func virtualNodeBounds() -> CGRect {
         var virtualNodeBounds = CGRect(x: 10.0, y: 10.0, width: size, height: size)
         virtualNodeBounds.origin.y = bounds.size.height - virtualNodeBounds.size.height

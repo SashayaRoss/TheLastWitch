@@ -15,12 +15,12 @@ final class GameView: SCNView {
     private let overlayNode = SKNode()
     private let viewBounds = UIScreen.main.bounds
     
-    let hudView = HUDView()
-    let characterView = CharacterView()
-    let dialogView = DialogView()
-    let optionsView = OptionsView()
+    let hudView = HUDConfigurator()
+    let characterView = CharacterConfigurator()
+    let dialogView = DialogConfigurator()
+    let optionsView = OptionsConfigurator()
     
-    let welcomeScreenView = WelcomeScreenNode()
+    let welcomeScreenView = WelcomeScreenConfigurator()
     
     //MARK: lifecycle
     override func awakeFromNib() {

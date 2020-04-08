@@ -21,7 +21,7 @@ final class OptionsButtonNode {
     }
 }
 
-extension OptionsButtonNode: NodeProtocol {
+extension OptionsButtonNode: NodeSetupInterface {
     func setupNode(with scene: SKScene) {
         optionsButtonSprite = SKSpriteNode(imageNamed: directory + "options2.png")
         optionsButtonSprite.position = CGPoint(x: bounds.width - 50.0, y: bounds.height - 50.0)
@@ -33,7 +33,9 @@ extension OptionsButtonNode: NodeProtocol {
         
         scene.addChild(optionsButtonSprite)
     }
-    
+}
+
+extension OptionsButtonNode: VirtualBoundsSetupInterface {
     func virtualNodeBounds() -> CGRect {
         var virtualNodeBounds = CGRect(x: 10.0, y: 10.0, width: size + 20, height: size + 20)
         virtualNodeBounds.origin.y = virtualNodeBounds.size.height - 40

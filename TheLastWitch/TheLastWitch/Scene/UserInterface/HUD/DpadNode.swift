@@ -21,7 +21,7 @@ final class DpadNode {
     }
 }
 
-extension DpadNode: NodeProtocol {
+extension DpadNode: NodeSetupInterface {
     func setupNode(with scene: SKScene) {
         dpadSprite = SKSpriteNode(imageNamed: directory + "dPad.png")
         dpadSprite.name = "DpadNode"
@@ -31,7 +31,9 @@ extension DpadNode: NodeProtocol {
         
         scene.addChild(dpadSprite)
     }
-    
+}
+
+extension DpadNode: VirtualBoundsSetupInterface {
     func virtualNodeBounds() -> CGRect {
         var virtualDpadBounds = CGRect(x: 10.0, y: 10.0, width: size, height: size)
         virtualDpadBounds.origin.y = bounds.size.height - virtualDpadBounds.size.height

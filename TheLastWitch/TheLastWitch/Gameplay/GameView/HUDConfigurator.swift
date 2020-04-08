@@ -9,7 +9,7 @@
 import SceneKit
 import SpriteKit
 
-final class HUDView {
+final class HUDConfigurator {
     private let hpBarMaxWidth: CGFloat = 150.0
     private let expBarMaxWidth: CGFloat = 100.0
     

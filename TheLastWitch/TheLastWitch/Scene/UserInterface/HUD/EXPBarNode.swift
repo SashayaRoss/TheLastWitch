@@ -29,7 +29,7 @@ final class EXPBarNode {
     }
 }
 
-extension EXPBarNode: NodeProtocol {
+extension EXPBarNode: NodeSetupInterface {
     func setupNode(with scene: SKScene) {
         expBar = SKSpriteNode(color: .expColour, size: CGSize(width: 0, height: 4))
         expBar.anchorPoint = CGPoint(x: 0.0, y: 0.0)
@@ -50,10 +50,5 @@ extension EXPBarNode: NodeProtocol {
         scene.addChild(barDeco)
         scene.addChild(expBarBg)
         scene.addChild(expBar)
-    }
-    
-    func virtualNodeBounds() -> CGRect {
-        let virtualEXPBarBounds = CGRect(x: 0, y: 0, width: 0, height: 0)
-        return virtualEXPBarBounds
     }
 }

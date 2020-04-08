@@ -37,7 +37,7 @@ final class HPBarNode {
     }
 }
 
-extension HPBarNode: NodeProtocol {
+extension HPBarNode: NodeSetupInterface {
     func setupNode(with scene: SKScene) {
         hpBar = SKSpriteNode(color: .hpColour, size: CGSize(width: hpBarMaxWidth, height: 4))
         hpBar.anchorPoint = CGPoint(x: 0.0, y: 0.0)
@@ -58,10 +58,5 @@ extension HPBarNode: NodeProtocol {
         scene.addChild(barDeco)
         scene.addChild(hpBarBg)
         scene.addChild(hpBar)
-    }
-    
-    func virtualNodeBounds() -> CGRect {
-        let virtualHPBarBounds = CGRect(x: 0, y: 0, width: 0, height: 0)
-        return virtualHPBarBounds
     }
 }

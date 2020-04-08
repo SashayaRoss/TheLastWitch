@@ -20,7 +20,7 @@ final class DialogBoxNode {
     }
 }
 
-extension DialogBoxNode: NodeProtocol {
+extension DialogBoxNode: NodeSetupInterface {
     func setupNode(with scene: SKScene) {
         dialogSprite = SKSpriteNode(imageNamed: directory + "dialog.png")
         dialogSprite.name = "DialogBoxNode"
@@ -32,7 +32,9 @@ extension DialogBoxNode: NodeProtocol {
        
         scene.addChild(dialogSprite)
     }
-    
+}
+
+extension DialogBoxNode: VirtualBoundsSetupInterface {
     func virtualNodeBounds() -> CGRect {
         var virtualDialogBounds = CGRect(x: 10.0, y: 10.0, width: bounds.size.width - 20, height: 140)
         virtualDialogBounds.origin.y = bounds.size.height - virtualDialogBounds.size.height

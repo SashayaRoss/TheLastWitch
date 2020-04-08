@@ -22,7 +22,7 @@ final class DialogTextNode {
     }
 }
 
-extension DialogTextNode: NodeProtocol {
+extension DialogTextNode: NodeSetupInterface {
     func setupNode(with scene: SKScene) {
         dialogSprite = SKLabelNode(fontNamed: "Menlo")
         dialogSprite.name = "DialogTextNode"
@@ -32,15 +32,8 @@ extension DialogTextNode: NodeProtocol {
         dialogSprite.verticalAlignmentMode = .top
         dialogSprite.preferredMaxLayoutWidth = bounds.size.width - 40
         dialogSprite.numberOfLines = 2
-        dialogSprite.fontColor = .black
+        dialogSprite.fontColor = .brownLetters
     
         scene.addChild(dialogSprite)
-    }
-    
-    func virtualNodeBounds() -> CGRect {
-        var virtualDialogBounds = CGRect(x: 10.0, y: 10.0, width: bounds.size.width - 20, height: 140)
-        virtualDialogBounds.origin.y = bounds.size.height - virtualDialogBounds.size.height
-        
-        return virtualDialogBounds
     }
 }

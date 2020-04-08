@@ -9,7 +9,7 @@
 import SceneKit
 import SpriteKit
 
-final class OptionsView {
+final class OptionsConfigurator {
     var optionsNode: OptionsNode!
     
     func setup(skScene: SKScene, directory: String, viewBounds: CGRect) {

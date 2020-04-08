@@ -9,7 +9,7 @@
 import SceneKit
 import SpriteKit
 
-final class WelcomeScreenNode {
+final class WelcomeScreenConfigurator {
     var backgoundNode: WelcomeScreenBackgroundNode!
     var tapToPlayNode: DialogTextNode!
     

@@ -181,13 +181,20 @@ final class GameViewController: UIViewController {
     
     private func characterMenu(touches: Set<UITouch>) {
         for touch in touches {
-            if gameView.characterView.characterNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+            //go back
+            if gameView.characterView.goBack.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 gameView.removeCurrentView()
                 currentView = .playing
                 gameView.setupHUD()
                 if let activePlayer = player {
                     activePlayer.updateModelData()
                 }
+            } else if gameView.characterView.health.virtualNodeBounds().contains(touch.location(in: gameView)) {
+                print("ADD HEALTH")
+            } else if gameView.characterView.magic.virtualNodeBounds().contains(touch.location(in: gameView)) {
+                print("ADD MAGIC")
+            } else if gameView.characterView.speed.virtualNodeBounds().contains(touch.location(in: gameView)) {
+                print("ADD SPEED")
             }
         }
     }

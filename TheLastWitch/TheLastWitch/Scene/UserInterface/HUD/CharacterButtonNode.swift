@@ -21,7 +21,7 @@ final class CharacterButtonNode {
     }
 }
 
-extension CharacterButtonNode: NodeProtocol {
+extension CharacterButtonNode: NodeSetupInterface {
     func setupNode(with scene: SKScene) {
         characterButtonSprite = SKSpriteNode(imageNamed: directory + "avatar1Logo.png")
         characterButtonSprite.position = CGPoint(x: 10, y: bounds.height - 105)
@@ -33,7 +33,9 @@ extension CharacterButtonNode: NodeProtocol {
         
         scene.addChild(characterButtonSprite)
     }
-    
+}
+
+extension CharacterButtonNode: VirtualBoundsSetupInterface {
     func virtualNodeBounds() -> CGRect {
         let virtualNodeBounds = CGRect(x: 10.0, y: 10.0, width: size, height: size)
         return virtualNodeBounds

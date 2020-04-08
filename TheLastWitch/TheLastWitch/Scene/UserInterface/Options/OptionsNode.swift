@@ -20,7 +20,7 @@ final class OptionsNode {
     }
 }
 
-extension OptionsNode: NodeProtocol {
+extension OptionsNode: NodeSetupInterface {
     func setupNode(with scene: SKScene) {
         optionsSprite = SKSpriteNode(imageNamed: directory + "dialog2.png")
         optionsSprite.name = "OptionsNode"
@@ -30,7 +30,9 @@ extension OptionsNode: NodeProtocol {
        
         scene.addChild(optionsSprite)
     }
-    
+}
+
+extension OptionsNode: VirtualBoundsSetupInterface {
     func virtualNodeBounds() -> CGRect {
         var virtualOptionsBounds = CGRect(x: 20.0, y: 20.0, width: bounds.size.width - 40, height: bounds.size.height - 40)
         virtualOptionsBounds.origin.y = bounds.size.height - virtualOptionsBounds.size.height

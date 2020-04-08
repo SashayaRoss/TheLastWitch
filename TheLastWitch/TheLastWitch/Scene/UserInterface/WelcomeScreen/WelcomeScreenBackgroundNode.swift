@@ -41,7 +41,7 @@ final class WelcomeScreenBackgroundNode {
     }
 }
 
-extension WelcomeScreenBackgroundNode: NodeProtocol {
+extension WelcomeScreenBackgroundNode: NodeSetupInterface {
     func setupNode(with scene: SKScene) {
         guard let node = backgroundVideoNode else { return }
         node.name = "VideoNode"

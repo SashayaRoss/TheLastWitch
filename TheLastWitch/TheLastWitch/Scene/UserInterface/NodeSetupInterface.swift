@@ -8,7 +8,6 @@
 
 import SpriteKit
 
-protocol NodeProtocol {
+protocol NodeSetupInterface {
     func setupNode(with scene: SKScene)
-    func virtualNodeBounds() -> CGRect
 }
