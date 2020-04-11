@@ -27,6 +27,7 @@
 		7E106FE5243E87370044F3AD /* PlayerCharacterMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FE4243E87370044F3AD /* PlayerCharacterMapper.swift */; };
 		7E106FE7243E87470044F3AD /* PlayerCharacterMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FE6243E87470044F3AD /* PlayerCharacterMapping.swift */; };
 		7E106FEA243E966C0044F3AD /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FE9243E966C0044F3AD /* Quest.swift */; };
+		7E106FEC2441C5290044F3AD /* QuestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FEB2441C5290044F3AD /* QuestType.swift */; };
 		7E1332E12426C95D00989768 /* MusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1332E02426C95D00989768 /* MusicManager.swift */; };
 		7E23B0BB241EACF5002A2395 /* PlayerCollider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E23B0BA241EACF5002A2395 /* PlayerCollider.swift */; };
 		7E23B0BD241EB0FF002A2395 /* BattleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E23B0BC241EB0FF002A2395 /* BattleAction.swift */; };
@@ -130,6 +131,7 @@
 		7E106FE4243E87370044F3AD /* PlayerCharacterMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCharacterMapper.swift; sourceTree = "<group>"; };
 		7E106FE6243E87470044F3AD /* PlayerCharacterMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCharacterMapping.swift; sourceTree = "<group>"; };
 		7E106FE9243E966C0044F3AD /* Quest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = "<group>"; };
+		7E106FEB2441C5290044F3AD /* QuestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestType.swift; sourceTree = "<group>"; };
 		7E1332E02426C95D00989768 /* MusicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicManager.swift; sourceTree = "<group>"; };
 		7E23B0BA241EACF5002A2395 /* PlayerCollider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollider.swift; sourceTree = "<group>"; };
 		7E23B0BC241EB0FF002A2395 /* BattleAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleAction.swift; sourceTree = "<group>"; };
@@ -600,6 +602,7 @@
 				7EB244F124310BB6004F3172 /* NpcModel.swift */,
 				7EB244F324310C5B004F3172 /* VillagerModel.swift */,
 				7E106FE9243E966C0044F3AD /* Quest.swift */,
+				7E106FEB2441C5290044F3AD /* QuestType.swift */,
 			);
 			path = Npc;
 			sourceTree = "<group>";
@@ -814,6 +817,7 @@
 				7EB244DE242FE8B0004F3172 /* CharacterBgNode.swift in Sources */,
 				7E34BA1723B8251A00FA0BEE /* Player.swift in Sources */,
 				7EDFF570241E857900D24798 /* MainCamera.swift in Sources */,
+				7E106FEC2441C5290044F3AD /* QuestType.swift in Sources */,
 				7E106FB9243A34DC0044F3AD /* MagicElements.swift in Sources */,
 				7EDFF5642415689100D24798 /* EXPBarNode.swift in Sources */,
 				7EA7A60323E5FCAE00894C4D /* Collision.swift in Sources */,

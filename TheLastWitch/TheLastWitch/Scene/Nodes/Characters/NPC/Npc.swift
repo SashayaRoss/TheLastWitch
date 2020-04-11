@@ -58,6 +58,7 @@ final class Npc: SCNNode {
         self.npcModel = npcModel
         
         setupModelScene()
+        setupObservers()
         animation = NpcAnimation()
         animation.loadAnimations()
         animation.object.delegate = self
@@ -79,6 +80,10 @@ final class Npc: SCNNode {
         addChildNode(daeHolderNode)
         //set mesh name
         characterNode = daeHolderNode.childNode(withName: "Bip01", recursively: true)!
+    }
+    
+    func setupObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(questStatusChanged), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
     }
     
     func update(with time: TimeInterval, and scene: SCNScene) {
@@ -115,6 +120,21 @@ final class Npc: SCNNode {
     func dialog() {
         interacts(dialog: npcModel.dialog[currentDialog])
         currentDialog += 1
+    }
+    
+    @objc func questStatusChanged(notification: Notification) {
+        guard
+            let userInfo = notification.userInfo as? [String: Any],
+            let id = userInfo["questId"] as? Int,
+            let isActive = userInfo["activeStatus"] as? Bool,
+            let isFinished = userInfo["finishStatus"] as? Bool
+        else {
+            return
+        }
+        if npcModel.quest?.id == id {
+            npcModel.quest?.isActive = isActive
+            npcModel.quest?.isFinished = isFinished
+        }
     }
 }
 

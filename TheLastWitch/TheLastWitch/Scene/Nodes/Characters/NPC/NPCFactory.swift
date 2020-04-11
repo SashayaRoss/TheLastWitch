@@ -25,7 +25,19 @@ final class NPCFactory {
     
     private func setupNPC() {
         let npcScale: Float = 0.003
-        let npcModel = VillagerModel(dialog: ["1. Hello", "2 Im a villager", "3 life is fun!"], pathFinder: [])
+        let quest = Quest(
+            id: 2,
+            desc: "Defeat 2 stone golums",
+            type: .defeat,
+            exp: 50,
+            targets: ["golem1", "golem2"]
+        )
+        let npcModel = VillagerModel(
+            dialog: ["1. Hello", "2 Im a villager", "3 life is fun!"],
+            pathFinder: [],
+            quest: quest,
+            model: "art.scnassets/Scenes/Characters/Hero/idle"
+        )
         
         let npc = Npc(player: player, view: gameView, npcModel: npcModel)
         npc.scale = SCNVector3Make(npcScale, npcScale, npcScale)
@@ -36,6 +48,7 @@ final class NPCFactory {
             
             npc.setupCollider(scale: CGFloat(npcScale))
         }
+        
     }
 }
 

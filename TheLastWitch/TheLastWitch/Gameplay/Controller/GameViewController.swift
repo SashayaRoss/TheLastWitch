@@ -136,6 +136,7 @@ final class GameViewController: UIViewController {
                         activePlayer.walks(walks: false)
                         gameState = .paused
                         currentView = .dialog
+                        player.questManager()
                         gameView.removeCurrentView()
                         gameView.setupDialog()
                         dialogAction(touches: touches)
@@ -169,13 +170,6 @@ final class GameViewController: UIViewController {
                         activePlayer.npc.dialog()
                     } else {
                         activePlayer.npc.currentDialog = 0
-                        if
-                            let quest = activePlayer.npc.npcModel.quest,
-                            //TODO change desc to quest
-                            !activePlayer.playerModel.activeQuests.contains(quest.desc)
-                        {
-                            activePlayer.playerModel.activeQuests.append(quest.desc)
-                        }
                         gameView.removeCurrentView()
                         currentView = .playing
                         gameState = .playing
@@ -189,7 +183,6 @@ final class GameViewController: UIViewController {
     
     private func characterMenu(touches: Set<UITouch>) {
         for touch in touches {
-            //go back
             if gameView.characterView.goBack.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 gameView.removeCurrentView()
                 currentView = .playing
@@ -197,17 +190,26 @@ final class GameViewController: UIViewController {
                 if let activePlayer = player {
                     activePlayer.updateModelData()
                 }
-            } else if gameView.characterView.health.virtualNodeBounds().contains(touch.location(in: gameView)) {
+            } else if
+                gameView.characterView.health.virtualNodeBounds().contains(touch.location(in: gameView)),
+                player.playerModel.levelPoints >= 1
+            {
                 if let activePlayer = player {
                     activePlayer.updateHealth()
                 }
                 print("ADD HEALTH")
-            } else if gameView.characterView.magic.virtualNodeBounds().contains(touch.location(in: gameView)) {
+            } else if
+                gameView.characterView.magic.virtualNodeBounds().contains(touch.location(in: gameView)),
+                player.playerModel.levelPoints >= 1
+            {
                 if let activePlayer = player {
                     activePlayer.updateMagic()
                 }
                 print("ADD MAGIC")
-            } else if gameView.characterView.speed.virtualNodeBounds().contains(touch.location(in: gameView)) {
+            } else if
+                gameView.characterView.speed.virtualNodeBounds().contains(touch.location(in: gameView)),
+                player.playerModel.levelPoints >= 1
+            {
                 if let activePlayer = player {
                     activePlayer.updateSpeed()
                 }

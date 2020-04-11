@@ -6,18 +6,28 @@
 //  Copyright © 2020 Aleksandra Kustra. All rights reserved.
 //
 
+import SceneKit
+
 final class Quest {
-    let desc: String
-    let requirements: String
+    let id: Int
+    var desc: String
+    let type: QuestType
     let exp: Int
+    var targets: [String]
+    var isActive: Bool = true
+    var isFinished: Bool = false
     
     init(
+        id: Int,
         desc: String,
-        requirements: String,
-        exp: Int
+        type: QuestType,
+        exp: Int,
+        targets: [String]
     ) {
+        self.id = id
         self.desc = desc
-        self.requirements = requirements
+        self.type = type
         self.exp = exp
+        self.targets = targets
     }
 }

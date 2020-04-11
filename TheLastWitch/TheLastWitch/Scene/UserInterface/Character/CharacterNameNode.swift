@@ -27,7 +27,7 @@ final class CharacterNameNode {
     }
     
     func updateLevel(newLevel: String, points: String) {
-        let levelString = "LV" + newLevel
+        let levelString = "LVL" + newLevel
         level.text = levelString
         if points != "0" {
             let currentPoints = "(" + points + ")"

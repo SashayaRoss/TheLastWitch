@@ -9,6 +9,7 @@
 import SpriteKit
 
 protocol EnemyModel {
+    var name: String { get }
     var hp: Int { get set }
     var strength: Int { get set }
     var exp: Int { get set }

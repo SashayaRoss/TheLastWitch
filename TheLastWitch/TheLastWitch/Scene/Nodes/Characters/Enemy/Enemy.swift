@@ -182,7 +182,8 @@ final class Enemy: SCNNode {
         enemyModel.hp -= hpHitPoints
         if enemyModel.hp <= 0 && !enemyModel.isDead {
             die()
-            player.updateExp(enemyExp: enemyModel.exp)
+            player.update(with: enemyModel.exp)
+            player.updateQuest(with: enemyModel.name)
             //drop loot
         }
     }

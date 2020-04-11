@@ -9,6 +9,7 @@
 import SpriteKit
 
 final class WolfModel: EnemyModel {
+    let name: String
     var hp: Int = 10
     var strength: Int = 20
     var exp: Int = 60
@@ -22,7 +23,11 @@ final class WolfModel: EnemyModel {
     var isDead = false
     var isAttacking = false
     
-    init(pathFinder: [PathFinder]) {
+    init(
+        name: String,
+        pathFinder: [PathFinder]
+    ) {
+        self.name = name
         self.pathFinder = pathFinder
     }
 }

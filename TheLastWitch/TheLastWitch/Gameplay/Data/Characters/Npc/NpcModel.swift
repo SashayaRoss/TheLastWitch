@@ -15,4 +15,7 @@ protocol NpcModel {
     var model: String { get }
     
     var pathFinder: [PathFinder?] { get }
+    
+    func updateDialogWithQuest()
+    func finishQuestDialogUpdate(quest: String)
 }

@@ -176,26 +176,75 @@ final class Player: SCNNode {
         activePlayerCollideNodes.remove(node)
     }
     
-    func updateExp(enemyExp: Int) {
+    func update(with exp: Int) {
         var currentExp = playerModel.expPoints
         var currentLvl = playerModel.level
         var levelUp: Bool = false
         
-        if currentExp + enemyExp >= playerModel.maxExpPoints {
-            currentExp = currentExp + enemyExp
+        if currentExp + exp >= playerModel.maxExpPoints {
+            currentExp = currentExp + exp
             let ileLeveli = Int(floor(Double(currentExp / playerModel.maxExpPoints)))
             currentLvl += ileLeveli
             currentExp -= (ileLeveli * playerModel.maxExpPoints)
             levelUp = true
             playerModel.levelPoints += 1
         } else {
-            currentExp += enemyExp
+            currentExp += exp
         }
         
         playerModel.level = currentLvl
         playerModel.expPoints = currentExp
    
         NotificationCenter.default.post(name: NSNotification.Name("expChanged"), object: nil, userInfo: ["playerMaxExp": playerModel.maxExpPoints, "currentExp": playerModel.expPoints, "levelUp": levelUp])
+    }
+    
+    func updateQuest(with name: String) {
+        for quest in playerModel.quests {
+            if let index = quest.targets.index(of: name) {
+                quest.targets.remove(at: index)
+            }
+            if quest.targets == [] {
+                //no more targets in quest == quest completed
+                quest.isActive = false
+                
+                NotificationCenter.default.post(name: NSNotification.Name("questStatusChanged"), object: nil, userInfo: ["questId": quest.id, "activeStatus": quest.isActive, "finishedStatus": quest.isFinished])
+                
+                //SHOW INFO ! ! ! ! !
+                print("COMPLETED")
+            }
+        }
+    }
+    
+    func questManager() {
+        //player can accept more quests and npc has quests to give
+        if
+            playerModel.quests.count <= 8,
+            let quest = npc.npcModel.quest
+        {
+            var canAddQuest: Bool = true
+            for playerQuest in playerModel.quests {
+                if playerQuest.id == quest.id {
+                    canAddQuest = false
+                }
+            }
+            if canAddQuest {
+                //add quest desc to npc dialog
+                npc.npcModel.updateDialogWithQuest()
+                playerModel.quests.append(quest)
+            }
+        }
+        if let quest = npc.npcModel.quest, !quest.isActive, !quest.isFinished {
+            npc.npcModel.finishQuestDialogUpdate(quest: quest.desc)
+            //Finish quest
+            quest.isFinished = true
+            update(with: quest.exp)
+            
+            for playerQuest in playerModel.quests {
+                if playerQuest.id == quest.id {
+                    playerQuest.isFinished = true
+                }
+            }
+        }
     }
 
     

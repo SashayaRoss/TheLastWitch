@@ -35,12 +35,12 @@ extension GoBackButtonNode: NodeSetupInterface {
         
         label = SKLabelNode(fontNamed: "AvenirNextCondensed-Regular")
         label.name = "CharacterNameTextNode"
-        label.position = CGPoint(x: 110, y: 55)
+        label.position = CGPoint(x: 125, y: 55)
         label.fontSize = 25
         label.horizontalAlignmentMode = .left
         label.verticalAlignmentMode = .top
         label.fontColor = .brownLetters
-        label.text = "GO BACK"
+        label.text = "CLOSE"
        
         scene.addChild(goBackButtonSprite)
         scene.addChild(label)
