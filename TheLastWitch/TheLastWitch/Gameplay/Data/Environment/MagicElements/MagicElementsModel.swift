@@ -8,7 +8,8 @@
 
 protocol MagicElementsModel {
     var exp: Int { get }
-    var dialog: [String] { get }
+    var dialog: [String] { get set }
+    var perk: Perk { get set }
     var model: String { get }
     var noticeDistance: Float { get }
 }

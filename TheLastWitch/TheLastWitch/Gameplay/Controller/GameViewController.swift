@@ -45,7 +45,7 @@ final class GameViewController: UIViewController {
     var playerFactory: PlayerFactory!
     var enemyFactory: EnemyFactory!
     var npcFactory: NPCFactory!
-//    var magicFactory: MagicElementsFactory!
+    var magicFactory: MagicElementsFactory!
 
     //MARK: lifecycle
     override func viewDidLoad() {
@@ -88,7 +88,7 @@ final class GameViewController: UIViewController {
         collision = Collision(scene: gameplayScene)
         enemyFactory = EnemyFactory(scene: gameplayScene, gameView: gameView, player: player)
         npcFactory = NPCFactory(scene: gameplayScene, gameView: gameView, player: player)
-//        magicFactory = MagicElementsFactory(scene: gameplayScene, gameView: gameView, player: player)
+        magicFactory = MagicElementsFactory(scene: gameplayScene, gameView: gameView, player: player)
         
         lightStick = light.setup()
         cameraStick = mainCamera.setup()
@@ -133,10 +133,16 @@ final class GameViewController: UIViewController {
                 }
             } else if gameView.hudView.attackButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 if let activePlayer = player {
-                    if
-                        let npc = activePlayer.npc,
-                        npc.isInteracting
-                    {
+                    if let npc = activePlayer.npc, npc.isInteracting {
+                        player.playerModel.isInteracting = true
+                        player.playerModel.currentInteraction = .npc
+                    }
+                    if let magic = activePlayer.magic, magic.isInteracting {
+                        player.playerModel.isInteracting = true
+                        player.playerModel.currentInteraction = .magic
+                    }
+                    
+                    if player.playerModel.isInteracting {
                         activePlayer.walks(walks: false)
                         gameState = .paused
                         currentView = .dialog
@@ -169,17 +175,48 @@ final class GameViewController: UIViewController {
     private func dialogAction(touches: Set<UITouch>) {
         for touch in touches {
             if gameView.dialogView.dialogBoxNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
-                //update text and quit
+                
                 if let activePlayer = player {
-                    if (activePlayer.npc.currentDialog < activePlayer.npc.npcModel.dialog.count) {
-                        activePlayer.npc.dialog()
-                    } else {
-                        activePlayer.npc.currentDialog = 0
-                        gameView.removeCurrentView()
-                        currentView = .playing
-                        gameState = .playing
-                        gameView.setupHUD()
-                        activePlayer.updateModelData()
+                    switch activePlayer.playerModel.currentInteraction {
+                    //talk with npc
+                    case .npc:
+                        if
+                            let npc = activePlayer.npc,
+                            (npc.currentDialog < npc.npcModel.dialog.count)
+                        {
+                            npc.dialog()
+                        } else {
+                            if let npc = activePlayer.npc {
+                                npc.currentDialog = 0
+                            }
+                            gameView.removeCurrentView()
+                            currentView = .playing
+                            gameState = .playing
+                            gameView.setupHUD()
+                            activePlayer.updateModelData()
+                            activePlayer.playerModel.currentInteraction = .none
+                        }
+                    //interact with magic
+                    case .magic:
+                        if
+                            let magic = activePlayer.magic,
+                            (magic.currentDialog < magic.magicElementModel.dialog.count)
+                        {
+                            magic.dialog()
+                        } else {
+                            if let magic = activePlayer.magic {
+                               magic.currentDialog = 0
+                            }
+                            activePlayer.magic?.perkPlayer()
+                            gameView.removeCurrentView()
+                            currentView = .playing
+                            gameState = .playing
+                            gameView.setupHUD()
+                            activePlayer.updateModelData()
+                            activePlayer.playerModel.currentInteraction = .none
+                        }
+                    default:
+                        break
                     }
                 }
             }
@@ -361,11 +398,11 @@ extension GameViewController: SCNSceneRendererDelegate {
             if let name = node.name {
                 switch name {
                 case "Enemy":
-                    (node as! Enemy).update(with: time, and: scene)
+                    (node as? Enemy)?.update(with: time, and: scene)
                 case "Npc":
-                    (node as! Npc).update(with: time, and: scene)
-//                case "MagicElement":
-//                    (node as! MagicElements).update(with: time, and: scene)
+                    (node as? Npc)?.update(with: time, and: scene)
+                case "Magic":
+                    (node as? MagicElements)?.update(with: time, and: scene)
                 default:
                     break
                 }

@@ -27,6 +27,8 @@
 		7E106FE7243E87470044F3AD /* PlayerCharacterMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FE6243E87470044F3AD /* PlayerCharacterMapping.swift */; };
 		7E106FEA243E966C0044F3AD /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FE9243E966C0044F3AD /* Quest.swift */; };
 		7E106FEC2441C5290044F3AD /* QuestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FEB2441C5290044F3AD /* QuestType.swift */; };
+		7E106FEE244243060044F3AD /* Perks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FED244243060044F3AD /* Perks.swift */; };
+		7E106FF0244250580044F3AD /* CurrentInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FEF244250580044F3AD /* CurrentInteraction.swift */; };
 		7E1332E12426C95D00989768 /* MusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1332E02426C95D00989768 /* MusicManager.swift */; };
 		7E23B0BB241EACF5002A2395 /* PlayerCollider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E23B0BA241EACF5002A2395 /* PlayerCollider.swift */; };
 		7E23B0BD241EB0FF002A2395 /* BattleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E23B0BC241EB0FF002A2395 /* BattleAction.swift */; };
@@ -130,6 +132,8 @@
 		7E106FE6243E87470044F3AD /* PlayerCharacterMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCharacterMapping.swift; sourceTree = "<group>"; };
 		7E106FE9243E966C0044F3AD /* Quest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = "<group>"; };
 		7E106FEB2441C5290044F3AD /* QuestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestType.swift; sourceTree = "<group>"; };
+		7E106FED244243060044F3AD /* Perks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Perks.swift; sourceTree = "<group>"; };
+		7E106FEF244250580044F3AD /* CurrentInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentInteraction.swift; sourceTree = "<group>"; };
 		7E1332E02426C95D00989768 /* MusicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicManager.swift; sourceTree = "<group>"; };
 		7E23B0BA241EACF5002A2395 /* PlayerCollider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollider.swift; sourceTree = "<group>"; };
 		7E23B0BC241EB0FF002A2395 /* BattleAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleAction.swift; sourceTree = "<group>"; };
@@ -227,9 +231,10 @@
 		7E106FB7243A34B00044F3AD /* MagicElements */ = {
 			isa = PBXGroup;
 			children = (
+				7E106FC4243A39D00044F3AD /* MagicElementsFactory.swift */,
 				7E106FB8243A34DC0044F3AD /* MagicElements.swift */,
 				7E106FC2243A38500044F3AD /* MagicElementsCollider.swift */,
-				7E106FC4243A39D00044F3AD /* MagicElementsFactory.swift */,
+				7E106FED244243060044F3AD /* Perks.swift */,
 			);
 			path = MagicElements;
 			sourceTree = "<group>";
@@ -578,6 +583,7 @@
 			children = (
 				7E106FE8243E8A0F0044F3AD /* Mapper */,
 				7EB244D9242FC559004F3172 /* PlayerModel.swift */,
+				7E106FEF244250580044F3AD /* CurrentInteraction.swift */,
 				7E106FE2243E85F40044F3AD /* PlayerCharacterStatsModel.swift */,
 			);
 			path = Player;
@@ -771,6 +777,7 @@
 				7E23B0C3241ED573002A2395 /* CharacterButtonNode.swift in Sources */,
 				7EB244D6242FC211004F3172 /* DialogConfigurator.swift in Sources */,
 				7E57ACB9241FDD43003350C9 /* GameMenuLayoutManaging.swift in Sources */,
+				7E106FEE244243060044F3AD /* Perks.swift in Sources */,
 				7EDFF572241E85F400D24798 /* SetupInterface.swift in Sources */,
 				7EB244E0242FE8BB004F3172 /* OptionsNode.swift in Sources */,
 				7EA7A5FC23E5F3DA00894C4D /* EnemyAnimationType.swift in Sources */,
@@ -784,6 +791,7 @@
 				7EDFF583241EA8E700D24798 /* AnimationInterface.swift in Sources */,
 				7EDFF5622415599B00D24798 /* EnemyAnimation.swift in Sources */,
 				7E88690524393AD60022E411 /* OptionsScene.swift in Sources */,
+				7E106FF0244250580044F3AD /* CurrentInteraction.swift in Sources */,
 				7EA7A5FF23E5F62500894C4D /* ColourBase.swift in Sources */,
 				7E23B0BD241EB0FF002A2395 /* BattleAction.swift in Sources */,
 				7EDFF580241E99E200D24798 /* PhysicsContactExtension.swift in Sources */,

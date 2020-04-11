@@ -10,11 +10,18 @@ import UIKit
 
 final class MagicShrine: MagicElementsModel {
     let exp: Int = 20
-    let dialog: [String]
-    let model: String = "art.scnassets/Scenes/environment/....."
+    var perk: Perk
+    var dialog: [String]
+    let model: String
     let noticeDistance: Float = 2.0
     
-    init(dialog: [String]) {
+    init(
+        dialog: [String],
+        model: String,
+        perk: Perk
+    ) {
         self.dialog = dialog
+        self.model = model
+        self.perk = perk
     }
 }

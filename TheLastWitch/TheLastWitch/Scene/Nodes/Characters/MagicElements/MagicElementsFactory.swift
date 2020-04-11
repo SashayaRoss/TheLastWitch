@@ -24,25 +24,40 @@ final class MagicElementsFactory {
     }
     
     private func setupMagicalElements() {
-        let npcScale: Float = 0.003
-        let shrine = MagicShrine(dialog: ["1. i am magic", "2 much wow", "3 life sucks!"])
+        let scale: Float = 0.003
+        let shrineModel = MagicShrine(
+            dialog: ["I am a wise oracle", "I give knowledge", "And exp", "You have been granted 50 exp by oracle"],
+            model: "art.scnassets/Scenes/Characters/Hero/idle",
+            perk: .exp
+        )
+        let shrineModel2 = MagicShrine(
+            dialog: ["I give hp", "cool", "You have been granted full hp by oracle"],
+            model: "art.scnassets/Scenes/Characters/Hero/idle",
+            perk: .fullHP
+        )
         
-        let magicElements = MagicElements(player: player, view: gameView, magicElementModel: shrine)
-        magicElements.scale = SCNVector3Make(npcScale, npcScale, npcScale)
-        magicElements.position = magicElementsPositionArray["magic"]!
+        let magicElements = MagicElements(player: player, view: gameView, magicElementModel: shrineModel)
+        magicElements.scale = SCNVector3Make(scale, scale, scale)
+        magicElements.position = magicElementsPositionArray["magic1"]!
         
-        gameView.prepare([magicElements]) { (finished) in
+        let magicElements2 = MagicElements(player: player, view: gameView, magicElementModel: shrineModel2)
+        magicElements2.scale = SCNVector3Make(scale, scale, scale)
+        magicElements2.position = magicElementsPositionArray["magic2"]!
+        
+        gameView.prepare([magicElements, magicElements2]) { (finished) in
             self.scene.rootNode.addChildNode(magicElements)
+            self.scene.rootNode.addChildNode(magicElements2)
             
-            magicElements.setupCollider(scale: CGFloat(npcScale))
+            magicElements.setupCollider(scale: CGFloat(scale))
+            magicElements2.setupCollider(scale: CGFloat(scale))
         }
     }
 }
 
 extension MagicElementsFactory: SetupInterface {
     func setup() {
-        let npcs = scene.rootNode.childNode(withName: "Magic", recursively: false)!
-        for child in npcs.childNodes {
+        guard let magic = scene.rootNode.childNode(withName: "Magic", recursively: false) else { return }
+        for child in magic.childNodes {
             magicElementsPositionArray[child.name!] = child.position
         }
         setupMagicalElements()

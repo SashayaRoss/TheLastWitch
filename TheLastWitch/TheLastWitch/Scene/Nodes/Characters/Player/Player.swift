@@ -15,7 +15,8 @@ final class Player: SCNNode {
     private var characterNode: SCNNode!
     private var collider: SCNNode!
     private var weaponCollider: SCNNode!
-    var npc: Npc!
+    var npc: Npc? = nil
+    var magic: MagicElements? = nil
 
     //animation
     private var animation: AnimationInterface!
@@ -219,7 +220,7 @@ final class Player: SCNNode {
         //player can accept more quests and npc has quests to give
         if
             playerModel.quests.count <= 8,
-            let quest = npc.npcModel.quest
+            let quest = npc?.npcModel.quest
         {
             var canAddQuest: Bool = true
             for playerQuest in playerModel.quests {
@@ -229,12 +230,12 @@ final class Player: SCNNode {
             }
             if canAddQuest {
                 //add quest desc to npc dialog
-                npc.npcModel.updateDialogWithQuest()
+                npc?.npcModel.updateDialogWithQuest()
                 playerModel.quests.append(quest)
             }
         }
-        if let quest = npc.npcModel.quest, !quest.isActive, !quest.isFinished {
-            npc.npcModel.finishQuestDialogUpdate(quest: quest.desc)
+        if let quest = npc?.npcModel.quest, !quest.isActive, !quest.isFinished {
+            npc?.npcModel.finishQuestDialogUpdate(quest: quest.desc)
             //Finish quest
             quest.isFinished = true
             update(with: quest.exp)
@@ -292,8 +293,9 @@ final class Player: SCNNode {
     }
     
     func updateModelData() {
+        let levelUp = playerModel.expPoints >= playerModel.maxExpPoints ? true : false
         NotificationCenter.default.post(name: NSNotification.Name("hpChanged"), object: nil, userInfo: ["playerMaxHp": playerModel.maxHpPoints, "currentHp": playerModel.hpPoints])
-        NotificationCenter.default.post(name: NSNotification.Name("expChanged"), object: nil, userInfo: ["playerMaxExp": playerModel.maxExpPoints, "currentExp": playerModel.expPoints])
+        NotificationCenter.default.post(name: NSNotification.Name("expChanged"), object: nil, userInfo: ["playerMaxExp": playerModel.maxExpPoints, "currentExp": playerModel.expPoints, "levelUp": levelUp])
     }
     
     func updateCharacterModelData() {

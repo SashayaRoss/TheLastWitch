@@ -90,6 +90,9 @@ final class HUDConfigurator {
         currentDeltaExp = (expBarMaxWidthLocal * currentExpLocal) / playerMaxExpLocal
         
         if levelUp {
+            //resize to max exp
+            //resize to zero
+            //resize to new value for updated level
             let addActionToMax = SKAction.resize(toWidth: expBarMaxWidth, duration: 0.3)
             let newAddActionToZero = SKAction.resize(toWidth: 0, duration: 0)
             let addActionToValue = SKAction.resize(toWidth: currentDeltaExp, duration: 0.3)
@@ -103,7 +106,7 @@ final class HUDConfigurator {
             
             let seconds = 0.4
             DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-               self.expBarNode.runAction(action: newAddActionToZero)
+                self.expBarNode.runAction(action: newAddActionToZero)
                 self.expBarNode.runAction(action: addActionToValue)
             }
         } else {

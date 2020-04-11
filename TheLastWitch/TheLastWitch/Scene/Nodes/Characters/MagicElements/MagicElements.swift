@@ -22,6 +22,20 @@ final class MagicElements: SCNNode {
     var magicElementModel: MagicElementsModel!
     var currentDialog: Int = 0
     
+    //movement
+    var isInteracting: Bool = false
+    
+    //collision
+    var isCollidingWithPlayer = false {
+        didSet {
+            if oldValue != isCollidingWithPlayer {
+                if isCollidingWithPlayer {
+                    isInteracting = true
+                }
+            }
+        }
+    }
+    
     //MARK: init
     init(player: Player, view: GameView, magicElementModel: MagicElementsModel) {
         super.init()
@@ -39,7 +53,7 @@ final class MagicElements: SCNNode {
     
     //MARK: scene
     private func setupModelScene() {
-        name = "MagicElement"
+        name = "Magic"
         let idleURL = Bundle.main.url(forResource: magicElementModel.model, withExtension: "dae")
         let idleScene = try! SCNScene(url: idleURL!, options: nil)
         
@@ -62,12 +76,12 @@ final class MagicElements: SCNNode {
         let distance = GameUtils.distanceBetweenVectors(vector1: player.position, vector2: position)
 
         if distance < magicElementModel.noticeDistance && distance > 0.01 {
-            //shine more?
-            player.playerModel.isInteracting = true
-//            player.npc = self
+            isInteracting = true
+            player.magic = self
         } else {
-            player.playerModel.isInteracting = false
+            isInteracting = false
         }
+        player.playerModel.isInteracting = isInteracting
     }
     
     //MARK: collision
@@ -86,5 +100,30 @@ final class MagicElements: SCNNode {
     func dialog() {
         interacts(dialog: magicElementModel.dialog[currentDialog])
         currentDialog += 1
+    }
+    
+    private func removePerkFromDialog() {
+        guard let givenPerk = magicElementModel.dialog.last else { return }
+        magicElementModel.dialog.removeLast()
+        magicElementModel.dialog.append("\(givenPerk) [Recived]")
+    }
+    
+    func perkPlayer() {
+        let model = player.playerModel
+        
+        switch magicElementModel.perk {
+        case .fullHP:
+            model.hpPoints = model.maxHpPoints
+            removePerkFromDialog()
+        case .exp:
+            player.update(with: 50)
+            removePerkFromDialog()
+        case .points:
+            model.levelPoints += 1
+            removePerkFromDialog()
+        default:
+            break
+        }
+        magicElementModel.perk = .used
     }
 }

@@ -73,7 +73,7 @@ final class NPCFactory {
 
 extension NPCFactory: SetupInterface {
     func setup() {
-        let npcs = scene.rootNode.childNode(withName: "NPC", recursively: false)!
+        guard let npcs = scene.rootNode.childNode(withName: "NPC", recursively: false) else { return }
         for child in npcs.childNodes {
             npcPositionArray[child.name!] = child.position
         }

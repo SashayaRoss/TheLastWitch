@@ -26,8 +26,7 @@ final class PlayerCharacterMapper: PlayerCharacterMapping {
             level: String(entity.level),
             levelPoints: String(entity.levelPoints),
             currentExp: String(entity.expPoints),
-            maxExp: String(entity.maxExpPoints
-            ),
+            maxExp: String(entity.maxExpPoints),
             health: String(entity.maxHpPoints),
             magic: String(Int(entity.maxMagic * 100)),
             speed: String(Int(entity.maxSpeed * 100)),

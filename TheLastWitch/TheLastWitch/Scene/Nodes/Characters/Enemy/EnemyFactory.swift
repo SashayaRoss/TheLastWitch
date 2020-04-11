@@ -55,7 +55,7 @@ final class EnemyFactory {
 
 extension EnemyFactory: SetupInterface {
     func setup() {
-        let enemies = scene.rootNode.childNode(withName: "Enemies", recursively: false)!
+        guard let enemies = scene.rootNode.childNode(withName: "Enemies", recursively: false) else { return }
         for child in enemies.childNodes {
             enemyPositionArray[child.name!] = child.position
         }
