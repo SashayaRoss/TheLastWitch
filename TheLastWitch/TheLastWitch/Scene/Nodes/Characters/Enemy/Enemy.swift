@@ -230,5 +230,6 @@ extension Enemy: BattleAction {
         
         let seq = SCNAction.sequence([wait, remove])
         runAction(seq)
+        //TODO display efect
     }
 }

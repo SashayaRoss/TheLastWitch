@@ -13,17 +13,14 @@ final class VillagerModel: NpcModel {
     var dialog: [String]
     let quest: Quest?
     let model: String
-    
-    let pathFinder: [PathFinder?]
+    var isInteracting = false
     
     init(
         dialog: [String],
-        pathFinder: [PathFinder],
         quest: Quest? = nil,
         model: String
     ) {
         self.dialog = dialog
-        self.pathFinder = pathFinder
         self.quest = quest
         self.model = model
     }

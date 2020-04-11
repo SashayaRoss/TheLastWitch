@@ -105,7 +105,7 @@ final class Player: SCNNode {
 
         //move
         if direction.x != 0.0 && direction.z != 0.0 {
-            //camera!!!!
+            //TODO camera!!!!
             if let dPad = dPadOrigin, let touch = touchLocation, let camera = cameraRotation {
                 let middleOfCircleX = dPad.x + 75
                 let middleOfCircleY = dPad.y + 75
@@ -113,7 +113,7 @@ final class Player: SCNNode {
                 let lengthOfY = Float(touch.y - middleOfCircleY)
                 var newDirection = float3(x: lengthOfX, y: 0, z: lengthOfY)
                 newDirection = normalize(newDirection)
-                print("x: \(touch.x), y: \(touch.y)")
+//                print("x: \(touch.x), y: \(touch.y)")
                 
                 //move character
                 let pos = float3(position)

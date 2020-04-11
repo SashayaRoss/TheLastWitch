@@ -45,6 +45,7 @@ final class GameViewController: UIViewController {
     var playerFactory: PlayerFactory!
     var enemyFactory: EnemyFactory!
     var npcFactory: NPCFactory!
+//    var magicFactory: MagicElementsFactory!
 
     //MARK: lifecycle
     override func viewDidLoad() {
@@ -87,6 +88,7 @@ final class GameViewController: UIViewController {
         collision = Collision(scene: gameplayScene)
         enemyFactory = EnemyFactory(scene: gameplayScene, gameView: gameView, player: player)
         npcFactory = NPCFactory(scene: gameplayScene, gameView: gameView, player: player)
+//        magicFactory = MagicElementsFactory(scene: gameplayScene, gameView: gameView, player: player)
         
         lightStick = light.setup()
         cameraStick = mainCamera.setup()
@@ -131,8 +133,10 @@ final class GameViewController: UIViewController {
                 }
             } else if gameView.hudView.attackButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 if let activePlayer = player {
-                    activePlayer.attack()
-                    if activePlayer.playerModel.isInteracting {
+                    if
+                        let npc = activePlayer.npc,
+                        npc.isInteracting
+                    {
                         activePlayer.walks(walks: false)
                         gameState = .paused
                         currentView = .dialog
@@ -140,10 +144,11 @@ final class GameViewController: UIViewController {
                         gameView.removeCurrentView()
                         gameView.setupDialog()
                         dialogAction(touches: touches)
+                    } else {
+                        activePlayer.attack()
                     }
                 }
             } else if gameView.hudView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
-//                testPresent()
                 presentWelcomeScreen()
             } else if gameView.hudView.characterButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 gameState = .paused
@@ -288,24 +293,6 @@ final class GameViewController: UIViewController {
         lightStick.position = SCNVector3Make(character.position.x, 0.0, character.position.z)
     }
     
-    
-//    func testPresent() {
-//        gameView.isUserInteractionEnabled = false
-//        gameplayScene.isPaused = true
-//        let transition = SKTransition.fade(withDuration: 1.8)
-//        currentView = .tapToPlay
-//
-//        gameView.present(transitionScene, with: transition, incomingPointOfView: nil, completionHandler: {
-//            self.gameState = .transition
-//            self.transitionScene.isPaused = false
-//
-//            DispatchQueue.main.async {
-//                self.gameView.removeCurrentView()
-//                self.presentWelcomeScreen()
-//            }
-//        })
-//    }
-    
     //changing scenes
     func presentWelcomeScreen() {
         gameView.isUserInteractionEnabled = false
@@ -377,8 +364,8 @@ extension GameViewController: SCNSceneRendererDelegate {
                     (node as! Enemy).update(with: time, and: scene)
                 case "Npc":
                     (node as! Npc).update(with: time, and: scene)
-                case "MagicElement":
-                    (node as! MagicElements).update(with: time, and: scene)
+//                case "MagicElement":
+//                    (node as! MagicElements).update(with: time, and: scene)
                 default:
                     break
                 }

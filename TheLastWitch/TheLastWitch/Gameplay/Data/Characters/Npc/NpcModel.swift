@@ -13,8 +13,7 @@ protocol NpcModel {
     var dialog: [String] { get }
     var quest: Quest? { get }
     var model: String { get }
-    
-    var pathFinder: [PathFinder?] { get }
+    var isInteracting: Bool { get set }
     
     func updateDialogWithQuest()
     func finishQuestDialogUpdate(quest: String)

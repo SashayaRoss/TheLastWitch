@@ -34,21 +34,40 @@ final class NPCFactory {
         )
         let npcModel = VillagerModel(
             dialog: ["1. Hello", "2 Im a villager", "3 life is fun!"],
-            pathFinder: [],
             quest: quest,
             model: "art.scnassets/Scenes/Characters/Hero/idle"
         )
+        let npcModel2 = VillagerModel(
+            dialog: ["1. sup mate", "2 Im a cool", "3 life is sdaksjdkasdkajs!"],
+            model: "art.scnassets/Scenes/Characters/Hero/idle"
+        )
         
-        let npc = Npc(player: player, view: gameView, npcModel: npcModel)
+        let npcModel3 = VillagerModel(
+            dialog: ["1. supdasdasdsmate", "2 Im a codsadasdol", "3 !"],
+            model: "art.scnassets/Scenes/Characters/Hero/idle"
+        )
+        
+        let npc = Npc(player: player, view: gameView, npcModel: npcModel2)
         npc.scale = SCNVector3Make(npcScale, npcScale, npcScale)
         npc.position = npcPositionArray["npc"]!
         
-        gameView.prepare([npc]) { (finished) in
+        let npc2 = Npc(player: player, view: gameView, npcModel: npcModel)
+        npc2.scale = SCNVector3Make(npcScale, npcScale, npcScale)
+        npc2.position = npcPositionArray["npc2"]!
+        
+        let npc3 = Npc(player: player, view: gameView, npcModel: npcModel3)
+        npc3.scale = SCNVector3Make(npcScale, npcScale, npcScale)
+        npc3.position = npcPositionArray["npc3"]!
+        
+        gameView.prepare([npc, npc2, npc3]) { (finished) in
             self.scene.rootNode.addChildNode(npc)
+            self.scene.rootNode.addChildNode(npc2)
+            self.scene.rootNode.addChildNode(npc3)
             
             npc.setupCollider(scale: CGFloat(npcScale))
+            npc2.setupCollider(scale: CGFloat(npcScale))
+            npc3.setupCollider(scale: CGFloat(npcScale))
         }
-        
     }
 }
 

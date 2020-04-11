@@ -17,8 +17,6 @@ protocol EnemyModel {
     var noticeDistance: Float { get }
     var movementSpeedLimiter: Float { get }
     
-    var pathFinder: [PathFinder?] { get }
-    
     var isDead: Bool { get set }
     var isAttacking: Bool { get set }
     var lastAttackTime: TimeInterval { get set }

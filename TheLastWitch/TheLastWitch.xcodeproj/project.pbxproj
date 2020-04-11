@@ -13,7 +13,6 @@
 		7E106FC3243A38500044F3AD /* MagicElementsCollider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FC2243A38500044F3AD /* MagicElementsCollider.swift */; };
 		7E106FC5243A39D00044F3AD /* MagicElementsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FC4243A39D00044F3AD /* MagicElementsFactory.swift */; };
 		7E106FC8243A4B550044F3AD /* WelcomeScreenBackgroundNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FC7243A4B550044F3AD /* WelcomeScreenBackgroundNode.swift */; };
-		7E106FCB243BCAFD0044F3AD /* PathFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FCA243BCAFC0044F3AD /* PathFinder.swift */; };
 		7E106FCD243CFC340044F3AD /* CharacterNameNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FCC243CFC340044F3AD /* CharacterNameNode.swift */; };
 		7E106FCF243CFC480044F3AD /* GoBackButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FCE243CFC480044F3AD /* GoBackButtonNode.swift */; };
 		7E106FD2243CFC630044F3AD /* CharacterQuestBgNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FD1243CFC630044F3AD /* CharacterQuestBgNode.swift */; };
@@ -117,7 +116,6 @@
 		7E106FC2243A38500044F3AD /* MagicElementsCollider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicElementsCollider.swift; sourceTree = "<group>"; };
 		7E106FC4243A39D00044F3AD /* MagicElementsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicElementsFactory.swift; sourceTree = "<group>"; };
 		7E106FC7243A4B550044F3AD /* WelcomeScreenBackgroundNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenBackgroundNode.swift; sourceTree = "<group>"; };
-		7E106FCA243BCAFC0044F3AD /* PathFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathFinder.swift; sourceTree = "<group>"; };
 		7E106FCC243CFC340044F3AD /* CharacterNameNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterNameNode.swift; sourceTree = "<group>"; };
 		7E106FCE243CFC480044F3AD /* GoBackButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoBackButtonNode.swift; sourceTree = "<group>"; };
 		7E106FD1243CFC630044F3AD /* CharacterQuestBgNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterQuestBgNode.swift; sourceTree = "<group>"; };
@@ -441,6 +439,7 @@
 				7EDFF582241EA8E700D24798 /* AnimationInterface.swift */,
 				7E57ACCF241FFF8D003350C9 /* ColliderInterface.swift */,
 				7E23B0BC241EB0FF002A2395 /* BattleAction.swift */,
+				7E106FB7243A34B00044F3AD /* MagicElements */,
 				7E57ACC4241FED9D003350C9 /* NPC */,
 				7E80B49423CB68D200254C4B /* Enemy */,
 				7E34BA1823B82BC600FA0BEE /* Player */,
@@ -451,7 +450,6 @@
 		7E69BDAB242FABFE00401116 /* Environment */ = {
 			isa = PBXGroup;
 			children = (
-				7E106FB7243A34B00044F3AD /* MagicElements */,
 				7EDFF577241E8A7500D24798 /* Light */,
 				7EDFF56E241E856700D24798 /* Camera */,
 			);
@@ -571,7 +569,6 @@
 				7EB244EF24310B90004F3172 /* Npc */,
 				7EB244EA2430DC36004F3172 /* Enemy */,
 				7EB244E92430DC24004F3172 /* Player */,
-				7E106FCA243BCAFC0044F3AD /* PathFinder.swift */,
 			);
 			path = Characters;
 			sourceTree = "<group>";
@@ -833,7 +830,6 @@
 				7EDFF579241E8A8700D24798 /* MainLight.swift in Sources */,
 				7E34B9E823B552E400FA0BEE /* AppDelegate.swift in Sources */,
 				7E106FE7243E87470044F3AD /* PlayerCharacterMapping.swift in Sources */,
-				7E106FCB243BCAFD0044F3AD /* PathFinder.swift in Sources */,
 				7E106FE1243E69CC0044F3AD /* CharacterSpeedNode.swift in Sources */,
 				7E1332E12426C95D00989768 /* MusicManager.swift in Sources */,
 				7E34BA1423B8062D00FA0BEE /* HPBarNode.swift in Sources */,

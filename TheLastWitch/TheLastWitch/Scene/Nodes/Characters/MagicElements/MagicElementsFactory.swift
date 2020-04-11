@@ -29,7 +29,7 @@ final class MagicElementsFactory {
         
         let magicElements = MagicElements(player: player, view: gameView, magicElementModel: shrine)
         magicElements.scale = SCNVector3Make(npcScale, npcScale, npcScale)
-        magicElements.position = magicElementsPositionArray["magicalElements"]!
+        magicElements.position = magicElementsPositionArray["magic"]!
         
         gameView.prepare([magicElements]) { (finished) in
             self.scene.rootNode.addChildNode(magicElements)
@@ -41,7 +41,7 @@ final class MagicElementsFactory {
 
 extension MagicElementsFactory: SetupInterface {
     func setup() {
-        let npcs = scene.rootNode.childNode(withName: "MagicalElements", recursively: false)!
+        let npcs = scene.rootNode.childNode(withName: "Magic", recursively: false)!
         for child in npcs.childNodes {
             magicElementsPositionArray[child.name!] = child.position
         }

@@ -17,17 +17,13 @@ final class WolfModel: EnemyModel {
     let noticeDistance: Float = 3.0
     let movementSpeedLimiter: Float = 0.5
     
-    let pathFinder: [PathFinder?]
-    
     var lastAttackTime: TimeInterval = 0.0
     var isDead = false
     var isAttacking = false
     
     init(
-        name: String,
-        pathFinder: [PathFinder]
+        name: String
     ) {
         self.name = name
-        self.pathFinder = pathFinder
     }
 }

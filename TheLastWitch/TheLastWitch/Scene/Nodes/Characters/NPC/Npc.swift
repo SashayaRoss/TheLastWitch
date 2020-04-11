@@ -26,24 +26,25 @@ final class Npc: SCNNode {
     private var animation: AnimationInterface!
     
     //movement
-    private var isWalking: Bool = false {
-        didSet {
-            if oldValue != isWalking {
-                if isWalking {
-                    addAnimation(animation.walkAnimation, forKey: "walk")
-                } else {
-                    removeAnimation(forKey: "walk")
-                }
-            }
-        }
-    }
+    var isInteracting: Bool = false
+//    {
+//        didSet {
+//            if oldValue != isWalking {
+//                if isWalking {
+//                    addAnimation(animation.walkAnimation, forKey: "walk")
+//                } else {
+//                    removeAnimation(forKey: "walk")
+//                }
+//            }
+//        }
+//    }
     
     //collision
     var isCollidingWithPlayer = false {
         didSet {
             if oldValue != isCollidingWithPlayer {
                 if isCollidingWithPlayer {
-                    isWalking = false
+                    isInteracting = false
                 }
             }
         }
@@ -97,11 +98,14 @@ final class Npc: SCNNode {
         let distance = GameUtils.distanceBetweenVectors(vector1: player.position, vector2: position)
 
         if distance < npcModel.noticeDistance && distance > 0.01 {
-            player.playerModel.isInteracting = true
+            isInteracting = true
             player.npc = self
+            print("interacts")
         } else {
-            player.playerModel.isInteracting = false
+            isInteracting = false
+            print("nope")
         }
+        player.playerModel.isInteracting = isInteracting
     }
     
     //MARK: collision
