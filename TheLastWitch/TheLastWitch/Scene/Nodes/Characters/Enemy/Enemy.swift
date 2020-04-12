@@ -224,9 +224,9 @@ extension Enemy: BattleAction {
         let wait = SCNAction.wait(duration: 3.0)
         let remove = SCNAction.run { (node) in
             node.isHidden = true
-//            self.removeAllAnimations()
-//            self.removeAllActions()
-//            self.removeFromParentNode()
+            self.removeAllAnimations()
+            self.removeAllActions()
+            self.removeFromParentNode()
         }
         
         let seq = SCNAction.sequence([wait, remove])

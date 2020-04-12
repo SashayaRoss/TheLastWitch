@@ -53,7 +53,7 @@ final class GameViewController: UIViewController {
         super.viewDidLoad()
         gameView = view as? GameView
         setupScene()
-        setupEnvironment()
+        setupObservers()
         gameState = .playing
     }
     
@@ -63,29 +63,38 @@ final class GameViewController: UIViewController {
         newGameScene = SceneConfigurator().setup(state: .newGame)
         transitionScene = SceneConfigurator().setup(state: .transition)
         
-        gameView.antialiasingMode = .multisampling4X
-        gameView.delegate = self
-        gameView.isUserInteractionEnabled = true
+        guard let view = gameView else { return }
+        view.antialiasingMode = .multisampling4X
+        view.delegate = self
+        view.isUserInteractionEnabled = true
 
         guard let scene = gameplayScene else { return }
         scene.physicsWorld.contactDelegate = self
         
-        gameView.scene = scene
-        gameView.isPlaying = true
+        view.scene = scene
+        view.isPlaying = true
+        
+        setupEnvironment(with: scene)
     }
     
-    private func setupEnvironment() {
-        playerFactory = PlayerFactory(scene: gameplayScene)
+    private func setupEnvironment(with scene: SCNScene) {
+        guard let view = gameView else { return }
+        
+        playerFactory = PlayerFactory(scene: scene)
         player = playerFactory.getPlayer()
-        mainCamera = MainCamera(scene: gameplayScene)
-        light = MainLight(scene: gameplayScene)
-        collision = Collision(scene: gameplayScene)
-        enemyFactory = EnemyFactory(scene: gameplayScene, gameView: gameView, player: player)
-        npcFactory = NPCFactory(scene: gameplayScene, gameView: gameView, player: player)
-        magicFactory = MagicElementsFactory(scene: gameplayScene, gameView: gameView, player: player)
+        mainCamera = MainCamera(scene: scene)
+        light = MainLight(scene: scene)
+        collision = Collision(scene: scene)
+        enemyFactory = EnemyFactory(scene: scene, gameView: view, player: player)
+        npcFactory = NPCFactory(scene: scene, gameView: view, player: player)
+        magicFactory = MagicElementsFactory(scene: scene, gameView: view, player: player)
         
         lightStick = light.setup()
         cameraStick = mainCamera.setup()
+    }
+    
+    private func setupObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(gameOver), name: NSNotification.Name("resetGame"), object: nil)
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -114,17 +123,20 @@ final class GameViewController: UIViewController {
             dialogAction(touches: touches)
         case .character:
             characterMenuAction(touches: touches)
+        case .gameOver:
+            gameOverAction(touches: touches)
         }
     }
     
     private func gameplayAction(touches: Set<UITouch>) {
+        guard let view = gameView else { return }
         for touch in touches {
-            if gameView.hudView.dpadNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+            if view.hudView.dpadNode.virtualNodeBounds().contains(touch.location(in: view)) {
                 if padTouch == nil {
                     padTouch = touch
                     controllerStoredDirection = float2(0.0)
                 }
-            } else if gameView.hudView.attackButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+            } else if view.hudView.attackButtonNode.virtualNodeBounds().contains(touch.location(in: view)) {
                 if let activePlayer = player {
                     if let npc = activePlayer.npc, npc.isInteracting {
                         player.playerModel.isInteracting = true
@@ -140,24 +152,24 @@ final class GameViewController: UIViewController {
                         gameState = .paused
                         currentView = .dialog
                         player.questManager()
-                        gameView.removeCurrentView()
-                        gameView.setupDialog()
+                        view.removeCurrentView()
+                        view.setupDialog()
                         dialogAction(touches: touches)
                     } else {
                         activePlayer.attack()
                     }
                 }
-            } else if gameView.hudView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+            } else if view.hudView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: view)) {
                 gameState = .paused
                 currentView = .options
-                gameView.removeCurrentView()
-                gameView.setupOptions()
+                view.removeCurrentView()
+                view.setupOptions()
                 
-            } else if gameView.hudView.characterButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+            } else if view.hudView.characterButtonNode.virtualNodeBounds().contains(touch.location(in: view)) {
                 gameState = .paused
                 currentView = .character
-                gameView.removeCurrentView()
-                gameView.setupCharacter()
+                view.removeCurrentView()
+                view.setupCharacter()
                 player.updateCharacterModelData()
                 
             } else if cameraTouch == nil {
@@ -170,8 +182,9 @@ final class GameViewController: UIViewController {
     }
     
     private func dialogAction(touches: Set<UITouch>) {
+        guard let view = gameView else { return }
         for touch in touches {
-            if gameView.dialogView.dialogBoxNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
+            if view.dialogView.dialogBoxNode.virtualNodeBounds().contains(touch.location(in: view)) {
                 
                 if let activePlayer = player {
                     switch activePlayer.playerModel.currentInteraction {
@@ -186,10 +199,10 @@ final class GameViewController: UIViewController {
                             if let npc = activePlayer.npc {
                                 npc.currentDialog = 0
                             }
-                            gameView.removeCurrentView()
+                            view.removeCurrentView()
                             currentView = .playing
                             gameState = .playing
-                            gameView.setupHUD()
+                            view.setupHUD()
                             activePlayer.updateModelData()
                             activePlayer.playerModel.currentInteraction = .none
                         }
@@ -205,10 +218,10 @@ final class GameViewController: UIViewController {
                                magic.currentDialog = 0
                             }
                             activePlayer.magic?.perkPlayer()
-                            gameView.removeCurrentView()
+                            view.removeCurrentView()
                             currentView = .playing
                             gameState = .playing
-                            gameView.setupHUD()
+                            view.setupHUD()
                             activePlayer.updateModelData()
                             activePlayer.playerModel.currentInteraction = .none
                         }
@@ -221,30 +234,31 @@ final class GameViewController: UIViewController {
     }
     
     private func characterMenuAction(touches: Set<UITouch>) {
+        guard let view = gameView else { return }
         for touch in touches {
-            if gameView.characterView.goBack.virtualNodeBounds().contains(touch.location(in: gameView)) {
-                gameView.removeCurrentView()
+            if view.characterView.goBack.virtualNodeBounds().contains(touch.location(in: view)) {
+                view.removeCurrentView()
                 currentView = .playing
-                gameView.setupHUD()
+                view.setupHUD()
                 if let activePlayer = player {
                     activePlayer.updateModelData()
                 }
             } else if
-                gameView.characterView.health.virtualNodeBounds().contains(touch.location(in: gameView)),
+                view.characterView.health.virtualNodeBounds().contains(touch.location(in: view)),
                 player.playerModel.levelPoints >= 1
             {
                 if let activePlayer = player {
                     activePlayer.updateHealth()
                 }
             } else if
-                gameView.characterView.magic.virtualNodeBounds().contains(touch.location(in: gameView)),
+                view.characterView.magic.virtualNodeBounds().contains(touch.location(in: view)),
                 player.playerModel.levelPoints >= 1
             {
                 if let activePlayer = player {
                     activePlayer.updateMagic()
                 }
             } else if
-                gameView.characterView.speed.virtualNodeBounds().contains(touch.location(in: gameView)),
+                view.characterView.speed.virtualNodeBounds().contains(touch.location(in: view)),
                 player.playerModel.levelPoints >= 1
             {
                 if let activePlayer = player {
@@ -255,32 +269,40 @@ final class GameViewController: UIViewController {
     }
     
     private func optionsAction(touches: Set<UITouch>) {
+        guard let view = gameView else { return }
         for touch in touches {
-            if gameView.optionsView.goBack.virtualNodeBounds().contains(touch.location(in: gameView)) {
-                gameView.removeCurrentView()
+            if view.optionsView.goBack.virtualNodeBounds().contains(touch.location(in: view)) {
+                view.removeCurrentView()
                 currentView = .playing
-                gameView.setupHUD()
+                view.setupHUD()
                 if let activePlayer = player {
                     activePlayer.updateModelData()
                 }
             } else if
-                gameView.optionsView.newGame.virtualNodeBounds().contains(touch.location(in: gameView))
+                view.optionsView.newGame.virtualNodeBounds().contains(touch.location(in: view))
             {
                 resetGame()
             } else if
-                gameView.optionsView.devMode.virtualNodeBounds().contains(touch.location(in: gameView))
+                view.optionsView.devMode.virtualNodeBounds().contains(touch.location(in: view))
             {
                 statisticManager()
             }
             else if
-                gameView.optionsView.music.virtualNodeBounds().contains(touch.location(in: gameView))
+                view.optionsView.music.virtualNodeBounds().contains(touch.location(in: view))
             {
                 print("music")
             }
         }
     }
+    
+    private func gameOverAction(touches: Set<UITouch>) {
+        for touch in touches {
+            resetGame()
+        }
+    }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let view = gameView else { return }
         if let touch = padTouch {
             let displacement = float2(touch.location(in: view)) - float2(touch.previousLocation(in: view))
 
@@ -289,7 +311,7 @@ final class GameViewController: UIViewController {
 
             controllerStoredDirection = vClamp
             
-            player.dPadOrigin = gameView.hudView.dpadNode.virtualNodeBounds().origin
+            player.dPadOrigin = view.hudView.dpadNode.virtualNodeBounds().origin
             player.touchLocation = touch.location(in: self.view)
             player.cameraRotation = mainCamera.getRotation()
         } else if let touch = cameraTouch {
@@ -311,9 +333,10 @@ final class GameViewController: UIViewController {
     }
 
     private func playerDirection() -> float3 {
+        guard let view = gameView else { return float3() }
         var direction = float3(controllerStoredDirection.x, 0.0, controllerStoredDirection.y)
 
-        if let pov = gameView.pointOfView {
+        if let pov = view.pointOfView {
             let p1 = pov.presentation.convertPosition(SCNVector3(direction), to: nil)
             let p0 = pov.presentation.convertPosition(SCNVector3Zero, to: nil)
 
@@ -352,62 +375,69 @@ final class GameViewController: UIViewController {
     
     //changing scenes
     private func presentWelcomeScreen() {
-        gameView.isUserInteractionEnabled = false
+        guard let view = gameView else { return }
+        view.isUserInteractionEnabled = false
         gameplayScene.isPaused = true
         let transition = SKTransition.fade(withDuration: 1.8)
         currentView = .tapToPlay
         
-        gameView.present(newGameScene, with: transition, incomingPointOfView: nil, completionHandler: {
+        view.present(newGameScene, with: transition, incomingPointOfView: nil, completionHandler: {
             self.gameState = .newGame
             self.newGameScene.isPaused = false
-            self.gameView.removeCurrentView()
-            self.gameView.setupWelcomeScreen()
+            view.removeCurrentView()
+            view.setupWelcomeScreen()
             DispatchQueue.main.async {
-                self.gameView.isUserInteractionEnabled = true
+                self.view.isUserInteractionEnabled = true
             }
         })
     }
     
     private func presentGame() {
+        guard let view = gameView else { return }
         NotificationCenter.default.post(name: NSNotification.Name("stopVideo"), object: nil)
-        gameView.isUserInteractionEnabled = false
+        view.isUserInteractionEnabled = false
         newGameScene.isPaused = true
         let transition = SKTransition.fade(withDuration: 1.8)
         currentView = .playing
         
-        gameView.present(gameplayScene, with: transition, incomingPointOfView: nil, completionHandler: {
+        view.present(gameplayScene, with: transition, incomingPointOfView: nil, completionHandler: {
             self.gameState = .playing
             self.gameplayScene.isPaused = false
-            self.gameView.removeCurrentView()
-            self.gameView.setupHUD()
+            view.removeCurrentView()
+            view.setupHUD()
             DispatchQueue.main.async {
-                self.gameView.isUserInteractionEnabled = true
+                self.view.isUserInteractionEnabled = true
             }
         })
     }
     
     private func resetGame() {
+        playerFactory.reset()
+        enemyFactory.reset()
+        npcFactory.reset()
+        magicFactory.reset()
+        
         presentWelcomeScreen()
+    }
+    
+    @objc func gameOver() {
+        guard let view = gameView else { return }
+        currentView = .gameOver
+        gameState = .paused
+        view.isUserInteractionEnabled = true
         
-        //remove old nodes
-        
-        //add new nodes
-        
-        DispatchQueue.main.async {
-            self.player.playerModel.resetModel()
-//            self.playerFactory.reset()
-//            self.mainCamera.resetCamera()
-//            self.enemyFactory.reset()
-//            self.npcFactory.reset()
-//            self.magicFactory.reset()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            view.removeCurrentView()
+            view.setupGameOver()
         }
     }
     
     private func statisticManager() {
+        guard let view = gameView else { return }
         if showStatistic { showStatistic = false }
         else { showStatistic = true }
         
-        gameView.showsStatistics = showStatistic
+        view.showsStatistics = showStatistic
     }
 }
 
@@ -419,19 +449,22 @@ extension GameViewController: SCNSceneRendererDelegate {
         for (node, position) in replacementPosition {
             node.position = position
         }
-        if player.playerModel.isDead {
-            presentWelcomeScreen()
-        }
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        if gameState != .playing { return }
+        if gameState != .playing || gameplayScene == nil { return }
         
         //reset
         replacementPosition.removeAll()
         maxPenetrationDistance = 0.0
         
-        let scene = gameView.scene!
+        guard
+            let view = gameView,
+            let scene = view.scene
+        else {
+            return
+        }
+        
         let direction = playerDirection()
         player!.walkInDirection(direction, time: time, scene: scene)
         

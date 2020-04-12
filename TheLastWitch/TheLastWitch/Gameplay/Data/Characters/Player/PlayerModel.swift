@@ -10,7 +10,7 @@ import SpriteKit
 
 final class PlayerModel {
     var maxHpPoints: Int = 100
-    var hpPoints: Int = 100
+    var hpPoints: Int = 10
     
     var maxExpPoints: Int = 100
     var expPoints: Int = 0
@@ -30,7 +30,7 @@ final class PlayerModel {
     
     func resetModel() {
         maxHpPoints = 100
-        hpPoints = 100
+        hpPoints = 10
         maxExpPoints = 100
         expPoints = 0
         maxSpeed = 1.8

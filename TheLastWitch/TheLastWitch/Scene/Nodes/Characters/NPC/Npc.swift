@@ -72,7 +72,7 @@ final class Npc: SCNNode {
         characterNode = daeHolderNode.childNode(withName: "Bip01", recursively: true)!
     }
     
-    func setupObservers() {
+    private func setupObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(questStatusChanged), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
     }
     

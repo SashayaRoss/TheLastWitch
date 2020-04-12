@@ -64,6 +64,10 @@ final class EnemyFactory {
         else { return }
         for node in enemies.childNodes {
             node.isHidden = false
+            node.removeFromParentNode()
+            node.removeAllAnimations()
+            node.removeAllParticleSystems()
+            node.removeAllActions()
         }
         setup()
     }
@@ -71,7 +75,9 @@ final class EnemyFactory {
 
 extension EnemyFactory: SetupInterface {
     func setup() {
-        guard let enemies = scene.rootNode.childNode(withName: "Enemies", recursively: false) else { return }
+        guard
+            let enemies = scene.rootNode.childNode(withName: "Enemies", recursively: false)
+        else { return }
         for child in enemies.childNodes {
             enemyPositionArray[child.name!] = child.position
         }

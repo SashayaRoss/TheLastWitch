@@ -12,4 +12,5 @@ enum CurrentView {
     case options
     case dialog
     case character
+    case gameOver
 }

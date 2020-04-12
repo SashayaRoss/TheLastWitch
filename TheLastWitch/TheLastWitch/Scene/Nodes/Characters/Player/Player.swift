@@ -361,6 +361,6 @@ extension Player: BattleAction {
         guard let node = characterNode else { return }
         node.removeAllAnimations()
         node.addAnimation(animation.deadAnimation, forKey: "dead")
-        print("GAME OVER")
+        NotificationCenter.default.post(name: NSNotification.Name("resetGame"), object: nil, userInfo:[:])
     }
 }

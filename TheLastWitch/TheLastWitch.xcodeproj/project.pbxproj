@@ -35,6 +35,8 @@
 		7E106FF8244339960044F3AD /* OptionsDevModeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FF7244339960044F3AD /* OptionsDevModeNode.swift */; };
 		7E106FFA24433AFA0044F3AD /* OptionsMusicNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FF924433AFA0044F3AD /* OptionsMusicNode.swift */; };
 		7E106FFC244343680044F3AD /* WelcomeScreenTapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FFB244343680044F3AD /* WelcomeScreenTapNode.swift */; };
+		7E106FFE244374950044F3AD /* GameOverConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FFD244374940044F3AD /* GameOverConfigurator.swift */; };
+		7E107001244374F20044F3AD /* GameOverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E107000244374F20044F3AD /* GameOverNode.swift */; };
 		7E1332E12426C95D00989768 /* MusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1332E02426C95D00989768 /* MusicManager.swift */; };
 		7E23B0BB241EACF5002A2395 /* PlayerCollider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E23B0BA241EACF5002A2395 /* PlayerCollider.swift */; };
 		7E23B0BD241EB0FF002A2395 /* BattleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E23B0BC241EB0FF002A2395 /* BattleAction.swift */; };
@@ -146,6 +148,8 @@
 		7E106FF7244339960044F3AD /* OptionsDevModeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsDevModeNode.swift; sourceTree = "<group>"; };
 		7E106FF924433AFA0044F3AD /* OptionsMusicNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMusicNode.swift; sourceTree = "<group>"; };
 		7E106FFB244343680044F3AD /* WelcomeScreenTapNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenTapNode.swift; sourceTree = "<group>"; };
+		7E106FFD244374940044F3AD /* GameOverConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverConfigurator.swift; sourceTree = "<group>"; };
+		7E107000244374F20044F3AD /* GameOverNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverNode.swift; sourceTree = "<group>"; };
 		7E1332E02426C95D00989768 /* MusicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicManager.swift; sourceTree = "<group>"; };
 		7E23B0BA241EACF5002A2395 /* PlayerCollider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollider.swift; sourceTree = "<group>"; };
 		7E23B0BC241EB0FF002A2395 /* BattleAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleAction.swift; sourceTree = "<group>"; };
@@ -286,6 +290,14 @@
 			path = Mapper;
 			sourceTree = "<group>";
 		};
+		7E106FFF244374DA0044F3AD /* GameOver */ = {
+			isa = PBXGroup;
+			children = (
+				7E107000244374F20044F3AD /* GameOverNode.swift */,
+			);
+			path = GameOver;
+			sourceTree = "<group>";
+		};
 		7E34B9DB23B552E300FA0BEE = {
 			isa = PBXGroup;
 			children = (
@@ -342,11 +354,12 @@
 		7E34BA0C23B8006500FA0BEE /* UserInterface */ = {
 			isa = PBXGroup;
 			children = (
+				7E106FCE243CFC480044F3AD /* GoBackButtonNode.swift */,
 				7E34BA0F23B8024D00FA0BEE /* NodeSetupInterface.swift */,
 				7E106FD5243D01750044F3AD /* VirtualBoundsSetupInterface.swift */,
+				7E106FFF244374DA0044F3AD /* GameOver */,
 				7E106FC6243A4B300044F3AD /* WelcomeScreen */,
 				7EB244C9242FB36C004F3172 /* Dialog */,
-				7E106FCE243CFC480044F3AD /* GoBackButtonNode.swift */,
 				7EB244C8242FB315004F3172 /* Character */,
 				7EB244C7242FB304004F3172 /* Options */,
 				7EDFF5652416CB0A00D24798 /* HUD */,
@@ -567,6 +580,7 @@
 			isa = PBXGroup;
 			children = (
 				7E57ACA7241FDC85003350C9 /* GameView.swift */,
+				7E106FFD244374940044F3AD /* GameOverConfigurator.swift */,
 				7E886908243A140E0022E411 /* WelcomeScreenConfigurator.swift */,
 				7EB244D1242FBC06004F3172 /* HUDConfigurator.swift */,
 				7EB244D3242FC1FF004F3172 /* CharacterConfigurator.swift */,
@@ -812,6 +826,7 @@
 				7EDFF5622415599B00D24798 /* EnemyAnimation.swift in Sources */,
 				7E88690524393AD60022E411 /* OptionsScene.swift in Sources */,
 				7E106FF0244250580044F3AD /* CurrentInteraction.swift in Sources */,
+				7E106FFE244374950044F3AD /* GameOverConfigurator.swift in Sources */,
 				7EA7A5FF23E5F62500894C4D /* ColourBase.swift in Sources */,
 				7E23B0BD241EB0FF002A2395 /* BattleAction.swift in Sources */,
 				7EDFF580241E99E200D24798 /* PhysicsContactExtension.swift in Sources */,
@@ -859,6 +874,7 @@
 				7EB244EC2430DC5C004F3172 /* WolfModel.swift in Sources */,
 				7E106FBF243A35640044F3AD /* MagicElementsModel.swift in Sources */,
 				7EDFF579241E8A8700D24798 /* MainLight.swift in Sources */,
+				7E107001244374F20044F3AD /* GameOverNode.swift in Sources */,
 				7E34B9E823B552E400FA0BEE /* AppDelegate.swift in Sources */,
 				7E106FE7243E87470044F3AD /* PlayerCharacterMapping.swift in Sources */,
 				7E106FE1243E69CC0044F3AD /* CharacterSpeedNode.swift in Sources */,
