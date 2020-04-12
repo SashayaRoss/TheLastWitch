@@ -13,6 +13,7 @@ final class WolfBossModel: EnemyModel {
     var hp: Int = 270
     var strength: Int = 20
     var exp: Int = 200
+    let type: TargetType = .boss
     
     let noticeDistance: Float = 3.0
     let movementSpeedLimiter: Float = 0.5

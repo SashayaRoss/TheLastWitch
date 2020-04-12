@@ -26,23 +26,25 @@ final class MagicElementsFactory {
     private func setupMagicalElements() {
         let scale: Float = 0.003
         let shrineModel = MagicShrine(
-            dialog: ["I am a wise oracle", "I give knowledge", "And exp", "You have been granted 50 exp by oracle"],
+            dialog: ["I am a magic well", "I know I don't look like one yet", "I can give you some exp", "You have been granted 50 exp!"],
             model: "art.scnassets/Scenes/Characters/Hero/idle",
             perk: .exp
         )
         let shrineModel2 = MagicShrine(
-            dialog: ["I give hp", "cool", "You have been granted full hp by oracle"],
+            dialog: ["I am a maical shrine.", "I can restore your hp", "You have been granted full hp"],
             model: "art.scnassets/Scenes/Characters/Hero/idle",
             perk: .fullHP
         )
         
         let magicElements = MagicElements(player: player, view: gameView, magicElementModel: shrineModel)
         magicElements.scale = SCNVector3Make(scale, scale, scale)
-        magicElements.position = magicElementsPositionArray["magic1"]!
+        guard let position1 =  magicElementsPositionArray["magic1"] else { return }
+        magicElements.position = position1
         
         let magicElements2 = MagicElements(player: player, view: gameView, magicElementModel: shrineModel2)
         magicElements2.scale = SCNVector3Make(scale, scale, scale)
-        magicElements2.position = magicElementsPositionArray["magic2"]!
+        guard let position2 =  magicElementsPositionArray["magic2"] else { return }
+        magicElements2.position = position2
         
         gameView.prepare([magicElements, magicElements2]) { (finished) in
             self.scene.rootNode.addChildNode(magicElements)

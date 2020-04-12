@@ -58,11 +58,15 @@ extension WelcomeScreenBackgroundNode: NodeSetupInterface {
         node.play()
     }
     
-    //redundant??
     func virtualNodeBounds() -> CGRect {
-        var virtualDialogBounds = CGRect(x: 10.0, y: 10.0, width: bounds.size.width , height: bounds.size.height)
-        virtualDialogBounds.origin.y = bounds.size.height - virtualDialogBounds.size.height
+        var virtualBounds = CGRect(
+            x: 10.0,
+            y: 10.0,
+            width: bounds.size.width ,
+            height: bounds.size.height
+        )
+        virtualBounds.origin.y = bounds.size.height - virtualBounds.size.height
         
-        return virtualDialogBounds
+        return virtualBounds
     }
 }

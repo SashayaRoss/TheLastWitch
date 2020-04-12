@@ -23,6 +23,7 @@ final class GameViewController: UIViewController {
     //general
     var gameState: GameState = .newGame
     var currentView: CurrentView = .playing
+    private var showStatistic: Bool = false
     
     //nodes
     private var player: Player!
@@ -71,13 +72,6 @@ final class GameViewController: UIViewController {
         
         gameView.scene = scene
         gameView.isPlaying = true
-        
-        
-        statisticManager(show: true)
-    }
-    
-    private func statisticManager(show: Bool) {
-        gameView.showsStatistics = show
     }
     
     private func setupEnvironment() {
@@ -115,12 +109,11 @@ final class GameViewController: UIViewController {
             gameState = .playing
             gameplayAction(touches: touches)
         case .options:
-            print("nope")
-//            optionsAction(touches: touches)
+            optionsAction(touches: touches)
         case .dialog:
             dialogAction(touches: touches)
         case .character:
-            characterMenu(touches: touches)
+            characterMenuAction(touches: touches)
         }
     }
     
@@ -155,7 +148,11 @@ final class GameViewController: UIViewController {
                     }
                 }
             } else if gameView.hudView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
-                presentWelcomeScreen()
+                gameState = .paused
+                currentView = .options
+                gameView.removeCurrentView()
+                gameView.setupOptions()
+                
             } else if gameView.hudView.characterButtonNode.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 gameState = .paused
                 currentView = .character
@@ -223,7 +220,7 @@ final class GameViewController: UIViewController {
         }
     }
     
-    private func characterMenu(touches: Set<UITouch>) {
+    private func characterMenuAction(touches: Set<UITouch>) {
         for touch in touches {
             if gameView.characterView.goBack.virtualNodeBounds().contains(touch.location(in: gameView)) {
                 gameView.removeCurrentView()
@@ -239,7 +236,6 @@ final class GameViewController: UIViewController {
                 if let activePlayer = player {
                     activePlayer.updateHealth()
                 }
-                print("ADD HEALTH")
             } else if
                 gameView.characterView.magic.virtualNodeBounds().contains(touch.location(in: gameView)),
                 player.playerModel.levelPoints >= 1
@@ -247,7 +243,6 @@ final class GameViewController: UIViewController {
                 if let activePlayer = player {
                     activePlayer.updateMagic()
                 }
-                print("ADD MAGIC")
             } else if
                 gameView.characterView.speed.virtualNodeBounds().contains(touch.location(in: gameView)),
                 player.playerModel.levelPoints >= 1
@@ -255,7 +250,32 @@ final class GameViewController: UIViewController {
                 if let activePlayer = player {
                     activePlayer.updateSpeed()
                 }
-                print("ADD SPEED")
+            }
+        }
+    }
+    
+    private func optionsAction(touches: Set<UITouch>) {
+        for touch in touches {
+            if gameView.optionsView.goBack.virtualNodeBounds().contains(touch.location(in: gameView)) {
+                gameView.removeCurrentView()
+                currentView = .playing
+                gameView.setupHUD()
+                if let activePlayer = player {
+                    activePlayer.updateModelData()
+                }
+            } else if
+                gameView.optionsView.newGame.virtualNodeBounds().contains(touch.location(in: gameView))
+            {
+                resetGame()
+            } else if
+                gameView.optionsView.devMode.virtualNodeBounds().contains(touch.location(in: gameView))
+            {
+                statisticManager()
+            }
+            else if
+                gameView.optionsView.music.virtualNodeBounds().contains(touch.location(in: gameView))
+            {
+                print("music")
             }
         }
     }
@@ -331,7 +351,7 @@ final class GameViewController: UIViewController {
     }
     
     //changing scenes
-    func presentWelcomeScreen() {
+    private func presentWelcomeScreen() {
         gameView.isUserInteractionEnabled = false
         gameplayScene.isPaused = true
         let transition = SKTransition.fade(withDuration: 1.8)
@@ -348,7 +368,7 @@ final class GameViewController: UIViewController {
         })
     }
     
-    func presentGame() {
+    private func presentGame() {
         NotificationCenter.default.post(name: NSNotification.Name("stopVideo"), object: nil)
         gameView.isUserInteractionEnabled = false
         newGameScene.isPaused = true
@@ -364,6 +384,17 @@ final class GameViewController: UIViewController {
                 self.gameView.isUserInteractionEnabled = true
             }
         })
+    }
+    
+    private func resetGame() {
+        presentWelcomeScreen()
+    }
+    
+    private func statisticManager() {
+        if showStatistic { showStatistic = false }
+        else { showStatistic = true }
+        
+        gameView.showsStatistics = showStatistic
     }
 }
 

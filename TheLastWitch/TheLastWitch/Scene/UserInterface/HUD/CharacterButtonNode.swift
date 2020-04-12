@@ -37,7 +37,13 @@ extension CharacterButtonNode: NodeSetupInterface {
 
 extension CharacterButtonNode: VirtualBoundsSetupInterface {
     func virtualNodeBounds() -> CGRect {
-        let virtualNodeBounds = CGRect(x: 10.0, y: 10.0, width: size, height: size)
-        return virtualNodeBounds
+        let virtualBounds = CGRect(
+            x: 10.0,
+            y: 10.0,
+            width: size,
+            height: size
+        )
+        
+        return virtualBounds
     }
 }

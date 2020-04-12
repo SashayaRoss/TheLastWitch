@@ -37,10 +37,15 @@ extension OptionsButtonNode: NodeSetupInterface {
 
 extension OptionsButtonNode: VirtualBoundsSetupInterface {
     func virtualNodeBounds() -> CGRect {
-        var virtualNodeBounds = CGRect(x: 10.0, y: 10.0, width: size + 20, height: size + 20)
-        virtualNodeBounds.origin.y = virtualNodeBounds.size.height - 40
-        virtualNodeBounds.origin.x = bounds.size.width - virtualNodeBounds.size.width
+        var virtualBounds = CGRect(
+            x: 10.0,
+            y: 10.0,
+            width: size + 20,
+            height: size + 20
+        )
+        virtualBounds.origin.y = virtualBounds.size.height - 40
+        virtualBounds.origin.x = bounds.size.width - virtualBounds.size.width
 
-        return virtualNodeBounds
+        return virtualBounds
     }
 }

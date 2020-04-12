@@ -107,25 +107,33 @@ final class Player: SCNNode {
         //move
         if direction.x != 0.0 && direction.z != 0.0 {
             //TODO camera!!!!
-            if let dPad = dPadOrigin, let touch = touchLocation, let camera = cameraRotation {
-                let middleOfCircleX = dPad.x + 75
-                let middleOfCircleY = dPad.y + 75
-                let lengthOfX = Float(touch.x - middleOfCircleX)
-                let lengthOfY = Float(touch.y - middleOfCircleY)
-                var newDirection = float3(x: lengthOfX, y: 0, z: lengthOfY)
-                newDirection = normalize(newDirection)
-//                print("x: \(touch.x), y: \(touch.y)")
-                
-                //move character
-                let pos = float3(position)
-                position = SCNVector3(pos + newDirection * characterSpeed)
+//            if let dPad = dPadOrigin, let touch = touchLocation, let camera = cameraRotation {
+//                let middleOfCircleX = dPad.x + 75
+//                let middleOfCircleY = dPad.y + 75
+//                let lengthOfX = Float(touch.x - middleOfCircleX)
+//                let lengthOfY = Float(touch.y - middleOfCircleY)
+//                var newDirection = float3(x: lengthOfX, y: 0, z: lengthOfY)
+//                newDirection = normalize(newDirection)
+////                print("x: \(touch.x), y: \(touch.y)")
+//
+//                //move character
+//                let pos = float3(position)
+//                position = SCNVector3(pos + newDirection * characterSpeed)
+//
+//                //update angle
+//                let degree = atan2(newDirection.x, newDirection.z)
+//                directionAngle = degree
+//
+//                isWalking = true
+//            }
+            //move character
+            let pos = float3(position)
+            position = SCNVector3(pos + direction * characterSpeed)
 
-                //update angle
-                let degree = atan2(newDirection.x, newDirection.z)
-                directionAngle = degree
+            //update angle
+            directionAngle = SCNFloat(atan2f(direction.x, direction.z))
 
-                isWalking = true
-            }
+            isWalking = true
         } else {
             isWalking = false
         }
@@ -199,9 +207,9 @@ final class Player: SCNNode {
         NotificationCenter.default.post(name: NSNotification.Name("expChanged"), object: nil, userInfo: ["playerMaxExp": playerModel.maxExpPoints, "currentExp": playerModel.expPoints, "levelUp": levelUp])
     }
     
-    func updateQuest(with name: String) {
+    func updateQuest(with type: TargetType) {
         for quest in playerModel.quests {
-            if let index = quest.targets.index(of: name) {
+            if let index = quest.targets.firstIndex(of: type) {
                 quest.targets.remove(at: index)
             }
             if quest.targets == [] {

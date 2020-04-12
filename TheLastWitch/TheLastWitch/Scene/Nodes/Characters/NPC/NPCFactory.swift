@@ -27,46 +27,37 @@ final class NPCFactory {
         let npcScale: Float = 0.003
         let quest = Quest(
             id: 2,
-            desc: "Defeat 2 stone golums",
+            desc: "Defeat 2 monsters in nearby forest. You will recive 50 exp!",
             type: .defeat,
             exp: 50,
-            targets: ["golem1", "golem2"]
+            targets: [.golem, .golem]
         )
         let npcModel = VillagerModel(
-            dialog: ["1. Hello", "2 Im a villager", "3 life is fun!"],
+            dialog: ["Hello", "I'm a villager", "I live here and I have a task for you! We are in desperate need of a witch and long sentences to test if bounding box on dialog works :)"],
             quest: quest,
             model: "art.scnassets/Scenes/Characters/Hero/idle"
         )
         let npcModel2 = VillagerModel(
-            dialog: ["1. sup mate", "2 Im a cool", "3 life is sdaksjdkasdkajs!"],
+            dialog: ["Hi!", "I'm not from arouond here", "Sory, no quest from me"],
             model: "art.scnassets/Scenes/Characters/Hero/idle"
         )
         
-        let npcModel3 = VillagerModel(
-            dialog: ["1. supdasdasdsmate", "2 Im a codsadasdol", "3 !"],
-            model: "art.scnassets/Scenes/Characters/Hero/idle"
-        )
-        
-        let npc = Npc(player: player, view: gameView, npcModel: npcModel2)
-        npc.scale = SCNVector3Make(npcScale, npcScale, npcScale)
-        npc.position = npcPositionArray["npc"]!
+        let npc1 = Npc(player: player, view: gameView, npcModel: npcModel2)
+        npc1.scale = SCNVector3Make(npcScale, npcScale, npcScale)
+        guard let position = npcPositionArray["npc1"] else { return }
+        npc1.position = position
         
         let npc2 = Npc(player: player, view: gameView, npcModel: npcModel)
         npc2.scale = SCNVector3Make(npcScale, npcScale, npcScale)
-        npc2.position = npcPositionArray["npc2"]!
+        guard let position2 = npcPositionArray["npc2"] else { return }
+        npc2.position = position2
         
-        let npc3 = Npc(player: player, view: gameView, npcModel: npcModel3)
-        npc3.scale = SCNVector3Make(npcScale, npcScale, npcScale)
-        npc3.position = npcPositionArray["npc3"]!
-        
-        gameView.prepare([npc, npc2, npc3]) { (finished) in
-            self.scene.rootNode.addChildNode(npc)
+        gameView.prepare([npc1, npc2]) { (finished) in
+            self.scene.rootNode.addChildNode(npc1)
             self.scene.rootNode.addChildNode(npc2)
-            self.scene.rootNode.addChildNode(npc3)
             
-            npc.setupCollider(scale: CGFloat(npcScale))
+            npc1.setupCollider(scale: CGFloat(npcScale))
             npc2.setupCollider(scale: CGFloat(npcScale))
-            npc3.setupCollider(scale: CGFloat(npcScale))
         }
     }
 }

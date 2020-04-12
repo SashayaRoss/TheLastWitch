@@ -13,6 +13,7 @@ protocol EnemyModel {
     var hp: Int { get set }
     var strength: Int { get set }
     var exp: Int { get set }
+    var type: TargetType { get }
     
     var noticeDistance: Float { get }
     var movementSpeedLimiter: Float { get }

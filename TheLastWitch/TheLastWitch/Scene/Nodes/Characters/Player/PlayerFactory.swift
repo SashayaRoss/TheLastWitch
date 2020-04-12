@@ -31,8 +31,8 @@ extension PlayerFactory: SetupInterface {
         let playerScale = Float(0.003)
         
         player.scale = SCNVector3Make(playerScale, playerScale, playerScale)
-        player.position = SCNVector3Make(0.0, 0.0, 0.0)
-        player.rotation = SCNVector4Make(0, 1, 0, Float.pi)
+        player.position = SCNVector3Make(4, 0.6, -10)
+        player.rotation = SCNVector4Make(0, 0, 0, Float.pi)
         
         scene.rootNode.addChildNode(player)
         player.setupCollider(with: CGFloat(playerScale))

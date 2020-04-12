@@ -21,7 +21,7 @@ final class PlayerModel {
     var levelPoints: Int = 2
     
     //TODO: change init
-    var quests: [Quest] = [Quest(id: 1, desc: "\n- Find magic portal", type: .discover, exp: 100, targets: ["bluePortal"])]
+    var quests: [Quest] = [Quest(id: 1, desc: "\n- Find magic portal", type: .discover, exp: 100, targets: [.bluePortal])]
     var currentInteraction: CurrentInteraction = .none
     
     var isAttacking = false

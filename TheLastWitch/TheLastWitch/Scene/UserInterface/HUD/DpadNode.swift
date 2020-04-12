@@ -35,9 +35,14 @@ extension DpadNode: NodeSetupInterface {
 
 extension DpadNode: VirtualBoundsSetupInterface {
     func virtualNodeBounds() -> CGRect {
-        var virtualDpadBounds = CGRect(x: 10.0, y: 10.0, width: size, height: size)
-        virtualDpadBounds.origin.y = bounds.size.height - virtualDpadBounds.size.height
+        var virtualBounds = CGRect(
+            x: 10.0,
+            y: 10.0,
+            width: size,
+            height: size
+        )
+        virtualBounds.origin.y = bounds.size.height - virtualBounds.size.height
         
-        return virtualDpadBounds
+        return virtualBounds
     }
 }

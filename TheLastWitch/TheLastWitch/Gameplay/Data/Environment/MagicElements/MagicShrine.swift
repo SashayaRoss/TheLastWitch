@@ -14,6 +14,7 @@ final class MagicShrine: MagicElementsModel {
     var dialog: [String]
     let model: String
     let noticeDistance: Float = 2.0
+    let type: TargetType? = nil
     
     init(
         dialog: [String],

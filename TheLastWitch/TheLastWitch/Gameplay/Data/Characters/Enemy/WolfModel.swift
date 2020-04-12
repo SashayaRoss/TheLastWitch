@@ -13,6 +13,7 @@ final class WolfModel: EnemyModel {
     var hp: Int = 10
     var strength: Int = 20
     var exp: Int = 60
+    var type: TargetType = .golem
     
     let noticeDistance: Float = 3.0
     let movementSpeedLimiter: Float = 0.5

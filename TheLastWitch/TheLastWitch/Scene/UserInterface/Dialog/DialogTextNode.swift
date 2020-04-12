@@ -30,7 +30,7 @@ extension DialogTextNode: NodeSetupInterface {
         dialogSprite.fontSize = 14
         dialogSprite.horizontalAlignmentMode = .left
         dialogSprite.verticalAlignmentMode = .top
-        dialogSprite.preferredMaxLayoutWidth = bounds.size.width - 40
+        dialogSprite.preferredMaxLayoutWidth = bounds.size.width - 50
         dialogSprite.numberOfLines = 2
         dialogSprite.fontColor = .brownLetters
     

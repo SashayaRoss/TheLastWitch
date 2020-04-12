@@ -31,15 +31,21 @@ final class EnemyFactory {
         
         let enemy1 = Enemy(player: player, view: gameView, enemyModel: wolfModel1)
         enemy1.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
-        enemy1.position = enemyPositionArray["golem1"]!
+        guard let position1 = enemyPositionArray["golem1"] else { return }
+        enemy1.position = position1
+        enemy1.rotation = SCNVector4(0, 180, 0, 0)
         
         let enemy2 = Enemy(player: player, view: gameView, enemyModel: wolfModel2)
         enemy2.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
-        enemy2.position = enemyPositionArray["golem2"]!
+        guard let position2 = enemyPositionArray["golem2"] else { return }
+        enemy2.position = position2
+        enemy2.rotation = SCNVector4(0, 90, 0, 0)
         
         let enemy3 = Enemy(player: player, view: gameView, enemyModel: wolfModel3)
         enemy3.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
-        enemy3.position = enemyPositionArray["golem3"]!
+        guard let position3 = enemyPositionArray["golem3"] else { return }
+        enemy3.position = position3
+        enemy3.rotation = SCNVector4(0, 0, 0, 0)
         
         gameView.prepare([enemy1, enemy2, enemy3]) { (finished) in
             self.scene.rootNode.addChildNode(enemy1)

@@ -22,21 +22,15 @@ final class OptionsNode {
 
 extension OptionsNode: NodeSetupInterface {
     func setupNode(with scene: SKScene) {
-        optionsSprite = SKSpriteNode(imageNamed: directory + "dialog2.png")
+        optionsSprite = SKSpriteNode(imageNamed: directory + "optionsBG.png")
         optionsSprite.name = "OptionsNode"
         optionsSprite.position = CGPoint(x: 20, y: 20)
         optionsSprite.anchorPoint = CGPoint(x: 0.0, y: 0.0)
-        optionsSprite.size = CGSize(width: bounds.size.width - 40, height: bounds.size.height - 40)
+        optionsSprite.size = CGSize(
+            width: bounds.size.width - 40,
+            height: bounds.size.height - 40
+        )
        
         scene.addChild(optionsSprite)
-    }
-}
-
-extension OptionsNode: VirtualBoundsSetupInterface {
-    func virtualNodeBounds() -> CGRect {
-        var virtualOptionsBounds = CGRect(x: 20.0, y: 20.0, width: bounds.size.width - 40, height: bounds.size.height - 40)
-        virtualOptionsBounds.origin.y = bounds.size.height - virtualOptionsBounds.size.height
-        
-        return virtualOptionsBounds
     }
 }

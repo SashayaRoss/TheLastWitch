@@ -13,7 +13,7 @@ final class Quest {
     var desc: String
     let type: QuestType
     let exp: Int
-    var targets: [String]
+    var targets: [TargetType]
     var isActive: Bool = true
     var isFinished: Bool = false
     
@@ -22,7 +22,7 @@ final class Quest {
         desc: String,
         type: QuestType,
         exp: Int,
-        targets: [String]
+        targets: [TargetType]
     ) {
         self.id = id
         self.desc = desc

@@ -29,6 +29,12 @@
 		7E106FEC2441C5290044F3AD /* QuestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FEB2441C5290044F3AD /* QuestType.swift */; };
 		7E106FEE244243060044F3AD /* Perks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FED244243060044F3AD /* Perks.swift */; };
 		7E106FF0244250580044F3AD /* CurrentInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FEF244250580044F3AD /* CurrentInteraction.swift */; };
+		7E106FF224432F370044F3AD /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FF124432F370044F3AD /* TargetType.swift */; };
+		7E106FF42443357B0044F3AD /* OptionsHeaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FF32443357B0044F3AD /* OptionsHeaderNode.swift */; };
+		7E106FF6244337FF0044F3AD /* OptionsNewGameNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FF5244337FF0044F3AD /* OptionsNewGameNode.swift */; };
+		7E106FF8244339960044F3AD /* OptionsDevModeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FF7244339960044F3AD /* OptionsDevModeNode.swift */; };
+		7E106FFA24433AFA0044F3AD /* OptionsMusicNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FF924433AFA0044F3AD /* OptionsMusicNode.swift */; };
+		7E106FFC244343680044F3AD /* WelcomeScreenTapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FFB244343680044F3AD /* WelcomeScreenTapNode.swift */; };
 		7E1332E12426C95D00989768 /* MusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1332E02426C95D00989768 /* MusicManager.swift */; };
 		7E23B0BB241EACF5002A2395 /* PlayerCollider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E23B0BA241EACF5002A2395 /* PlayerCollider.swift */; };
 		7E23B0BD241EB0FF002A2395 /* BattleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E23B0BC241EB0FF002A2395 /* BattleAction.swift */; };
@@ -134,6 +140,12 @@
 		7E106FEB2441C5290044F3AD /* QuestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestType.swift; sourceTree = "<group>"; };
 		7E106FED244243060044F3AD /* Perks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Perks.swift; sourceTree = "<group>"; };
 		7E106FEF244250580044F3AD /* CurrentInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentInteraction.swift; sourceTree = "<group>"; };
+		7E106FF124432F370044F3AD /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
+		7E106FF32443357B0044F3AD /* OptionsHeaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsHeaderNode.swift; sourceTree = "<group>"; };
+		7E106FF5244337FF0044F3AD /* OptionsNewGameNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsNewGameNode.swift; sourceTree = "<group>"; };
+		7E106FF7244339960044F3AD /* OptionsDevModeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsDevModeNode.swift; sourceTree = "<group>"; };
+		7E106FF924433AFA0044F3AD /* OptionsMusicNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMusicNode.swift; sourceTree = "<group>"; };
+		7E106FFB244343680044F3AD /* WelcomeScreenTapNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenTapNode.swift; sourceTree = "<group>"; };
 		7E1332E02426C95D00989768 /* MusicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicManager.swift; sourceTree = "<group>"; };
 		7E23B0BA241EACF5002A2395 /* PlayerCollider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollider.swift; sourceTree = "<group>"; };
 		7E23B0BC241EB0FF002A2395 /* BattleAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleAction.swift; sourceTree = "<group>"; };
@@ -260,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				7E106FC7243A4B550044F3AD /* WelcomeScreenBackgroundNode.swift */,
+				7E106FFB244343680044F3AD /* WelcomeScreenTapNode.swift */,
 			);
 			path = WelcomeScreen;
 			sourceTree = "<group>";
@@ -333,6 +346,7 @@
 				7E106FD5243D01750044F3AD /* VirtualBoundsSetupInterface.swift */,
 				7E106FC6243A4B300044F3AD /* WelcomeScreen */,
 				7EB244C9242FB36C004F3172 /* Dialog */,
+				7E106FCE243CFC480044F3AD /* GoBackButtonNode.swift */,
 				7EB244C8242FB315004F3172 /* Character */,
 				7EB244C7242FB304004F3172 /* Options */,
 				7EDFF5652416CB0A00D24798 /* HUD */,
@@ -517,6 +531,10 @@
 			isa = PBXGroup;
 			children = (
 				7EB244DF242FE8BB004F3172 /* OptionsNode.swift */,
+				7E106FF32443357B0044F3AD /* OptionsHeaderNode.swift */,
+				7E106FF5244337FF0044F3AD /* OptionsNewGameNode.swift */,
+				7E106FF7244339960044F3AD /* OptionsDevModeNode.swift */,
+				7E106FF924433AFA0044F3AD /* OptionsMusicNode.swift */,
 			);
 			path = Options;
 			sourceTree = "<group>";
@@ -532,7 +550,6 @@
 				7E106FDC243E69B10044F3AD /* CharacterHealthNode.swift */,
 				7E106FDE243E69C00044F3AD /* CharacterMagicNode.swift */,
 				7E106FE0243E69CC0044F3AD /* CharacterSpeedNode.swift */,
-				7E106FCE243CFC480044F3AD /* GoBackButtonNode.swift */,
 			);
 			path = Character;
 			sourceTree = "<group>";
@@ -593,6 +610,7 @@
 			isa = PBXGroup;
 			children = (
 				7EB244ED243108A0004F3172 /* EnemyModel.swift */,
+				7E106FF124432F370044F3AD /* TargetType.swift */,
 				7EB244EB2430DC5C004F3172 /* WolfModel.swift */,
 				7EB244F924328F6E004F3172 /* WolfBossModel.swift */,
 			);
@@ -781,6 +799,7 @@
 				7EDFF572241E85F400D24798 /* SetupInterface.swift in Sources */,
 				7EB244E0242FE8BB004F3172 /* OptionsNode.swift in Sources */,
 				7EA7A5FC23E5F3DA00894C4D /* EnemyAnimationType.swift in Sources */,
+				7E106FF42443357B0044F3AD /* OptionsHeaderNode.swift in Sources */,
 				7E886909243A140E0022E411 /* WelcomeScreenConfigurator.swift in Sources */,
 				7E106FDF243E69C00044F3AD /* CharacterMagicNode.swift in Sources */,
 				7E23B0C1241ECCF6002A2395 /* OptionsButtonNode.swift in Sources */,
@@ -788,6 +807,7 @@
 				7E106FC5243A39D00044F3AD /* MagicElementsFactory.swift in Sources */,
 				7E106FDA243E3DD30044F3AD /* CharacterExpNode.swift in Sources */,
 				7E57ACAC241FDC8F003350C9 /* GameViewController.swift in Sources */,
+				7E106FF224432F370044F3AD /* TargetType.swift in Sources */,
 				7EDFF583241EA8E700D24798 /* AnimationInterface.swift in Sources */,
 				7EDFF5622415599B00D24798 /* EnemyAnimation.swift in Sources */,
 				7E88690524393AD60022E411 /* OptionsScene.swift in Sources */,
@@ -801,6 +821,7 @@
 				7EB244DC242FDED6004F3172 /* DialogTextNode.swift in Sources */,
 				7E57ACBC241FDD43003350C9 /* GameMenuViewInterface.swift in Sources */,
 				7E57ACD0241FFF8D003350C9 /* ColliderInterface.swift in Sources */,
+				7E106FF6244337FF0044F3AD /* OptionsNewGameNode.swift in Sources */,
 				7EB244E6242FF82F004F3172 /* NPCFactory.swift in Sources */,
 				7E106FDD243E69B10044F3AD /* CharacterHealthNode.swift in Sources */,
 				7E106FCD243CFC340044F3AD /* CharacterNameNode.swift in Sources */,
@@ -833,6 +854,8 @@
 				7E106FD2243CFC630044F3AD /* CharacterQuestBgNode.swift in Sources */,
 				7E23B0BB241EACF5002A2395 /* PlayerCollider.swift in Sources */,
 				7E106FD8243D08050044F3AD /* CharacterQuestListNode.swift in Sources */,
+				7E106FFA24433AFA0044F3AD /* OptionsMusicNode.swift in Sources */,
+				7E106FF8244339960044F3AD /* OptionsDevModeNode.swift in Sources */,
 				7EB244EC2430DC5C004F3172 /* WolfModel.swift in Sources */,
 				7E106FBF243A35640044F3AD /* MagicElementsModel.swift in Sources */,
 				7EDFF579241E8A8700D24798 /* MainLight.swift in Sources */,
@@ -844,6 +867,7 @@
 				7E80B49623CB68E200254C4B /* Enemy.swift in Sources */,
 				7E34BA1223B8055C00FA0BEE /* AttackButtonNode.swift in Sources */,
 				7E106FD6243D01750044F3AD /* VirtualBoundsSetupInterface.swift in Sources */,
+				7E106FFC244343680044F3AD /* WelcomeScreenTapNode.swift in Sources */,
 				7EB244DA242FC559004F3172 /* PlayerModel.swift in Sources */,
 				7EB244D2242FBC06004F3172 /* HUDConfigurator.swift in Sources */,
 				7E34BA1C23B82C2C00FA0BEE /* PlayerAnimation.swift in Sources */,

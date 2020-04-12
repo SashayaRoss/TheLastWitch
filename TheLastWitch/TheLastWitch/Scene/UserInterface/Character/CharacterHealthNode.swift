@@ -69,8 +69,13 @@ extension CharacterHealthNode: NodeSetupInterface {
 
 extension CharacterHealthNode: VirtualBoundsSetupInterface {
     func virtualNodeBounds() -> CGRect {
-        let virtualCharacterNameBounds = CGRect(x: 280.0, y: bounds.size.height - 230, width: 40, height: 40)
+        let virtualBounds = CGRect(
+            x: 280.0,
+            y: bounds.size.height - 230,
+            width: 40,
+            height: 40
+        )
         
-        return virtualCharacterNameBounds
+        return virtualBounds
     }
 }

@@ -11,13 +11,13 @@ import SpriteKit
 
 final class WelcomeScreenConfigurator {
     var backgoundNode: WelcomeScreenBackgroundNode!
-    var tapToPlayNode: DialogTextNode!
+    var tapToPlayNode: WelcomeScreenTapNode!
     
     func setup(skScene: SKScene, directory: String, viewBounds: CGRect) {
         backgoundNode = WelcomeScreenBackgroundNode(bounds: viewBounds, directory: directory)
         backgoundNode.setupNode(with: skScene)
         
-        tapToPlayNode = DialogTextNode(bounds: viewBounds)
+        tapToPlayNode = WelcomeScreenTapNode(bounds: viewBounds, directory: directory)
         tapToPlayNode.setupNode(with: skScene)
         
         setupObservers()

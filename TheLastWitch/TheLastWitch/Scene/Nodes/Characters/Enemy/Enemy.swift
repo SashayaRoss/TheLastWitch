@@ -183,7 +183,7 @@ final class Enemy: SCNNode {
         if enemyModel.hp <= 0 && !enemyModel.isDead {
             die()
             player.update(with: enemyModel.exp)
-            player.updateQuest(with: enemyModel.name)
+            player.updateQuest(with: enemyModel.type)
             //drop loot
         }
     }
@@ -230,6 +230,6 @@ extension Enemy: BattleAction {
         
         let seq = SCNAction.sequence([wait, remove])
         runAction(seq)
-        //TODO display efect
+        //TODO display effect
     }
 }

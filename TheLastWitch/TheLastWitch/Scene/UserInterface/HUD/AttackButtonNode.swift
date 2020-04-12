@@ -35,10 +35,15 @@ extension AttackButtonNode: NodeSetupInterface {
 
 extension AttackButtonNode: VirtualBoundsSetupInterface {
     func virtualNodeBounds() -> CGRect {
-        var virtualNodeBounds = CGRect(x: 10.0, y: 10.0, width: size, height: size)
-        virtualNodeBounds.origin.y = bounds.size.height - virtualNodeBounds.size.height
-        virtualNodeBounds.origin.x = bounds.size.width - virtualNodeBounds.size.width
+        var virtualBounds = CGRect(
+            x: 10.0,
+            y: 10.0,
+            width: size,
+            height: size
+        )
+        virtualBounds.origin.y = bounds.size.height - virtualBounds.size.height
+        virtualBounds.origin.x = bounds.size.width - virtualBounds.size.width
         
-        return virtualNodeBounds
+        return virtualBounds
     }
 }
