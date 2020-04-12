@@ -79,8 +79,10 @@ final class GameViewController: UIViewController {
     
     private func setupEnvironment(with scene: SCNScene) {
         guard let view = gameView else { return }
+        let model = PlayerModel()
+        let mapper = PlayerCharacterMapper()
         
-        playerFactory = PlayerFactory(scene: scene)
+        playerFactory = PlayerFactory(scene: scene, model: model, mapper: mapper)
         player = playerFactory.getPlayer()
         mainCamera = MainCamera(scene: scene)
         light = MainLight(scene: scene)
@@ -281,7 +283,7 @@ final class GameViewController: UIViewController {
             } else if
                 view.optionsView.newGame.virtualNodeBounds().contains(touch.location(in: view))
             {
-                resetGame()
+                presentWelcomeScreen()
             } else if
                 view.optionsView.devMode.virtualNodeBounds().contains(touch.location(in: view))
             {
@@ -297,12 +299,14 @@ final class GameViewController: UIViewController {
     
     private func gameOverAction(touches: Set<UITouch>) {
         for touch in touches {
-            resetGame()
+            presentWelcomeScreen()
         }
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let view = gameView else { return }
+        guard let somePlayer = player else { return }
+        
         if let touch = padTouch {
             let displacement = float2(touch.location(in: view)) - float2(touch.previousLocation(in: view))
 
@@ -311,9 +315,9 @@ final class GameViewController: UIViewController {
 
             controllerStoredDirection = vClamp
             
-            player.dPadOrigin = view.hudView.dpadNode.virtualNodeBounds().origin
-            player.touchLocation = touch.location(in: self.view)
-            player.cameraRotation = mainCamera.getRotation()
+            somePlayer.dPadOrigin = view.hudView.dpadNode.virtualNodeBounds().origin
+            somePlayer.touchLocation = touch.location(in: self.view)
+            somePlayer.cameraRotation = mainCamera.getRotation()
         } else if let touch = cameraTouch {
             let displacement = float2(touch.location(in: view)) - float2(touch.previousLocation(in: view))
             mainCamera.panCamera(displacement)
@@ -393,6 +397,11 @@ final class GameViewController: UIViewController {
     }
     
     private func presentGame() {
+        playerFactory.reset()
+        enemyFactory.reset()
+        npcFactory.reset()
+        magicFactory.reset()
+        
         guard let view = gameView else { return }
         NotificationCenter.default.post(name: NSNotification.Name("stopVideo"), object: nil)
         view.isUserInteractionEnabled = false
@@ -411,24 +420,16 @@ final class GameViewController: UIViewController {
         })
     }
     
-    private func resetGame() {
-        playerFactory.reset()
-        enemyFactory.reset()
-        npcFactory.reset()
-        magicFactory.reset()
-        
-        presentWelcomeScreen()
-    }
-    
     @objc func gameOver() {
         guard let view = gameView else { return }
         currentView = .gameOver
         gameState = .paused
-        view.isUserInteractionEnabled = true
+        view.isUserInteractionEnabled = false
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             view.removeCurrentView()
             view.setupGameOver()
+            view.isUserInteractionEnabled = true
         }
     }
     
@@ -466,7 +467,8 @@ extension GameViewController: SCNSceneRendererDelegate {
         }
         
         let direction = playerDirection()
-        player!.walkInDirection(direction, time: time, scene: scene)
+        guard let somePlayer = player else { return }
+        somePlayer.walkInDirection(direction, time: time, scene: scene)
         
         updateFollowersPosition()
         
@@ -491,6 +493,8 @@ extension GameViewController: SCNSceneRendererDelegate {
 extension GameViewController: SCNPhysicsContactDelegate {
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         if gameState != .playing { return }
+        guard let somePlayer = player else { return }
+        
         //if player collide with wall
         contact.match(Bitmask().wall) { (matching, other) in
             self.characterNode(other, hitWall: matching, withContact: contact)
@@ -500,7 +504,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
         contact.match(Bitmask().enemy) { (matching, other) in
             let enemy = matching.parent as! Enemy
             if other.name == "collider" { enemy.isCollidingWithPlayer = true }
-            if other.name == "weaponCollider" { player!.weaponCollide(with: enemy) }
+            if other.name == "weaponCollider" { somePlayer.weaponCollide(with: enemy) }
         }
         
         //if player collides with npc
@@ -517,6 +521,8 @@ extension GameViewController: SCNPhysicsContactDelegate {
     }
 
     func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
+        guard let somePlayer = player else { return }
+        
         //if player collide with wall
         contact.match(Bitmask().wall) { (matching, other) in
             self.characterNode(other, hitWall: matching, withContact: contact)
@@ -526,7 +532,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
         contact.match(Bitmask().enemy) { (matching, other) in
             let enemy = matching.parent as! Enemy
             if other.name == "collider" { enemy.isCollidingWithPlayer = true }
-            if other.name == "weaponCollider" { player!.weaponCollide(with: enemy) }
+            if other.name == "weaponCollider" { somePlayer.weaponCollide(with: enemy) }
         }
         
         //if player collides with npc
@@ -543,12 +549,15 @@ extension GameViewController: SCNPhysicsContactDelegate {
     }
 
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
+        guard let somePlayer = player else { return }
+        
         // if player collides with enemy
         contact.match(Bitmask().enemy) { (matching, other) in
             let enemy = matching.parent as! Enemy
             if other.name == "collider" { enemy.isCollidingWithPlayer = false }
-            if other.name == "weaponCollider" { player!.weaponUnCollide(with: enemy) }
+            if other.name == "weaponCollider" { somePlayer.weaponUnCollide(with: enemy) }
         }
+        
         //if player collides with npc
         contact.match(Bitmask().npc) { (matching, other) in
             let npc = matching.parent as! Npc

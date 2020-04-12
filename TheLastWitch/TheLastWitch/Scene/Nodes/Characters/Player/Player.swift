@@ -35,7 +35,7 @@ final class Player: SCNNode {
         }
     }
 
-    private var directionAngle:Float = 0.0 {
+    private var directionAngle: Float = 0.0 {
         didSet {
             if directionAngle != oldValue {
                 // action that rotates the node to an angle in radian.
@@ -89,7 +89,13 @@ final class Player: SCNNode {
         addChildNode(daeHolderNode)
 
         //set mesh name
-        characterNode = daeHolderNode.childNode(withName: "Bip01", recursively: true)!
+        guard let node = daeHolderNode.childNode(withName: "Bip01", recursively: true) else { return }
+        characterNode = node
+    }
+    
+    func setIdleAnimation() {
+        characterNode.removeAnimation(forKey: "dead", blendOutDuration: 0.2)
+        
     }
 
     //MARK:- movement
@@ -338,7 +344,6 @@ extension Player: CAAnimationDelegate {
             attackFrameCounter = 0
             playerModel.isAttacking = false
         }
-        
     }
 }
 
@@ -357,9 +362,7 @@ extension Player: BattleAction {
     
     func die() {
         playerModel.isDead = true
-        characterNode.removeAllActions()
         guard let node = characterNode else { return }
-        node.removeAllAnimations()
         node.addAnimation(animation.deadAnimation, forKey: "dead")
         NotificationCenter.default.post(name: NSNotification.Name("resetGame"), object: nil, userInfo:[:])
     }

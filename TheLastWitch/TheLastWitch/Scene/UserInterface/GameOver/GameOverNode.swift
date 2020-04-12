@@ -26,7 +26,7 @@ extension GameOverNode: NodeSetupInterface {
     func setupNode(with scene: SKScene) {
         gameOverSprite = SKSpriteNode(imageNamed: directory + "gameOver.png")
         gameOverSprite.name = "GameOverNode"
-        gameOverSprite.size = CGSize(width: 500, height: 150)
+        gameOverSprite.size = CGSize(width: 500, height: 130)
         gameOverSprite.position = CGPoint(
             x: (bounds.size.width / 2) - (gameOverSprite.size.width / 2),
             y: (bounds.size.height / 2) - (gameOverSprite.size.height / 2)
@@ -39,7 +39,7 @@ extension GameOverNode: NodeSetupInterface {
         bgNode.size = CGSize(width: bounds.size.width, height: bounds.size.height)
         bgNode.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         
-        scene.addChild(bgNode)
+//        scene.addChild(bgNode)
         scene.addChild(gameOverSprite)
     }
 }

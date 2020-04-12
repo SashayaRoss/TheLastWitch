@@ -10,15 +10,20 @@ import SceneKit
 
 final class PlayerFactory {
     private var player: Player
+    private let model: PlayerModel
+    private let mapper: PlayerCharacterMapper
     var scene: SCNScene
     
-    init(scene: SCNScene) {
+    init(
+        scene: SCNScene,
+        model: PlayerModel,
+        mapper: PlayerCharacterMapper
+    ) {
         self.scene = scene
-        //todo: init
-        let playerModel = PlayerModel()
-        let mapper = PlayerCharacterMapper()
-        
-        player = Player(playerModel: playerModel, mapper: mapper)
+        self.model = model
+        self.mapper = mapper
+        player = Player(playerModel: model, mapper: mapper)
+
         setup()
     }
     
@@ -27,9 +32,11 @@ final class PlayerFactory {
     }
     
     func reset() {
-        player.position = SCNVector3Make(4, 0.6, -10)
-        player.rotation = SCNVector4Make(0, 0, 0, Float.pi)
-        
+//        player.position = SCNVector3Make(4, 0.6, -10)
+//        player.rotation = SCNVector4Make(0, 0, 0, Float.pi)
+        player.removeFromParentNode()
+
+        setup()
         player.playerModel.resetModel()
     }
 }

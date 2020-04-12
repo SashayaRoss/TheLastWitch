@@ -60,16 +60,16 @@ final class EnemyFactory {
     
     func reset() {
         guard
-            let enemies = scene.rootNode.childNode(withName: "Enemies", recursively: false)
+            let enemies = scene.rootNode.childNode(withName: "Enemies", recursively: true)
         else { return }
         for node in enemies.childNodes {
             node.isHidden = false
-            node.removeFromParentNode()
             node.removeAllAnimations()
             node.removeAllParticleSystems()
             node.removeAllActions()
+            node.removeFromParentNode()
         }
-        setup()
+//        setup()
     }
 }
 

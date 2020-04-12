@@ -15,10 +15,6 @@ final class MainCamera {
     private var cameraXHolder: SCNNode!
     private var cameraYHolder: SCNNode!
     
-    private var cameraStickInitial: SCNNode? = nil
-    private var cameraXHolderInitial: SCNNode? = nil
-    private var cameraYHolderInitial: SCNNode? = nil
-    
     init(scene: SCNScene) {
         self.scene = scene
     }
@@ -52,12 +48,7 @@ final class MainCamera {
     func getRotation() -> Float {
         return cameraXHolder.rotation.w
     }
-    
-    func resetCamera() {
-        cameraStick = cameraStickInitial
-        cameraXHolder = cameraXHolderInitial
-        cameraYHolder = cameraYHolderInitial
-    }
+
 //    func coolCamera() {
 //        cameraStick.camera?.wantsDepthOfField = true
 //        cameraStick.camera?.focusDistance = 5
@@ -79,10 +70,6 @@ extension MainCamera: SetupNodesInterface {
         cameraStick = camera
         cameraYHolder = cameraY
         cameraXHolder = cameraX
-        
-        cameraStickInitial = cameraStick
-        cameraXHolderInitial = cameraXHolder
-        cameraYHolderInitial = cameraYHolder
         
         return cameraStick
     }
