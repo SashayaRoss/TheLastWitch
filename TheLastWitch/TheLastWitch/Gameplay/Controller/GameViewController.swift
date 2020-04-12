@@ -397,10 +397,22 @@ final class GameViewController: UIViewController {
     }
     
     private func presentGame() {
-        playerFactory.reset()
-        enemyFactory.reset()
-        npcFactory.reset()
-        magicFactory.reset()
+//        DispatchQueue.main.async {
+//            self.resetGame()
+//        }
+        
+        guard
+            let enemies = gameplayScene.rootNode.childNode(withName: "Enemies", recursively: true)
+        else { return }
+        for node in enemies.childNodes {
+            node.isHidden = false
+            node.removeAllAnimations()
+            node.removeAllParticleSystems()
+            node.removeAllActions()
+            node.removeFromParentNode()
+        }
+        
+        resetGame()
         
         guard let view = gameView else { return }
         NotificationCenter.default.post(name: NSNotification.Name("stopVideo"), object: nil)
@@ -418,6 +430,13 @@ final class GameViewController: UIViewController {
                 self.view.isUserInteractionEnabled = true
             }
         })
+    }
+    
+    private func resetGame() {
+        playerFactory.reset()
+        enemyFactory.reset()
+        npcFactory.reset()
+        magicFactory.reset()
     }
     
     @objc func gameOver() {

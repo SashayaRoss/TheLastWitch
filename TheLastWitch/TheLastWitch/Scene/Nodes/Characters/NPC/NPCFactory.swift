@@ -67,6 +67,10 @@ final class NPCFactory {
         else { return }
         for node in enemies.childNodes {
             node.isHidden = false
+            node.removeAllAnimations()
+            node.removeAllParticleSystems()
+            node.removeAllActions()
+            node.removeFromParentNode()
         }
         setup()
     }
@@ -76,7 +80,8 @@ extension NPCFactory: SetupInterface {
     func setup() {
         guard let npcs = scene.rootNode.childNode(withName: "NPC", recursively: false) else { return }
         for child in npcs.childNodes {
-            npcPositionArray[child.name!] = child.position
+            guard let name = child.name else { return }
+            npcPositionArray[name] = child.position
         }
         setupNPC()
     }

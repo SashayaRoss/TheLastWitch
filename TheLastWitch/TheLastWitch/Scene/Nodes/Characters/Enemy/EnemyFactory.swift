@@ -69,7 +69,8 @@ final class EnemyFactory {
             node.removeAllActions()
             node.removeFromParentNode()
         }
-//        setup()
+        
+        setup()
     }
 }
 
@@ -79,7 +80,8 @@ extension EnemyFactory: SetupInterface {
             let enemies = scene.rootNode.childNode(withName: "Enemies", recursively: false)
         else { return }
         for child in enemies.childNodes {
-            enemyPositionArray[child.name!] = child.position
+            guard let name = child.name else { return }
+            enemyPositionArray[name] = child.position
         }
         setupEnemy()
     }

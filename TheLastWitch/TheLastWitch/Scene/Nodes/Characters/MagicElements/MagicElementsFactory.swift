@@ -74,7 +74,8 @@ extension MagicElementsFactory: SetupInterface {
     func setup() {
         guard let magic = scene.rootNode.childNode(withName: "Magic", recursively: false) else { return }
         for child in magic.childNodes {
-            magicElementsPositionArray[child.name!] = child.position
+            guard let name = child.name else { return }
+            magicElementsPositionArray[name] = child.position
         }
         setupMagicalElements()
     }

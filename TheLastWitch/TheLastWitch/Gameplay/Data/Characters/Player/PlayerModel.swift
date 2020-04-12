@@ -10,7 +10,7 @@ import SpriteKit
 
 final class PlayerModel {
     var maxHpPoints: Int = 100
-    var hpPoints: Int = 10
+    var hpPoints: Int = 100
     
     var maxExpPoints: Int = 100
     var expPoints: Int = 0
@@ -30,14 +30,14 @@ final class PlayerModel {
     
     func resetModel() {
         maxHpPoints = 100
-        hpPoints = 10
+        hpPoints = 100
         maxExpPoints = 100
         expPoints = 0
         maxSpeed = 1.8
         maxMagic = 0.5
         level = 1
         levelPoints = 2
-        quests = [Quest(id: 1, desc: "\n- Find magic portal", type: .discover, exp:100, targets: [.bluePortal])]
+        quests = [Quest(id: 1, desc: "\n- Find magic portal", type: .discover, exp: 100, targets: [.bluePortal])]
         currentInteraction = .none
         isAttacking = false
         isInteracting = false
