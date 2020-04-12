@@ -100,6 +100,8 @@ final class GameViewController: UIViewController {
         
         lightStick = light.setup()
         cameraStick = mainCamera.setup()
+        
+        gameMusic.loadSounds()
     }
     
     private func setupObservers() {
@@ -166,6 +168,7 @@ final class GameViewController: UIViewController {
                         dialogAction(touches: touches)
                     } else {
                         activePlayer.attack()
+                        gameMusic.playSound(node: activePlayer, name: "Magic")
                     }
                 }
             } else if view.hudView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: view)) {
@@ -299,7 +302,11 @@ final class GameViewController: UIViewController {
             else if
                 view.optionsView.music.virtualNodeBounds().contains(touch.location(in: view))
             {
-                print("music")
+                if gameplayScene.rootNode.audioPlayers == [] {
+                    gameMusic.playTheme(scene: gameplayScene, directory: "art.scnassets/Audio/Music.mp3")
+                } else {
+                    gameMusic.removeAllPlayers(scene: gameplayScene)
+                }
             }
         }
     }
@@ -391,6 +398,7 @@ final class GameViewController: UIViewController {
         gameplayScene.isPaused = true
         let transition = SKTransition.fade(withDuration: 1.8)
         currentView = .tapToPlay
+        gameMusic.playTheme(scene: newGameScene, directory: "art.scnassets/Audio/Magic.wav")
         
         view.present(newGameScene, with: transition, incomingPointOfView: nil, completionHandler: {
             DispatchQueue.main.async {
@@ -411,6 +419,7 @@ final class GameViewController: UIViewController {
         newGameScene.isPaused = true
         let transition = SKTransition.fade(withDuration: 1.8)
         currentView = .playing
+        gameMusic.playTheme(scene: gameplayScene, directory: "art.scnassets/Audio/Music.mp3")
         
         view.present(gameplayScene, with: transition, incomingPointOfView: nil, completionHandler: {
             DispatchQueue.main.async {

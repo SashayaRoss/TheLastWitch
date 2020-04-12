@@ -61,8 +61,16 @@ final class VillagerModel: NpcModel {
     
     func resetModel() {
         dialog = dialogCached
-        quest = questCached
+        if let existingQuest = questCached {
+            let newQuest = Quest(
+                id: existingQuest.id,
+                desc: existingQuest.desc,
+                type: existingQuest.type,
+                exp: existingQuest.exp,
+                targets: existingQuest.targets
+            )
+            quest = newQuest
+        }
         isInteracting = false
-        updateDialogWithQuest()
     }
 }

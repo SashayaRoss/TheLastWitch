@@ -24,7 +24,31 @@ final class MusicManager {
     }
     
     func playSound(node: SCNNode, name: String) {
-      let sound = sounds[name]
-      node.runAction(SCNAction.playAudio(sound!, waitForCompletion: false))
+        let effect = sounds[name]
+        guard let sound = effect else { return }
+        
+        node.runAction(SCNAction.playAudio(sound, waitForCompletion: false))
+    }
+    
+    func playTheme(scene: SCNScene, directory: String) {
+        let theme = SCNAudioSource(fileNamed: directory)
+        
+        guard let soundtrack = theme else { return }
+        soundtrack.volume = 0.3
+        let musicPlayer = SCNAudioPlayer(source: soundtrack)
+        soundtrack.loops = true
+        soundtrack.shouldStream = true
+        soundtrack.isPositional = false
+        
+        scene.rootNode.addAudioPlayer(musicPlayer)
+    }
+    
+    func loadSounds() {
+        loadSound(name: "Magic", fileNamed: "art.scnassets/Audio/MagicTmp.wav")
+        loadSound(name: "GameOver", fileNamed: "art.scnassets/Audio/GameOverTmp.wav")
+    }
+    
+    func removeAllPlayers(scene: SCNScene) {
+        scene.rootNode.removeAllAudioPlayers()
     }
 }
