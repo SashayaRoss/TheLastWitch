@@ -16,7 +16,6 @@ final class OptionsScene: SKScene {
     
     init(size: CGSize, scene: SCNScene) {
         super.init(size: size)
-//        = UIImage(named: "art.scnassets/UI/Options/dialog2.png")
         self.backgroundColor = .white
         
         
@@ -58,23 +57,4 @@ final class OptionsScene: SKScene {
             isPaused = !isPaused
         }
     }
-
-
-//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        super.touchesEnded(touches, with: event)
-
-//        if matchedBalls.count >= 5 {
-//            let omg = SKSpriteNode(imageNamed: "omg")
-//            omg.position = CGPoint(x: frame.midX, y: frame.midY)
-//            omg.zPosition = 100
-//            omg.xScale = 0.001
-//            omg.yScale = 0.001
-//            addChild(omg)
-//
-//            let appear = SKAction.group([SKAction.scale(to: 1, duration: 0.25), SKAction.fadeIn(withDuration: 0.25)])
-//            let disappear = SKAction.group([SKAction.scale(to: 2, duration: 0.25), SKAction.fadeOut(withDuration: 0.25)])
-//            let sequence = SKAction.sequence([appear, SKAction.wait(forDuration: 0.25), disappear, SKAction.removeFromParent()])
-//            omg.run(sequence)
-//        }
-//    }
 }

@@ -55,6 +55,9 @@ final class GameViewController: UIViewController {
         setupScene()
         setupObservers()
         gameState = .playing
+        
+        //TODO
+//        presentWelcomeScreen()
     }
     
     //MARK: scene
@@ -71,9 +74,13 @@ final class GameViewController: UIViewController {
         guard let scene = gameplayScene else { return }
         scene.physicsWorld.contactDelegate = self
         
-        view.scene = scene
-        view.isPlaying = true
+//        guard let welcomeScene = newGameScene else { return }
+//        view.scene = welcomeScene
         
+        //TODO: remove
+        view.scene = scene
+        
+        view.isPlaying = true
         setupEnvironment(with: scene)
     }
     
@@ -391,9 +398,8 @@ final class GameViewController: UIViewController {
                 self.newGameScene.isPaused = false
                 view.removeCurrentView()
                 view.setupWelcomeScreen()
-                self.view.isUserInteractionEnabled = true
-                
                 self.resetGame()
+                self.view.isUserInteractionEnabled = true
             }
         })
     }
@@ -419,7 +425,6 @@ final class GameViewController: UIViewController {
     
     private func resetGame() {
         player.playerGameOver()
-        mainCamera.cameraGameOver()
         
         gameplayScene.rootNode.enumerateChildNodes { (node, _) in
             if let name = node.name {
