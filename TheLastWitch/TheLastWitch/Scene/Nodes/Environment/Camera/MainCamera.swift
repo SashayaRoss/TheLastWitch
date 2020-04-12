@@ -15,11 +15,17 @@ final class MainCamera {
     private var cameraXHolder: SCNNode!
     private var cameraYHolder: SCNNode!
     
+    private var cameraStickInitial: SCNNode? = nil
+    private var cameraXHolderInitial: SCNNode? = nil
+    private var cameraYHolderInitial: SCNNode? = nil
+    
     init(scene: SCNScene) {
         self.scene = scene
     }
     
     func panCamera(_ direction: float2) {
+        if cameraStick == nil, cameraXHolder == nil, cameraYHolder == nil { return }
+        
         var directionToPan = direction
         directionToPan *= float2(1.0, -1.0)
         
@@ -46,6 +52,12 @@ final class MainCamera {
     func getRotation() -> Float {
         return cameraXHolder.rotation.w
     }
+    
+    func resetCamera() {
+        cameraStick = cameraStickInitial
+        cameraXHolder = cameraXHolderInitial
+        cameraYHolder = cameraYHolderInitial
+    }
 //    func coolCamera() {
 //        cameraStick.camera?.wantsDepthOfField = true
 //        cameraStick.camera?.focusDistance = 5
@@ -56,9 +68,21 @@ final class MainCamera {
 
 extension MainCamera: SetupNodesInterface {
     func setup() -> SCNNode {
-        cameraStick = scene.rootNode.childNode(withName: "CameraStick", recursively: false)!
-        cameraYHolder = scene.rootNode.childNode(withName: "yHolder", recursively: true)!
-        cameraXHolder = scene.rootNode.childNode(withName: "xHolder", recursively: true)!
+        guard
+            let camera = scene.rootNode.childNode(withName: "CameraStick", recursively: false),
+            let cameraY = scene.rootNode.childNode(withName: "yHolder", recursively: true),
+            let cameraX = scene.rootNode.childNode(withName: "xHolder", recursively: true)
+        else {
+            return SCNNode()
+        }
+        
+        cameraStick = camera
+        cameraYHolder = cameraY
+        cameraXHolder = cameraX
+        
+        cameraStickInitial = cameraStick
+        cameraXHolderInitial = cameraXHolder
+        cameraYHolderInitial = cameraYHolder
         
         return cameraStick
     }

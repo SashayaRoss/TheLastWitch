@@ -15,8 +15,8 @@ final class WolfModel: EnemyModel {
     var exp: Int = 60
     var type: TargetType = .golem
     
-    let noticeDistance: Float = 3.0
-    let movementSpeedLimiter: Float = 0.5
+    var noticeDistance: Float = 3.0
+    var movementSpeedLimiter: Float = 0.5
     
     var lastAttackTime: TimeInterval = 0.0
     var isDead = false
@@ -26,5 +26,17 @@ final class WolfModel: EnemyModel {
         name: String
     ) {
         self.name = name
+    }
+    
+    func resetModel() {
+        hp = 10
+        strength = 20
+        exp = 60
+        type = .golem
+        noticeDistance = 3.0
+        movementSpeedLimiter = 0.5
+        lastAttackTime = 0.0
+        isDead = false
+        isAttacking = false
     }
 }

@@ -28,7 +28,9 @@ final class CharacterHealthNode {
     
     func button(isVisible: Bool) {
         if !isVisible {
-            addButtonSprite.removeFromParent()
+            addButtonSprite.isHidden = true
+        } else {
+            addButtonSprite.isHidden = false
         }
     }
 }

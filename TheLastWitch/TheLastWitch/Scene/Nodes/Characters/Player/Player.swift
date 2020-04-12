@@ -55,7 +55,7 @@ final class Player: SCNNode {
 
     
     //model
-    let playerModel: PlayerModel
+    var playerModel: PlayerModel
     let mapper: PlayerCharacterMapping
     
     private var attackTimer: Timer?
@@ -358,8 +358,9 @@ extension Player: BattleAction {
     func die() {
         playerModel.isDead = true
         characterNode.removeAllActions()
-        characterNode.removeAllAnimations()
-        characterNode.addAnimation(animation.deadAnimation, forKey: "dead")
+        guard let node = characterNode else { return }
+        node.removeAllAnimations()
+        node.addAnimation(animation.deadAnimation, forKey: "dead")
         print("GAME OVER")
     }
 }

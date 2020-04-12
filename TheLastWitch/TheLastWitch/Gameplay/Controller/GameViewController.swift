@@ -388,6 +388,19 @@ final class GameViewController: UIViewController {
     
     private func resetGame() {
         presentWelcomeScreen()
+        
+        //remove old nodes
+        
+        //add new nodes
+        
+        DispatchQueue.main.async {
+            self.player.playerModel.resetModel()
+//            self.playerFactory.reset()
+//            self.mainCamera.resetCamera()
+//            self.enemyFactory.reset()
+//            self.npcFactory.reset()
+//            self.magicFactory.reset()
+        }
     }
     
     private func statisticManager() {

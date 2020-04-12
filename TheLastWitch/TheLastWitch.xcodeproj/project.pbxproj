@@ -609,8 +609,8 @@
 		7EB244EA2430DC36004F3172 /* Enemy */ = {
 			isa = PBXGroup;
 			children = (
-				7EB244ED243108A0004F3172 /* EnemyModel.swift */,
 				7E106FF124432F370044F3AD /* TargetType.swift */,
+				7EB244ED243108A0004F3172 /* EnemyModel.swift */,
 				7EB244EB2430DC5C004F3172 /* WolfModel.swift */,
 				7EB244F924328F6E004F3172 /* WolfBossModel.swift */,
 			);

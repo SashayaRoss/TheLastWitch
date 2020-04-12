@@ -19,7 +19,13 @@ final class MainLight {
 
 extension MainLight: SetupNodesInterface {
     func setup() -> SCNNode {
-        lightStick = scene.rootNode.childNode(withName: "LightStick", recursively: false)!
+        guard
+            let light = scene.rootNode.childNode(withName: "LightStick", recursively: false)
+        else {
+            return SCNNode()
+        }
+        
+        lightStick = light
         return lightStick
     }
 }

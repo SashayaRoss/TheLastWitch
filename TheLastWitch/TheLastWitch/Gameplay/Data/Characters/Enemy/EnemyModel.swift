@@ -21,4 +21,6 @@ protocol EnemyModel {
     var isDead: Bool { get set }
     var isAttacking: Bool { get set }
     var lastAttackTime: TimeInterval { get set }
+    
+    func resetModel()
 }

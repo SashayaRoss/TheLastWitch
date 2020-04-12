@@ -11,7 +11,7 @@ import UIKit
 protocol NpcModel {
     var noticeDistance: Float { get }
     var dialog: [String] { get }
-    var quest: Quest? { get }
+    var quest: Quest? { get set }
     var model: String { get }
     var isInteracting: Bool { get set }
     

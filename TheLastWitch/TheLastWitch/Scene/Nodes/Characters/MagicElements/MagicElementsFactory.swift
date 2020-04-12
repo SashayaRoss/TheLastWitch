@@ -54,6 +54,10 @@ final class MagicElementsFactory {
             magicElements2.setupCollider(scale: CGFloat(scale))
         }
     }
+    
+    func reset() {
+        
+    }
 }
 
 extension MagicElementsFactory: SetupInterface {

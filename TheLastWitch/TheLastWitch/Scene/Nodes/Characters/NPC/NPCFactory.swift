@@ -60,6 +60,16 @@ final class NPCFactory {
             npc2.setupCollider(scale: CGFloat(npcScale))
         }
     }
+    
+    func reset() {
+        guard
+            let enemies = scene.rootNode.childNode(withName: "NPC", recursively: false)
+        else { return }
+        for node in enemies.childNodes {
+            node.isHidden = false
+        }
+        setup()
+    }
 }
 
 extension NPCFactory: SetupInterface {

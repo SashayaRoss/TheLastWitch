@@ -13,10 +13,10 @@ final class WolfBossModel: EnemyModel {
     var hp: Int = 270
     var strength: Int = 20
     var exp: Int = 200
-    let type: TargetType = .boss
+    var type: TargetType = .boss
     
-    let noticeDistance: Float = 3.0
-    let movementSpeedLimiter: Float = 0.5
+    var noticeDistance: Float = 3.0
+    var movementSpeedLimiter: Float = 0.5
     
     var lastAttackTime: TimeInterval = 0.0
     var isDead = false
@@ -26,5 +26,17 @@ final class WolfBossModel: EnemyModel {
         name: String
     ) {
         self.name = name
+    }
+    
+    func resetModel() {
+         hp = 270
+         strength = 20
+         exp = 200
+         type = .boss
+         noticeDistance = 3.0
+         movementSpeedLimiter = 0.5
+         lastAttackTime = 0.0
+         isDead = false
+         isAttacking = false
     }
 }

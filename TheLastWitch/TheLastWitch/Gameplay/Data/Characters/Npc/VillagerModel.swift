@@ -11,7 +11,7 @@ import SpriteKit
 final class VillagerModel: NpcModel {
     let noticeDistance: Float = 1.0
     var dialog: [String]
-    let quest: Quest?
+    var quest: Quest?
     let model: String
     var isInteracting = false
     
@@ -44,5 +44,11 @@ final class VillagerModel: NpcModel {
         
         let thankYou = "Thank you brave witch! \n[FINISHED QUEST: " + quest + "]"
         dialog.append(thankYou)
+    }
+    
+    func resetMode() {
+        dialog = []
+        quest = nil
+        isInteracting = false
     }
 }

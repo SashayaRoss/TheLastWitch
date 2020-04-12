@@ -57,6 +57,16 @@ final class EnemyFactory {
             enemy3.setupCollider(scale: CGFloat(enemyScale))
         }
     }
+    
+    func reset() {
+        guard
+            let enemies = scene.rootNode.childNode(withName: "Enemies", recursively: false)
+        else { return }
+        for node in enemies.childNodes {
+            node.isHidden = false
+        }
+        setup()
+    }
 }
 
 extension EnemyFactory: SetupInterface {

@@ -27,4 +27,20 @@ final class PlayerModel {
     var isAttacking = false
     var isInteracting = false
     var isDead = false
+    
+    func resetModel() {
+        maxHpPoints = 100
+        hpPoints = 100
+        maxExpPoints = 100
+        expPoints = 0
+        maxSpeed = 1.8
+        maxMagic = 0.5
+        level = 1
+        levelPoints = 2
+        quests = [Quest(id: 1, desc: "\n- Find magic portal", type: .discover, exp:100, targets: [.bluePortal])]
+        currentInteraction = .none
+        isAttacking = false
+        isInteracting = false
+        isDead = false
+    }
 }
