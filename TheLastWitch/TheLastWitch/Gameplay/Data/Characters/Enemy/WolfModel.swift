@@ -12,7 +12,7 @@ import SceneKit
 final class WolfModel: EnemyModel {
     let name: String
     var hp: Int = 10
-    var strength: Int = 20
+    var strength: Int = 110
     var exp: Int = 60
     var type: TargetType = .golem
     let position: SCNVector3

@@ -57,14 +57,20 @@ final class Player: SCNNode {
     //model
     var playerModel: PlayerModel
     let mapper: PlayerCharacterMapping
+    private let positionCached: SCNVector3
     
     private var attackTimer: Timer?
     private var attackFrameCounter = 0
 
     //MARK: initialization
-    init(playerModel: PlayerModel, mapper: PlayerCharacterMapping) {
+    init(
+        playerModel: PlayerModel,
+        mapper: PlayerCharacterMapping,
+        position: SCNVector3
+    ) {
         self.playerModel = playerModel
         self.mapper = mapper
+        self.positionCached = position
         super.init()
         
         setupModel()
@@ -79,6 +85,7 @@ final class Player: SCNNode {
     
     func playerGameOver() {
         playerModel.resetModel()
+        self.position = positionCached
         self.isHidden = false
         self.removeAnimation(forKey: "dead")
     }
@@ -97,11 +104,6 @@ final class Player: SCNNode {
         //set mesh name
         guard let node = daeHolderNode.childNode(withName: "Bip01", recursively: true) else { return }
         characterNode = node
-    }
-    
-    func setIdleAnimation() {
-        characterNode.removeAnimation(forKey: "dead", blendOutDuration: 0.2)
-        
     }
 
     //MARK:- movement
@@ -370,6 +372,15 @@ extension Player: BattleAction {
         playerModel.isDead = true
         guard let node = characterNode else { return }
         node.addAnimation(animation.deadAnimation, forKey: "dead")
+        
+        let wait = SCNAction.wait(duration: 3.0)
+        let hide = SCNAction.run { (node) in
+            node.isHidden = true
+            //add effect
+        }
+        
+        let seq = SCNAction.sequence([wait, hide])
+        runAction(seq)
         NotificationCenter.default.post(name: NSNotification.Name("resetGame"), object: nil, userInfo:[:])
     }
 }

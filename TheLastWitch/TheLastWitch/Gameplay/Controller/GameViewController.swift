@@ -24,7 +24,6 @@ final class GameViewController: UIViewController {
     var gameState: GameState = .newGame
     var currentView: CurrentView = .playing
     private var showStatistic: Bool = false
-    private var isGameOver: Bool = false
     
     //nodes
     private var player: Player!
@@ -393,13 +392,13 @@ final class GameViewController: UIViewController {
                 view.removeCurrentView()
                 view.setupWelcomeScreen()
                 self.view.isUserInteractionEnabled = true
+                
+                self.resetGame()
             }
         })
     }
     
-    private func presentGame() {        
-        resetGame()
-        
+    private func presentGame() {
         guard let view = gameView else { return }
         NotificationCenter.default.post(name: NSNotification.Name("stopVideo"), object: nil)
         view.isUserInteractionEnabled = false
@@ -419,8 +418,8 @@ final class GameViewController: UIViewController {
     }
     
     private func resetGame() {
-        playerFactory.reset()
-//        player.playerGameOver()()
+        player.playerGameOver()
+        mainCamera.cameraGameOver()
         
         gameplayScene.rootNode.enumerateChildNodes { (node, _) in
             if let name = node.name {
@@ -440,12 +439,11 @@ final class GameViewController: UIViewController {
     
     @objc func gameOver() {
         guard let view = gameView else { return }
-        isGameOver = true
         currentView = .gameOver
         gameState = .paused
         view.isUserInteractionEnabled = false
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             view.removeCurrentView()
             view.setupGameOver()
             view.isUserInteractionEnabled = true

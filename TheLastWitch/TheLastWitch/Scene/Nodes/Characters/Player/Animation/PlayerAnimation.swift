@@ -35,8 +35,10 @@ final class PlayerAnimation {
             walkAnimation = animationObject
           
         case .dead:
-            animationObject.isRemovedOnCompletion = false
+            animationObject.isRemovedOnCompletion = true
+            animationObject.duration = 4
             deadAnimation = animationObject
+            animationObject.setValue("dead", forKey: "dead")
           
         case .attack:
             animationObject.isRemovedOnCompletion = true

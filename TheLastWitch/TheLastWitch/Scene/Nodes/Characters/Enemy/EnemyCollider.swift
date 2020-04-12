@@ -12,13 +12,13 @@ final class EnemyCollider: ColliderInterface {
     var collider: SCNNode!
 
     func setupCollider(with scale: CGFloat) -> SCNNode {
-        let geometry = SCNCapsule(capRadius: 30, height: 52)
+        let geometry = SCNCapsule(capRadius: 30, height: 60)
         geometry.firstMaterial?.diffuse.contents = UIColor.blue
         
         collider = SCNNode(geometry: geometry)
-        collider.position = SCNVector3Make(0.0, 46, 0.0)
+        collider.position = SCNVector3Make(0.0, 50, 0.0)
         collider.name = "enemyCollider"
-        collider.opacity = 1.0
+        collider.opacity = 0.0
         
         let physicsGeometry = SCNCapsule(capRadius: 20 * scale, height: 52 * scale)
         let physicsShape = SCNPhysicsShape(geometry: physicsGeometry, options: nil)

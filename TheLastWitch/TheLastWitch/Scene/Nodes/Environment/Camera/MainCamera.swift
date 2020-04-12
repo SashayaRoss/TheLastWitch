@@ -48,6 +48,10 @@ final class MainCamera {
     func getRotation() -> Float {
         return cameraXHolder.rotation.w
     }
+    
+    func cameraGameOver() {
+        
+    }
 
 //    func coolCamera() {
 //        cameraStick.camera?.wantsDepthOfField = true
