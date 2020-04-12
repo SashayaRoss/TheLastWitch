@@ -76,6 +76,12 @@ final class Player: SCNNode {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func playerGameOver() {
+        playerModel.resetModel()
+        self.isHidden = false
+        self.removeAnimation(forKey: "dead")
+    }
 
     //MARK:- scene
     private func setupModel() {

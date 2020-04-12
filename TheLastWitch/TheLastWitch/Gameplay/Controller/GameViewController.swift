@@ -24,6 +24,7 @@ final class GameViewController: UIViewController {
     var gameState: GameState = .newGame
     var currentView: CurrentView = .playing
     private var showStatistic: Bool = false
+    private var isGameOver: Bool = false
     
     //nodes
     private var player: Player!
@@ -386,32 +387,17 @@ final class GameViewController: UIViewController {
         currentView = .tapToPlay
         
         view.present(newGameScene, with: transition, incomingPointOfView: nil, completionHandler: {
-            self.gameState = .newGame
-            self.newGameScene.isPaused = false
-            view.removeCurrentView()
-            view.setupWelcomeScreen()
             DispatchQueue.main.async {
+                self.gameState = .newGame
+                self.newGameScene.isPaused = false
+                view.removeCurrentView()
+                view.setupWelcomeScreen()
                 self.view.isUserInteractionEnabled = true
             }
         })
     }
     
-    private func presentGame() {
-//        DispatchQueue.main.async {
-//            self.resetGame()
-//        }
-        
-        guard
-            let enemies = gameplayScene.rootNode.childNode(withName: "Enemies", recursively: true)
-        else { return }
-        for node in enemies.childNodes {
-            node.isHidden = false
-            node.removeAllAnimations()
-            node.removeAllParticleSystems()
-            node.removeAllActions()
-            node.removeFromParentNode()
-        }
-        
+    private func presentGame() {        
         resetGame()
         
         guard let view = gameView else { return }
@@ -422,11 +408,11 @@ final class GameViewController: UIViewController {
         currentView = .playing
         
         view.present(gameplayScene, with: transition, incomingPointOfView: nil, completionHandler: {
-            self.gameState = .playing
-            self.gameplayScene.isPaused = false
-            view.removeCurrentView()
-            view.setupHUD()
             DispatchQueue.main.async {
+                self.gameState = .playing
+                self.gameplayScene.isPaused = false
+                view.removeCurrentView()
+                view.setupHUD()
                 self.view.isUserInteractionEnabled = true
             }
         })
@@ -434,13 +420,27 @@ final class GameViewController: UIViewController {
     
     private func resetGame() {
         playerFactory.reset()
-        enemyFactory.reset()
-        npcFactory.reset()
-        magicFactory.reset()
+//        player.playerGameOver()()
+        
+        gameplayScene.rootNode.enumerateChildNodes { (node, _) in
+            if let name = node.name {
+                switch name {
+                case "Enemy":
+                    (node as? Enemy)?.enemyGameOver()
+                case "Npc":
+                    (node as? Npc)?.npcGameOver()
+                case "Magic":
+                    (node as? MagicElements)?.magicGameOver()
+                default:
+                    break
+                }
+            }
+        }
     }
     
     @objc func gameOver() {
         guard let view = gameView else { return }
+        isGameOver = true
         currentView = .gameOver
         gameState = .paused
         view.isUserInteractionEnabled = false

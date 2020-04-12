@@ -11,10 +11,11 @@ import UIKit
 protocol NpcModel {
     var noticeDistance: Float { get }
     var dialog: [String] { get }
-    var quest: Quest? { get set }
+    var quest: Quest? { get }
     var model: String { get }
     var isInteracting: Bool { get set }
     
     func updateDialogWithQuest()
     func finishQuestDialogUpdate(quest: String)
+    func resetModel()
 }

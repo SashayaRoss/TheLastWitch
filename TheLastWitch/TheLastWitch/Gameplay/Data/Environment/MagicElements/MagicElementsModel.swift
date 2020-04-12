@@ -13,4 +13,5 @@ protocol MagicElementsModel {
     var model: String { get }
     var noticeDistance: Float { get }
     var type: TargetType? { get }
+    func resetModel()
 }

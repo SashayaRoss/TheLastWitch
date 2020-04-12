@@ -35,9 +35,8 @@ final class PlayerFactory {
 //        player.position = SCNVector3Make(4, 0.6, -10)
 //        player.rotation = SCNVector4Make(0, 0, 0, Float.pi)
         player.removeFromParentNode()
-
+        player.playerGameOver()
         setup()
-        player.playerModel.resetModel()
     }
 }
 

@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import SceneKit
 
 final class WolfModel: EnemyModel {
     let name: String
@@ -14,6 +15,7 @@ final class WolfModel: EnemyModel {
     var strength: Int = 20
     var exp: Int = 60
     var type: TargetType = .golem
+    let position: SCNVector3
     
     var noticeDistance: Float = 3.0
     var movementSpeedLimiter: Float = 0.5
@@ -23,9 +25,11 @@ final class WolfModel: EnemyModel {
     var isAttacking = false
     
     init(
-        name: String
+        name: String,
+        position: SCNVector3
     ) {
         self.name = name
+        self.position = position
     }
     
     func resetModel() {

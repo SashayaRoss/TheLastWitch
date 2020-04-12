@@ -65,6 +65,11 @@ final class MagicElements: SCNNode {
         characterNode = daeHolderNode.childNode(withName: "Bip01", recursively: true)!
     }
     
+    func magicGameOver() {
+        magicElementModel.resetModel()
+        self.isHidden = false
+    }
+    
     func update(with time: TimeInterval, and scene: SCNScene) {
         guard
             let player = player

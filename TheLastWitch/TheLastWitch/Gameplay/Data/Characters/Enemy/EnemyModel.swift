@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import SceneKit
 
 protocol EnemyModel {
     var name: String { get }
@@ -14,6 +15,7 @@ protocol EnemyModel {
     var strength: Int { get set }
     var exp: Int { get set }
     var type: TargetType { get }
+    var position: SCNVector3 { get }
     
     var noticeDistance: Float { get }
     var movementSpeedLimiter: Float { get }

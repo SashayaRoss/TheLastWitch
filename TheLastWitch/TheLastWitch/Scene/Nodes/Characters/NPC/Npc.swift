@@ -76,6 +76,11 @@ final class Npc: SCNNode {
         NotificationCenter.default.addObserver(self, selector: #selector(questStatusChanged), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
     }
     
+    func npcGameOver() {
+        npcModel.resetModel()
+        self.isHidden = false
+    }
+    
     func update(with time: TimeInterval, and scene: SCNScene) {
         guard
             let player = player

@@ -11,7 +11,9 @@ import SpriteKit
 final class VillagerModel: NpcModel {
     let noticeDistance: Float = 1.0
     var dialog: [String]
+    var dialogCached: [String]
     var quest: Quest?
+    var questCached: Quest?
     let model: String
     var isInteracting = false
     
@@ -23,6 +25,17 @@ final class VillagerModel: NpcModel {
         self.dialog = dialog
         self.quest = quest
         self.model = model
+        
+        if let existingQuest = quest {
+            questCached = Quest(
+                id: existingQuest.id,
+                desc: existingQuest.desc,
+                type: existingQuest.type,
+                exp: existingQuest.exp,
+                targets: existingQuest.targets
+            )
+        }
+        dialogCached = dialog
     }
     
     func updateDialogWithQuest() {
@@ -46,9 +59,10 @@ final class VillagerModel: NpcModel {
         dialog.append(thankYou)
     }
     
-    func resetMode() {
-        dialog = []
-        quest = nil
+    func resetModel() {
+        dialog = dialogCached
+        quest = questCached
         isInteracting = false
+        updateDialogWithQuest()
     }
 }

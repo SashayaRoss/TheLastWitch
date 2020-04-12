@@ -83,6 +83,12 @@ final class Enemy: SCNNode {
         characterNode = daeHolderNode.childNode(withName: "CATRigHub002", recursively: true)!
     }
     
+    func enemyGameOver() {
+        enemyModel.resetModel()
+        self.position = enemyModel.position
+        self.isHidden = false
+        self.removeAnimation(forKey: "dead")
+    }
     
     func update(with time: TimeInterval, and scene: SCNScene) {
         guard let player = player, !player.playerModel.isDead, !enemyModel.isDead else { return }
@@ -222,14 +228,11 @@ extension Enemy: BattleAction {
         addAnimation(animation.deadAnimation, forKey: "dead")
         
         let wait = SCNAction.wait(duration: 3.0)
-        let remove = SCNAction.run { (node) in
+        let hide = SCNAction.run { (node) in
             node.isHidden = true
-            self.removeAllAnimations()
-            self.removeAllActions()
-            self.removeFromParentNode()
         }
         
-        let seq = SCNAction.sequence([wait, remove])
+        let seq = SCNAction.sequence([wait, hide])
         runAction(seq)
         //TODO display effect
     }

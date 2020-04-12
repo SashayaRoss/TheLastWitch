@@ -12,7 +12,7 @@ final class NpcCollider: ColliderInterface {
     var collider: SCNNode!
 
     func setupCollider(with scale: CGFloat) -> SCNNode {
-        let geometry = SCNCapsule(capRadius: 20, height: 52)
+        let geometry = SCNCapsule(capRadius: 30, height: 80)
         geometry.firstMaterial?.diffuse.contents = UIColor.blue
         
         collider = SCNNode(geometry: geometry)

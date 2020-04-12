@@ -54,20 +54,6 @@ final class MagicElementsFactory {
             magicElements2.setupCollider(scale: CGFloat(scale))
         }
     }
-    
-    func reset() {
-        guard
-            let enemies = scene.rootNode.childNode(withName: "Magic", recursively: false)
-        else { return }
-        for node in enemies.childNodes {
-            node.isHidden = false
-            node.removeFromParentNode()
-            node.removeAllAnimations()
-            node.removeAllParticleSystems()
-            node.removeAllActions()
-        }
-        setup()
-    }
 }
 
 extension MagicElementsFactory: SetupInterface {

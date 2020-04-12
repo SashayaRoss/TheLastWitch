@@ -25,25 +25,25 @@ final class EnemyFactory {
     
     private func setupEnemy() {
         let enemyScale: Float = 0.0080
-        let wolfModel1 = WolfModel(name: "golem1")
-        let wolfModel2 = WolfModel(name: "golem2")
-        let wolfModel3 = WolfModel(name: "golem3")
         
+        guard let position1 = enemyPositionArray["golem1"] else { return }
+        let wolfModel1 = WolfModel(name: "golem1", position: position1)
         let enemy1 = Enemy(player: player, view: gameView, enemyModel: wolfModel1)
         enemy1.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
-        guard let position1 = enemyPositionArray["golem1"] else { return }
         enemy1.position = position1
         enemy1.rotation = SCNVector4(0, 180, 0, 0)
         
+        guard let position2 = enemyPositionArray["golem2"] else { return }
+        let wolfModel2 = WolfModel(name: "golem2", position: position2)
         let enemy2 = Enemy(player: player, view: gameView, enemyModel: wolfModel2)
         enemy2.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
-        guard let position2 = enemyPositionArray["golem2"] else { return }
         enemy2.position = position2
         enemy2.rotation = SCNVector4(0, 90, 0, 0)
         
+        guard let position3 = enemyPositionArray["golem3"] else { return }
+        let wolfModel3 = WolfModel(name: "golem3", position: position3)
         let enemy3 = Enemy(player: player, view: gameView, enemyModel: wolfModel3)
         enemy3.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
-        guard let position3 = enemyPositionArray["golem3"] else { return }
         enemy3.position = position3
         enemy3.rotation = SCNVector4(0, 0, 0, 0)
         
@@ -58,20 +58,6 @@ final class EnemyFactory {
         }
     }
     
-    func reset() {
-        guard
-            let enemies = scene.rootNode.childNode(withName: "Enemies", recursively: true)
-        else { return }
-        for node in enemies.childNodes {
-            node.isHidden = false
-            node.removeAllAnimations()
-            node.removeAllParticleSystems()
-            node.removeAllActions()
-            node.removeFromParentNode()
-        }
-        
-        setup()
-    }
 }
 
 extension EnemyFactory: SetupInterface {
