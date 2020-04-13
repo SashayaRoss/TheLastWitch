@@ -10,7 +10,7 @@ import SceneKit
 
 final class MainLight {
     var scene: SCNScene
-    private var lightStick: SCNNode!
+    private var light: SCNNode!
     
     init(scene: SCNScene) {
         self.scene = scene
@@ -20,12 +20,12 @@ final class MainLight {
 extension MainLight: SetupNodesInterface {
     func setup() -> SCNNode {
         guard
-            let light = scene.rootNode.childNode(withName: "LightStick", recursively: false)
+            let lightNode = scene.rootNode.childNode(withName: "Light", recursively: false)
         else {
             return SCNNode()
         }
         
-        lightStick = light
-        return lightStick
+        light = lightNode
+        return light
     }
 }

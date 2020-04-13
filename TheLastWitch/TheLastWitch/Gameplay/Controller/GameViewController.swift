@@ -15,7 +15,6 @@ final class GameViewController: UIViewController {
     let gameMusic = MusicManager.sharedInstance
     
     //scene
-    var sceneView: SCNView!
     var newGameScene: SCNScene!
     var gameplayScene: SCNScene!
     var transitionScene: SCNScene!
@@ -27,7 +26,7 @@ final class GameViewController: UIViewController {
     
     //nodes
     private var player: Player!
-    private var lightStick: SCNNode!
+    private var light: SCNNode!
     private var cameraStick: SCNNode!
     
     //movement
@@ -41,7 +40,7 @@ final class GameViewController: UIViewController {
     
     //setup
     var mainCamera: MainCamera!
-    var light: MainLight!
+    var mainLight: MainLight!
     var collision: Collision!
     var playerFactory: PlayerFactory!
     var enemyFactory: EnemyFactory!
@@ -92,13 +91,13 @@ final class GameViewController: UIViewController {
         playerFactory = PlayerFactory(scene: scene, model: model, mapper: mapper)
         player = playerFactory.getPlayer()
         mainCamera = MainCamera(scene: scene)
-        light = MainLight(scene: scene)
+        mainLight = MainLight(scene: scene)
         collision = Collision(scene: scene)
         enemyFactory = EnemyFactory(scene: scene, gameView: view, player: player)
         npcFactory = NPCFactory(scene: scene, gameView: view, player: player)
         magicFactory = MagicElementsFactory(scene: scene, gameView: view, player: player)
         
-        lightStick = light.setup()
+        light = mainLight.setup()
         cameraStick = mainCamera.setup()
         
         gameMusic.loadSounds()
@@ -388,7 +387,7 @@ final class GameViewController: UIViewController {
             return
         }
         cameraStick.position = SCNVector3Make(character.position.x, 0.0, character.position.z)
-        lightStick.position = SCNVector3Make(character.position.x, 0.0, character.position.z)
+        light.position = SCNVector3Make(character.position.x, 0.0, character.position.z)
     }
     
     //changing scenes
@@ -457,7 +456,7 @@ final class GameViewController: UIViewController {
         gameState = .paused
         view.isUserInteractionEnabled = false
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
             view.removeCurrentView()
             view.setupGameOver()
             view.isUserInteractionEnabled = true

@@ -25,20 +25,20 @@ final class MainCamera {
         var directionToPan = direction
         directionToPan *= float2(1.0, -1.0)
         
-        let panReducer = Float(0.005)
+        let speedReducer = Float(0.005)
         
         let currX = cameraXHolder.rotation
-        let xRotationValue = currX.w - directionToPan.x * panReducer
+        let xRotationValue = currX.w - directionToPan.x * speedReducer
         cameraXHolder.rotation = SCNVector4Make(0, 1, 0, xRotationValue)
         
         let currY = cameraYHolder.rotation
-        var yRotationValue = currY.w + directionToPan.y * panReducer
+        var yRotationValue = currY.w + directionToPan.y * speedReducer
         
-        if yRotationValue < -0.94 {
-            yRotationValue = -0.94
+        if yRotationValue < -0.90 {
+            yRotationValue = -0.90
         }
-        if yRotationValue > 0.66 {
-            yRotationValue = 0.66
+        if yRotationValue > 0.60 {
+            yRotationValue = 0.60
         }
 
         cameraYHolder.rotation = SCNVector4Make(1, 0, 0, yRotationValue)

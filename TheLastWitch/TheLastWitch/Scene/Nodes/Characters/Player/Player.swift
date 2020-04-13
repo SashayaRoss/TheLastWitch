@@ -88,6 +88,7 @@ final class Player: SCNNode {
         self.position = positionCached
         self.isHidden = false
         self.removeAnimation(forKey: "dead")
+        self.opacity = 1.0
     }
 
     //MARK:- scene
@@ -373,13 +374,14 @@ extension Player: BattleAction {
         guard let node = characterNode else { return }
         node.addAnimation(animation.deadAnimation, forKey: "dead")
         
-        let wait = SCNAction.wait(duration: 3.0)
+        let wait = SCNAction.wait(duration: 2.0)
+        let fadeOut = SCNAction.fadeOpacity(to: 0, duration: 1.0)
         let hide = SCNAction.run { (node) in
             node.isHidden = true
             //add effect
         }
         
-        let seq = SCNAction.sequence([wait, hide])
+        let seq = SCNAction.sequence([wait, fadeOut, hide])
         runAction(seq)
         NotificationCenter.default.post(name: NSNotification.Name("resetGame"), object: nil, userInfo:[:])
     }

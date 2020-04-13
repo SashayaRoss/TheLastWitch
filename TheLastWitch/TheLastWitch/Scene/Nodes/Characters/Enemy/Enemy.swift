@@ -227,12 +227,13 @@ extension Enemy: BattleAction {
         enemyModel.isDead = true
         addAnimation(animation.deadAnimation, forKey: "dead")
         
-        let wait = SCNAction.wait(duration: 3.0)
+        let wait = SCNAction.wait(duration: 4.0)
+        let fadeOut = SCNAction.fadeOpacity(to: 0, duration: 2.0)
         let hide = SCNAction.run { (node) in
             node.isHidden = true
         }
         
-        let seq = SCNAction.sequence([wait, hide])
+        let seq = SCNAction.sequence([wait, fadeOut, hide])
         runAction(seq)
         //TODO display effect
     }
