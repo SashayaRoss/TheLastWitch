@@ -107,6 +107,7 @@
 		7EDFF57B241E95C300D24798 /* FloatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF57A241E95C300D24798 /* FloatExtension.swift */; };
 		7EDFF580241E99E200D24798 /* PhysicsContactExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF57F241E99E200D24798 /* PhysicsContactExtension.swift */; };
 		7EDFF583241EA8E700D24798 /* AnimationInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF582241EA8E700D24798 /* AnimationInterface.swift */; };
+		7EF02509244677A9008FD22D /* SetupNodesInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF02508244677A9008FD22D /* SetupNodesInterface.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -224,6 +225,7 @@
 		7EDFF57A241E95C300D24798 /* FloatExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatExtension.swift; sourceTree = "<group>"; };
 		7EDFF57F241E99E200D24798 /* PhysicsContactExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsContactExtension.swift; sourceTree = "<group>"; };
 		7EDFF582241EA8E700D24798 /* AnimationInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationInterface.swift; sourceTree = "<group>"; };
+		7EF02508244677A9008FD22D /* SetupNodesInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupNodesInterface.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -493,6 +495,7 @@
 			children = (
 				7EA7A60523E5FD4E00894C4D /* Collision */,
 				7EDFF571241E85F400D24798 /* SetupInterface.swift */,
+				7EF02508244677A9008FD22D /* SetupNodesInterface.swift */,
 				7E69BDAB242FABFE00401116 /* Environment */,
 				7E69BDAA242FABF100401116 /* Characters */,
 			);
@@ -815,6 +818,7 @@
 				7EA7A5FC23E5F3DA00894C4D /* EnemyAnimationType.swift in Sources */,
 				7E106FF42443357B0044F3AD /* OptionsHeaderNode.swift in Sources */,
 				7E886909243A140E0022E411 /* WelcomeScreenConfigurator.swift in Sources */,
+				7EF02509244677A9008FD22D /* SetupNodesInterface.swift in Sources */,
 				7E106FDF243E69C00044F3AD /* CharacterMagicNode.swift in Sources */,
 				7E23B0C1241ECCF6002A2395 /* OptionsButtonNode.swift in Sources */,
 				7E34BA1023B8024D00FA0BEE /* NodeSetupInterface.swift in Sources */,

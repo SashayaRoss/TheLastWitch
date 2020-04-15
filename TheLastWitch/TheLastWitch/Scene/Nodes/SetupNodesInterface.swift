@@ -1,14 +1,14 @@
 //
-//  SetupInterface.swift
+//  SetupNodesInterface.swift
 //  TheLastWitch
 //
-//  Created by Aleksandra Kustra on 15/03/2020.
+//  Created by Aleksandra Kustra on 15/04/2020.
 //  Copyright © 2020 Aleksandra Kustra. All rights reserved.
 //
 
 import SceneKit
 
-protocol SetupInterface {
+protocol SetupNodesInterface {
     var scene: SCNScene { get }
-    func setup()
+    func setup() -> SCNNode
 }

@@ -62,7 +62,7 @@ final class MagicElements: SCNNode {
         }
         addChildNode(daeHolderNode)
         //set mesh name
-        characterNode = daeHolderNode.childNode(withName: "Bip01", recursively: true)!
+        characterNode = daeHolderNode.childNode(withName: "player", recursively: true)!
     }
     
     func magicGameOver() {

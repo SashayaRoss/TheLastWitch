@@ -15,6 +15,7 @@ final class PlayerFactory {
     private let position = SCNVector3(4, 0.6, -10)
     var scene: SCNScene
     
+    //inicjalizacja
     init(
         scene: SCNScene,
         model: PlayerModel,
@@ -23,24 +24,32 @@ final class PlayerFactory {
         self.scene = scene
         self.model = model
         self.mapper = mapper
-        player = Player(playerModel: model, mapper: mapper, position: position)
+        player = Player(
+            playerModel: model,
+            mapper: mapper,
+            position: position
+        )
 
         setup()
     }
     
+    //metoda zwracająca player'a
     func getPlayer() -> Player {
         return player
     }
 }
 
+//rozszerzenie klasy o protokół SetupInterface
 extension PlayerFactory: SetupInterface {
     func setup() {
+        //ustawienie parametrów
         let playerScale = Float(0.003)
         
         player.scale = SCNVector3Make(playerScale, playerScale, playerScale)
         player.position = position
         player.rotation = SCNVector4Make(0, 0, 0, Float.pi)
         
+        //dodanie do sceny i ustawienie collider'a
         scene.rootNode.addChildNode(player)
         player.setupCollider(with: CGFloat(playerScale))
     }

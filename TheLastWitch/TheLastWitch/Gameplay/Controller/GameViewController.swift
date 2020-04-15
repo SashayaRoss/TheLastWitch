@@ -88,6 +88,7 @@ final class GameViewController: UIViewController {
         let model = PlayerModel()
         let mapper = PlayerCharacterMapper()
         
+        //setup node'ów i ich inicjalizacja
         playerFactory = PlayerFactory(scene: scene, model: model, mapper: mapper)
         player = playerFactory.getPlayer()
         mainCamera = MainCamera(scene: scene)
@@ -100,6 +101,7 @@ final class GameViewController: UIViewController {
         light = mainLight.setup()
         cameraStick = mainCamera.setup()
         
+        //ładowanie dźwięku
         gameMusic.loadSounds()
     }
     

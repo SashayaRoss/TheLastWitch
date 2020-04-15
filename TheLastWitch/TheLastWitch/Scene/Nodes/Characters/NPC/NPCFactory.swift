@@ -24,6 +24,7 @@ final class NPCFactory {
     }
     
     private func setupNPC() {
+        // ustawienie parametrów i modeli dla npc
         let npcScale: Float = 0.003
         let quest = Quest(
             id: 2,
@@ -32,8 +33,8 @@ final class NPCFactory {
             exp: 50,
             targets: [.golem, .golem]
         )
-        let npcModel = VillagerModel(
-            dialog: ["Hello", "I'm a villager", "I live here and I have a task for you! We are in desperate need of a witch and long sentences to test if bounding box on dialog works :)"],
+        let npcModel1 = VillagerModel(
+            dialog: ["Hello", "I'm a villager", "I live here and I have a task for you! We are in desperate need of a hero!"],
             quest: quest,
             model: "art.scnassets/Scenes/Characters/Hero/idle"
         )
@@ -42,16 +43,17 @@ final class NPCFactory {
             model: "art.scnassets/Scenes/Characters/Hero/idle"
         )
         
-        let npc1 = Npc(player: player, view: gameView, npcModel: npcModel2)
+        let npc1 = Npc(player: player, view: gameView, npcModel: npcModel1)
         npc1.scale = SCNVector3Make(npcScale, npcScale, npcScale)
         guard let position = npcPositionArray["npc1"] else { return }
         npc1.position = position
         
-        let npc2 = Npc(player: player, view: gameView, npcModel: npcModel)
+        let npc2 = Npc(player: player, view: gameView, npcModel: npcModel2)
         npc2.scale = SCNVector3Make(npcScale, npcScale, npcScale)
         guard let position2 = npcPositionArray["npc2"] else { return }
         npc2.position = position2
         
+        //dodanie modeli do sceny i ustawienie ich collider'ów
         gameView.prepare([npc1, npc2]) { (finished) in
             self.scene.rootNode.addChildNode(npc1)
             self.scene.rootNode.addChildNode(npc2)

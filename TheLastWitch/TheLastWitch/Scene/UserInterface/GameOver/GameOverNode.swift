@@ -32,14 +32,7 @@ extension GameOverNode: NodeSetupInterface {
             y: (bounds.size.height / 2) - (gameOverSprite.size.height / 2)
         )
         gameOverSprite.anchorPoint = CGPoint(x: 0.0, y: 0.0)
-    
-        bgNode = SKSpriteNode()
-        bgNode.color = .black
-        bgNode.name = "GameOverBgNode"
-        bgNode.size = CGSize(width: bounds.size.width, height: bounds.size.height)
-        bgNode.anchorPoint = CGPoint(x: 0.0, y: 0.0)
-        
-//        scene.addChild(bgNode)
+
         scene.addChild(gameOverSprite)
     }
 }

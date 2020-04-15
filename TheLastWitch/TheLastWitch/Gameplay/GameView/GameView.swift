@@ -60,15 +60,6 @@ final class GameView: SCNView {
         gameOverView.setup(skScene: skScene, directory: directory, viewBounds: viewBounds)
     }
     
-    func setupTransition() {
-        let node = SKSpriteNode()
-        node.color = .black
-        node.size = CGSize(width: bounds.size.width, height: bounds.size.height)
-        node.anchorPoint = CGPoint(x: 0.0, y: 0.0)
-        
-        skScene.addChild(node)
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         layout2DOverlay()
