@@ -10,5 +10,4 @@ enum PlayerAnimationType {
     case walk
     case attack
     case dead
-//    case idle
 }

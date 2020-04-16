@@ -38,11 +38,11 @@ final class PlayerAnimation {
             animationObject.isRemovedOnCompletion = true
             animationObject.duration = 4
             deadAnimation = animationObject
-            animationObject.setValue("dead", forKey: "dead")
+            animationObject.setValue("dead", forKey: "deadKey")
           
         case .attack:
             animationObject.isRemovedOnCompletion = true
-            animationObject.setValue("attack", forKey: "animationId")
+            animationObject.setValue("attack", forKey: "attackKey")
             attackAnimation = animationObject
         }
     }

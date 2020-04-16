@@ -36,7 +36,6 @@ final class WelcomeScreenBackgroundNode {
     
     @objc func playerItemDidReachEnd(notification: NSNotification) {
         if let playerItem = notification.object as? AVPlayerItem {
-            print("replay")
             playerItem.seek(to: CMTime.zero, completionHandler: nil)
         }
     }

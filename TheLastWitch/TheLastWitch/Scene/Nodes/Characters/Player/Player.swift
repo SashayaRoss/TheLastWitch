@@ -39,7 +39,12 @@ final class Player: SCNNode {
         didSet {
             if directionAngle != oldValue {
                 // action that rotates the node to an angle in radian.
-                runAction(SCNAction.rotateTo(x: 0.0, y: CGFloat(directionAngle), z: 0.0, duration: 0.1, usesShortestUnitArc: true))
+                runAction(SCNAction.rotateTo(
+                    x: 0.0,
+                    y: CGFloat(directionAngle),
+                    z: 0.0, duration: 0.1,
+                    usesShortestUnitArc: true)
+                )
             }
         }
     }
@@ -121,34 +126,34 @@ final class Player: SCNNode {
 
         //move
         if direction.x != 0.0 && direction.z != 0.0 {
-            //TODO camera!!!!
-//            if let dPad = dPadOrigin, let touch = touchLocation, let camera = cameraRotation {
-//                let middleOfCircleX = dPad.x + 75
-//                let middleOfCircleY = dPad.y + 75
-//                let lengthOfX = Float(touch.x - middleOfCircleX)
-//                let lengthOfY = Float(touch.y - middleOfCircleY)
-//                var newDirection = float3(x: lengthOfX, y: 0, z: lengthOfY)
-//                newDirection = normalize(newDirection)
-////                print("x: \(touch.x), y: \(touch.y)")
-//
-//                //move character
-//                let pos = float3(position)
-//                position = SCNVector3(pos + newDirection * characterSpeed)
-//
-//                //update angle
-//                let degree = atan2(newDirection.x, newDirection.z)
-//                directionAngle = degree
-//
-//                isWalking = true
-//            }
-            //move character
-            let pos = float3(position)
-            position = SCNVector3(pos + direction * characterSpeed)
+//            TODO camera!!!!
+            if let dPad = dPadOrigin, let touch = touchLocation, let camera = cameraRotation {
+                let middleOfCircleX = dPad.x + 75
+                let middleOfCircleY = dPad.y + 75
+                let lengthOfX = Float(touch.x - middleOfCircleX)
+                let lengthOfY = Float(touch.y - middleOfCircleY)
+                var newDirection = float3(x: lengthOfX, y: 0, z: lengthOfY)
+                newDirection = normalize(newDirection)
+//                print("x: \(touch.x), y: \(touch.y)")
 
-            //update angle
-            directionAngle = SCNFloat(atan2f(direction.x, direction.z))
+                //move character
+                let pos = float3(position)
+                position = SCNVector3(pos + newDirection * characterSpeed)
 
-            isWalking = true
+                //update angle
+                let degree = atan2(newDirection.x, newDirection.z)
+                directionAngle = degree
+
+                isWalking = true
+            }
+//            //move character
+//            let pos = float3(position)
+//            position = SCNVector3(pos + direction * characterSpeed)
+//
+//            //update angle
+//            directionAngle = SCNFloat(atan2f(direction.x, direction.z))
+//
+//            isWalking = true
         } else {
             isWalking = false
         }
@@ -344,7 +349,7 @@ final class Player: SCNNode {
 extension Player: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         guard
-            let id = anim.value(forKey: "animationId") as? String
+            let id = anim.value(forKey: "attackKey") as? String
         else {
             return
         }
@@ -372,7 +377,7 @@ extension Player: BattleAction {
     func die() {
         playerModel.isDead = true
         guard let node = characterNode else { return }
-        node.addAnimation(animation.deadAnimation, forKey: "dead")
+        node.addAnimation(animation.deadAnimation, forKey: "deadKey")
         
         let wait = SCNAction.wait(duration: 2.0)
         let fadeOut = SCNAction.fadeOpacity(to: 0, duration: 1.0)

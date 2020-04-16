@@ -56,7 +56,7 @@ final class GameViewController: UIViewController {
         gameState = .playing
         
         //TODO
-//        presentWelcomeScreen()
+        presentWelcomeScreen()
     }
     
     //MARK: scene
@@ -115,7 +115,7 @@ final class GameViewController: UIViewController {
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
-            return .allButUpsideDown
+            return .landscape
         } else {
             return .all
         }
