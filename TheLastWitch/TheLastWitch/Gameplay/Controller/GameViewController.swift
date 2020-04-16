@@ -56,7 +56,7 @@ final class GameViewController: UIViewController {
         gameState = .playing
         
         //TODO
-        presentWelcomeScreen()
+//        presentWelcomeScreen()
     }
     
     //MARK: scene
@@ -143,23 +143,30 @@ final class GameViewController: UIViewController {
     private func gameplayAction(touches: Set<UITouch>) {
         guard let view = gameView else { return }
         for touch in touches {
+            // jeśli obszar kontaktu usera z ekranem przypada na pole określane przez virtualNodeBounds d-pada
             if view.hudView.dpadNode.virtualNodeBounds().contains(touch.location(in: view)) {
+                //zapisuje punkt zetknięcia z padem
                 if padTouch == nil {
                     padTouch = touch
                     controllerStoredDirection = float2(0.0)
                 }
+            //jeśli dotknięto przycisku ataku
             } else if view.hudView.attackButtonNode.virtualNodeBounds().contains(touch.location(in: view)) {
                 if let activePlayer = player {
+                    //jeśli player prowadzi interakcje z npc
                     if let npc = activePlayer.npc, npc.isInteracting {
                         player.playerModel.isInteracting = true
                         player.playerModel.currentInteraction = .npc
                     }
+                    //jeśli player prowadzi interakcje z przedmiotem
                     if let magic = activePlayer.magic, magic.isInteracting {
                         player.playerModel.isInteracting = true
                         player.playerModel.currentInteraction = .magic
                     }
                     
                     if player.playerModel.isInteracting {
+                        //player jest w trakcie interakcji
+                        //gra zostaje zatrzymana i rozpoczyna się dialog
                         activePlayer.walks(walks: false)
                         gameState = .paused
                         currentView = .dialog
@@ -168,17 +175,22 @@ final class GameViewController: UIViewController {
                         view.setupDialog()
                         dialogAction(touches: touches)
                     } else {
+                        //player jest w trakcie walki: wykonuje akcję ataku i odtwarzany jest dźwięk „Magic”
                         activePlayer.attack()
                         gameMusic.playSound(node: activePlayer, name: "Magic")
                     }
                 }
+            //jeśli dotknięto przycisku opcji
             } else if view.hudView.optionsButtonNode.virtualNodeBounds().contains(touch.location(in: view)) {
+                //zatrzymuję grę, zmieniam aktualny widok i usuwam obecny widok
                 gameState = .paused
                 currentView = .options
                 view.removeCurrentView()
                 view.setupOptions()
                 
+            //jeśli dotknięto przycisku menu postaci
             } else if view.hudView.characterButtonNode.virtualNodeBounds().contains(touch.location(in: view)) {
+                //zatrzymuję grę, zmieniam aktualny widok, usuwam obecny widok i uaktualniam dane o graczu
                 gameState = .paused
                 currentView = .character
                 view.removeCurrentView()
@@ -188,6 +200,7 @@ final class GameViewController: UIViewController {
             } else if cameraTouch == nil {
                 cameraTouch = touches.first
             }
+            //kontakt z d-pad'em zakończył się, przerywam funkcje
             if padTouch != nil {
                 break
             }
@@ -201,8 +214,9 @@ final class GameViewController: UIViewController {
                 
                 if let activePlayer = player {
                     switch activePlayer.playerModel.currentInteraction {
-                    //talk with npc
+                    //rozmawia z npc
                     case .npc:
+                       //jeśli rozmowa może być nadal prowadzona (obiekt npc istnieje, a przedstawiany przez niego tekst nie skończył się)
                         if
                             let npc = activePlayer.npc,
                             (npc.currentDialog < npc.npcModel.dialog.count)
@@ -212,6 +226,7 @@ final class GameViewController: UIViewController {
                             if let npc = activePlayer.npc {
                                 npc.currentDialog = 0
                             }
+                            //dialog zakończył się, usuwam obecny widok i prezentuje nowy
                             view.removeCurrentView()
                             currentView = .playing
                             gameState = .playing
@@ -219,7 +234,7 @@ final class GameViewController: UIViewController {
                             activePlayer.updateModelData()
                             activePlayer.playerModel.currentInteraction = .none
                         }
-                    //interact with magic
+                    //logika rozmowy z przedmiotem przebiega analogicznie
                     case .magic:
                         if
                             let magic = activePlayer.magic,
@@ -249,6 +264,7 @@ final class GameViewController: UIViewController {
     private func characterMenuAction(touches: Set<UITouch>) {
         guard let view = gameView else { return }
         for touch in touches {
+            //gracz wybrał przycisk powrotu do gry
             if view.characterView.goBack.virtualNodeBounds().contains(touch.location(in: view)) {
                 view.removeCurrentView()
                 currentView = .playing
@@ -257,6 +273,7 @@ final class GameViewController: UIViewController {
                     activePlayer.updateModelData()
                 }
             } else if
+                //gracz wybrał przycisk dodania punktów życia i ma nierozdysponowane punkty
                 view.characterView.health.virtualNodeBounds().contains(touch.location(in: view)),
                 player.playerModel.levelPoints >= 1
             {
@@ -264,6 +281,7 @@ final class GameViewController: UIViewController {
                     activePlayer.updateHealth()
                 }
             } else if
+                 //dodanie punktów do szybkości i magii odbywa się w sposób analogiczny
                 view.characterView.magic.virtualNodeBounds().contains(touch.location(in: view)),
                 player.playerModel.levelPoints >= 1
             {
@@ -285,6 +303,7 @@ final class GameViewController: UIViewController {
         guard let view = gameView else { return }
         for touch in touches {
             if view.optionsView.goBack.virtualNodeBounds().contains(touch.location(in: view)) {
+                //gracz wybrał przycisk powrotu do gry
                 view.removeCurrentView()
                 currentView = .playing
                 view.setupHUD()
@@ -294,18 +313,22 @@ final class GameViewController: UIViewController {
             } else if
                 view.optionsView.newGame.virtualNodeBounds().contains(touch.location(in: view))
             {
+                //gracz wybrał nową grę
                 presentWelcomeScreen()
             } else if
                 view.optionsView.devMode.virtualNodeBounds().contains(touch.location(in: view))
             {
+                //włącza tryb developerski
                 statisticManager()
             }
             else if
                 view.optionsView.music.virtualNodeBounds().contains(touch.location(in: view))
             {
+                //jeśli nie jest odtwarzana muzyka, dodaj do węzła nowy audioPlayer
                 if gameplayScene.rootNode.audioPlayers == [] {
                     gameMusic.playTheme(scene: gameplayScene, directory: "art.scnassets/Audio/Music.mp3")
                 } else {
+                    //jeśli muzyka jest odtwarzana, wyłącz ją, usuwając ją z węzła
                     gameMusic.removeAllPlayers(scene: gameplayScene)
                 }
             }
@@ -395,19 +418,24 @@ final class GameViewController: UIViewController {
     //changing scenes
     private func presentWelcomeScreen() {
         guard let view = gameView else { return }
+        //wyłączam możliwość interakcji z ekranem dla usera i zmieniam statusy gry
         view.isUserInteractionEnabled = false
         gameplayScene.isPaused = true
-        let transition = SKTransition.fade(withDuration: 1.8)
         currentView = .tapToPlay
+       //ustawiam przejście do nowej sceny i zamieniam muzykę
+        let transition = SKTransition.fade(withDuration: 1.8)
         gameMusic.playTheme(scene: newGameScene, directory: "art.scnassets/Audio/Magic.wav")
         
         view.present(newGameScene, with: transition, incomingPointOfView: nil, completionHandler: {
+            //wywołuje akcję na głównym wątku
             DispatchQueue.main.async {
+                //zmieniam statusy gry i prezentuje nowy widok
                 self.gameState = .newGame
                 self.newGameScene.isPaused = false
                 view.removeCurrentView()
                 view.setupWelcomeScreen()
                 self.resetGame()
+                //włączam możliwość interakcji z ekranem dla usera
                 self.view.isUserInteractionEnabled = true
             }
         })
@@ -434,6 +462,7 @@ final class GameViewController: UIViewController {
     }
     
     private func resetGame() {
+       //wywołuje metody gameOver na węzłach
         player.playerGameOver()
         
         gameplayScene.rootNode.enumerateChildNodes { (node, _) in
@@ -465,6 +494,7 @@ final class GameViewController: UIViewController {
         }
     }
     
+    //pokazywanie i chowanie menu statystyk
     private func statisticManager() {
         guard let view = gameView else { return }
         if showStatistic { showStatistic = false }
@@ -477,8 +507,10 @@ final class GameViewController: UIViewController {
 // MARK: delegates
 extension GameViewController: SCNSceneRendererDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
+        //jeśli gra jest w stanie zakończenia lub nowej gry, wychodzę z metody
         if gameState != .playing { return }
         
+        //ustawiam nowe pozycje dla węzłów w replacementPosition
         for (node, position) in replacementPosition {
             node.position = position
         }
@@ -487,7 +519,7 @@ extension GameViewController: SCNSceneRendererDelegate {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         if gameState != .playing || gameplayScene == nil { return }
         
-        //reset
+        //resetuje stare parametry
         replacementPosition.removeAll()
         maxPenetrationDistance = 0.0
         
@@ -497,17 +529,18 @@ extension GameViewController: SCNSceneRendererDelegate {
         else {
             return
         }
-        
+        //aktualizuje położenie gracza
         let direction = playerDirection()
         guard let somePlayer = player else { return }
         somePlayer.walkInDirection(direction, time: time, scene: scene)
-        
+        //aktualizuje położenie kamery i oświetlenia
         updateFollowersPosition()
         
-        //enemy & npc
+        //dla każdego węzła znajdującego się w grafie wywołuje odpowiednie dla nich medoty aktualizacji
         gameplayScene.rootNode.enumerateChildNodes { (node, _) in
             if let name = node.name {
                 switch name {
+                //jeśli node znajduje się w grupie „Enemy” do odpowiada mu wywołanie update z klasy enemy, analogicznie dla pozostałych węzłów
                 case "Enemy":
                     (node as? Enemy)?.update(with: time, and: scene)
                 case "Npc":
@@ -523,6 +556,7 @@ extension GameViewController: SCNSceneRendererDelegate {
 }
 
 extension GameViewController: SCNPhysicsContactDelegate {
+    //wykryte zostało rozpoczęcie kontaktu między dwoma elementami
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         if gameState != .playing { return }
         guard let somePlayer = player else { return }
@@ -552,6 +586,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
         }
     }
 
+    //dostępne są nowe informacje o trwającym kontakcie
     func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
         guard let somePlayer = player else { return }
         
@@ -579,7 +614,8 @@ extension GameViewController: SCNPhysicsContactDelegate {
             self.characterNode(other, hitWall: matching, withContact: contact)
         }
     }
-
+    
+    //kontakt zakończył się
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
         guard let somePlayer = player else { return }
         

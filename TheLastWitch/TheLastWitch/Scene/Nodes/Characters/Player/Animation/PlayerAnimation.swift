@@ -23,24 +23,28 @@ final class PlayerAnimation {
             return
         }
         
+        //ustawiam parametry dla obiektu trzymającego animacje
         animationObject.fadeInDuration = 0.2
         animationObject.fadeOutDuration = 0.2
         animationObject.usesSceneTimeBase = false
         animationObject.repeatCount = 0
         object = animationObject
-
+         
+        //wybieram jaka animacja powinna zostać załadowana na podstawie przesłanego parametru animationType
         switch animationType {
         case .walk:
             animationObject.repeatCount = Float.greatestFiniteMagnitude
             walkAnimation = animationObject
           
         case .dead:
+            //animacja śmierci bohatera po wykonaniu ma odczekać 4 sekundy i zostać usunięta
             animationObject.isRemovedOnCompletion = true
             animationObject.duration = 4
             deadAnimation = animationObject
             animationObject.setValue("dead", forKey: "deadKey")
           
         case .attack:
+            //po ukończeniu ataku animacja ataku zostaje usunięta
             animationObject.isRemovedOnCompletion = true
             animationObject.setValue("attack", forKey: "attackKey")
             attackAnimation = animationObject
@@ -49,6 +53,7 @@ final class PlayerAnimation {
 }
 
 extension PlayerAnimation: AnimationInterface {
+    //ładuje animacje z podanym identyfikatorem ze ścieżek do katalogu
     func loadAnimations() {
         loadAnimation(animationType: .walk, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/walk", withIdentifier: "WalkID")
         loadAnimation(animationType: .dead, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/die", withIdentifier: "DeathID")

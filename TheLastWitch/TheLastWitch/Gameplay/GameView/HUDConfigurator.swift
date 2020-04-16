@@ -20,6 +20,7 @@ final class HUDConfigurator {
     var expBarNode: EXPBarNode!
     var optionsButtonNode: OptionsButtonNode!
     
+    //do metody przekazywana jest scena, do której dołączane są kolejne elementy, ścieżka do zasobów graficznych, oraz wielkość ekranu urządzenia
     func setup(skScene: SKScene, directory: String, viewBounds: CGRect) {
         dpadNode = DpadNode(bounds: viewBounds, directory: directory)
         dpadNode.setupNode(with: skScene)
@@ -49,6 +50,7 @@ final class HUDConfigurator {
     }
     
     @objc private func hpDidChange(notification: Notification) {
+        //sprawdzenie czy przekazane parametry są odpowiedniego typu
         guard
             let userInfo = notification.userInfo as? [String: Any],
             let playerMaxHp = userInfo["playerMaxHp"] as? Int,
@@ -62,11 +64,14 @@ final class HUDConfigurator {
         let v3 = CGFloat(currentHp)
         var currentLocalHp: CGFloat = 0.0
         
+        //obliczenie nowej wartości
         currentLocalHp = (v2 * v3) / v1
-        
+        //zmiana koloru w zależności od wielkości życia postaci
         hpBarNode.updateHpColour(currentHP: currentLocalHp)
-
+        //wyzerowanie życia postaci jeśli jest ono mniejsze niż 0
         if currentHp < 0 { currentLocalHp = 0 }
+        
+       //wywołanie akcji zmieniającej wielkość SKSpriteNode
         let reduceAction = SKAction.resize(toWidth: currentLocalHp, duration: 0.3)
         hpBarNode.runAction(action: reduceAction)
     }
@@ -86,7 +91,7 @@ final class HUDConfigurator {
         let currentExpLocal = CGFloat(currentExp)
         
         var currentDeltaExp: CGFloat = 0.0
-        
+        //obliczenie nowej wartości punktów exp
         currentDeltaExp = (expBarMaxWidthLocal * currentExpLocal) / playerMaxExpLocal
         
         if levelUp {
@@ -99,11 +104,11 @@ final class HUDConfigurator {
             
             currentDeltaExp = CGFloat(currentExp - playerMaxExp)
             currentDeltaExp = (expBarMaxWidthLocal * currentExpLocal) / playerMaxExpLocal
-
+            //operacje znajdujące nie wewnątrz DispatchQueue.main.async wywoływane są na głównym wątku
             DispatchQueue.main.async {
                 self.expBarNode.runAction(action: addActionToMax)
             }
-            
+           //wywołanie operacji na głównym wątku po 4 sekundach, aby dać poprzedniej akcji czas na skończenie
             let seconds = 0.4
             DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
                 self.expBarNode.runAction(action: newAddActionToZero)

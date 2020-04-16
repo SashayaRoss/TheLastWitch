@@ -11,13 +11,16 @@ import SceneKit
 
 final class WolfModel: EnemyModel {
     let name: String
+   //jako słabszy przeciwnik, model wilka ma poziom życia i siłę niższą, doświadczenie zdobyte za jego pokonanie również jest mniejsze w porównaniu do zdobytego za pokonanie potężniejszego przeciwnika
     var hp: Int = 10
     var strength: Int = 30
     var exp: Int = 60
     var type: TargetType = .golem
     let position: SCNVector3
     
+    //maksymalna odległość w jakiej gracz zostanie zauważony
     var noticeDistance: Float = 3.0
+    //prędkość poruszania postaci
     var movementSpeedLimiter: Float = 0.5
     
     var lastAttackTime: TimeInterval = 0.0
@@ -32,6 +35,7 @@ final class WolfModel: EnemyModel {
         self.position = position
     }
     
+    //przywraca wartości początkowe przy restarcie gry
     func resetModel() {
         hp = 10
         strength = 20

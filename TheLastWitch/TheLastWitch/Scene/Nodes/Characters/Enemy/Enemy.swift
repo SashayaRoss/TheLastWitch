@@ -84,9 +84,13 @@ final class Enemy: SCNNode {
     }
     
     func enemyGameOver() {
+        //resetuje dane wewnątrz model do początkowych
         enemyModel.resetModel()
+        //resetuję pozycję węzła
         self.position = enemyModel.position
+        //zmieniam widoczność węzła
         self.isHidden = false
+        //usuwam animacje śmierci
         self.removeAnimation(forKey: "dead")
     }
     
@@ -98,9 +102,9 @@ final class Enemy: SCNNode {
          let deltaTime = Float(min (time - previousUpdateTime, 1.0 / 60.0))
          previousUpdateTime = time
          
-         //get distance
+         //obliczam odległość między przeciwnikiem a graczem
          let distance = GameUtils.distanceBetweenVectors(vector1: player.position, vector2: position)
-        
+         //jeśli gracz zbyt mocno zbliżył się do przeciwnika, ten zauważa go i zaczyna poruszać się w jego kierunku
          if distance < enemyModel.noticeDistance && distance > 0.01 {
              
              //move

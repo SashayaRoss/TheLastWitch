@@ -102,6 +102,7 @@ final class Npc: SCNNode {
     
     //MARK: collision
     func setupCollider(scale: CGFloat) {
+        //dodanie collidera do każdego węzła npc
         let collider = NpcCollider().setupCollider(with: scale)
         
         gameView.prepare([collider]) { (finished) in

@@ -6,6 +6,7 @@
 //  Copyright © 2020 Aleksandra Kustra. All rights reserved.
 //
 
+//nadanie elementom bitmaski
 struct Bitmask {
     let player = 1
     let playerWeapon = 2

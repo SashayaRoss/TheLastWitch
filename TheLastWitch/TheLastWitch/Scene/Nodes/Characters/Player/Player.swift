@@ -38,7 +38,7 @@ final class Player: SCNNode {
     private var directionAngle: Float = 0.0 {
         didSet {
             if directionAngle != oldValue {
-                // action that rotates the node to an angle in radian.
+                //ustaw akcje rotującą węzeł do konta podanego w radianach
                 runAction(SCNAction.rotateTo(
                     x: 0.0,
                     y: CGFloat(directionAngle),
@@ -114,6 +114,7 @@ final class Player: SCNNode {
 
     //MARK:- movement
     func walkInDirection(_ direction: float3, time: TimeInterval, scene: SCNScene) {
+        //jeśli player żyje i nie jest w trakcje akcji ataku
         if playerModel.isDead || playerModel.isAttacking { return }
         if previousUdateTime == 0.0 {
             previousUdateTime = time
@@ -122,28 +123,31 @@ final class Player: SCNNode {
         let characterSpeed = deltaTime * playerModel.maxSpeed
         previousUdateTime = time
 
+        //ustaw pozycję początkową
         let initialPosition = position
 
-        //move
+        //porusz się
         if direction.x != 0.0 && direction.z != 0.0 {
 //            TODO camera!!!!
             if let dPad = dPadOrigin, let touch = touchLocation, let camera = cameraRotation {
+                //zapisuje położenie centrum dPada
                 let middleOfCircleX = dPad.x + 75
                 let middleOfCircleY = dPad.y + 75
+                 //na podstawie położenia dPada i dotyku usera obliczam długości wektorów dla nowego położenia gracza
                 let lengthOfX = Float(touch.x - middleOfCircleX)
                 let lengthOfY = Float(touch.y - middleOfCircleY)
                 var newDirection = float3(x: lengthOfX, y: 0, z: lengthOfY)
                 newDirection = normalize(newDirection)
 //                print("x: \(touch.x), y: \(touch.y)")
 
-                //move character
+                //zmieniam pozycję postaci
                 let pos = float3(position)
                 position = SCNVector3(pos + newDirection * characterSpeed)
 
-                //update angle
+                //aktualizuję kąt
                 let degree = atan2(newDirection.x, newDirection.z)
                 directionAngle = degree
-
+                //postać rozpoczęła ruch -> aktualizuje parametr isWalking
                 isWalking = true
             }
 //            //move character
@@ -155,25 +159,31 @@ final class Player: SCNNode {
 //
 //            isWalking = true
         } else {
+            //postać zakończyła ruch -> aktualizuje parametr isWalking
             isWalking = false
         }
 
-        //update altitude
+        //aktualizuje wysokość postaci
         var pos = position
         var endpoint0 = pos
         var endpoint1 = pos
 
+        //endpointami staje się position +/- podane wartości
         endpoint0.y -= 0.1
         endpoint1.y += 0.08
 
+        //szukam obiektów o bitmapie równej Bitmask().wall
         let results = scene.physicsWorld.rayTestWithSegment(from: endpoint1, to: endpoint0, options: [.collisionBitMask: Bitmask().wall, .searchMode: SCNPhysicsWorld.TestSearchMode.closest])
 
+        //jeśli znalazło obiekt w result
         if let result = results.first {
+            //sprawdzam koordynaty tego obiektu
             let groundAltitude = result.worldCoordinates.y
             pos.y = groundAltitude
 
             position = pos
         } else {
+            //jeśli result nie został znaleziony przywracamy Playerowi jego początkową pozycję
             position = initialPosition
         }
     }
@@ -205,12 +215,15 @@ final class Player: SCNNode {
         activePlayerCollideNodes.remove(node)
     }
     
+    //po wykonaniu zadania lub pokonaniu przeciwnika wywoływana jest aktualizacja punktów exp gracza
     func update(with exp: Int) {
         var currentExp = playerModel.expPoints
         var currentLvl = playerModel.level
         var levelUp: Bool = false
         
+        //jeśli exp jest więcej niż maxExp, oznacza to że gracz zdobył nowy poziom
         if currentExp + exp >= playerModel.maxExpPoints {
+            //obliczam o ile poziomów i exp zmienić aktualne dane
             currentExp = currentExp + exp
             let ileLeveli = Int(floor(Double(currentExp / playerModel.maxExpPoints)))
             currentLvl += ileLeveli
@@ -224,16 +237,19 @@ final class Player: SCNNode {
         playerModel.level = currentLvl
         playerModel.expPoints = currentExp
    
+        //wywołanie dla metody zmieniającej widok paska doświadczenia
         NotificationCenter.default.post(name: NSNotification.Name("expChanged"), object: nil, userInfo: ["playerMaxExp": playerModel.maxExpPoints, "currentExp": playerModel.expPoints, "levelUp": levelUp])
     }
     
     func updateQuest(with type: TargetType) {
         for quest in playerModel.quests {
             if let index = quest.targets.firstIndex(of: type) {
+                //z listy aktywnych celi usuwany jest cel z pasującym identyfikatorem
                 quest.targets.remove(at: index)
             }
             if quest.targets == [] {
                 //no more targets in quest == quest completed
+                //jeśli w danym zadaniu lista celi jest pusta, oznacza to ze zostało ono zakończone i zmieniony zostaje jego status
                 quest.isActive = false
                 
                 NotificationCenter.default.post(name: NSNotification.Name("questStatusChanged"), object: nil, userInfo: ["questId": quest.id, "activeStatus": quest.isActive, "finishedStatus": quest.isFinished])
@@ -245,7 +261,6 @@ final class Player: SCNNode {
     }
     
     func questManager() {
-        //player can accept more quests and npc has quests to give
         if
             playerModel.quests.count <= 5,
             let quest = npc?.npcModel.quest
@@ -257,30 +272,34 @@ final class Player: SCNNode {
                 }
             }
             if canAddQuest {
-                //add quest desc to npc dialog
+                //npc może przedstawić graczowi zadanie
                 npc?.npcModel.updateDialogWithQuest()
                 playerModel.quests.append(quest)
             }
         }
         if let quest = npc?.npcModel.quest, !quest.isActive, !quest.isFinished {
             npc?.npcModel.finishQuestDialogUpdate(quest: quest.desc)
-            //Finish quest
+            //zadanie jest zakończone, zmieniany jest status zadania w modelu npc
             quest.isFinished = true
+            //gracz dostaje wynagrodzenie za wykonanie zadania
             update(with: quest.exp)
             
             for playerQuest in playerModel.quests {
                 if playerQuest.id == quest.id {
+                    //zmieniany jest status zadania w modelu gracza
                     playerQuest.isFinished = true
                 }
             }
         }
     }
 
-    
+    //graczowi zostały zadane obrażenia
     func gotHit(with hpPoints: Int) {
+        //zmniejszam aktualny poziom życia
         playerModel.hpPoints -= hpPoints
+        //aktualizuje widok paska życia nowymi danymi
         NotificationCenter.default.post(name: NSNotification.Name("hpChanged"), object: nil, userInfo: ["playerMaxHp": playerModel.maxHpPoints, "currentHp": playerModel.hpPoints])
-
+        //jeśli życie jest <= 0 gracz ginie
         if playerModel.hpPoints <= 0 {
             die()
         }
@@ -327,7 +346,9 @@ final class Player: SCNNode {
     }
     
     func updateCharacterModelData() {
+       //zmapuj player model na PlayerCharacterStatsModel
         let model = mapper.map(entity: playerModel)
+       //wyświetlaj przycisk do ulepszenia prędkości tylko jeśli aktualna prędkość postaci jest mniejsza niż 3
         let speedButton = playerModel.maxSpeed <= 3
         
         //update level
@@ -363,11 +384,13 @@ extension Player: CAAnimationDelegate {
 
 extension Player: BattleAction {
     func attack() {
+       //jeśli player nie jest już w trakcie ataku lub interakcji
         if playerModel.isAttacking || playerModel.isDead || playerModel.isInteracting { return }
         playerModel.isAttacking = true
         isWalking = false
 
         DispatchQueue.main.async {
+            //dodaje animację ataku i w attackTimerTicked po sprawdzeniu węzłów kolidujących z bronią postaci wywołujemy akcję gotHit na walczących przeciwnikach
             self.attackTimer?.invalidate()
             self.attackTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(self.attackTimerTicked), userInfo: nil, repeats: true)
             self.characterNode.addAnimation(self.animation.attackAnimation, forKey: "attack")
@@ -375,19 +398,24 @@ extension Player: BattleAction {
     }
     
     func die() {
+       //aktualizuje dane gracza i dodaje do jego węzła animację śmierci
         playerModel.isDead = true
         guard let node = characterNode else { return }
         node.addAnimation(animation.deadAnimation, forKey: "deadKey")
         
+        //po zagraniu animacji wywołuję akcję czekania 2
         let wait = SCNAction.wait(duration: 2.0)
+        //ustawiam akcję zmiany widoczności na 0
         let fadeOut = SCNAction.fadeOpacity(to: 0, duration: 1.0)
+        //zmieniam parametr isHidden dla węzła i umieszczam tą zmianę w akcji hide
         let hide = SCNAction.run { (node) in
             node.isHidden = true
             //add effect
         }
-        
+        //wywołuje akcje w sekwencji
         let seq = SCNAction.sequence([wait, fadeOut, hide])
         runAction(seq)
+        //prezentuję ekran porażki
         NotificationCenter.default.post(name: NSNotification.Name("resetGame"), object: nil, userInfo:[:])
     }
 }
