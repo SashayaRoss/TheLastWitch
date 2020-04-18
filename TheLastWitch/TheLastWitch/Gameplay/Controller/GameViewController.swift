@@ -107,6 +107,7 @@ final class GameViewController: UIViewController {
     
     private func setupObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(gameOver), name: NSNotification.Name("resetGame"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(victory), name: NSNotification.Name("victory"), object: nil)
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -478,6 +479,19 @@ final class GameViewController: UIViewController {
                     break
                 }
             }
+        }
+    }
+    
+    @objc func victory() {
+        guard let view = gameView else { return }
+        currentView = .gameOver
+        gameState = .paused
+        view.isUserInteractionEnabled = false
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+            view.removeCurrentView()
+            view.setupVictory()
+            view.isUserInteractionEnabled = true
         }
     }
     

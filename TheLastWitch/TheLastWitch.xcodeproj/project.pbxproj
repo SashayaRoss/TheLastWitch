@@ -108,6 +108,8 @@
 		7EDFF580241E99E200D24798 /* PhysicsContactExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF57F241E99E200D24798 /* PhysicsContactExtension.swift */; };
 		7EDFF583241EA8E700D24798 /* AnimationInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFF582241EA8E700D24798 /* AnimationInterface.swift */; };
 		7EF02509244677A9008FD22D /* SetupNodesInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF02508244677A9008FD22D /* SetupNodesInterface.swift */; };
+		7EF0250B244B3C12008FD22D /* VictoryConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF0250A244B3C12008FD22D /* VictoryConfigurator.swift */; };
+		7EF0250E244B3C60008FD22D /* VictoryNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF0250D244B3C60008FD22D /* VictoryNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -226,6 +228,8 @@
 		7EDFF57F241E99E200D24798 /* PhysicsContactExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsContactExtension.swift; sourceTree = "<group>"; };
 		7EDFF582241EA8E700D24798 /* AnimationInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationInterface.swift; sourceTree = "<group>"; };
 		7EF02508244677A9008FD22D /* SetupNodesInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupNodesInterface.swift; sourceTree = "<group>"; };
+		7EF0250A244B3C12008FD22D /* VictoryConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VictoryConfigurator.swift; sourceTree = "<group>"; };
+		7EF0250D244B3C60008FD22D /* VictoryNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VictoryNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,6 +363,7 @@
 				7E106FCE243CFC480044F3AD /* GoBackButtonNode.swift */,
 				7E34BA0F23B8024D00FA0BEE /* NodeSetupInterface.swift */,
 				7E106FD5243D01750044F3AD /* VirtualBoundsSetupInterface.swift */,
+				7EF0250C244B3C4F008FD22D /* Victory */,
 				7E106FFF244374DA0044F3AD /* GameOver */,
 				7E106FC6243A4B300044F3AD /* WelcomeScreen */,
 				7EB244C9242FB36C004F3172 /* Dialog */,
@@ -584,6 +589,7 @@
 			children = (
 				7E57ACA7241FDC85003350C9 /* GameView.swift */,
 				7E106FFD244374940044F3AD /* GameOverConfigurator.swift */,
+				7EF0250A244B3C12008FD22D /* VictoryConfigurator.swift */,
 				7E886908243A140E0022E411 /* WelcomeScreenConfigurator.swift */,
 				7EB244D1242FBC06004F3172 /* HUDConfigurator.swift */,
 				7EB244D3242FC1FF004F3172 /* CharacterConfigurator.swift */,
@@ -701,6 +707,14 @@
 			path = Animation;
 			sourceTree = "<group>";
 		};
+		7EF0250C244B3C4F008FD22D /* Victory */ = {
+			isa = PBXGroup;
+			children = (
+				7EF0250D244B3C60008FD22D /* VictoryNode.swift */,
+			);
+			path = Victory;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -811,6 +825,7 @@
 				7EB244FA24328F6E004F3172 /* WolfBossModel.swift in Sources */,
 				7E23B0C3241ED573002A2395 /* CharacterButtonNode.swift in Sources */,
 				7EB244D6242FC211004F3172 /* DialogConfigurator.swift in Sources */,
+				7EF0250E244B3C60008FD22D /* VictoryNode.swift in Sources */,
 				7E57ACB9241FDD43003350C9 /* GameMenuLayoutManaging.swift in Sources */,
 				7E106FEE244243060044F3AD /* Perks.swift in Sources */,
 				7EDFF572241E85F400D24798 /* SetupInterface.swift in Sources */,
@@ -860,6 +875,7 @@
 				7EB244CF242FB769004F3172 /* CurrentView.swift in Sources */,
 				7EB244D4242FC1FF004F3172 /* CharacterConfigurator.swift in Sources */,
 				7EB244DE242FE8B0004F3172 /* CharacterBgNode.swift in Sources */,
+				7EF0250B244B3C12008FD22D /* VictoryConfigurator.swift in Sources */,
 				7E34BA1723B8251A00FA0BEE /* Player.swift in Sources */,
 				7EDFF570241E857900D24798 /* MainCamera.swift in Sources */,
 				7E106FEC2441C5290044F3AD /* QuestType.swift in Sources */,

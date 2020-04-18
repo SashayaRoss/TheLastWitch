@@ -22,6 +22,7 @@ final class GameView: SCNView {
     
     let welcomeScreenView = WelcomeScreenConfigurator()
     let gameOverView = GameOverConfigurator()
+    let victoryView = VictoryConfigurator()
     
     //MARK: lifecycle
     override func awakeFromNib() {
@@ -58,6 +59,11 @@ final class GameView: SCNView {
     func setupGameOver() {
         let directory = "art.scnassets/WelcomeScreen/"
         gameOverView.setup(skScene: skScene, directory: directory, viewBounds: viewBounds)
+    }
+    
+    func setupVictory() {
+        let directory = "art.scnassets/WelcomeScreen/"
+        victoryView.setup(skScene: skScene, directory: directory, viewBounds: viewBounds)
     }
     
     override func layoutSubviews() {
