@@ -90,6 +90,8 @@ final class Enemy: SCNNode {
         self.position = enemyModel.position
         //zmieniam widoczność węzła
         self.isHidden = false
+        self.removeAllActions()
+        self.opacity = 1
         //usuwam animacje śmierci
         self.removeAnimation(forKey: "dead")
     }
