@@ -12,7 +12,7 @@ final class PlayerFactory {
     private var player: Player
     private let model: PlayerModel
     private let mapper: PlayerCharacterMapper
-    private let position = SCNVector3(4, 0.6, -10)
+    private var position = SCNVector3(0, 0, 0)
     var scene: SCNScene
     
     //inicjalizacja
@@ -24,6 +24,11 @@ final class PlayerFactory {
         self.scene = scene
         self.model = model
         self.mapper = mapper
+        
+        if let playerPosition = scene.rootNode.childNode(withName: "Hero", recursively: false) {
+            position = playerPosition.position
+        }
+        
         player = Player(
             playerModel: model,
             mapper: mapper,

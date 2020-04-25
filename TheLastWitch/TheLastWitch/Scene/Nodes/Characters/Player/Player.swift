@@ -100,7 +100,8 @@ final class Player: SCNNode {
     private func setupModel() {
         //load dae childs
         let playerURL = Bundle.main.url(forResource: "art.scnassets/Scenes/Characters/Hero/idle", withExtension: "dae")
-        let playerScene = try! SCNScene(url: playerURL!, options: nil)
+        guard let url = playerURL else { return }
+        let playerScene = try! SCNScene(url: url, options: nil)
 
         for child in playerScene.rootNode.childNodes {
             daeHolderNode.addChildNode(child)
