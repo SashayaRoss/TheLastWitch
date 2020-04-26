@@ -130,35 +130,35 @@ final class Player: SCNNode {
         //porusz się
         if direction.x != 0.0 && direction.z != 0.0 {
 //            TODO camera!!!!
-//            if let dPad = dPadOrigin, let touch = touchLocation, let camera = cameraRotation {
-//                //zapisuje położenie centrum dPada
-//                let middleOfCircleX = dPad.x + 75
-//                let middleOfCircleY = dPad.y + 75
-//                 //na podstawie położenia dPada i dotyku usera obliczam długości wektorów dla nowego położenia gracza
-//                let lengthOfX = Float(touch.x - middleOfCircleX)
-//                let lengthOfY = Float(touch.y - middleOfCircleY)
-//                var newDirection = float3(x: lengthOfX, y: 0, z: lengthOfY)
-//                newDirection = normalize(newDirection)
-////                print("x: \(touch.x), y: \(touch.y)")
-//
-//                //zmieniam pozycję postaci
-//                let pos = float3(position)
-//                position = SCNVector3(pos + newDirection * characterSpeed)
-//
-//                //aktualizuję kąt
-//                let degree = atan2(newDirection.x, newDirection.z)
-//                directionAngle = degree
-//                //postać rozpoczęła ruch -> aktualizuje parametr isWalking
-//                isWalking = true
-//            }
+            if let dPad = dPadOrigin, let touch = touchLocation, let camera = cameraRotation {
+                //zapisuje położenie centrum dPada
+                let middleOfCircleX = dPad.x + 75
+                let middleOfCircleY = dPad.y + 75
+                 //na podstawie położenia dPada i dotyku usera obliczam długości wektorów dla nowego położenia gracza
+                let lengthOfX = Float(touch.x - middleOfCircleX)
+                let lengthOfY = Float(touch.y - middleOfCircleY)
+                var newDirection = float3(x: lengthOfX, y: 0, z: lengthOfY)
+                newDirection = normalize(newDirection)
+//                print("x: \(touch.x), y: \(touch.y)")
+
+                //zmieniam pozycję postaci
+                let pos = float3(position)
+                position = SCNVector3(pos + newDirection * characterSpeed)
+
+                //aktualizuję kąt
+                let degree = atan2(newDirection.x, newDirection.z)
+                directionAngle = degree
+                //postać rozpoczęła ruch -> aktualizuje parametr isWalking
+                isWalking = true
+            }
             //move character
-            let pos = float3(position)
-            position = SCNVector3(pos + direction * characterSpeed)
-
-            //update angle
-            directionAngle = SCNFloat(atan2f(direction.x, direction.z))
-
-            isWalking = true
+//            let pos = float3(position)
+//            position = SCNVector3(pos + direction * characterSpeed)
+//
+//            //update angle
+//            directionAngle = SCNFloat(atan2f(direction.x, direction.z))
+//
+//            isWalking = true
         } else {
             //postać zakończyła ruch -> aktualizuje parametr isWalking
             isWalking = false

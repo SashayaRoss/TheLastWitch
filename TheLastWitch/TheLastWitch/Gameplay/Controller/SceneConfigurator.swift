@@ -18,7 +18,6 @@ final class SceneConfigurator {
         case .transition:
             sceneName = "art.scnassets/Scenes/World/TransitionScene.scn"
         default:
-//            sceneName = "art.scnassets/Scenes/World/Stage1.scn"
             sceneName = "art.scnassets/Scenes/World/ForestScene/ForestScene.scn"
         }
         let mainScene = SCNScene(named: sceneName)
