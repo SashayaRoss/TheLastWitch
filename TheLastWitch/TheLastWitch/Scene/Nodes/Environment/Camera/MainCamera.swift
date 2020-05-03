@@ -42,7 +42,7 @@ final class MainCamera {
         }
 
         cameraYHolder.rotation = SCNVector4Make(1, 0, 0, yRotationValue)
-        print("camera rotation: \(xRotationValue)")
+//        print("camera rotation: \(xRotationValue)")
     }
     
     func getRotation() -> Float {

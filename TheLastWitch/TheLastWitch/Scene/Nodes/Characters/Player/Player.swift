@@ -209,6 +209,8 @@ final class Player: SCNNode {
     }
     
     func playerCollide(with node:SCNNode) {
+        print("collides: ")
+        print(node)
         activePlayerCollideNodes.insert(node)
     }
 
