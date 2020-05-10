@@ -55,8 +55,8 @@ final class PlayerAnimation {
 extension PlayerAnimation: AnimationInterface {
     //ładuje animacje z podanym identyfikatorem ze ścieżek do katalogu
     func loadAnimations() {
-        loadAnimation(animationType: .walk, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/walk", withIdentifier: "WalkID")
-        loadAnimation(animationType: .dead, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/die", withIdentifier: "DeathID")
-        loadAnimation(animationType: .attack, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/attack", withIdentifier: "attackID")
+        loadAnimation(animationType: .walk, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/witchRunning", withIdentifier: "WalkID")
+        loadAnimation(animationType: .dead, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/witchDeath", withIdentifier: "DeathID")
+        loadAnimation(animationType: .attack, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/witchAttack", withIdentifier: "attackID")
     }
 }

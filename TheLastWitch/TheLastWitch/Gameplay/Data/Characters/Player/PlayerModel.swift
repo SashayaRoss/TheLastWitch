@@ -28,12 +28,14 @@ final class PlayerModel {
     var isInteracting = false
     var isDead = false
     
+    var gameOver = false
+    
     func resetModel() {
         maxHpPoints = 100
         hpPoints = 100
         maxExpPoints = 100
         expPoints = 0
-        maxSpeed = 1.8
+        maxSpeed = 4
         maxMagic = 0.5
         level = 1
         levelPoints = 2

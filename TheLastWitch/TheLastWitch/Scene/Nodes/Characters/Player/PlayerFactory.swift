@@ -48,7 +48,7 @@ final class PlayerFactory {
 extension PlayerFactory: SetupInterface {
     func setup() {
         //ustawienie parametrów
-        let playerScale = Float(0.005)
+        let playerScale = Float(1)
         
         player.scale = SCNVector3Make(playerScale, playerScale, playerScale)
         player.position = position

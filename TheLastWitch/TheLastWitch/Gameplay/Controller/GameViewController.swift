@@ -245,6 +245,9 @@ final class GameViewController: UIViewController {
                         } else {
                             if let magic = activePlayer.magic {
                                magic.currentDialog = 0
+                                if player.playerModel.gameOver == true {
+                                    NotificationCenter.default.post(name: NSNotification.Name("victory"), object: nil, userInfo:[:])
+                                }
                             }
                             activePlayer.magic?.perkPlayer()
                             view.removeCurrentView()
@@ -314,7 +317,7 @@ final class GameViewController: UIViewController {
             } else if
                 view.optionsView.newGame.virtualNodeBounds().contains(touch.location(in: view))
             {
-                //gracz wybrał nową grę
+                //gracz wybrał nową grę 
                 presentWelcomeScreen()
             } else if
                 view.optionsView.devMode.virtualNodeBounds().contains(touch.location(in: view))
@@ -422,7 +425,6 @@ final class GameViewController: UIViewController {
         //wyłączam możliwość interakcji z ekranem dla usera i zmieniam statusy gry
         view.isUserInteractionEnabled = false
         gameplayScene.isPaused = true
-        currentView = .tapToPlay
        //ustawiam przejście do nowej sceny i zamieniam muzykę
         let transition = SKTransition.fade(withDuration: 1.8)
         gameMusic.playTheme(scene: newGameScene, directory: "art.scnassets/Audio/Magic.wav")
@@ -436,6 +438,7 @@ final class GameViewController: UIViewController {
                 view.removeCurrentView()
                 view.setupWelcomeScreen()
                 self.resetGame()
+                self.currentView = .tapToPlay 
                 //włączam możliwość interakcji z ekranem dla usera
                 self.view.isUserInteractionEnabled = true
             }
@@ -483,16 +486,7 @@ final class GameViewController: UIViewController {
     }
     
     @objc func victory() {
-        guard let view = gameView else { return }
-        currentView = .gameOver
-        gameState = .paused
-        view.isUserInteractionEnabled = false
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-            view.removeCurrentView()
-            view.setupVictory()
-            view.isUserInteractionEnabled = true
-        }
+        presentWelcomeScreen()
     }
     
     @objc func gameOver() {

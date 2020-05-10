@@ -48,7 +48,7 @@ final class MagicElementsFactory {
         
         guard let positionPortal = magicElementsPositionArray["portal"] else { return }
         let portalModel = PortalModel(
-            dialog: ["I'm a portal"],
+            dialog: ["You found the portal!",  "Your mission here is done.", "Be careful on your next adventure brave witch!", "[You stepped through the portal]"],
             model: "art.scnassets/Scenes/Enviroment/portal",
             perk: .fullHP
         )

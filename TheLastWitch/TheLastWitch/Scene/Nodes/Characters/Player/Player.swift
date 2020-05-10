@@ -99,7 +99,7 @@ final class Player: SCNNode {
     //MARK:- scene
     private func setupModel() {
         //load dae childs
-        let playerURL = Bundle.main.url(forResource: "art.scnassets/Scenes/Characters/Hero/idle", withExtension: "dae")
+        let playerURL = Bundle.main.url(forResource: "art.scnassets/Scenes/Characters/Hero/witchIdle", withExtension: "dae")
         guard let url = playerURL else { return }
         let playerScene = try! SCNScene(url: url, options: nil)
 
@@ -130,35 +130,34 @@ final class Player: SCNNode {
         //porusz się
         if direction.x != 0.0 && direction.z != 0.0 {
 //            TODO camera!!!!
-//            if let dPad = dPadOrigin, let touch = touchLocation, let camera = cameraRotation {
-//                //zapisuje położenie centrum dPada
-//                let middleOfCircleX = dPad.x + 75
-//                let middleOfCircleY = dPad.y + 75
-//                 //na podstawie położenia dPada i dotyku usera obliczam długości wektorów dla nowego położenia gracza
-//                let lengthOfX = Float(touch.x - middleOfCircleX)
-//                let lengthOfY = Float(touch.y - middleOfCircleY)
-//                var newDirection = float3(x: lengthOfX, y: 0, z: lengthOfY)
-//                newDirection = normalize(newDirection)
-////                print("x: \(touch.x), y: \(touch.y)")
-//
-//                //zmieniam pozycję postaci
-//                let pos = float3(position)
-//                position = SCNVector3(pos + newDirection * characterSpeed)
-//
-//                //aktualizuję kąt
-//                let degree = atan2(newDirection.x, newDirection.z)
-//                directionAngle = degree
-//                //postać rozpoczęła ruch -> aktualizuje parametr isWalking
-//                isWalking = true
-//            }
+            if let dPad = dPadOrigin, let touch = touchLocation, let camera = cameraRotation {
+                //zapisuje położenie centrum dPada
+                let middleOfCircleX = dPad.x + 75
+                let middleOfCircleY = dPad.y + 75
+                 //na podstawie położenia dPada i dotyku usera obliczam długości wektorów dla nowego położenia gracza
+                let lengthOfX = Float(touch.x - middleOfCircleX)
+                let lengthOfY = Float(touch.y - middleOfCircleY)
+                var newDirection = float3(x: lengthOfX, y: 0, z: lengthOfY)
+                newDirection = normalize(newDirection)
+
+                //zmieniam pozycję postaci
+                let pos = float3(position)
+                position = SCNVector3(pos + newDirection * characterSpeed)
+
+                //aktualizuję kąt
+                let degree = atan2(newDirection.x, newDirection.z)
+                directionAngle = degree
+                //postać rozpoczęła ruch -> aktualizuje parametr isWalking
+                isWalking = true
+            }
             //move character
-            let pos = float3(position)
-            position = SCNVector3(pos + direction * characterSpeed)
-
-            //update angle
-            directionAngle = SCNFloat(atan2f(direction.x, direction.z))
-
-            isWalking = true
+//            let pos = float3(position)
+//            position = SCNVector3(pos + direction * characterSpeed)
+//
+//            //update angle
+//            directionAngle = SCNFloat(atan2f(direction.x, direction.z))
+//
+//            isWalking = true
         } else {
             //postać zakończyła ruch -> aktualizuje parametr isWalking
             isWalking = false
@@ -291,12 +290,13 @@ final class Player: SCNNode {
                 if playerQuest.id == quest.id {
                     //zmieniany jest status zadania w modelu gracza
                     playerQuest.isFinished = true
-                    if playerQuest.id == 1 {
-                        //wygrana, cel gry został osiągnięty
-                        NotificationCenter.default.post(name: NSNotification.Name("victory"), object: nil, userInfo:[:])
-                    }
                 }
             }
+        }
+        if let target = magic?.magicElementModel.type,
+            target == .bluePortal {
+            //wygrana, cel gry został osiągnięty
+            playerModel.gameOver = true
         }
     }
 
