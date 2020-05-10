@@ -25,7 +25,7 @@ final class NPCFactory {
     
     private func setupNPC() {
         // ustawienie parametrów i modeli dla npc
-        let npcScale: Float = 0.005
+        let npcScale: Float = 0.25
         let quest = Quest(
             id: 1,
             desc: "Defeat 2 monsters in nearby forest. You will recive 50 exp!",

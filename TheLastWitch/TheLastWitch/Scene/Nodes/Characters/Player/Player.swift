@@ -99,7 +99,7 @@ final class Player: SCNNode {
     //MARK:- scene
     private func setupModel() {
         //load dae childs
-        let playerURL = Bundle.main.url(forResource: "art.scnassets/Scenes/Characters/Hero/witchIdle", withExtension: "dae")
+        let playerURL = Bundle.main.url(forResource: "art.scnassets/Scenes/Characters/Hero/idle", withExtension: "dae")
         guard let url = playerURL else { return }
         let playerScene = try! SCNScene(url: url, options: nil)
 
@@ -109,7 +109,7 @@ final class Player: SCNNode {
         addChildNode(daeHolderNode)
 
         //set mesh name
-        guard let node = daeHolderNode.childNode(withName: "Bip01", recursively: true) else { return }
+        guard let node = daeHolderNode.childNode(withName: "Armature", recursively: true) else { return }
         characterNode = node
     }
 

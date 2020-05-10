@@ -69,7 +69,7 @@ final class Npc: SCNNode {
         }
         addChildNode(daeHolderNode)
         //set mesh name
-        characterNode = daeHolderNode.childNode(withName: "Bip01", recursively: true)!
+        characterNode = daeHolderNode.childNode(withName: "Armature", recursively: true)!
     }
     
     private func setupObservers() {
