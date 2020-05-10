@@ -15,7 +15,7 @@ final class PlayerModel {
     var maxExpPoints: Int = 100
     var expPoints: Int = 0
     
-    var maxSpeed: Float = 1.8
+    var maxSpeed: Float = 4
     var maxMagic: Float = 0.5
     var level: Int = 1
     var levelPoints: Int = 2

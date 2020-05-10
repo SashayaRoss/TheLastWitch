@@ -38,7 +38,7 @@ extension DialogTextNode: NodeSetupInterface {
         //nadanie maksymalnej wielkości do jakiej tekst wyświetli się w pojedynczej lini
         dialogSprite.preferredMaxLayoutWidth = bounds.size.width - 50
         //wyświetlanie tekstu w więcej niż jednej lini
-        dialogSprite.numberOfLines = 2
+        dialogSprite.numberOfLines = 5
         //nadanie koloru tekstu
         dialogSprite.fontColor = .brownLetters
     

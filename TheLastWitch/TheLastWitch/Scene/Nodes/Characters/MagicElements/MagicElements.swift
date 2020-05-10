@@ -55,7 +55,10 @@ final class MagicElements: SCNNode {
     private func setupModelScene() {
         name = "Magic"
         let idleURL = Bundle.main.url(forResource: magicElementModel.model, withExtension: "dae")
-        let idleScene = try! SCNScene(url: idleURL!, options: nil)
+        guard let url  = idleURL else {
+            return
+        }
+        let idleScene = try! SCNScene(url: url, options: nil)
         
         for child in idleScene.rootNode.childNodes {
             daeHolderNode.addChildNode(child)

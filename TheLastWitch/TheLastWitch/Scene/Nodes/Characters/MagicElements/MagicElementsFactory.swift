@@ -24,7 +24,7 @@ final class MagicElementsFactory {
     }
     
     private func setupMagicalElements() {
-        let scale: Float = 0.003
+        let scale: Float = 0.005
         let shrineModel = MagicShrine(
             dialog: ["I am a magic well", "I know I don't look like one yet", "I can give you some exp", "You have been granted 50 exp!"],
             model: "art.scnassets/Scenes/Characters/Hero/idle",
@@ -46,12 +46,24 @@ final class MagicElementsFactory {
         guard let position2 =  magicElementsPositionArray["magic2"] else { return }
         magicElements2.position = position2
         
+        guard let positionPortal = magicElementsPositionArray["portal"] else { return }
+        let portalModel = PortalModel(
+            dialog: ["I'm a portal"],
+            model: "art.scnassets/Scenes/Enviroment/portal",
+            perk: .fullHP
+        )
+        let portal = MagicElements(player: player, view: gameView, magicElementModel: portalModel)
+        portal.scale = SCNVector3Make(scale, scale, scale)
+        portal.position = positionPortal
+        
         gameView.prepare([magicElements, magicElements2]) { (finished) in
             self.scene.rootNode.addChildNode(magicElements)
             self.scene.rootNode.addChildNode(magicElements2)
+            self.scene.rootNode.addChildNode(portal)
             
             magicElements.setupCollider(scale: CGFloat(scale))
             magicElements2.setupCollider(scale: CGFloat(scale))
+            portal.setupCollider(scale: CGFloat(scale))
         }
     }
 }

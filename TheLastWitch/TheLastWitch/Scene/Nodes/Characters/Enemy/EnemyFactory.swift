@@ -47,15 +47,15 @@ final class EnemyFactory {
         enemy3.position = position3
         enemy3.rotation = SCNVector4(0, 0, 0, 0)
         
-//        gameView.prepare([enemy1, enemy2, enemy3]) { (finished) in
-//            self.scene.rootNode.addChildNode(enemy1)
-//            self.scene.rootNode.addChildNode(enemy2)
-//            self.scene.rootNode.addChildNode(enemy3)
-//            
-//            enemy1.setupCollider(scale: CGFloat(enemyScale))
-//            enemy2.setupCollider(scale: CGFloat(enemyScale))
-//            enemy3.setupCollider(scale: CGFloat(enemyScale))
-//        }
+        gameView.prepare([enemy1, enemy2, enemy3]) { (finished) in
+            self.scene.rootNode.addChildNode(enemy1)
+            self.scene.rootNode.addChildNode(enemy2)
+            self.scene.rootNode.addChildNode(enemy3)
+            
+            enemy1.setupCollider(scale: CGFloat(enemyScale))
+            enemy2.setupCollider(scale: CGFloat(enemyScale))
+            enemy3.setupCollider(scale: CGFloat(enemyScale))
+        }
     }
     
 }

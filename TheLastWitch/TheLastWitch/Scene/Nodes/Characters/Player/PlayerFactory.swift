@@ -52,7 +52,7 @@ extension PlayerFactory: SetupInterface {
         
         player.scale = SCNVector3Make(playerScale, playerScale, playerScale)
         player.position = position
-        player.rotation = SCNVector4Make(0, 0, 0, Float.pi)
+        player.rotation = SCNVector4Make(0, Float.pi, 0, Float.pi)
         
         //dodanie do sceny i ustawienie collider'a
         scene.rootNode.addChildNode(player)
