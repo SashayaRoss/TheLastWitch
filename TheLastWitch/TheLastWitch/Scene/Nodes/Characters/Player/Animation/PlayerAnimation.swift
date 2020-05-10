@@ -46,6 +46,7 @@ final class PlayerAnimation {
         case .attack:
             //po ukończeniu ataku animacja ataku zostaje usunięta
             animationObject.isRemovedOnCompletion = true
+            animationObject.speed = 2
             animationObject.setValue("attack", forKey: "attackKey")
             attackAnimation = animationObject
         }
@@ -57,6 +58,6 @@ extension PlayerAnimation: AnimationInterface {
     func loadAnimations() {
         loadAnimation(animationType: .walk, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/walk", withIdentifier: "WalkID")
         loadAnimation(animationType: .dead, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/death", withIdentifier: "DeathID")
-        loadAnimation(animationType: .attack, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/attack", withIdentifier: "attackID")
+        loadAnimation(animationType: .attack, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/attack", withIdentifier: "AttackID")
     }
 }
