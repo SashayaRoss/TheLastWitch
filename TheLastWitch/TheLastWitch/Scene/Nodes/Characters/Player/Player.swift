@@ -27,9 +27,9 @@ final class Player: SCNNode {
         didSet {
             if oldValue != isWalking {
                 if isWalking {
-                    characterNode.addAnimation(animation.walkAnimation, forKey: "walk")
+                    characterNode.removeAnimation(forKey: "idle", blendOutDuration: 0.2)
                 } else {
-                    characterNode.removeAnimation(forKey: "walk", blendOutDuration: 0.2)
+                    characterNode.addAnimation(animation.walkAnimation, forKey: "idle")
                 }
             }
         }
@@ -82,6 +82,7 @@ final class Player: SCNNode {
         animation = PlayerAnimation()
         animation.loadAnimations()
         animation.object.delegate = self
+        characterNode.addAnimation(animation.walkAnimation, forKey: "idle")
     }
 
     required init?(coder: NSCoder) {
@@ -94,12 +95,13 @@ final class Player: SCNNode {
         self.isHidden = false
         self.removeAnimation(forKey: "dead")
         self.opacity = 1.0
+        isWalking = false
     }
 
     //MARK:- scene
     private func setupModel() {
         //load dae childs
-        let playerURL = Bundle.main.url(forResource: "art.scnassets/Scenes/Characters/Hero/idle", withExtension: "dae")
+        let playerURL = Bundle.main.url(forResource: "art.scnassets/Scenes/Characters/Hero/walk", withExtension: "dae")
         guard let url = playerURL else { return }
         let playerScene = try! SCNScene(url: url, options: nil)
 

@@ -34,6 +34,7 @@ final class PlayerAnimation {
         switch animationType {
         case .walk:
             animationObject.repeatCount = Float.greatestFiniteMagnitude
+            animationObject.speed = 2
             walkAnimation = animationObject
           
         case .dead:
@@ -56,7 +57,7 @@ final class PlayerAnimation {
 extension PlayerAnimation: AnimationInterface {
     //ładuje animacje z podanym identyfikatorem ze ścieżek do katalogu
     func loadAnimations() {
-        loadAnimation(animationType: .walk, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/walk", withIdentifier: "WalkID")
+        loadAnimation(animationType: .walk, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/idle", withIdentifier: "IdleID")
         loadAnimation(animationType: .dead, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/death", withIdentifier: "DeathID")
         loadAnimation(animationType: .attack, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/attack", withIdentifier: "AttackID")
     }
