@@ -6,7 +6,6 @@
 //  Copyright © 2020 Aleksandra Kustra. All rights reserved.
 //
 
-import SpriteKit
 import SceneKit
 
 final class PortalModel: MagicElementsModel {
