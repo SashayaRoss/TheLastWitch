@@ -6,9 +6,7 @@
 //  Copyright © 2020 Aleksandra Kustra. All rights reserved.
 //
 
-import Foundation
 import SceneKit
-import SpriteKit
 
 final class MusicManager {
     var sounds: [String: SCNAudioSource] = [:]

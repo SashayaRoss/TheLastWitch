@@ -6,7 +6,6 @@
 //  Copyright © 2019 Aleksandra Kustra. All rights reserved.
 //
 
-import Foundation
 import SceneKit
 
 final class Player: SCNNode {
