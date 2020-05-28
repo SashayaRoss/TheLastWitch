@@ -61,14 +61,16 @@ final class Npc: SCNNode {
     private func setupModelScene() {
         name = "Npc"
         let idleURL = Bundle.main.url(forResource: npcModel.model, withExtension: "dae")
-        let idleScene = try! SCNScene(url: idleURL!, options: nil)
+        guard let url = idleURL else { return }
+        let idleScene = try! SCNScene(url: url, options: nil)
         
         for child in idleScene.rootNode.childNodes {
             daeHolderNode.addChildNode(child)
         }
         addChildNode(daeHolderNode)
         //set mesh name
-        characterNode = daeHolderNode.childNode(withName: "Bip01", recursively: true)!
+        guard let node = daeHolderNode.childNode(withName: "Armature", recursively: true) else { return }
+        characterNode = node
     }
     
     private func setupObservers() {

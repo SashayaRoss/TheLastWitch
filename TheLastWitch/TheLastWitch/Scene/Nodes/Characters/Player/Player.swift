@@ -108,7 +108,7 @@ final class Player: SCNNode {
         addChildNode(daeHolderNode)
 
         //set mesh name
-        guard let node = daeHolderNode.childNode(withName: "Bip01", recursively: true) else { return }
+        guard let node = daeHolderNode.childNode(withName: "Armature", recursively: true) else { return }
         characterNode = node
     }
 
