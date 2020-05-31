@@ -461,6 +461,7 @@
 		7EA7A5FD23E5F61200894C4D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				7ED430782480550C0051B6FB /* Models */,
 				7EB244CC242FB50C004F3172 /* GameUtils.swift */,
 				7E34BA1D23B83B8900FA0BEE /* GameState.swift */,
 				7EDFF57E241E99C800D24798 /* Extensions */,
@@ -533,6 +534,7 @@
 		7EB244E72430DC13004F3172 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				7E106FF124432F370044F3AD /* TargetType.swift */,
 				7E106FBC243A354E0044F3AD /* Environment */,
 				7EB244E82430DC1D004F3172 /* Characters */,
 			);
@@ -563,7 +565,6 @@
 		7EB244EA2430DC36004F3172 /* Enemy */ = {
 			isa = PBXGroup;
 			children = (
-				7E106FF124432F370044F3AD /* TargetType.swift */,
 				7EB244ED243108A0004F3172 /* EnemyModel.swift */,
 				7EB244EB2430DC5C004F3172 /* WolfModel.swift */,
 				7EB244F924328F6E004F3172 /* WolfBossModel.swift */,
@@ -580,6 +581,13 @@
 				7E106FEB2441C5290044F3AD /* QuestType.swift */,
 			);
 			path = Npc;
+			sourceTree = "<group>";
+		};
+		7ED430782480550C0051B6FB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		7EDFF5652416CB0A00D24798 /* HUD */ = {

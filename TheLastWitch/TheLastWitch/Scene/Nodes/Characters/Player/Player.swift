@@ -99,7 +99,7 @@ final class Player: SCNNode {
 
     //MARK:- scene
     private func setupModel() {
-        //load dae childs
+        //load dae children
         let playerURL = Bundle.main.url(forResource: "art.scnassets/Scenes/Characters/Hero/walk", withExtension: "dae")
         guard let url = playerURL else { return }
         let playerScene = try! SCNScene(url: url, options: nil)

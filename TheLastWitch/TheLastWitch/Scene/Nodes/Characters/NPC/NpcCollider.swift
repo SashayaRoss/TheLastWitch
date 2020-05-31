@@ -22,7 +22,7 @@ final class NpcCollider: ColliderInterface {
         //określenie pozycji, nazwy i widoczności
         collider.position = SCNVector3Make(0.0, 2.5, 0.0)
         collider.name = "npcCollider"
-        collider.opacity = 0.0
+        collider.opacity = 1.0
         
         //skalowanie kształtu do wielkości obiektu na scenie
         let physicsGeometry = SCNCapsule(capRadius: 1.2 * scale, height: 4 * scale)

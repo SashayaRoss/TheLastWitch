@@ -12,7 +12,7 @@ final class WolfModel: EnemyModel {
     let name: String
    //jako słabszy przeciwnik, model wilka ma poziom życia i siłę niższą, doświadczenie zdobyte za jego pokonanie również jest mniejsze w porównaniu do zdobytego za pokonanie potężniejszego przeciwnika
     var hp: Int = 10
-    var strength: Int = 0
+    var strength: Int = 20
     var exp: Int = 60
     var type: TargetType = .golem
     let position: SCNVector3
