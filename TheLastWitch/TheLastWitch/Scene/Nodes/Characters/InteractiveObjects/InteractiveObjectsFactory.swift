@@ -41,17 +41,17 @@ final class InteractiveObjectsFactory {
             perk: .fullHP
         )
         
-        let interactiveObject1 = InteractiveObject(player: player, view: gameView, interactiveObjectModel: chestModel1)
+        let interactiveObject1 = Interactive(player: player, view: gameView, interactiveObjectModel: chestModel1)
         interactiveObject1.scale = SCNVector3Make(scale, scale, scale)
         guard let position1 =  interactiveObjectPositionArray["chest1"] else { return }
-        interactiveObject1.position = position1
+        interactiveObject1.position = SCNVector3(position1.x, 0.44, position1.z)
         
-        let interactiveObject2 = InteractiveObject(player: player, view: gameView, interactiveObjectModel: chestModel2)
+        let interactiveObject2 = Interactive(player: player, view: gameView, interactiveObjectModel: chestModel2)
         interactiveObject2.scale = SCNVector3Make(scale, scale, scale)
         guard let position2 =  interactiveObjectPositionArray["chest2"] else { return }
         interactiveObject2.position = position2
         
-        let interactiveObject3 = InteractiveObject(player: player, view: gameView, interactiveObjectModel: chestModel3)
+        let interactiveObject3 = Interactive(player: player, view: gameView, interactiveObjectModel: chestModel3)
         interactiveObject3.scale = SCNVector3Make(scale, scale, scale)
         guard let position3 =  interactiveObjectPositionArray["chest3"] else { return }
         interactiveObject3.position = position3
@@ -63,7 +63,7 @@ final class InteractiveObjectsFactory {
             model: "art.scnassets/Scenes/Environment/portal",
             perk: .fullHP
         )
-        let portal = InteractiveObject(player: player, view: gameView, interactiveObjectModel: portalModel)
+        let portal = Interactive(player: player, view: gameView, interactiveObjectModel: portalModel)
         portal.scale = SCNVector3Make(scale, scale, scale)
         portal.position = positionPortal
         

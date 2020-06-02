@@ -12,15 +12,15 @@ final class InteractiveObjectCollider: ColliderInterface {
     var collider: SCNNode!
 
     func setupCollider(with scale: CGFloat) -> SCNNode {
-        let geometry = SCNCapsule(capRadius: 60, height: 200)
+        let geometry = SCNBox(width: 3.0, height: 2.0, length: 2.0, chamferRadius: 0.0)
         geometry.firstMaterial?.diffuse.contents = UIColor.blue
         
         collider = SCNNode(geometry: geometry)
-        collider.position = SCNVector3Make(0.0, 120, 0.0)
+        collider.position = SCNVector3Make(0, 0.3, 0)
         collider.name = "interactiveObjectCollider"
         collider.opacity = 0.0
         
-        let physicsGeometry = SCNCapsule(capRadius: 20 * scale, height: 52 * scale)
+        let physicsGeometry = SCNBox(width: 3.0 * scale, height: 2.0 * scale, length: 2.0 * scale, chamferRadius: 0.0)
         let physicsShape = SCNPhysicsShape(geometry: physicsGeometry, options: nil)
         collider.physicsBody = SCNPhysicsBody(type: .kinematic, shape: physicsShape)
         collider.physicsBody!.categoryBitMask = Bitmask().interactiveObject

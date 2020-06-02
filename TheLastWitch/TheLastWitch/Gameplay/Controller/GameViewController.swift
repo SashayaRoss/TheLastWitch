@@ -477,7 +477,7 @@ final class GameViewController: UIViewController {
                 case "Npc":
                     (node as? Npc)?.npcGameOver()
                 case "Interactive":
-                    (node as? InteractiveObject)?.magicGameOver()
+                    (node as? Interactive)?.magicGameOver()
                 default:
                     break
                 }
@@ -554,7 +554,7 @@ extension GameViewController: SCNSceneRendererDelegate {
                 case "Npc":
                     (node as? Npc)?.update(with: time, and: scene)
                 case "Interactive":
-                    (node as? InteractiveObject)?.update(with: time, and: scene)
+                    (node as? Interactive)?.update(with: time, and: scene)
                 default:
                     break
                 }

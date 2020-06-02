@@ -8,7 +8,7 @@
 
 import SceneKit
 
-final class InteractiveObject: SCNNode {
+final class Interactive: SCNNode {
     //general
     var gameView: GameView!
     

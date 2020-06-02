@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7E106FB9243A34DC0044F3AD /* InteractiveObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FB8243A34DC0044F3AD /* InteractiveObject.swift */; };
+		7E106FB9243A34DC0044F3AD /* Interactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FB8243A34DC0044F3AD /* Interactive.swift */; };
 		7E106FBF243A35640044F3AD /* InteractiveObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FBE243A35640044F3AD /* InteractiveObjectModel.swift */; };
 		7E106FC1243A35D10044F3AD /* Chest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FC0243A35D10044F3AD /* Chest.swift */; };
 		7E106FC3243A38500044F3AD /* InteractiveObjectCollider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E106FC2243A38500044F3AD /* InteractiveObjectCollider.swift */; };
@@ -116,7 +116,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7E106FB8243A34DC0044F3AD /* InteractiveObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveObject.swift; sourceTree = "<group>"; };
+		7E106FB8243A34DC0044F3AD /* Interactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactive.swift; sourceTree = "<group>"; };
 		7E106FBE243A35640044F3AD /* InteractiveObjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveObjectModel.swift; sourceTree = "<group>"; };
 		7E106FC0243A35D10044F3AD /* Chest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chest.swift; sourceTree = "<group>"; };
 		7E106FC2243A38500044F3AD /* InteractiveObjectCollider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveObjectCollider.swift; sourceTree = "<group>"; };
@@ -240,7 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				7E106FC4243A39D00044F3AD /* InteractiveObjectsFactory.swift */,
-				7E106FB8243A34DC0044F3AD /* InteractiveObject.swift */,
+				7E106FB8243A34DC0044F3AD /* Interactive.swift */,
 				7E106FC2243A38500044F3AD /* InteractiveObjectCollider.swift */,
 				7E106FED244243060044F3AD /* Perks.swift */,
 			);
@@ -814,7 +814,7 @@
 				7E34BA1723B8251A00FA0BEE /* Player.swift in Sources */,
 				7EDFF570241E857900D24798 /* MainCamera.swift in Sources */,
 				7E106FEC2441C5290044F3AD /* QuestType.swift in Sources */,
-				7E106FB9243A34DC0044F3AD /* InteractiveObject.swift in Sources */,
+				7E106FB9243A34DC0044F3AD /* Interactive.swift in Sources */,
 				7EDFF5642415689100D24798 /* EXPBarNode.swift in Sources */,
 				7EA7A60323E5FCAE00894C4D /* Collision.swift in Sources */,
 				7EB244F424310C5B004F3172 /* VillagerModel.swift in Sources */,

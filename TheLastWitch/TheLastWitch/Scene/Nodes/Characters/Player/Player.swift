@@ -15,7 +15,7 @@ final class Player: SCNNode {
     private var collider: SCNNode!
     private var weaponCollider: SCNNode!
     var npc: Npc? = nil
-    var magic: InteractiveObject? = nil
+    var magic: Interactive? = nil
 
     //animation
     private var animation: AnimationInterface!

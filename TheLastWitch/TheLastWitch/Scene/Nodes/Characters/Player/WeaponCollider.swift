@@ -14,6 +14,7 @@ final class WeaponCollider: ColliderInterface {
     func setupCollider(with scale: CGFloat) -> SCNNode {
         let geometryBox = SCNBox(width: 3.0, height: 4.0, length: 4.0, chamferRadius: 0.0)
         geometryBox.firstMaterial?.diffuse.contents = UIColor.blue
+        
         collider = SCNNode(geometry: geometryBox)
         collider.name = "weaponCollider"
         collider.position = SCNVector3Make(0, 2, 1)
