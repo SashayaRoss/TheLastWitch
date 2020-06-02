@@ -14,6 +14,7 @@ final class NPCFactory {
     let gameView: GameView
     
     private var npcPositionArray = [String: SCNVector3]()
+    private var npcRotationArray = [String: SCNVector4]()
     
     init(scene: SCNScene, gameView: GameView, player: Player) {
         self.scene = scene
@@ -42,6 +43,10 @@ final class NPCFactory {
             dialog: ["Hi!", "I'm not from arouond here", "Sory, no quest from me"],
             model: "art.scnassets/Scenes/Characters/Vilagers/femaleVilagerIdle2"
         )
+        let npcModel3 = VillagerModel(
+            dialog: ["Hi3!", "almost there", "almost there asdasd ashdi asud as dasidjasd asudas iuhdi asuh diash diu ashda dasiodas das das dasoifj saoid asdoijsa doijas daosd aosdja sdasd"],
+            model: "art.scnassets/Scenes/Characters/Vilagers/femaleVilagerIdle3"
+        )
         
         let npc1 = Npc(player: player, view: gameView, npcModel: npcModel1)
         npc1.scale = SCNVector3Make(npcScale, npcScale, npcScale)
@@ -53,13 +58,22 @@ final class NPCFactory {
         guard let position2 = npcPositionArray["npc2"] else { return }
         npc2.position = position2
         
+        let npc3 = Npc(player: player, view: gameView, npcModel: npcModel3)
+        npc3.scale = SCNVector3Make(npcScale, npcScale, npcScale)
+        guard let position3 = npcPositionArray["npc3"] else { return }
+        guard let rotation3 = npcRotationArray["npc3"] else { return }
+        npc3.position = position3
+        npc3.rotation = rotation3
+        
         //dodanie modeli do sceny i ustawienie ich collider'ów
         gameView.prepare([npc1, npc2]) { (finished) in
             self.scene.rootNode.addChildNode(npc1)
             self.scene.rootNode.addChildNode(npc2)
+            self.scene.rootNode.addChildNode(npc3)
             
             npc1.setupCollider(scale: CGFloat(npcScale))
             npc2.setupCollider(scale: CGFloat(npcScale))
+            npc3.setupCollider(scale: CGFloat(npcScale))
         }
     }
 }
@@ -70,6 +84,7 @@ extension NPCFactory: SetupInterface {
         for child in npcs.childNodes {
             guard let name = child.name else { return }
             npcPositionArray[name] = child.position
+            npcRotationArray[name] = child.rotation
         }
         setupNPC()
     }
