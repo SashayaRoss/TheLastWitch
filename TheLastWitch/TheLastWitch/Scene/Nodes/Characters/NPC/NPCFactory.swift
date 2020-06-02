@@ -25,7 +25,7 @@ final class NPCFactory {
     
     private func setupNPC() {
         // ustawienie parametrów i modeli dla npc
-        let npcScale = Float(0.0025)
+        let npcScale = Float(0.25)
         let quest = Quest(
             id: 1,
             desc: "Defeat 2 monsters in nearby forest. You will recive 50 exp!",
@@ -40,7 +40,7 @@ final class NPCFactory {
         )
         let npcModel2 = VillagerModel(
             dialog: ["Hi!", "I'm not from arouond here", "Sory, no quest from me"],
-            model: "art.scnassets/Scenes/Characters/Hero/idle"
+            model: "art.scnassets/Scenes/Characters/Vilagers/femaleVilagerIdle2"
         )
         
         let npc1 = Npc(player: player, view: gameView, npcModel: npcModel1)
