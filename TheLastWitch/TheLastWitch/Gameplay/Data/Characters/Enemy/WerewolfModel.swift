@@ -1,5 +1,5 @@
 //
-//  WolfModel.swift
+//  WerewolfModel.swift
 //  TheLastWitch
 //
 //  Created by Aleksandra Kustra on 29/03/2020.
@@ -8,14 +8,15 @@
 
 import SceneKit
 
-final class WolfModel: EnemyModel {
+final class WerewolfModel: EnemyModel {
     let name: String
-   //jako słabszy przeciwnik, model wilka ma poziom życia i siłę niższą, doświadczenie zdobyte za jego pokonanie również jest mniejsze w porównaniu do zdobytego za pokonanie potężniejszego przeciwnika
+   //jako słabszy przeciwnik, model wilkołaka ma poziom życia i siłę niższą, doświadczenie zdobyte za jego pokonanie również jest mniejsze w porównaniu do zdobytego za pokonanie potężniejszego przeciwnika
     var hp: Int = 10
     var strength: Int = 20
     var exp: Int = 60
-    var type: TargetType = .golem
+    var type: TargetType = .werewolf
     let position: SCNVector3
+    let model: String
     
     //maksymalna odległość w jakiej gracz zostanie zauważony
     var noticeDistance: Float = 3.0
@@ -28,10 +29,12 @@ final class WolfModel: EnemyModel {
     
     init(
         name: String,
-        position: SCNVector3
+        position: SCNVector3,
+        model: String
     ) {
         self.name = name
         self.position = position
+        self.model = model
     }
     
     //przywraca wartości początkowe przy restarcie gry
@@ -39,7 +42,7 @@ final class WolfModel: EnemyModel {
         hp = 10
         strength = 20
         exp = 60
-        type = .golem
+        type = .werewolf
         noticeDistance = 3.0
         movementSpeedLimiter = 0.5
         lastAttackTime = 0.0

@@ -82,7 +82,7 @@
 		7EB244DE242FE8B0004F3172 /* CharacterBgNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244DD242FE8B0004F3172 /* CharacterBgNode.swift */; };
 		7EB244E0242FE8BB004F3172 /* OptionsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244DF242FE8BB004F3172 /* OptionsNode.swift */; };
 		7EB244E6242FF82F004F3172 /* NPCFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244E5242FF82F004F3172 /* NPCFactory.swift */; };
-		7EB244EC2430DC5C004F3172 /* WolfModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244EB2430DC5C004F3172 /* WolfModel.swift */; };
+		7EB244EC2430DC5C004F3172 /* WerewolfModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244EB2430DC5C004F3172 /* WerewolfModel.swift */; };
 		7EB244EE243108A0004F3172 /* EnemyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244ED243108A0004F3172 /* EnemyModel.swift */; };
 		7EB244F224310BB6004F3172 /* NpcModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244F124310BB6004F3172 /* NpcModel.swift */; };
 		7EB244F424310C5B004F3172 /* VillagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB244F324310C5B004F3172 /* VillagerModel.swift */; };
@@ -195,7 +195,7 @@
 		7EB244DD242FE8B0004F3172 /* CharacterBgNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterBgNode.swift; sourceTree = "<group>"; };
 		7EB244DF242FE8BB004F3172 /* OptionsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsNode.swift; sourceTree = "<group>"; };
 		7EB244E5242FF82F004F3172 /* NPCFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPCFactory.swift; sourceTree = "<group>"; };
-		7EB244EB2430DC5C004F3172 /* WolfModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WolfModel.swift; sourceTree = "<group>"; };
+		7EB244EB2430DC5C004F3172 /* WerewolfModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WerewolfModel.swift; sourceTree = "<group>"; };
 		7EB244ED243108A0004F3172 /* EnemyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyModel.swift; sourceTree = "<group>"; };
 		7EB244F124310BB6004F3172 /* NpcModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NpcModel.swift; sourceTree = "<group>"; };
 		7EB244F324310C5B004F3172 /* VillagerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillagerModel.swift; sourceTree = "<group>"; };
@@ -566,7 +566,7 @@
 			isa = PBXGroup;
 			children = (
 				7EB244ED243108A0004F3172 /* EnemyModel.swift */,
-				7EB244EB2430DC5C004F3172 /* WolfModel.swift */,
+				7EB244EB2430DC5C004F3172 /* WerewolfModel.swift */,
 				7EB244F924328F6E004F3172 /* WolfBossModel.swift */,
 			);
 			path = Enemy;
@@ -826,7 +826,7 @@
 				7E106FD8243D08050044F3AD /* CharacterQuestListNode.swift in Sources */,
 				7E106FFA24433AFA0044F3AD /* OptionsMusicNode.swift in Sources */,
 				7E106FF8244339960044F3AD /* OptionsDevModeNode.swift in Sources */,
-				7EB244EC2430DC5C004F3172 /* WolfModel.swift in Sources */,
+				7EB244EC2430DC5C004F3172 /* WerewolfModel.swift in Sources */,
 				7E106FBF243A35640044F3AD /* InteractiveObjectModel.swift in Sources */,
 				7EDFF579241E8A8700D24798 /* MainLight.swift in Sources */,
 				7E107001244374F20044F3AD /* GameOverNode.swift in Sources */,

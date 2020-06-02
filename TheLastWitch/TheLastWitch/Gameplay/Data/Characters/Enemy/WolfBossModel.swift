@@ -15,6 +15,7 @@ final class WolfBossModel: EnemyModel {
     var exp: Int = 200
     var type: TargetType = .boss
     let position: SCNVector3
+    let model: String
     
     var noticeDistance: Float = 3.0
     var movementSpeedLimiter: Float = 0.5
@@ -25,10 +26,12 @@ final class WolfBossModel: EnemyModel {
     
     init(
         name: String,
-        position: SCNVector3
+        position: SCNVector3,
+        model: String
     ) {
         self.name = name
         self.position = position
+        self.model = model
     }
     
     func resetModel() {

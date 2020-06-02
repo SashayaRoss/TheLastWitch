@@ -15,6 +15,7 @@ protocol EnemyModel {
     var exp: Int { get set }
     var type: TargetType { get }
     var position: SCNVector3 { get }
+    var model: String { get }
     
     var noticeDistance: Float { get }
     var movementSpeedLimiter: Float { get }

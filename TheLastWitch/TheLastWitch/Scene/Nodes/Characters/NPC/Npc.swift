@@ -69,6 +69,7 @@ final class Npc: SCNNode {
             daeHolderNode.addChildNode(child)
         }
         addChildNode(daeHolderNode)
+        
         //set mesh name
         guard let node = daeHolderNode.childNode(withName: "Armature", recursively: true) else { return }
         characterNode = node
@@ -81,6 +82,14 @@ final class Npc: SCNNode {
     func npcGameOver() {
         npcModel.resetModel()
         self.isHidden = false
+    }
+    
+    func addInteractAnimation() {
+        characterNode.addAnimation(animation.attackAnimation, forKey: "interact")
+    }
+    
+    func removeInteractAnimation() {
+        characterNode.removeAnimation(forKey: "interact", blendOutDuration: 0.2)
     }
     
     func update(with time: TimeInterval, and scene: SCNScene) {

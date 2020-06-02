@@ -222,10 +222,14 @@ final class GameViewController: UIViewController {
                             let npc = activePlayer.npc,
                             (npc.currentDialog < npc.npcModel.dialog.count)
                         {
+                            if npc.currentDialog == 0 {
+                                npc.addInteractAnimation()
+                            }
                             npc.dialog()
                         } else {
                             if let npc = activePlayer.npc {
                                 npc.currentDialog = 0
+                                npc.removeInteractAnimation()
                             }
                             //dialog zakończył się, usuwam obecny widok i prezentuje nowy
                             view.removeCurrentView()

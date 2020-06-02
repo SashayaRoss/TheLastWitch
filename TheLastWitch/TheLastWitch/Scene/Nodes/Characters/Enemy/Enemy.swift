@@ -72,14 +72,17 @@ final class Enemy: SCNNode {
     //MARK: scene
     private func setupModelScene() {
         name = "Enemy"
-        let idleURL = Bundle.main.url(forResource: "art.scnassets/Scenes/Characters/Enemies/Golem@Idle", withExtension: "dae")
-        let idleScene = try! SCNScene(url: idleURL!, options: nil)
+        let idleURL = Bundle.main.url(forResource: enemyModel.model, withExtension: "dae")
+        guard let url = idleURL else { return }
+        let idleScene = try! SCNScene(url: url, options: nil)
         
         for child in idleScene.rootNode.childNodes {
             daeHolderNode.addChildNode(child)
         }
         addChildNode(daeHolderNode)
-        characterNode = daeHolderNode.childNode(withName: "CATRigHub002", recursively: true)!
+        //set mesh name
+        guard let node = daeHolderNode.childNode(withName: "Armature", recursively: true) else { return }
+        characterNode = node
     }
     
     func enemyGameOver() {

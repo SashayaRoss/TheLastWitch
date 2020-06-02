@@ -7,7 +7,7 @@
 //
 
 enum TargetType {
-    case golem
+    case werewolf
     case bluePortal
     case boss
 }

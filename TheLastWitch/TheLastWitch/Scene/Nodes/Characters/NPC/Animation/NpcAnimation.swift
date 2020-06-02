@@ -10,10 +10,10 @@ import SceneKit
 
 final class NpcAnimation {
     var walkAnimation = CAAnimation()
-    var interactAnimation = CAAnimation()
-    var object = CAAnimation()
-    
     var deadAnimation = CAAnimation()
+    var attackAnimation = CAAnimation()
+    
+    var object = CAAnimation()
     
     func loadAnimation(animationType: NpcAnimationType, isSceneNamed scene: String, withIdentifier identifier: String) {
         guard
@@ -31,19 +31,16 @@ final class NpcAnimation {
         object = animationObject
         
         switch animationType {
-        case .walk:
-            animationObject.repeatCount = Float.greatestFiniteMagnitude
-            walkAnimation = animationObject
-            
         case .interact:
             animationObject.isRemovedOnCompletion = false
-            interactAnimation = animationObject
+            attackAnimation = animationObject
+        default:
+            break
         }
     }
 }
 extension NpcAnimation: AnimationInterface {
     func loadAnimations() {
-        loadAnimation(animationType: .walk, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/walk", withIdentifier: "WalkID")
-        loadAnimation(animationType: .interact, isSceneNamed: "art.scnassets/Scenes/Characters/Enemies/Golem@Dead", withIdentifier: "Golem@Dead-1")
+        loadAnimation(animationType: .interact, isSceneNamed: "art.scnassets/Scenes/Characters/Vilagers/villagerInteract", withIdentifier: "InteractID")
     }
 }

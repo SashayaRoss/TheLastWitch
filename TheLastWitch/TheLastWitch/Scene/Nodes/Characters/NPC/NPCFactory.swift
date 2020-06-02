@@ -32,7 +32,7 @@ final class NPCFactory {
             desc: "Defeat 2 monsters in nearby forest. You will recive 50 exp!",
             type: .defeat,
             exp: 50,
-            targets: [.golem, .golem]
+            targets: [.werewolf, .werewolf]
         )
         let npcModel1 = VillagerModel(
             dialog: ["Hello", "I'm a villager", "I live here and I have a task for you! We are in desperate need of a hero! almost there", "almost there asdasd ashdi asud as dasidjasd asudas iuhdi asuh diash diu ashda dasiodas das das dasoifj saoid asdoijsa doijas daosd aosdja sdasd almost there", "almost there asdasd ashdi asud as dasidjasd asudas iuhdi asuh diash diu ashda dasiodas das das dasoifj saoid asdoijsa doijas daosd aosdja sdasd"],

@@ -14,6 +14,7 @@ final class EnemyFactory {
     let gameView: GameView
     
     private var enemyPositionArray = [String: SCNVector3]()
+    private var enemyRotationArray = [String: SCNVector4]()
     
     init(scene: SCNScene, gameView: GameView, player: Player) {
         self.scene = scene
@@ -24,28 +25,31 @@ final class EnemyFactory {
     }
     
     private func setupEnemy() {
-        let enemyScale: Float = 0.0080
+        let enemyScale: Float = 0.1
         
-        guard let position1 = enemyPositionArray["golem1"] else { return }
-        let wolfModel1 = WolfModel(name: "golem1", position: position1)
+        guard let position1 = enemyPositionArray["werewolf1"] else { return }
+        guard let rotation1 = enemyRotationArray["werewolf1"] else { return }
+        let wolfModel1 = WerewolfModel(name: "werewolf1", position: position1, model: "art.scnassets/Scenes/Characters/Enemies/werewolfIdle")
         let enemy1 = Enemy(player: player, view: gameView, enemyModel: wolfModel1)
         enemy1.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
         enemy1.position = position1
-        enemy1.rotation = SCNVector4(0, 180, 0, 0)
+        enemy1.rotation = rotation1
         
-        guard let position2 = enemyPositionArray["golem2"] else { return }
-        let wolfModel2 = WolfModel(name: "golem2", position: position2)
+        guard let position2 = enemyPositionArray["werewolf2"] else { return }
+        guard let rotation2 = enemyRotationArray["werewolf2"] else { return }
+        let wolfModel2 = WerewolfModel(name: "werewolf2", position: position2, model: "art.scnassets/Scenes/Characters/Enemies/werewolfIdle")
         let enemy2 = Enemy(player: player, view: gameView, enemyModel: wolfModel2)
         enemy2.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
         enemy2.position = position2
-        enemy2.rotation = SCNVector4(0, 90, 0, 0)
+        enemy2.rotation = rotation2
         
-        guard let position3 = enemyPositionArray["golem3"] else { return }
-        let wolfModel3 = WolfModel(name: "golem3", position: position3)
+        guard let position3 = enemyPositionArray["werewolf3"] else { return }
+        guard let rotation3 = enemyRotationArray["werewolf3"] else { return }
+        let wolfModel3 = WerewolfModel(name: "werewolf3", position: position3, model: "art.scnassets/Scenes/Characters/Enemies/werewolfIdle")
         let enemy3 = Enemy(player: player, view: gameView, enemyModel: wolfModel3)
         enemy3.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
         enemy3.position = position3
-        enemy3.rotation = SCNVector4(0, 0, 0, 0)
+        enemy3.rotation = rotation3
         
         gameView.prepare([enemy1, enemy2, enemy3]) { (finished) in
             self.scene.rootNode.addChildNode(enemy1)
@@ -68,6 +72,7 @@ extension EnemyFactory: SetupInterface {
         for child in enemies.childNodes {
             guard let name = child.name else { return }
             enemyPositionArray[name] = child.position
+            enemyRotationArray[name] = child.rotation
         }
         setupEnemy()
     }
