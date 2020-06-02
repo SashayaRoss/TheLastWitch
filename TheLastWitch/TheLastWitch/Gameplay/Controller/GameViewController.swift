@@ -476,7 +476,7 @@ final class GameViewController: UIViewController {
                     (node as? Enemy)?.enemyGameOver()
                 case "Npc":
                     (node as? Npc)?.npcGameOver()
-                case "Magic":
+                case "Interactive":
                     (node as? InteractiveObject)?.magicGameOver()
                 default:
                     break
@@ -553,7 +553,7 @@ extension GameViewController: SCNSceneRendererDelegate {
                     (node as? Enemy)?.update(with: time, and: scene)
                 case "Npc":
                     (node as? Npc)?.update(with: time, and: scene)
-                case "Magic":
+                case "Interactive":
                     (node as? InteractiveObject)?.update(with: time, and: scene)
                 default:
                     break

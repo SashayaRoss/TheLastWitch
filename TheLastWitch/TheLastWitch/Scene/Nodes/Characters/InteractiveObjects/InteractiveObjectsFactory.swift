@@ -38,12 +38,12 @@ final class InteractiveObjectsFactory {
         
         let interactiveObject1 = InteractiveObject(player: player, view: gameView, interactiveObjectModel: chestModel1)
         interactiveObject1.scale = SCNVector3Make(scale, scale, scale)
-        guard let position1 =  interactiveObjectPositionArray["magic1"] else { return }
+        guard let position1 =  interactiveObjectPositionArray["chest1"] else { return }
         interactiveObject1.position = position1
         
         let interactiveObject2 = InteractiveObject(player: player, view: gameView, interactiveObjectModel: chestModel2)
         interactiveObject2.scale = SCNVector3Make(scale, scale, scale)
-        guard let position2 =  interactiveObjectPositionArray["magic2"] else { return }
+        guard let position2 =  interactiveObjectPositionArray["chest2"] else { return }
         interactiveObject2.position = position2
         
         /// Portal model:
@@ -71,8 +71,8 @@ final class InteractiveObjectsFactory {
 
 extension InteractiveObjectsFactory: SetupInterface {
     func setup() {
-        guard let magic = scene.rootNode.childNode(withName: "Magic", recursively: false) else { return }
-        for child in magic.childNodes {
+        guard let interactive = scene.rootNode.childNode(withName: "Interactive", recursively: false) else { return }
+        for child in interactive.childNodes {
             guard let name = child.name else { return }
             interactiveObjectPositionArray[name] = child.position
         }

@@ -52,7 +52,7 @@ final class InteractiveObject: SCNNode {
     
     //MARK: scene
     private func setupModelScene() {
-        name = "Magic"
+        name = "InteractiveObject"
         let idleURL = Bundle.main.url(forResource: interactiveObjectModel.model, withExtension: "dae")
         guard let url  = idleURL else {
             return
@@ -64,7 +64,7 @@ final class InteractiveObject: SCNNode {
         }
         addChildNode(daeHolderNode)
         //set mesh name
-        characterNode = daeHolderNode.childNode(withName: "mixamorig_Hips", recursively: true)!
+        characterNode = daeHolderNode.childNode(withName: "", recursively: true)!
     }
     
     func magicGameOver() {
