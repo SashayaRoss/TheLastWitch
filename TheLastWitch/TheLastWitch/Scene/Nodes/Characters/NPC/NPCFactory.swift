@@ -35,7 +35,7 @@ final class NPCFactory {
             targets: [.golem, .golem]
         )
         let npcModel1 = VillagerModel(
-            dialog: ["Hello", "I'm a villager", "I live here and I have a task for you! We are in desperate need of a hero!"],
+            dialog: ["Hello", "I'm a villager", "I live here and I have a task for you! We are in desperate need of a hero! almost there", "almost there asdasd ashdi asud as dasidjasd asudas iuhdi asuh diash diu ashda dasiodas das das dasoifj saoid asdoijsa doijas daosd aosdja sdasd almost there", "almost there asdasd ashdi asud as dasidjasd asudas iuhdi asuh diash diu ashda dasiodas das das dasoifj saoid asdoijsa doijas daosd aosdja sdasd"],
             quest: quest,
             model: "art.scnassets/Scenes/Characters/Vilagers/femaleVilagerIdle"
         )
@@ -44,19 +44,23 @@ final class NPCFactory {
             model: "art.scnassets/Scenes/Characters/Vilagers/femaleVilagerIdle2"
         )
         let npcModel3 = VillagerModel(
-            dialog: ["Hi3!", "almost there", "almost there asdasd ashdi asud as dasidjasd asudas iuhdi asuh diash diu ashda dasiodas das das dasoifj saoid asdoijsa doijas daosd aosdja sdasd"],
-            model: "art.scnassets/Scenes/Characters/Vilagers/femaleVilagerIdle3"
+            dialog: ["Hi3!", "almost there", "almost there asdasd ashdi asud as dasidjasd asudas iuhdi asuh diash diu ashda dasiodas das das dasoifj saoid asdoijsa doijas daosd aosdja sdasd almost there", "almost there asdasd ashdi asud as dasidjasd asudas iuhdi asuh diash diu ashda dasiodas das das dasoifj saoid asdoijsa doijas daosd aosdja sdasd"],
+            model: "art.scnassets/Scenes/Characters/Vilagers/femaleVilagerIdle"
         )
         
         let npc1 = Npc(player: player, view: gameView, npcModel: npcModel1)
         npc1.scale = SCNVector3Make(npcScale, npcScale, npcScale)
         guard let position = npcPositionArray["npc1"] else { return }
+        guard let rotation1 = npcRotationArray["npc1"] else { return }
         npc1.position = position
+        npc1.rotation = rotation1
         
         let npc2 = Npc(player: player, view: gameView, npcModel: npcModel2)
         npc2.scale = SCNVector3Make(npcScale, npcScale, npcScale)
         guard let position2 = npcPositionArray["npc2"] else { return }
+        guard let rotation2 = npcRotationArray["npc2"] else { return }
         npc2.position = position2
+        npc2.rotation = rotation2
         
         let npc3 = Npc(player: player, view: gameView, npcModel: npcModel3)
         npc3.scale = SCNVector3Make(npcScale, npcScale, npcScale)

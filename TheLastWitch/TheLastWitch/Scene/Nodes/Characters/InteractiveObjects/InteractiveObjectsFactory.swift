@@ -70,8 +70,9 @@ final class InteractiveObjectsFactory {
             model: "art.scnassets/Scenes/Environment/portal",
             perk: .fullHP
         )
+        let portalScale = Float(1.4)
         let portal = Interactive(player: player, view: gameView, interactiveObjectModel: portalModel)
-        portal.scale = SCNVector3Make(scale, scale, scale)
+        portal.scale = SCNVector3Make(scale * portalScale, scale * portalScale, scale * portalScale)
         portal.position = positionPortal
         
         gameView.prepare([interactiveObject1, interactiveObject2]) { (finished) in
