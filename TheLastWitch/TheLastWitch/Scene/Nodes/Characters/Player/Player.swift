@@ -336,7 +336,7 @@ final class Player: SCNNode {
     }
     
     func updateSpeed() {
-        playerModel.maxSpeed += 0.2
+        playerModel.maxSpeed += 0.1
         playerModel.levelPoints -= 1
         updateCharacterModelData()
     }

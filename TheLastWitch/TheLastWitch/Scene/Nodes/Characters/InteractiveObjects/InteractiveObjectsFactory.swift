@@ -14,6 +14,7 @@ final class InteractiveObjectsFactory {
     let gameView: GameView
     
     private var interactiveObjectPositionArray = [String: SCNVector3]()
+    private var interactiveObjectRotationArray = [String: SCNVector4]()
     
     init(scene: SCNScene, gameView: GameView, player: Player) {
         self.scene = scene
@@ -24,7 +25,7 @@ final class InteractiveObjectsFactory {
     }
     
     private func setupInteractiveObjects() {
-        let scale: Float = 0.4
+        let scale: Float = 0.3
         let chestModel1 = Chest(
             dialog: ["I am a magic well1", "I know I don't look like one yet", "I can give you some exp", "You have been granted 50 exp!"],
             model: "art.scnassets/Scenes/Environment/chest",
@@ -44,17 +45,23 @@ final class InteractiveObjectsFactory {
         let interactiveObject1 = Interactive(player: player, view: gameView, interactiveObjectModel: chestModel1)
         interactiveObject1.scale = SCNVector3Make(scale, scale, scale)
         guard let position1 =  interactiveObjectPositionArray["chest1"] else { return }
-        interactiveObject1.position = SCNVector3(position1.x, 0.44, position1.z)
+        guard let rotation1 =  interactiveObjectRotationArray["chest1"] else { return }
+        interactiveObject1.position = SCNVector3(position1.x, 0.3, position1.z)
+        interactiveObject1.rotation = rotation1
         
         let interactiveObject2 = Interactive(player: player, view: gameView, interactiveObjectModel: chestModel2)
         interactiveObject2.scale = SCNVector3Make(scale, scale, scale)
         guard let position2 =  interactiveObjectPositionArray["chest2"] else { return }
-        interactiveObject2.position = position2
+        guard let rotation2 =  interactiveObjectRotationArray["chest2"] else { return }
+        interactiveObject2.position = SCNVector3(position2.x, 0.3, position2.z)
+        interactiveObject2.rotation = rotation2
         
         let interactiveObject3 = Interactive(player: player, view: gameView, interactiveObjectModel: chestModel3)
         interactiveObject3.scale = SCNVector3Make(scale, scale, scale)
         guard let position3 =  interactiveObjectPositionArray["chest3"] else { return }
-        interactiveObject3.position = position3
+        guard let rotation3 =  interactiveObjectRotationArray["chest3"] else { return }
+        interactiveObject3.position = SCNVector3(position3.x, 0.3, position3.z)
+        interactiveObject3.rotation = rotation3
         
         /// Portal model:
         guard let positionPortal = interactiveObjectPositionArray["portal"] else { return }
@@ -87,6 +94,7 @@ extension InteractiveObjectsFactory: SetupInterface {
         for child in interactive.childNodes {
             guard let name = child.name else { return }
             interactiveObjectPositionArray[name] = child.position
+            interactiveObjectRotationArray[name] = child.rotation
         }
         setupInteractiveObjects()
     }

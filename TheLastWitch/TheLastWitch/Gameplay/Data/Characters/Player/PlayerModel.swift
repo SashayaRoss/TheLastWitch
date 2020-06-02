@@ -18,7 +18,7 @@ final class PlayerModel {
     var maxSpeed: Float = 4
     var maxMagic: Float = 0.5
     var level: Int = 1
-    var levelPoints: Int = 2
+    var levelPoints: Int = 10
     
     //TODO: change init
     var quests: [Quest] = [Quest(id: 0, desc: "\n- Find magic portal", type: .discover, exp: 100, targets: [.bluePortal])]

@@ -52,7 +52,7 @@ final class Interactive: SCNNode {
     
     //MARK: scene
     private func setupModelScene() {
-        name = "InteractiveObject"
+        name = "Interactive"
         let idleURL = Bundle.main.url(forResource: interactiveObjectModel.model, withExtension: "dae")
         guard let url  = idleURL else {
             return
