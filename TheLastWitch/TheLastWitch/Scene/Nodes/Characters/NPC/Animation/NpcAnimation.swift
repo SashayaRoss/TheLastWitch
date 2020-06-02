@@ -13,8 +13,6 @@ final class NpcAnimation {
     var interactAnimation = CAAnimation()
     var object = CAAnimation()
     
-    //
-    var attackAnimation = CAAnimation()
     var deadAnimation = CAAnimation()
     
     func loadAnimation(animationType: NpcAnimationType, isSceneNamed scene: String, withIdentifier identifier: String) {
