@@ -24,15 +24,20 @@ final class InteractiveObjectsFactory {
     }
     
     private func setupInteractiveObjects() {
-        let scale: Float = 0.005
+        let scale: Float = 0.4
         let chestModel1 = Chest(
-            dialog: ["I am a magic well", "I know I don't look like one yet", "I can give you some exp", "You have been granted 50 exp!"],
-            model: "art.scnassets/Scenes/Characters/Hero/idle",
+            dialog: ["I am a magic well1", "I know I don't look like one yet", "I can give you some exp", "You have been granted 50 exp!"],
+            model: "art.scnassets/Scenes/Environment/chest",
             perk: .exp
         )
         let chestModel2 = Chest(
-            dialog: ["I am a maical shrine.", "I can restore your hp", "You have been granted full hp"],
-            model: "art.scnassets/Scenes/Characters/Hero/idle",
+            dialog: ["I am a maical shrine2.", "I can restore your hp", "You have been granted full hp"],
+            model: "art.scnassets/Scenes/Environment/chest",
+            perk: .fullHP
+        )
+        let chestModel3 = Chest(
+            dialog: ["I am a maical shrine3.", "I can restore your hp", "You have been granted full hp"],
+            model: "art.scnassets/Scenes/Environment/chest",
             perk: .fullHP
         )
         
@@ -46,11 +51,16 @@ final class InteractiveObjectsFactory {
         guard let position2 =  interactiveObjectPositionArray["chest2"] else { return }
         interactiveObject2.position = position2
         
+        let interactiveObject3 = InteractiveObject(player: player, view: gameView, interactiveObjectModel: chestModel3)
+        interactiveObject3.scale = SCNVector3Make(scale, scale, scale)
+        guard let position3 =  interactiveObjectPositionArray["chest3"] else { return }
+        interactiveObject3.position = position3
+        
         /// Portal model:
         guard let positionPortal = interactiveObjectPositionArray["portal"] else { return }
         let portalModel = PortalModel(
             dialog: ["You found the portal!",  "Your mission here is done.", "Be careful on your next adventure brave witch!", "[You stepped through the portal]"],
-            model: "art.scnassets/Scenes/Enviroment/portal",
+            model: "art.scnassets/Scenes/Environment/portal",
             perk: .fullHP
         )
         let portal = InteractiveObject(player: player, view: gameView, interactiveObjectModel: portalModel)
@@ -60,10 +70,12 @@ final class InteractiveObjectsFactory {
         gameView.prepare([interactiveObject1, interactiveObject2]) { (finished) in
             self.scene.rootNode.addChildNode(interactiveObject1)
             self.scene.rootNode.addChildNode(interactiveObject2)
+            self.scene.rootNode.addChildNode(interactiveObject3)
             self.scene.rootNode.addChildNode(portal)
             
             interactiveObject1.setupCollider(scale: CGFloat(scale))
             interactiveObject2.setupCollider(scale: CGFloat(scale))
+            interactiveObject3.setupCollider(scale: CGFloat(scale))
             portal.setupCollider(scale: CGFloat(scale))
         }
     }

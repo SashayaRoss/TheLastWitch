@@ -63,8 +63,10 @@ final class InteractiveObject: SCNNode {
             daeHolderNode.addChildNode(child)
         }
         addChildNode(daeHolderNode)
+
         //set mesh name
-        characterNode = daeHolderNode.childNode(withName: "", recursively: true)!
+        guard let node = daeHolderNode.childNode(withName: "Cube", recursively: true) else { return }
+        characterNode = node
     }
     
     func magicGameOver() {
