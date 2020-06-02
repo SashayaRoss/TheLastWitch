@@ -59,6 +59,6 @@ extension PlayerAnimation: AnimationInterface {
     func loadAnimations() {
         loadAnimation(animationType: .walk, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/idle", withIdentifier: "IdleID")
         loadAnimation(animationType: .dead, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/death", withIdentifier: "DeathID")
-        loadAnimation(animationType: .attack, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/attack", withIdentifier: "AttackID")
+        loadAnimation(animationType: .attack, isSceneNamed: "art.scnassets/Scenes/Characters/Hero/attackMagicVer2", withIdentifier: "AttackID")
     }
 }

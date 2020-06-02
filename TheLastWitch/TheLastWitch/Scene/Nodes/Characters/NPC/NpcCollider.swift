@@ -32,7 +32,7 @@ final class NpcCollider: ColliderInterface {
         //nadanie obiektowi bitmaski
         collider.physicsBody!.categoryBitMask = Bitmask().npc
         //ustawienie które elementy przy zderzeniu będą wywoływać metodę physicsWorld(_:didBegin:)
-        collider.physicsBody!.contactTestBitMask = Bitmask().wall | Bitmask().player | Bitmask().playerWeapon | Bitmask().enemy | Bitmask().magicElement
+        collider.physicsBody!.contactTestBitMask = Bitmask().wall | Bitmask().player | Bitmask().playerWeapon | Bitmask().enemy | Bitmask().interactiveObject
         
         return collider
     }

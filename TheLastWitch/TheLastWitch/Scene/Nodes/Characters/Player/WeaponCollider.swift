@@ -12,14 +12,14 @@ final class WeaponCollider: ColliderInterface {
     var collider: SCNNode!
     
     func setupCollider(with scale: CGFloat) -> SCNNode {
-        let geometryBox = SCNBox(width: 160.0, height: 140.0, length: 160.0, chamferRadius: 0.0)
-        geometryBox.firstMaterial?.diffuse.contents = UIColor.orange
+        let geometryBox = SCNBox(width: 3.0, height: 4.0, length: 4.0, chamferRadius: 0.0)
+        geometryBox.firstMaterial?.diffuse.contents = UIColor.blue
         collider = SCNNode(geometry: geometryBox)
         collider.name = "weaponCollider"
-        collider.position = SCNVector3Make(-10, 108.4, 88)
+        collider.position = SCNVector3Make(0, 2, 1)
         collider.opacity = 0.0
 
-        let geometry = SCNBox(width: 160.0 * scale, height: 140.0 * scale, length: 160.0 * scale, chamferRadius: 0.0)
+        let geometry = SCNBox(width: 2.0 * scale, height: 2.0 * scale, length: 2.0 * scale, chamferRadius: 0.0)
         let physicsShape = SCNPhysicsShape(geometry: geometry, options: nil)
         collider.physicsBody = SCNPhysicsBody(type: .kinematic, shape: physicsShape)
         collider.physicsBody!.categoryBitMask = Bitmask().playerWeapon

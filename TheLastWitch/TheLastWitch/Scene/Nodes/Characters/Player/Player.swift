@@ -15,7 +15,7 @@ final class Player: SCNNode {
     private var collider: SCNNode!
     private var weaponCollider: SCNNode!
     var npc: Npc? = nil
-    var magic: MagicElements? = nil
+    var magic: InteractiveObject? = nil
 
     //animation
     private var animation: AnimationInterface!
@@ -294,7 +294,7 @@ final class Player: SCNNode {
                 }
             }
         }
-        if let target = magic?.magicElementModel.type,
+        if let target = magic?.interactiveObjectModel.type,
             target == .bluePortal {
             //wygrana, cel gry został osiągnięty
             playerModel.gameOver = true

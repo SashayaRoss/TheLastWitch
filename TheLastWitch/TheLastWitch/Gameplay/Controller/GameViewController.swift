@@ -45,7 +45,7 @@ final class GameViewController: UIViewController {
     var playerFactory: PlayerFactory!
     var enemyFactory: EnemyFactory!
     var npcFactory: NPCFactory!
-    var magicFactory: MagicElementsFactory!
+    var magicFactory: InteractiveObjectsFactory!
 
     //MARK: lifecycle
     override func viewDidLoad() {
@@ -96,7 +96,7 @@ final class GameViewController: UIViewController {
         collision = Collision(scene: scene)
         enemyFactory = EnemyFactory(scene: scene, gameView: view, player: player)
         npcFactory = NPCFactory(scene: scene, gameView: view, player: player)
-        magicFactory = MagicElementsFactory(scene: scene, gameView: view, player: player)
+        magicFactory = InteractiveObjectsFactory(scene: scene, gameView: view, player: player)
         
         light = mainLight.setup()
         cameraStick = mainCamera.setup()
@@ -239,7 +239,7 @@ final class GameViewController: UIViewController {
                     case .magic:
                         if
                             let magic = activePlayer.magic,
-                            (magic.currentDialog < magic.magicElementModel.dialog.count)
+                            (magic.currentDialog < magic.interactiveObjectModel.dialog.count)
                         {
                             magic.dialog()
                         } else {
@@ -477,7 +477,7 @@ final class GameViewController: UIViewController {
                 case "Npc":
                     (node as? Npc)?.npcGameOver()
                 case "Magic":
-                    (node as? MagicElements)?.magicGameOver()
+                    (node as? InteractiveObject)?.magicGameOver()
                 default:
                     break
                 }
@@ -554,7 +554,7 @@ extension GameViewController: SCNSceneRendererDelegate {
                 case "Npc":
                     (node as? Npc)?.update(with: time, and: scene)
                 case "Magic":
-                    (node as? MagicElements)?.update(with: time, and: scene)
+                    (node as? InteractiveObject)?.update(with: time, and: scene)
                 default:
                     break
                 }
@@ -589,7 +589,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
         }
         
         //if player collides with magical object
-        contact.match(Bitmask().magicElement) { (matching, other) in
+        contact.match(Bitmask().interactiveObject) { (matching, other) in
             self.characterNode(other, hitWall: matching, withContact: contact)
         }
     }
@@ -618,7 +618,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
         }
         
         //if player collides with magical object
-        contact.match(Bitmask().magicElement) { (matching, other) in
+        contact.match(Bitmask().interactiveObject) { (matching, other) in
             self.characterNode(other, hitWall: matching, withContact: contact)
         }
     }
@@ -641,7 +641,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
         }
         
         //if player collides with magical object
-        contact.match(Bitmask().magicElement) { (matching, other) in
+        contact.match(Bitmask().interactiveObject) { (matching, other) in
             self.characterNode(other, hitWall: matching, withContact: contact)
         }
     }
