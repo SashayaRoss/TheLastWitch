@@ -18,7 +18,7 @@ final class WolfBossModel: EnemyModel {
     let model: String
     
     var noticeDistance: Float = 6.0
-    var movementSpeedLimiter: Float = 3.5
+    var movementSpeedLimiter: Float = 3
     
     var lastAttackTime: TimeInterval = 0.0
     var isDead = false
@@ -40,7 +40,7 @@ final class WolfBossModel: EnemyModel {
          exp = 200
          type = .boss
          noticeDistance = 6.0
-         movementSpeedLimiter = 3.5
+         movementSpeedLimiter = 3
          lastAttackTime = 0.0
          isDead = false
          isAttacking = false

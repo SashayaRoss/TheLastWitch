@@ -318,7 +318,7 @@ final class Player: SCNNode {
         if attackFrameCounter == 12 {
             for node in activeWeaponCollideNodes {
                 if let enemy = node as? Enemy {
-                    enemy.gotHit(by: node, with: Int(playerModel.maxMagic * 10))
+                    enemy.gotHit(by: node, with: Int(playerModel.maxMagic * 100))
                 }
             }
         }

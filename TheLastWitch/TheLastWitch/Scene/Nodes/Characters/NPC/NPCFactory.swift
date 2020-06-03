@@ -42,16 +42,16 @@ final class NPCFactory {
             targets: [.boss]
         )
         let npcModel1 = VillagerModel(
-            dialog: ["Hello", "I don't recognise you. You must be new here. Aren't you a little too yound to be wandering on your own here?", "What?! A witch?!", "We haven't seen a witch in these parts of the mountains for quite some time.", "And we could certainly use one now...", "You see someone brought a terrible curse upon our forest. It attracts all the werewolves from the far mountains to our lands.", "They steal our food and attack anyone who dares to take the path to the northern travel portal.", "Since it seams like you are going that way, could you try to scare them off?", "Please help us!"],
+            dialog: ["Hello", "I don't recognise you. You must be new here. Aren't you a little too young to be wandering on your own here?", "What?! A witch?!", "We haven't seen a witch in these parts of the mountains for quite some time.", "And we could certainly use one now...", "You see someone brought a terrible curse upon our forest. It attracts all the werewolves from the far mountains to our lands.", "They steal our food and attack anyone who dares to take the path to the northern travel portal.", "Since it seems like you are going that way, could you try to scare them off?", "Please help us!"],
             quest: quest1,
             model: "art.scnassets/Scenes/Characters/Vilagers/femaleVilagerIdle"
         )
         let npcModel2 = VillagerModel(
-            dialog: ["Oh my! Oh my!", "I saw you fight these beasts!", "Thank you so much for saving me.", "I went into the woods looking for some mushrooms for a stew. But when I tried to go back to my village these monsters were right on the main path", "I couldn't go aroud, the mountains wereto high to climb!", "thank you young witch. Now I can safely return home."],
+            dialog: ["Oh my! Oh my!", "I saw you fight these beasts!", "Thank you so much for saving me.", "I went into the woods looking for some mushrooms for a stew. But when I tried to go back to my village these monsters were right on the main path", "I couldn't go around, the mountains were to high too climb!", "thank you young witch. Now I can safely return home."],
             model: "art.scnassets/Scenes/Characters/Vilagers/femaleVilagerIdle2"
         )
         let npcModel3 = VillagerModel(
-            dialog: ["Hi there!", "You say you saw two people looking exactly like me?", "Why of course this haircut is really in this season.", "Why there aren't any men in the village?", "They gathered all the bows and went deep into the woods to hunt for the werewolves and the druid that cursed us.", "Looks like you are doing way better job at fighting these things then they do.", "Why don't we make a deal?", "You defeat the pack leader for me, and I'm sure it will help with your combat expiriance."],
+            dialog: ["Hi there!", "You say you saw two people looking exactly like me?", "Why of course this haircut is really in this season.", "Why there aren't any men in the village?", "They gathered all the bows and went deep into the woods to hunt for the werewolves and the druid that cursed us.", "Looks like you are doing way better job at fighting these things then they do.", "Why don't we make a deal?", "You defeat the pack leader for me, and I'm sure it will help with your combat experience."],
             quest: quest2,
             model: "art.scnassets/Scenes/Characters/Vilagers/femaleVilagerIdle"
         )

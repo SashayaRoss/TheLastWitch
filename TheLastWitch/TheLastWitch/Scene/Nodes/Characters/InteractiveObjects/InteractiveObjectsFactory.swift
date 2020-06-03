@@ -27,17 +27,17 @@ final class InteractiveObjectsFactory {
     private func setupInteractiveObjects() {
         let scale: Float = 0.3
         let chestModel1 = Chest(
-            dialog: ["You have found an old chest.", "You open it.", "Very slowly.", "You are adventurous but you are not a mad man.", "Who knows what horrors you could found there.", "...", "The chest is empty.", "But your courage in touching objects of unnown origin pays off.", "You have learned a valuable lesson today.", "[You have been granted 50 exp!]"],
+            dialog: ["You have found an old chest.", "You open it.", "Very slowly.", "You are adventurous but you are not a mad man.", "Who knows what horrors you could find there.", "...", "The chest is empty.", "But your courage in touching objects of unknown origin pays off.", "You have learned a valuable lesson today.", "[You receive 50 exp!]"],
             model: "art.scnassets/Scenes/Environment/chest",
             perk: .exp
         )
         let chestModel2 = Chest(
-            dialog: ["You see another old chest.", "You open it and find useful herbs inside.", "They make a nice healing potion.", "[You have been granted full hp!]"],
+            dialog: ["You see another old chest.", "You open it and find useful herbs inside.", "They make a nice healing potion.", "[You receive full hp!]"],
             model: "art.scnassets/Scenes/Environment/chest",
             perk: .fullHP
         )
         let chestModel3 = Chest(
-            dialog: ["Third time's a charm.", "Hidden chest contains a misteriuos scroll.", "[You have been granted extra level points!]", ],
+            dialog: ["Third time's a charm.", "Hidden chest contains a mysterious scroll.", "[You receive extra level points!]", ],
             model: "art.scnassets/Scenes/Environment/chest",
             perk: .points
         )

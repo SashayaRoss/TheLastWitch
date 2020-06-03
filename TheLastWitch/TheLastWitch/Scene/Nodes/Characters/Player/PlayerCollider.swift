@@ -18,7 +18,7 @@ final class PlayerCollider: ColliderInterface {
         collider = SCNNode(geometry: geometry)
         collider.position = SCNVector3Make(0.0, 2.5, 0.0)
         collider.name = "collider"
-        collider.opacity = 1.0
+        collider.opacity = 0.0
 
         let physicsGeometry = SCNCapsule(capRadius: 1.2 * scale, height: 4 * scale)
         let physicsShape = SCNPhysicsShape(geometry: physicsGeometry, options: nil)

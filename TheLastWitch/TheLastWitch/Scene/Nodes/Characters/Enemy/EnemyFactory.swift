@@ -112,15 +112,15 @@ final class EnemyFactory {
             self.scene.rootNode.addChildNode(enemy8)
             self.scene.rootNode.addChildNode(enemy9)
             
-            enemy1.setupCollider(scale: CGFloat(enemyScale))
-            enemy2.setupCollider(scale: CGFloat(enemyScale))
-            enemy3.setupCollider(scale: CGFloat(enemyScale))
-            enemy4.setupCollider(scale: CGFloat(enemyScale))
-            enemy5.setupCollider(scale: CGFloat(enemyScale))
-            enemy6.setupCollider(scale: CGFloat(enemyScale))
-            enemy7.setupCollider(scale: CGFloat(enemyScale))
-            enemy8.setupCollider(scale: CGFloat(enemyScale))
-            enemy9.setupCollider(scale: CGFloat(bossScale))
+            enemy1.setupCollider(scale: CGFloat(0.1))
+            enemy2.setupCollider(scale: CGFloat(0.1))
+            enemy3.setupCollider(scale: CGFloat(0.1))
+            enemy4.setupCollider(scale: CGFloat(0.1))
+            enemy5.setupCollider(scale: CGFloat(0.1))
+            enemy6.setupCollider(scale: CGFloat(0.1))
+            enemy7.setupCollider(scale: CGFloat(0.1))
+            enemy8.setupCollider(scale: CGFloat(0.1))
+            enemy9.setupCollider(scale: CGFloat(0.1))
         }
     }
     
