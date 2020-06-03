@@ -11,14 +11,14 @@ import SceneKit
 final class WolfBossModel: EnemyModel {
     let name: String
     var hp: Int = 270
-    var strength: Int = 20
+    var strength: Int = 40
     var exp: Int = 200
     var type: TargetType = .boss
     let position: SCNVector3
     let model: String
     
-    var noticeDistance: Float = 3.0
-    var movementSpeedLimiter: Float = 0.5
+    var noticeDistance: Float = 6.0
+    var movementSpeedLimiter: Float = 3.5
     
     var lastAttackTime: TimeInterval = 0.0
     var isDead = false
@@ -36,11 +36,11 @@ final class WolfBossModel: EnemyModel {
     
     func resetModel() {
          hp = 270
-         strength = 20
+         strength = 40
          exp = 200
          type = .boss
-         noticeDistance = 3.0
-         movementSpeedLimiter = 0.5
+         noticeDistance = 6.0
+         movementSpeedLimiter = 3.5
          lastAttackTime = 0.0
          isDead = false
          isAttacking = false

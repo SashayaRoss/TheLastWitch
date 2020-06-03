@@ -27,24 +27,32 @@ final class NPCFactory {
     private func setupNPC() {
         // ustawienie parametrów i modeli dla npc
         let npcScale = Float(0.25)
-        let quest = Quest(
+        let quest1 = Quest(
             id: 1,
-            desc: "Defeat 2 monsters in nearby forest. You will recive 50 exp!",
+            desc: "Defeat 3 werewolves in the nearby forest. [Reward: 100 exp]",
             type: .defeat,
-            exp: 50,
-            targets: [.werewolf, .werewolf]
+            exp: 100,
+            targets: [.werewolf, .werewolf, .werewolf]
+        )
+        let quest2 = Quest(
+            id: 2,
+            desc: "Defeat pack leader. [Reward: 200 exp]",
+            type: .defeat,
+            exp: 20,
+            targets: [.boss]
         )
         let npcModel1 = VillagerModel(
-            dialog: ["Hello", "I'm a villager", "I live here and I have a task for you! We are in desperate need of a hero! almost there", "almost there asdasd ashdi asud as dasidjasd asudas iuhdi asuh diash diu ashda dasiodas das das dasoifj saoid asdoijsa doijas daosd aosdja sdasd almost there", "almost there asdasd ashdi asud as dasidjasd asudas iuhdi asuh diash diu ashda dasiodas das das dasoifj saoid asdoijsa doijas daosd aosdja sdasd"],
-            quest: quest,
+            dialog: ["Hello", "I don't recognise you. You must be new here. Aren't you a little too yound to be wandering on your own here?", "What?! A witch?!", "We haven't seen a witch in these parts of the mountains for quite some time.", "And we could certainly use one now...", "You see someone brought a terrible curse upon our forest. It attracts all the werewolves from the far mountains to our lands.", "They steal our food and attack anyone who dares to take the path to the northern travel portal.", "Since it seams like you are going that way, could you try to scare them off?", "Please help us!"],
+            quest: quest1,
             model: "art.scnassets/Scenes/Characters/Vilagers/femaleVilagerIdle"
         )
         let npcModel2 = VillagerModel(
-            dialog: ["Hi!", "I'm not from arouond here", "Sory, no quest from me"],
+            dialog: ["Oh my! Oh my!", "I saw you fight these beasts!", "Thank you so much for saving me.", "I went into the woods looking for some mushrooms for a stew. But when I tried to go back to my village these monsters were right on the main path", "I couldn't go aroud, the mountains wereto high to climb!", "thank you young witch. Now I can safely return home."],
             model: "art.scnassets/Scenes/Characters/Vilagers/femaleVilagerIdle2"
         )
         let npcModel3 = VillagerModel(
-            dialog: ["Hi3!", "almost there", "almost there asdasd ashdi asud as dasidjasd asudas iuhdi asuh diash diu ashda dasiodas das das dasoifj saoid asdoijsa doijas daosd aosdja sdasd almost there", "almost there asdasd ashdi asud as dasidjasd asudas iuhdi asuh diash diu ashda dasiodas das das dasoifj saoid asdoijsa doijas daosd aosdja sdasd"],
+            dialog: ["Hi there!", "You say you saw two people looking exactly like me?", "Why of course this haircut is really in this season.", "Why there aren't any men in the village?", "They gathered all the bows and went deep into the woods to hunt for the werewolves and the druid that cursed us.", "Looks like you are doing way better job at fighting these things then they do.", "Why don't we make a deal?", "You defeat the pack leader for me, and I'm sure it will help with your combat expiriance."],
+            quest: quest2,
             model: "art.scnassets/Scenes/Characters/Vilagers/femaleVilagerIdle"
         )
         

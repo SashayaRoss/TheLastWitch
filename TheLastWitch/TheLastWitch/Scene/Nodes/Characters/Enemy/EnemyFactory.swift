@@ -51,14 +51,76 @@ final class EnemyFactory {
         enemy3.position = position3
         enemy3.rotation = rotation3
         
+        guard let position4 = enemyPositionArray["werewolf4"] else { return }
+        guard let rotation4 = enemyRotationArray["werewolf4"] else { return }
+        let wolfModel4 = WerewolfModel(name: "werewolf4", position: position4, model: "art.scnassets/Scenes/Characters/Enemies/werewolfIdle")
+        let enemy4 = Enemy(player: player, view: gameView, enemyModel: wolfModel4)
+        enemy4.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
+        enemy4.position = position4
+        enemy4.rotation = rotation4
+        
+        guard let position5 = enemyPositionArray["werewolf5"] else { return }
+        guard let rotation5 = enemyRotationArray["werewolf5"] else { return }
+        let wolfModel5 = WerewolfModel(name: "werewolf5", position: position5, model: "art.scnassets/Scenes/Characters/Enemies/werewolfIdle")
+        let enemy5 = Enemy(player: player, view: gameView, enemyModel: wolfModel5)
+        enemy5.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
+        enemy5.position = position5
+        enemy5.rotation = rotation5
+        
+        guard let position6 = enemyPositionArray["werewolf6"] else { return }
+        guard let rotation6 = enemyRotationArray["werewolf6"] else { return }
+        let wolfModel6 = WerewolfModel(name: "werewolf6", position: position6, model: "art.scnassets/Scenes/Characters/Enemies/werewolfIdle")
+        let enemy6 = Enemy(player: player, view: gameView, enemyModel: wolfModel6)
+        enemy6.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
+        enemy6.position = position6
+        enemy6.rotation = rotation6
+        
+        guard let position7 = enemyPositionArray["werewolf7"] else { return }
+        guard let rotation7 = enemyRotationArray["werewolf7"] else { return }
+        let wolfModel7 = WerewolfModel(name: "werewolf7", position: position7, model: "art.scnassets/Scenes/Characters/Enemies/werewolfIdle")
+        let enemy7 = Enemy(player: player, view: gameView, enemyModel: wolfModel7)
+        enemy7.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
+        enemy7.position = position7
+        enemy7.rotation = rotation7
+        
+        guard let position8 = enemyPositionArray["werewolf8"] else { return }
+        guard let rotation8 = enemyRotationArray["werewolf8"] else { return }
+        let wolfModel8 = WerewolfModel(name: "werewolf8", position: position8, model: "art.scnassets/Scenes/Characters/Enemies/werewolfIdle")
+        let enemy8 = Enemy(player: player, view: gameView, enemyModel: wolfModel8)
+        enemy8.scale = SCNVector3Make(enemyScale, enemyScale, enemyScale)
+        enemy8.position = position8
+        enemy8.rotation = rotation8
+        
+        //BOSS
+        let bossScale: Float = 0.45
+        guard let position9 = enemyPositionArray["werewolf9"] else { return }
+        guard let rotation9 = enemyRotationArray["werewolf9"] else { return }
+        let wolfModel9 = WolfBossModel(name: "werewolf9", position: position9, model: "art.scnassets/Scenes/Characters/Enemies/werewolfIBOSSdle")
+        let enemy9 = Enemy(player: player, view: gameView, enemyModel: wolfModel9)
+        enemy9.scale = SCNVector3Make(bossScale, bossScale, bossScale)
+        enemy9.position = position9
+        enemy9.rotation = rotation9
+        
         gameView.prepare([enemy1, enemy2, enemy3]) { (finished) in
             self.scene.rootNode.addChildNode(enemy1)
             self.scene.rootNode.addChildNode(enemy2)
             self.scene.rootNode.addChildNode(enemy3)
+            self.scene.rootNode.addChildNode(enemy4)
+            self.scene.rootNode.addChildNode(enemy5)
+            self.scene.rootNode.addChildNode(enemy6)
+            self.scene.rootNode.addChildNode(enemy7)
+            self.scene.rootNode.addChildNode(enemy8)
+            self.scene.rootNode.addChildNode(enemy9)
             
             enemy1.setupCollider(scale: CGFloat(enemyScale))
             enemy2.setupCollider(scale: CGFloat(enemyScale))
             enemy3.setupCollider(scale: CGFloat(enemyScale))
+            enemy4.setupCollider(scale: CGFloat(enemyScale))
+            enemy5.setupCollider(scale: CGFloat(enemyScale))
+            enemy6.setupCollider(scale: CGFloat(enemyScale))
+            enemy7.setupCollider(scale: CGFloat(enemyScale))
+            enemy8.setupCollider(scale: CGFloat(enemyScale))
+            enemy9.setupCollider(scale: CGFloat(bossScale))
         }
     }
     

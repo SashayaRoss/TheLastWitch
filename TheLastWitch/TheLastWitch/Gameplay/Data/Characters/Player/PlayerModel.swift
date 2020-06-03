@@ -9,8 +9,8 @@
 import SceneKit
 
 final class PlayerModel {
-    var maxHpPoints: Int = 100
-    var hpPoints: Int = 100
+    var maxHpPoints: Int = 120
+    var hpPoints: Int = 120
     
     var maxExpPoints: Int = 100
     var expPoints: Int = 0
@@ -18,7 +18,7 @@ final class PlayerModel {
     var maxSpeed: Float = 4
     var maxMagic: Float = 0.5
     var level: Int = 1
-    var levelPoints: Int = 10
+    var levelPoints: Int = 1
     
     //TODO: change init
     var quests: [Quest] = [Quest(id: 0, desc: "\n- Find magic portal", type: .discover, exp: 100, targets: [.bluePortal])]
@@ -31,14 +31,14 @@ final class PlayerModel {
     var gameOver = false
     
     func resetModel() {
-        maxHpPoints = 100
-        hpPoints = 100
+        maxHpPoints = 120
+        hpPoints = 120
         maxExpPoints = 100
         expPoints = 0
         maxSpeed = 4
         maxMagic = 0.5
         level = 1
-        levelPoints = 2
+        levelPoints = 1
         quests = [Quest(id: 1, desc: "\n- Find magic portal", type: .discover, exp: 100, targets: [.bluePortal])]
         currentInteraction = .none
         isAttacking = false

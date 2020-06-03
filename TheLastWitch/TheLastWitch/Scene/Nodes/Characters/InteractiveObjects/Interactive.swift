@@ -128,7 +128,7 @@ final class Interactive: SCNNode {
             player.update(with: 50)
             removePerkFromDialog()
         case .points:
-            model.levelPoints += 1
+            model.levelPoints += 4
             removePerkFromDialog()
         default:
             break

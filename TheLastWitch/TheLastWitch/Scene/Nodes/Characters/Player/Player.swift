@@ -318,7 +318,7 @@ final class Player: SCNNode {
         if attackFrameCounter == 12 {
             for node in activeWeaponCollideNodes {
                 if let enemy = node as? Enemy {
-                    enemy.gotHit(by: node, with: Int(playerModel.maxMagic * 100))
+                    enemy.gotHit(by: node, with: Int(playerModel.maxMagic * 10))
                 }
             }
         }
@@ -342,7 +342,7 @@ final class Player: SCNNode {
     }
     
     func updateMagic() {
-        playerModel.maxMagic += 0.5
+        playerModel.maxMagic += 0.2
         playerModel.levelPoints -= 1
         updateCharacterModelData()
     }
