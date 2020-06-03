@@ -25,7 +25,7 @@ final class EnemyFactory {
     }
     
     private func setupEnemy() {
-        let enemyScale: Float = 0.1
+        let enemyScale: Float = 0.3
         
         guard let position1 = enemyPositionArray["werewolf1"] else { return }
         guard let rotation1 = enemyRotationArray["werewolf1"] else { return }

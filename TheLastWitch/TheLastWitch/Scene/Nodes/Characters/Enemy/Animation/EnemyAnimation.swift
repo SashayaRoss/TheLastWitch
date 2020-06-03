@@ -47,8 +47,8 @@ final class EnemyAnimation {
 
 extension EnemyAnimation: AnimationInterface {
     func loadAnimations() {
-        loadAnimation(animationType: .walk, isSceneNamed: "art.scnassets/Scenes/Characters/Enemies/werewolfWalk", withIdentifier: "WalkID")
-        loadAnimation(animationType: .dead, isSceneNamed: "art.scnassets/Scenes/Characters/Enemies/werewolfDeath", withIdentifier: "DeathID")
-        loadAnimation(animationType: .attack, isSceneNamed: "art.scnassets/Scenes/Characters/Enemies/werewolfAttack", withIdentifier: "AttackID")
+        loadAnimation(animationType: .walk, isSceneNamed: "art.scnassets/Scenes/Characters/Enemies/werewolfWalksInPlace", withIdentifier: "WalkWolfID")
+        loadAnimation(animationType: .dead, isSceneNamed: "art.scnassets/Scenes/Characters/Enemies/werewolfDeath", withIdentifier: "DeathWolfID")
+        loadAnimation(animationType: .attack, isSceneNamed: "art.scnassets/Scenes/Characters/Enemies/werewolfAttack", withIdentifier: "AttackWolfID")
     }
 }

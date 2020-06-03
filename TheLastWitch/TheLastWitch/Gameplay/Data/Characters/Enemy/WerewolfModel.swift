@@ -19,9 +19,9 @@ final class WerewolfModel: EnemyModel {
     let model: String
     
     //maksymalna odległość w jakiej gracz zostanie zauważony
-    var noticeDistance: Float = 3.0
+    var noticeDistance: Float = 6.0
     //prędkość poruszania postaci
-    var movementSpeedLimiter: Float = 0.5
+    var movementSpeedLimiter: Float = 2.5
     
     var lastAttackTime: TimeInterval = 0.0
     var isDead = false
