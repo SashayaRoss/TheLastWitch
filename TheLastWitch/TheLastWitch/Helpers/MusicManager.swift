@@ -15,7 +15,7 @@ final class MusicManager {
     func loadSound(name: String, fileNamed: String) {
       if let sound = SCNAudioSource(fileNamed: fileNamed) {
         sound.isPositional = false
-        sound.volume = 0.3
+        sound.volume = 0.1
         sound.load()
         sounds[name] = sound
       }
@@ -42,8 +42,8 @@ final class MusicManager {
     }
     
     func loadSounds() {
-        loadSound(name: "Magic", fileNamed: "art.scnassets/Audio/MagicTmp.wav")
-        loadSound(name: "GameOver", fileNamed: "art.scnassets/Audio/GameOverTmp.wav")
+        loadSound(name: "Magic", fileNamed: "art.scnassets/Audio/attack.wav")
+        loadSound(name: "GameOver", fileNamed: "art.scnassets/Audio/gameOver.wav")
     }
     
     func removeAllPlayers(scene: SCNScene) {

@@ -334,7 +334,7 @@ final class GameViewController: UIViewController {
             {
                 //jeśli nie jest odtwarzana muzyka, dodaj do węzła nowy audioPlayer
                 if gameplayScene.rootNode.audioPlayers == [] {
-                    gameMusic.playTheme(scene: gameplayScene, directory: "art.scnassets/Audio/Music.mp3")
+                    gameMusic.playTheme(scene: gameplayScene, directory: "art.scnassets/Audio/mainSoundtrack.mp3")
                 } else {
                     //jeśli muzyka jest odtwarzana, wyłącz ją, usuwając ją z węzła
                     gameMusic.removeAllPlayers(scene: gameplayScene)
@@ -456,7 +456,7 @@ final class GameViewController: UIViewController {
         newGameScene.isPaused = true
         let transition = SKTransition.fade(withDuration: 1.8)
         currentView = .playing
-        gameMusic.playTheme(scene: gameplayScene, directory: "art.scnassets/Audio/Music.mp3")
+        gameMusic.playTheme(scene: gameplayScene, directory: "art.scnassets/Audio/mainSoundtrack.mp3")
         
         view.present(gameplayScene, with: transition, incomingPointOfView: nil, completionHandler: {
             DispatchQueue.main.async {
