@@ -11,8 +11,8 @@ import SceneKit
 final class WerewolfModel: EnemyModel {
     let name: String
    //jako słabszy przeciwnik, model wilkołaka ma poziom życia i siłę niższą, doświadczenie zdobyte za jego pokonanie również jest mniejsze w porównaniu do zdobytego za pokonanie potężniejszego przeciwnika
-    var hp: Int = 100
-    var strength: Int = 10
+    var hp: Int = 90
+    var strength: Int = 5
     var exp: Int = 40
     var type: TargetType = .werewolf
     let position: SCNVector3
@@ -39,8 +39,8 @@ final class WerewolfModel: EnemyModel {
     
     //przywraca wartości początkowe przy restarcie gry
     func resetModel() {
-        hp = 120
-        strength = 20
+        hp = 90
+        strength = 5
         exp = 40
         type = .werewolf
         noticeDistance = 6.0

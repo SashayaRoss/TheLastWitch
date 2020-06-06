@@ -92,7 +92,7 @@ final class EnemyFactory {
         enemy8.rotation = rotation8
         
         //BOSS
-        let bossScale: Float = 0.45
+        let bossScale: Float = 0.4
         guard let position9 = enemyPositionArray["werewolf9"] else { return }
         guard let rotation9 = enemyRotationArray["werewolf9"] else { return }
         let wolfModel9 = WolfBossModel(name: "werewolf9", position: position9, model: "art.scnassets/Scenes/Characters/Enemies/werewolfIBOSSdle")

@@ -265,7 +265,7 @@ final class Player: SCNNode {
     
     func questManager() {
         if
-            playerModel.quests.count <= 5,
+            playerModel.quests.count <= 4,
             let quest = npc?.npcModel.quest
         {
             var canAddQuest: Bool = true

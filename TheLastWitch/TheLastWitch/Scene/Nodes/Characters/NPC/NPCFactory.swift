@@ -28,14 +28,14 @@ final class NPCFactory {
         // ustawienie parametrów i modeli dla npc
         let npcScale = Float(0.25)
         let quest1 = Quest(
-            id: 1,
+            id: 2,
             desc: "Defeat 3 werewolves in the nearby forest. [Reward: 100 exp]",
             type: .defeat,
             exp: 100,
             targets: [.werewolf, .werewolf, .werewolf]
         )
         let quest2 = Quest(
-            id: 2,
+            id: 3,
             desc: "Defeat pack leader. [Reward: 200 exp]",
             type: .defeat,
             exp: 20,

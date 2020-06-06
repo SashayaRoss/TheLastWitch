@@ -55,8 +55,7 @@ final class GameViewController: UIViewController {
         setupObservers()
         gameState = .playing
         
-        //TODO
-//        presentWelcomeScreen()
+        presentWelcomeScreen()
     }
     
     //MARK: scene
@@ -73,11 +72,11 @@ final class GameViewController: UIViewController {
         guard let scene = gameplayScene else { return }
         scene.physicsWorld.contactDelegate = self
         
-//        guard let welcomeScene = newGameScene else { return }
-//        view.scene = welcomeScene
+        guard let welcomeScene = newGameScene else { return }
+        view.scene = welcomeScene
         
         //TODO: remove
-        view.scene = scene
+//        view.scene = scene
         
         view.isPlaying = true
         setupEnvironment(with: scene)

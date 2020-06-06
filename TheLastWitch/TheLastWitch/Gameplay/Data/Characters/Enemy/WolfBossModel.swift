@@ -10,8 +10,8 @@ import SceneKit
 
 final class WolfBossModel: EnemyModel {
     let name: String
-    var hp: Int = 270
-    var strength: Int = 40
+    var hp: Int = 120
+    var strength: Int = 10
     var exp: Int = 200
     var type: TargetType = .boss
     let position: SCNVector3
@@ -35,8 +35,8 @@ final class WolfBossModel: EnemyModel {
     }
     
     func resetModel() {
-         hp = 270
-         strength = 40
+         hp = 120
+         strength = 10
          exp = 200
          type = .boss
          noticeDistance = 6.0

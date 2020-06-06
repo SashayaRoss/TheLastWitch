@@ -146,12 +146,5 @@ final class Npc: SCNNode {
     }
 }
 
-extension Npc: CAAnimationDelegate {
-    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        guard let id = anim.value(forKey: "animationId") as? String else { return }
-        if id == "interaction" {
-            //interaction animation
-        }
-    }
-}
+extension Npc: CAAnimationDelegate {}
 
