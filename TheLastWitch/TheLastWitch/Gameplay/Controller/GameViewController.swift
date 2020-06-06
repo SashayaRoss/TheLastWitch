@@ -53,7 +53,7 @@ final class GameViewController: UIViewController {
         gameView = view as? GameView
         setupScene()
         setupObservers()
-        gameState = .playing
+        gameState = .newGame
         
         presentWelcomeScreen()
     }
@@ -74,9 +74,6 @@ final class GameViewController: UIViewController {
         
         guard let welcomeScene = newGameScene else { return }
         view.scene = welcomeScene
-        
-        //TODO: remove
-//        view.scene = scene
         
         view.isPlaying = true
         setupEnvironment(with: scene)
