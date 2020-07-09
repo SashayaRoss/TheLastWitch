@@ -47,7 +47,7 @@ final class NPCFactory {
             model: "art.scnassets/Scenes/Characters/Vilagers/femaleVilagerIdle"
         )
         let npcModel2 = VillagerModel(
-            dialog: ["Oh my! Oh my!", "I saw you fight these beasts!", "Thank you so much for saving me.", "I went into the woods looking for some mushrooms for a stew. But when I tried to go back to my village these monsters were right on the main path", "I couldn't go around, the mountains were to high too climb!", "thank you young witch. Now I can safely return home."],
+            dialog: ["Oh my! Oh my!", "I saw you fight these beasts!", "Thank you so much for saving me.", "I went into the woods looking for some mushrooms for a stew. But when I tried to go back to my village these monsters were right on the main path", "I couldn't go around, the mountains were to high too climb!", "Thank you young witch. Now I can safely return home."],
             model: "art.scnassets/Scenes/Characters/Vilagers/femaleVilagerIdle2"
         )
         let npcModel3 = VillagerModel(

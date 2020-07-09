@@ -42,8 +42,9 @@ final class MusicManager {
     }
     
     func loadSounds() {
-        loadSound(name: "Magic", fileNamed: "art.scnassets/Audio/attack.wav")
+        loadSound(name: "Attack", fileNamed: "art.scnassets/Audio/attack.wav")
         loadSound(name: "GameOver", fileNamed: "art.scnassets/Audio/gameOver.wav")
+        loadSound(name: "Soundtrack", fileNamed: "art.scnassets/Audio/mainSoundtrack.wav")
     }
     
     func removeAllPlayers(scene: SCNScene) {

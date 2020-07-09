@@ -32,7 +32,7 @@ final class InteractiveObjectsFactory {
             perk: .exp
         )
         let chestModel2 = Chest(
-            dialog: ["You see another old chest.", "You open it and find useful herbs inside.", "They make a nice healing potion.", "[You receive full hp!]"],
+            dialog: ["You see another old chest.", "You open it and find useful herbs inside.", "They make a nice healing potion.", "[Your hp was maxed out!]"],
             model: "art.scnassets/Scenes/Environment/chest",
             perk: .fullHP
         )

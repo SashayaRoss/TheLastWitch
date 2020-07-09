@@ -172,9 +172,9 @@ final class GameViewController: UIViewController {
                         view.setupDialog()
                         dialogAction(touches: touches)
                     } else {
-                        //player jest w trakcie walki: wykonuje akcję ataku i odtwarzany jest dźwięk „Magic”
+                        //player jest w trakcie walki: wykonuje akcję ataku i odtwarzany jest dźwięk „Attack”
                         activePlayer.attack()
-                        gameMusic.playSound(node: activePlayer, name: "Magic")
+                        gameMusic.playSound(node: activePlayer, name: "Attack")
                     }
                 }
             //jeśli dotknięto przycisku opcji
@@ -425,9 +425,9 @@ final class GameViewController: UIViewController {
         //wyłączam możliwość interakcji z ekranem dla usera i zmieniam statusy gry
         view.isUserInteractionEnabled = false
         gameplayScene.isPaused = true
-       //ustawiam przejście do nowej sceny i zamieniam muzykę
+       //ustawiam przejście do nowej sceny i ustawiam muzykę
         let transition = SKTransition.fade(withDuration: 1.8)
-        gameMusic.playTheme(scene: newGameScene, directory: "art.scnassets/Audio/Magic.wav")
+        gameMusic.playTheme(scene: newGameScene, directory: "art.scnassets/Audio/mainSoundtrack.mp3")
         
         view.present(newGameScene, with: transition, incomingPointOfView: nil, completionHandler: {
             //wywołuje akcję na głównym wątku
