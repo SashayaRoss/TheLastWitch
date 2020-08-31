@@ -198,7 +198,6 @@ final class Enemy: SCNNode {
             die()
             player.update(with: enemyModel.exp)
             player.updateQuest(with: enemyModel.type)
-            //drop loot
         }
     }
 }

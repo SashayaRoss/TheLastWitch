@@ -13,7 +13,7 @@ final class PlayerCollider: ColliderInterface {
     
     func setupCollider(with scale: CGFloat) -> SCNNode {
         let geometry = SCNCapsule(capRadius: 1.2, height: 4)
-        geometry.firstMaterial?.diffuse.contents = UIColor.red
+        geometry.firstMaterial?.diffuse.contents = UIColor.blue
 
         collider = SCNNode(geometry: geometry)
         collider.position = SCNVector3Make(0.0, 2.5, 0.0)
