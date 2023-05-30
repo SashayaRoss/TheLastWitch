@@ -8,7 +8,7 @@ This project was an exploration of game development using the SceneKit and Sprit
 ### The project included the following topics
 - Scene Construction (scene setup, camera, lights)
 
-![Simulator Screen Shot - iPhone SE (3rd generation) - 2023-05-30 at 20 01 25](https://github.com/SashayaRoss/TheLastWitch/assets/25226556/1e9df05b-1fef-40b8-90b6-b3ea66978419)
+<img width="685" alt="Screenshot 2023-05-30 at 20 17 39" src="https://github.com/SashayaRoss/TheLastWitch/assets/25226556/1d802f5e-36f6-4e69-970e-558a35c7af23">
 
 - Nodes (Player as an example of SCNNode)
 - UI creation
